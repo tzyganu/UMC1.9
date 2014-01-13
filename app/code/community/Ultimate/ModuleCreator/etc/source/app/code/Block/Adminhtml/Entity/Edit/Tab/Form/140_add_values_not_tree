@@ -1,0 +1,14 @@
+        $formValues = Mage::registry('current_{{entity}}')->getDefaultValues();
+        if (!is_array($formValues)){
+            $formValues = array();
+        }
+        if (Mage::getSingleton('adminhtml/session')->get{{Entity}}Data()){
+            $formValues = array_merge($formValues, Mage::getSingleton('adminhtml/session')->get{{Entity}}Data());
+            Mage::getSingleton('adminhtml/session')->set{{Entity}}Data(null);
+        }
+        elseif (Mage::registry('current_{{entity}}')){
+            $formValues = array_merge($formValues, Mage::registry('current_{{entity}}')->getData());
+        }
+        $form->setValues($formValues);
+        return parent::_prepareForm();
+    }

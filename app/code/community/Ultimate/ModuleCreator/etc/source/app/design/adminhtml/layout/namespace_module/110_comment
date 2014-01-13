@@ -1,0 +1,29 @@
+    <adminhtml_{{module}}_{{entity}}_comment_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>{{selectedMenuPath}}_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="{{module}}/adminhtml_{{entity}}_comment" name="{{entity}}_comment_grid"/>
+        </reference>
+    </adminhtml_{{module}}_{{entity}}_comment_index>
+    <adminhtml_{{module}}_{{entity}}_comment_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{module}}/adminhtml_{{entity}}_comment_grid" name="{{entity}}_comment_grid"/>
+        </block>
+    </adminhtml_{{module}}_{{entity}}_comment_grid>
+    <adminhtml_{{module}}_{{entity}}_comment_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>{{selectedMenuPath}}_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="{{module}}/adminhtml_{{entity}}_comment_edit" name="{{entity}}_comment_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="{{module}}/adminhtml_{{entity}}_comment_edit_tabs" name="{{entity}}_comment_tabs"></block>
+        </reference>
+    </adminhtml_{{module}}_{{entity}}_comment_edit>

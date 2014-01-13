@@ -1,0 +1,80 @@
+<?php 
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+/**
+ * timestamp attribute type
+ *
+ * @category    Ultimate
+ * @package     Ultimate_ModuleCreator
+ * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
+    extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
+    /**
+     * sql column ddl type
+     * @var string
+     */
+    protected $_typeDdl     = 'TYPE_DATETIME';
+    /**
+     * eav setup type
+     */
+    protected $_setupType   = 'datetime';
+    /**
+     * eav setup input
+     * @var string
+     */
+    protected $_setupInput 	= 'date';
+    /**
+     * setup backend
+     * @var string
+     */
+    protected $_setupBackend = 'eav/entity_attribute_backend_datetime';
+
+    /**
+     * get admin column options
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAdminColumnOptions() {
+        $options = $this->getEol();
+        $options .= $this->getPadding(3);
+        $options .= "'type'=> 'date',".$this->getEol();
+        return $options;
+    }
+    /**
+     * get the type for the form
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormType() {
+        return 'date';
+    }
+    /**
+     * get html for frontend
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFrontendHtml() {
+        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $ucEntity   = ucfirst($entityName);
+        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
+        return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>: <?php echo Mage::helper(\'core\')->formatDate($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\');?>'.$this->getEol();
+    }
+}

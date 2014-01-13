@@ -1,0 +1,109 @@
+            <xsd:complexType name="{{module}}{{Entity}}ListEntityArray">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}ListEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}ListEntity">
+                <xsd:sequence>
+                    <xsd:element name="entity_id" type="xsd:string" />
+{{entityWsiAttributes}}
+                    <xsd:element name="created_at" type="xsd:string" />
+                    <xsd:element name="updated_at" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}AddEntity">
+                <xsd:sequence>
+{{entityWsiAttributes}}
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}UpdateEntity">
+                <xsd:sequence>
+{{entityWsiAttributes}}
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}InfoEntity">
+                <xsd:sequence>
+                    <xsd:element name="entity_id" type="xsd:string" />
+{{entityWsiAttributes}}
+                    <xsd:element name="created_at" type="xsd:string" />
+                    <xsd:element name="updated_at" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+{{entityWsiRelationTypes}}
+            <xsd:element name="{{module}}{{Entity}}ListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="filters" type="typens:filters" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}ListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}ListEntityArray" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}InfoRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="{{entity}}Id" type="xsd:string" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}InfoResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}InfoEntity" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AddRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AddEntity" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AddResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:int" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}UpdateRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="{{entity}}Id" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}UpdateEntity" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}UpdateResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}RemoveRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="{{entity}}Id" type="xsd:string" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}RemoveResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+                    </xsd:sequence>
+                 </xsd:complexType>
+            </xsd:element>
+{{entityWsiRelationParamTypes}}

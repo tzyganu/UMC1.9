@@ -1,0 +1,1 @@
+            $collection->addAttributeToSelect('{{nameAttributeCode}}')->addAttributeToSelect('status');

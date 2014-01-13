@@ -1,0 +1,11 @@
+                ${{entity}}->save();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{module}}')->__('{{EntityLabel}} was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->setFormData(false);
+                if ($this->getRequest()->getParam('back')) {
+                    $this->_redirect('*/*/edit', array('id' => ${{entity}}->getId()));
+                    return;
+                }
+                $this->_redirect('*/*/');
+                return;
+            }
+            catch (Mage_Core_Exception $e){

@@ -1,0 +1,9 @@
+<?php
+{{License}}
+/**
+ * {{entity}} - {{sibling}} relation edit block
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */

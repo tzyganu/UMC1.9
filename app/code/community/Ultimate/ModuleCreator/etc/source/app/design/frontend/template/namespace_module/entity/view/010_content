@@ -1,0 +1,18 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} view template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $_{{entity}} = $this->getCurrent{{Entity}}();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title {{entity}}-title">
+    <h1><?php echo $_{{entity}}->get{{EntityNameMagicCode}}(); ?></h1>
+</div>
+<div class="{{entity}}-view">
+{{EntityViewAttributes}}
+</div>

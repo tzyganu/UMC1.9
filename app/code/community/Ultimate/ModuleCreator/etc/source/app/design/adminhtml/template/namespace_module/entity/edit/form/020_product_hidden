@@ -1,0 +1,1 @@
+        <input type="hidden" name="{{entity}}_products" id="in_{{entity}}_products" value="" />

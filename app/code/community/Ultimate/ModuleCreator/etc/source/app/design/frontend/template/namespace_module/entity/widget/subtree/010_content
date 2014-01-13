@@ -1,0 +1,22 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} subtree template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $_{{entities}} = $this->get{{Entities}}(); ?>
+<?php if ($_{{entities}}->getSize() > 0) :?>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/{{namespace}}_{{module}}/tree.js')?>"></script>
+    <ul id="<?php echo $this->getUniqueId()?>">
+        <?php foreach ($_{{entities}} as $_{{entity}}) : ?>
+            <?php echo $this->draw{{Entity}}($_{{entity}});?>
+        <?php endforeach;?>
+    </ul>
+    <script type="text/javascript">
+        {{module}}Tree('<?php echo $this->getUniqueId()?>');
+    </script>
+<?php endif;?>

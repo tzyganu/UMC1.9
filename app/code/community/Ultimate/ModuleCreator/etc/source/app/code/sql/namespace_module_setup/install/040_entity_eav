@@ -1,0 +1,140 @@
+$table = $this->getConnection()
+    ->newTable($this->getTable('{{module}}/{{entity}}'))
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+        ), 'Entity ID')
+    ->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+        'default'   => '0',
+        ), 'Entity Type ID')
+    ->addColumn('attribute_set_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+        'default'   => '0',
+        ), 'Attribute Set ID'){{attributeDdlSql}}
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        ), 'Creation Time')
+    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        ), 'Update Time')
+    ->addIndex($this->getIdxName('{{module}}/{{entity}}', array('entity_type_id')),
+        array('entity_type_id'))
+    ->addIndex($this->getIdxName('{{module}}/{{entity}}', array('attribute_set_id')),
+        array('attribute_set_id'))
+    ->addForeignKey(
+        $this->getFkName(
+            '{{module}}/{{entity}}',
+            'attribute_set_id',
+            'eav/attribute_set',
+            'attribute_set_id'
+        ),
+        'attribute_set_id', $this->getTable('eav/attribute_set'), 'attribute_set_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey($this->getFkName('{{module}}/{{entity}}', 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
+        'entity_type_id', $this->getTable('eav/entity_type'), 'entity_type_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->setComment('{{EntityLabel}} Table');
+$this->getConnection()->createTable($table);
+
+${{entity}}Eav = array();
+${{entity}}Eav['int'] = array(
+    'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
+    'length'    => null,
+    'comment'   => '{{EntityLabel}} Datetime Attribute Backend Table'
+);
+
+${{entity}}Eav['varchar'] = array(
+    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+    'length'    => 255,
+    'comment'   => '{{EntityLabel}} Varchar Attribute Backend Table'
+);
+
+${{entity}}Eav['text'] = array(
+    'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
+    'length'    => '64k',
+    'comment'   => '{{EntityLabel}} Text Attribute Backend Table'
+);
+
+${{entity}}Eav['datetime'] = array(
+    'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
+    'length'    => null,
+    'comment'   => '{{EntityLabel}} Datetime Attribute Backend Table'
+);
+
+${{entity}}Eav['decimal'] = array(
+    'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
+    'length'    => '12,4',
+    'comment'   => '{{EntityLabel}} Datetime Attribute Backend Table'
+);
+
+foreach (${{entity}}Eav as $type => $options) {
+    $table = $this->getConnection()
+        ->newTable($this->getTable(array('{{module}}/{{entity}}', $type)))
+        ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'identity'  => true,
+            'nullable'  => false,
+            'primary'   => true,
+            ), 'Value ID')
+        ->addColumn('entity_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned'  => true,
+            'nullable'  => false,
+            'default'   => '0',
+            ), 'Entity Type ID')
+        ->addColumn('attribute_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned'  => true,
+            'nullable'  => false,
+            'default'   => '0',
+            ), 'Attribute ID')
+        ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+            'unsigned'  => true,
+            'nullable'  => false,
+            'default'   => '0',
+            ), 'Store ID')
+        ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'unsigned'  => true,
+            'nullable'  => false,
+            'default'   => '0',
+            ), 'Entity ID')
+        ->addColumn('value', $options['type'], $options['length'], array(
+            ), 'Value')
+        ->addIndex(
+            $this->getIdxName(
+                array('{{module}}/{{entity}}', $type),
+                array('entity_id', 'attribute_id', 'store_id'),
+                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            ),
+            array('entity_id', 'attribute_id', 'store_id'),
+            array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+        ->addIndex($this->getIdxName(array('{{module}}/{{entity}}', $type), array('store_id')),
+            array('store_id'))
+        ->addIndex($this->getIdxName(array('{{module}}/{{entity}}', $type), array('entity_id')),
+            array('entity_id'))
+        ->addIndex($this->getIdxName(array('{{module}}/{{entity}}', $type), array('attribute_id')),
+            array('attribute_id'))
+        ->addForeignKey(
+            $this->getFkName(
+                array('{{module}}/{{entity}}', $type),
+                'attribute_id',
+                'eav/attribute',
+                'attribute_id'
+            ),
+            'attribute_id', $this->getTable('eav/attribute'), 'attribute_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->addForeignKey(
+            $this->getFkName(
+                array('{{module}}/{{entity}}', $type),
+                'entity_id',
+                '{{module}}/{{entity}}',
+                'entity_id'
+            ),
+            'entity_id', $this->getTable('{{module}}/{{entity}}'), 'entity_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->addForeignKey($this->getFkName(array('{{module}}/{{entity}}', $type), 'store_id', 'core/store', 'store_id'),
+            'store_id', $this->getTable('core/store'), 'store_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->setComment($options['comment']);
+    $this->getConnection()->createTable($table);
+}

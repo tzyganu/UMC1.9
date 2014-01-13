@@ -1,0 +1,71 @@
+    /**
+     * Save {{entityLabel}} - category relations
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @param array $data
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
+     * {{qwertyuiop}}
+     */
+    public function save{{Entity}}Relation(${{entity}}, $data){
+        if (!is_array($data)) {
+            $data = array();
+        }
+        $deleteCondition = $this->_getWriteAdapter()->quoteInto('{{entity}}_id=?', ${{entity}}->getId());
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
+
+        foreach ($data as $categoryId) {
+            if (!empty($categoryId)) {
+                $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                    '{{entity}}_id'      => ${{entity}}->getId(),
+                    'category_id'     => $categoryId,
+                    'position'      => 1
+                ));
+            }
+        }
+        return $this;
+    }
+    /**
+     * Save  category - {{entityLabel}} relations
+     * @access public
+     * @param Mage_Catalog_Model_Category $category
+     * @param array $data
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
+     * {{qwertyuiop}}
+     */
+    public function saveCategoryRelation($category, ${{entity}}Ids){
+
+        $old{{Entities}} = Mage::helper('{{module}}/category')->getSelected{{Entities}}($category);
+        $old{{Entity}}Ids = array();
+        foreach ($old{{Entities}} as ${{entity}}){
+            $old{{Entity}}Ids[] = ${{entity}}->getId();
+        }
+        $insert = array_diff(${{entity}}Ids, $old{{Entity}}Ids);
+        $delete = array_diff($old{{Entity}}Ids, ${{entity}}Ids);
+        $write = $this->_getWriteAdapter();
+        if (!empty($insert)) {
+            $data = array();
+            foreach ($insert as ${{entity}}Id) {
+                if (empty(${{entity}}Id)) {
+                    continue;
+                }
+                $data[] = array(
+                    '{{entity}}_id' => (int)${{entity}}Id,
+                    'category_id'  => (int)$category->getId(),
+                    'position'=> 1
+                );
+            }
+            if ($data) {
+                $write->insertMultiple($this->getMainTable(), $data);
+            }
+        }
+        if (!empty($delete)) {
+            foreach ($delete as ${{entity}}Id) {
+                $where = array(
+                    'category_id = ?'  => (int)$category->getId(),
+                    '{{entity}}_id = ?' => (int)${{entity}}Id,
+                );
+                $write->delete($this->getMainTable(), $where);
+            }
+        }
+        return $this;
+    }

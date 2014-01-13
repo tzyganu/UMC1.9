@@ -1,0 +1,78 @@
+<?php
+{{License}}
+/**
+ * Attribute resource model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
+    extends Mage_Eav_Model_Entity_Attribute {
+    const MODULE_NAME   = '{{Namespace}}_{{Module}}';
+    const ENTITY        = '{{module}}_eav_attribute';
+
+    protected $_eventPrefix = '{{module}}_entity_attribute';
+    protected $_eventObject = 'attribute';
+
+    /**
+     * Array with labels
+     * @var array
+     */
+    static protected $_labels = null;
+    /**
+     * constructor
+     * @access protected
+     * @return void
+     * {{qwertyuiop}}
+     */
+    protected function _construct() {
+        $this->_init('{{module}}/attribute');
+    }
+    /**
+     * check if scope is store view
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function isScopeStore() {
+        return $this->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE;
+    }
+    /**
+     * check if scope is website
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function isScopeWebsite() {
+        return $this->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE;
+    }
+    /**
+     * check if scope is global
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function isScopeGlobal() {
+        return (!$this->isScopeStore() && !$this->isScopeWebsite());
+    }
+    /**
+     * get backend input type
+     * @access public
+     * @param string $type
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getBackendTypeByInput($type) {
+        switch ($type){
+            case 'file':
+                //intentional fallthrough
+            case 'image':
+                return 'varchar';
+                break;
+            default:
+                return parent::getBackendTypeByInput($type);
+            break;
+        }
+    }
+}

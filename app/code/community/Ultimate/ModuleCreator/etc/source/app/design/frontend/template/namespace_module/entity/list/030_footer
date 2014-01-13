@@ -1,0 +1,15 @@
+    <h1><?php echo Mage::helper('{{module}}')->__('{{EntitiesLabel}}') ?></h1>
+</div>
+<?php if ($_{{entities}}->getSize() > 0) :?>
+    <?php echo $this->getPagerHtml(); ?>
+    <div class="{{entity}}-list-container">
+    <?php foreach ($_{{entities}} as $_{{entity}}) : ?>
+        <div class="{{entity}}-list-item">
+{{entityHtmlLink}}
+        </div>
+    <?php endforeach;?>
+    </div>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('{{module}}')->__('There are no {{entitiesLabel}} at this moment');?>
+<?php endif;?>

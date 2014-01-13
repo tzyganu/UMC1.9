@@ -1,0 +1,24 @@
+{{RelationsResourceTablesDeclare}}
+    /**
+     * constructor
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function __construct() {
+        $resource = Mage::getSingleton('core/resource');
+        $this->setType('{{module}}_{{entity}}')
+            ->setConnection(
+                $resource->getConnection('{{entity}}_read'),
+                $resource->getConnection('{{entity}}_write')
+            );
+{{RelationsResourceTables}}
+    }
+    /**
+     * wrapper for main table getter
+     * @access public
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getMainTable() {
+        return $this->getEntityTable();
+    }

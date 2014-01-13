@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @copyright  	Copyright (c) 2013
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */ 
+/**
+ * @category	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @author 		Marius Strajeru <ultimate.module.creator@gmail.com>
+ */  
+ -->
+<layout>
+	<adminhtml_modulecreator_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>system/modulecreator</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="modulecreator/adminhtml_modulecreator" name="modules_list"/>
+		</reference>
+	</adminhtml_modulecreator_index>
+	<adminhtml_modulecreator_grid>
+		<block type="core/text_list" name="root">
+			<block type="modulecreator/adminhtml_modulecreator_grid" name="modules_list"/>
+		</block>
+	</adminhtml_modulecreator_grid>
+	<adminhtml_modulecreator_edit>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>system/modulecreator</menupath>
+			</action>
+		</reference>
+		<reference name="head">
+            <action method="addCss"><css>ultimate_modulecreator.css</css></action>
+			<action method="addjs"><name>ultimate_modulecreator.js</name></action>
+			<action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+			<action method="addCss"><css>lib/prototype/windows/themes/magento.css</css></action>
+		</reference>
+		<reference name="left">
+			<block type="modulecreator/adminhtml_modulecreator_edit_tabs" name="modulecreator_edit_tabs">
+				<action method="addTab"><name>settings</name><block>modulecreator/adminhtml_modulecreator_edit_tab_settings</block></action>
+				<action method="addTab"><name>entities</name><block>modulecreator/adminhtml_modulecreator_edit_tab_entities</block></action>
+				<action method="addTab"><name>relations</name><block>modulecreator/adminhtml_modulecreator_edit_tab_relation</block></action>
+				<action method="addTab" ifconfig="modulecreator/general/help"><name>help</name><block>modulecreator/adminhtml_modulecreator_edit_tab_help</block></action>
+			</block>
+		</reference>
+		<reference name="content">
+			<block type="modulecreator/adminhtml_modulecreator_edit" />
+        </reference>
+	</adminhtml_modulecreator_edit>
+	<adminhtml_system_config_edit>
+		<reference name="head">
+			<action method="addCss"><name>ultimate_modulecreator.css</name></action>
+		</reference>
+	</adminhtml_system_config_edit>
+</layout>

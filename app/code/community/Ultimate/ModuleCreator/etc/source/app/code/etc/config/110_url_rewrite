@@ -1,0 +1,10 @@
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <{{namespace}}_{{module}}>
+                        <class>{{Namespace}}_{{Module}}_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </{{namespace}}_{{module}}>
+                </observers>
+            </controller_front_init_routers>
+        </events>

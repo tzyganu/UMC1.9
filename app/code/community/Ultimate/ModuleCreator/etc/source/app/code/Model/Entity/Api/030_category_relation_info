@@ -1,0 +1,6 @@
+        //related categories
+        $result['categories'] = array();
+        $relatedCategoriesCollection = ${{entity}}->getSelectedCategoriesCollection();
+        foreach ($relatedCategoriesCollection as $category) {
+            $result['categories'][$category->getId()] = $category->getPosition();
+        }

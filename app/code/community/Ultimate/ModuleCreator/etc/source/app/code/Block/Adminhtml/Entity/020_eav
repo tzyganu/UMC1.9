@@ -1,0 +1,1 @@
+        $this->setTemplate('{{namespace}}_{{module}}/grid.phtml');

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+ -->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <modulecreator translate="title" module="modulecreator">
+                                        <title>Ultimate module creator</title>
+                                    </modulecreator>
+                                </children>
+                            </config>
+                            <modulecreator translate="title" module="modulecreator">
+                                <title>Module creator</title>
+                                <sort_order>10</sort_order>
+                            </modulecreator>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <system>
+            <children>
+                <modulecreator translate="title" module="modulecreator">
+                    <title>Module creator</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/modulecreator</action>
+                    <depends>
+                        <module>Ultimate_ModuleCreator</module>
+                    </depends>
+                </modulecreator>
+            </children>
+        </system>
+    </menu>
+</config>

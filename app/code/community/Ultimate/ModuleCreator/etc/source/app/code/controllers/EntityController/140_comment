@@ -1,0 +1,49 @@
+    /**
+     * Submit new comment action
+     *
+     */
+    public function commentpostAction() {
+        $data   = $this->getRequest()->getPost();
+        ${{entity}} = $this->_init{{Entity}}();
+        $session    = Mage::getSingleton('core/session');
+        if (${{entity}}) {
+            if (${{entity}}->getAllowComments()) {
+                if ((Mage::getSingleton('customer/session')->isLoggedIn() || Mage::getStoreConfigFlag('{{module}}/{{entity}}/allow_guest_comment'))){
+                    $comment    = Mage::getModel('{{module}}/{{entity}}_comment')->setData($data);
+                    $validate = $comment->validate();
+                    if ($validate === true) {
+                        try {
+                            $comment->set{{Entity}}Id(${{entity}}->getId())
+                                ->setStatus({{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING)
+                                ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                                ->setStores(array(Mage::app()->getStore()->getId()))
+                                ->save();
+                            $session->addSuccess($this->__('Your comment has been accepted for moderation.'));
+                        }
+                        catch (Exception $e) {
+                            $session->set{{Entity}}CommentData($data);
+                            $session->addError($this->__('Unable to post the comment.'));
+                        }
+                    }
+                    else {
+                        $session->set{{Entity}}CommentData($data);
+                        if (is_array($validate)) {
+                            foreach ($validate as $errorMessage) {
+                                $session->addError($errorMessage);
+                            }
+                        }
+                        else {
+                            $session->addError($this->__('Unable to post the comment.'));
+                        }
+                    }
+                }
+                else {
+                    $session->addError($this->__('Guest comments are not allowed'));
+                }
+            }
+            else {
+                $session->addError($this->__('This {{entityLabel}} does not allow comments'));
+            }
+        }
+        $this->_redirectReferer();
+    }

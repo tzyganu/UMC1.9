@@ -1,0 +1,13 @@
+    /**
+     * Get SQL for get record count.
+     * Extra GROUP BY strip added.
+     * @access public
+     * @return Varien_Db_Select
+     * {{qwertyuiop}}
+     */
+    public function getSelectCountSql(){
+        $countSelect = parent::getSelectCountSql();
+        $countSelect->reset(Zend_Db_Select::GROUP);
+        return $countSelect;
+    }
+}

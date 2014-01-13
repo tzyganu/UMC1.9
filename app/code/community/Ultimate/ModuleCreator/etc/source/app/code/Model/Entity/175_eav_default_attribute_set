@@ -1,0 +1,26 @@
+    /**
+     * Retrieve default attribute set id
+     * @access public
+     * @return int
+     * {{qwertyuiop}}
+     */
+    public function getDefaultAttributeSetId() {
+        return $this->getResource()->getEntityType()->getDefaultAttributeSetId();
+    }
+    /**
+     * get attribute text value
+     * @access public
+     * @param $attributeCode
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getAttributeText($attributeCode) {
+        $text = $this->getResource()
+            ->getAttribute($attributeCode)
+            ->getSource()
+            ->getOptionText($this->getData($attributeCode));
+        if (is_array($text)){
+            return implode(', ',$text);
+        }
+        return $text;
+    }

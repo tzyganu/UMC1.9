@@ -1,0 +1,13 @@
+<?php 
+{{License}}
+/**
+ * {{EntityLabel}} list template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_{{entities}} = $this->get{{Entities}}(); ?>
+<div class="page-title {{entity}}-title">

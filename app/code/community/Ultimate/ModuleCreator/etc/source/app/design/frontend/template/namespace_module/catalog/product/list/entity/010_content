@@ -1,0 +1,20 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} list template on product page
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php ${{entities}} = $this->get{{Entity}}Collection();?>
+<?php if (${{entities}} && ${{entities}}->count() > 0) :?>
+<div class="box-collateral box-{{entities}} box-up-sell">
+    <?php foreach (${{entities}} as $_{{entity}}) : ?>
+        <div class="item">
+{{entityHtmlLink}}
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif;?>

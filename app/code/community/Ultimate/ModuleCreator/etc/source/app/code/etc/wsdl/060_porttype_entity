@@ -1,0 +1,26 @@
+        <operation name="{{module}}{{Entity}}List">
+            <documentation>Retrieve list of {{entityLabel}}</documentation>
+            <input message="typens:{{module}}{{Entity}}ListRequest" />
+            <output message="typens:{{module}}{{Entity}}ListResponse" />
+        </operation>
+        <operation name="{{module}}{{Entity}}Info">
+            <documentation>Retrieve {{entityLabel}} info</documentation>
+            <input message="typens:{{module}}{{Entity}}InfoRequest" />
+            <output message="typens:{{module}}{{Entity}}InfoResponse" />
+        </operation>
+        <operation name="{{module}}{{Entity}}Add">
+            <documentation>Add {{entityLabel}}</documentation>
+            <input message="typens:{{module}}{{Entity}}AddRequest" />
+            <output message="typens:{{module}}{{Entity}}AddResponse" />
+        </operation>
+        <operation name="{{module}}{{Entity}}Update">
+            <documentation>Update {{entityLabel}}</documentation>
+            <input message="typens:{{module}}{{Entity}}UpdateRequest" />
+            <output message="typens:{{module}}{{Entity}}UpdateResponse" />
+        </operation>
+        <operation name="{{module}}{{Entity}}Remove">
+            <documentation>Remove {{entityLabel}}</documentation>
+            <input message="typens:{{module}}{{Entity}}RemoveRequest" />
+            <output message="typens:{{module}}{{Entity}}RemoveResponse" />
+        </operation>
+{{entityWsdlPortTypeRelation}}

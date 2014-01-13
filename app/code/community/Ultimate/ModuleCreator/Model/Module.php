@@ -1,0 +1,1482 @@
+<?php 
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_Abstract{
+    /**
+     * entity code
+     * @var string
+     */
+    protected $_entityCode   = 'umc_module';
+    /**
+     * module entities
+     * @var array()
+     */
+    protected $_entities     = array();
+    /**
+     * module config
+     * @var mixed (null|Varien_Simplexml_Element)
+     */
+    protected $_config        = null;
+    /**
+     * entity relations
+     * @var array
+     */
+    protected $_relations     = array();
+    /**
+     * io member
+     * @var null|Varien_Io_File
+     */
+    protected $_io            = null;
+    /**
+     * error log
+     * @var array
+     */
+    protected $_errors        = array();
+    /**
+     * source folder
+     * @var null
+     */
+    protected $_sourceFolder  = null;
+    /**
+     * placeholders
+     * @var null
+     */
+    protected $_placeholders  = null;
+    /**
+     * base placeholders
+     * @var array
+     */
+    protected $_basePlaceholders = array();
+    /**
+     * generated files
+     * @var array
+     */
+    protected $_files         = array();
+    /**
+     * add entity to module
+     * @access public
+     * @param Ultimate_ModuleCreator_Model_Entity $entity
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @throws Ultimate_ModuleCreator_Exception
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function addEntity(Ultimate_ModuleCreator_Model_Entity $entity){
+        Mage::dispatchEvent('umc_module_add_entity_before', array('entity'=>$entity, 'module'=>$this));
+        if (isset($this->_entities[$entity->getNameSingular()])){
+            throw new Ultimate_ModuleCreator_Exception(Mage::helper('modulecreator')->__('An entity with the code "%s" already exists', $entity->getNameSingular()));
+        }
+        $entity->setModule($this);
+        $entity->setIndex(count($this->_entities));
+        $position = 10 * (count($this->_entities));
+        $entity->setPosition($position);
+        $this->_entities[$entity->getNameSingular()] = $entity;
+        if ($entity->getRss()){
+            $this->setRss(true);
+        }
+        if ($entity->getHasFile()){
+            $this->setHasFile(true);
+        }
+        if ($entity->getHasImage()){
+            $this->setHasImage(true);
+        }
+        if ($entity->getAddSeo()){
+            $this->setAddSeo(true);
+        }
+        if ($entity->getWidget()){
+            $this->setWidget(true);
+        }
+        if ($entity->getCreateFrontend()){
+            $this->setCreateFrontend(true);
+        }
+        if ($entity->getCreateList()){
+            $this->setCreateList(true);
+        }
+        if ($entity->getIsTree()){
+            $this->setHasTree(true);
+        }
+        if ($entity->getEditor()){
+            $this->setEditor(true);
+        }
+        if ($entity->getHasConfigDefaults()){
+            $this->setHasConfigDefaults(true);
+        }
+        if ($entity->getLinkProduct()){
+            $this->setLinkProduct(true);
+            $this->setHasObserver(true);
+        }
+        if ($entity->getLinkCategory()){
+            $this->setLinkCategory(true);
+            $this->setHasObserver(true);
+        }
+        if ($entity->getLinkCore()){
+            $this->setLinkCore(true);
+        }
+        if ($entity->getUrlRewrite()){
+            $this->setUrlRewrite(true);
+        }
+        if ($entity->getIsEav()) {
+            $this->setHasEav(true);
+        }
+        if ($entity->getIsFlat()) {
+            $this->setHasFlat(true);
+        }
+        if ($entity->getApi()){
+            $this->setApi(true);
+        }
+        if ($entity->getAllowComment()){
+            $this->setAllowComment(true);
+        }
+        if ($entity->getAllowCommentByStore()){
+            $this->setAllowCommentByStore(true);
+        }
+        if ($entity->getHasCountry()){
+            $this->setHasCountry(true);
+        }
+        if ($entity->getAddSeo()){
+            $this->setHasSeo(true);
+        }
+        Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
+        return $this;
+    }
+    /**
+     * get a module entity
+     * @access public
+     * @param string $code
+     * @return mixed(Ultimate_ModuleCreator_Model_Entity|null)
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntity($code){
+        if (isset($this->_entities[$code])){
+            return $this->_entities[$code];
+        }
+        return null;
+    }
+    /**
+     * module to xml
+     * @access public
+     * @param array $arrAttributes
+     * @param string $rootName
+     * @param bool $addOpenTag
+     * @param bool $addCdata
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function toXml(array $arrAttributes = array(), $rootName = 'module', $addOpenTag=false, $addCdata=false){
+        $xml = '';
+        $eol = $this->getEol();
+        if ($addOpenTag) {
+            $xml.= '<?xml version="1.0" encoding="UTF-8"?>'.$eol;
+        }
+        if (!empty($rootName)) {
+            $xml.= '<'.$rootName.'>'.$eol;
+        }
+        $start = '';
+        $end = '';
+        if ($addCdata){
+            $start = '<![CDATA[';
+            $end = ']]>';
+        }
+        $xml .= parent::toXml($this->getXmlAttributes(), '', false, $addCdata);
+        $xml .= '<entities>'.$eol;
+        foreach ($this->getEntities() as $entity){
+            $xml .= $entity->toXml(array(), 'entity', false, $addCdata);
+        }
+        $xml .= '</entities>'.$eol;
+        $xml .= '<relations>'.$eol;
+        foreach ($this->getRelations() as $relation){
+            $xml .= $relation->toXml(array(), 'relation', false, $addCdata);
+        }
+        $xml .= '</relations>'.$eol;
+        if (!empty($rootName)) {
+            $xml.= '</'.$rootName.'>'.$eol;
+        }
+        return $xml;
+    }
+    /**
+     * get the module entities
+     * @access public
+     * @return array()
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntities(){
+        $this->_prepareEntities();
+        return $this->_entities;
+    }
+    /**
+     * prepare the entities before saving
+     * @access protected
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _prepareEntities(){
+        Mage::dispatchEvent('umc_module_prepare_entities', array('module'=>$this));
+        return $this;
+    }
+    /**
+     * add relation to module
+     * @access public
+     * @param Ultimate_ModuleCreator_Model_Relation $relation
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function addRelation(Ultimate_ModuleCreator_Model_Relation $relation){
+        Mage::dispatchEvent('umc_module_add_relation_before', array('relation'=>$relation, 'module'=>$this));
+        $this->_relations[] = $relation;
+        Mage::dispatchEvent('umc_module_add_relation_after', array('relation'=>$relation, 'module'=>$this));
+        return $this;
+    }
+    /**
+     * get module relations
+     * @access public
+     * @param mixed $type
+     * @return array()
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRelations($type = null){
+        if (is_null($type)){
+            return $this->_relations;
+        }
+        $relations = array();
+        foreach ($this->_relations as $relation){
+            if ($relation->getType() == $type){
+                $relations[] = $relation;
+            }
+        }
+        return $relations;
+    }
+    /**
+     * get the extensions xml path
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getXmlPath(){
+        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getNamespace()."_".$this->getModuleName().'.xml';
+    }
+    /**
+     * save the module as xml
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function save(){
+        $destination = $this->getXmlPath();
+        $xml = $this->toXml(array(), 'module', true, true);
+        $this->_writeFile($destination, $xml);
+        return $this;
+    }
+
+    /**
+     * validate the module
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function validate(){
+        $errors     = array();
+        $config     = Mage::helper('modulecreator')->getConfig();
+        $settings   = $config->getNode('forms/settings/fieldsets');
+        foreach ($settings->fieldset as $k => $set){
+            foreach ($set->fields->children() as $key => $values){
+                $v = $this->getData($key);
+                if ((string)$values->required == 1 && (!$this->hasData($key) || $v === "")) {
+                    $this->_addError(Mage::helper("modulecreator")->__('This is a required field.'), 'settings_'.$key);
+                }
+            }
+        }
+        //validate namespace
+        if (strtolower($this->getNamespace()) == 'mage'){
+            $this->_addError(Mage::helper('modulecreator')->__("You shouldn't use the namespace Mage. Be Creative"), 'settings_namespace');
+        }
+        //validate module name
+        $routers = Mage::getConfig()->getNode('frontend/routers');
+        $moduleName = $this->getModuleName();
+        $lower = strtolower($moduleName);
+        $extension = $this->getExtensionName();
+        if ($routers->$lower){
+            if ((string)$routers->$lower->args->module != $extension) {
+                $this->_addError(Mage::helper('modulecreator')->__('You cannot use the module name %s', $this->getModuleName()), 'settings_module_name');
+            }
+        }
+        //validate entity count
+        if (count($this->getEntities()) == 0){
+            $this->_addError(Mage::helper('modulecreator')->__('Add at least an entity'));
+        }
+        else {
+            //validate entities
+            foreach ($this->getEntities() as $entity){
+                $entityCode = strtolower($entity->getNameSingular());
+                if (in_array($entityCode, $this->getRestrictedEntityNames())){
+                    $this->_addError(Mage::helper('modulecreator')->__('The entity code "%s" is restricted', $entityCode), 'entity_'.$entity->getIndex().'_name_singular');
+                }
+                if (count($entity->getAttributes()) == 0){
+                    $this->_addError(Mage::helper('modulecreator')->__('The entity "%s" must have at least one attribute.', $entity->getLabelSingular()));
+                }
+                else{
+                    //validate name attribute
+                    if (is_null($entity->getNameAttribute())){
+                        $this->_addError(Mage::helper('modulecreator')->__('The entity "%s" must have an attribute that behaves as a name.', $entity->getLabelSingular()));
+                    }
+                    $restrictedAttributes = $this->getRestrictedAttributeCodes();
+                    //validate attributes
+                    foreach ($entity->getAttributes() as $key=>$attribute){
+                        $code = $attribute->getCode();
+                        if (isset($restrictedAttributes[$code])){
+                            //presume "not guilty"
+                            $valid = true;
+                            if (!isset($restrictedAttributes[$code]->depend_entity)){//if general restriction.
+                                $valid = false;
+                            }
+                            else{//if depends on entity setting.
+                                foreach ((array)$restrictedAttributes[$code]->depend_entity as $prop=>$value){
+                                    if ($entity->getDataUsingMethod($prop) == $value){
+                                        //"found guilty"
+                                        $valid = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!$valid){
+                                $this->_addError($restrictedAttributes[$code]->message, 'attribute_'.$entity->getIndex().'_'.$attribute->getIndex().'_code');
+                            }
+                        }
+                        //validate attributes against getters ("getData", "getCollection", ,....)
+                        $methodCodes = $this->getMethodAttributeCodes();
+                        if (in_array($code, $methodCodes)){
+                            $method = $method = str_replace(' ', '', ucwords(str_replace('_', ' ', $code)));
+                            $this->_addError(Mage::helper('modulecreator')->__('Attribute code %s is restricted because a method similar to "set%s()" or "get%s()" exists in parent model class', $code, $method, $method), 'attribute_'.$entity->getIndex().'_'.$attribute->getIndex().'_code');
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this->_errors;
+    }
+
+    /**
+     * add an error to the error list
+     * @access protected
+     * @param $message
+     * @param null $attribute
+     * @param string $separator
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _addError($message, $attribute = null, $separator = '<br />'){
+        if (empty($attribute)){
+            $this->_errors[''][] = $message;
+        }
+        else{
+            if (!isset($this->_errors[$attribute])){
+                $this->_errors[$attribute] = '';
+            }
+            else{
+                $this->_errors[$attribute] .= '<br />';
+            }
+            $this->_errors[$attribute] .= $message;
+        }
+        return $this;
+    }
+    /**
+     * write a file
+     * @access protected
+     * @param string $destinationFile
+     * @param string $contents
+     * @throws Exception
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _writeFile($destinationFile, $contents){
+        try{
+            $io = $this->getIo();
+            $io->mkdir(dirname($destinationFile));
+            $io->write($destinationFile, $contents, 0777);
+        }
+        catch (Exception $e){
+            if ($e->getCode() != 0){
+                throw $e;
+            }
+        }
+        return $this;
+    }
+    /**
+     * get the IO - class
+     * @access public
+     * @return Varien_Io_File
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIo(){
+        if (!$this->_io){
+            $this->_io = new Varien_Io_File();
+            $this->_io->setAllowCreateFolders(true);
+        }
+        return $this->_io;
+    }
+
+    /**
+     * get module relations as json
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRelationsAsJson(){
+        $json = array();
+        $relations = $this->getRelations();
+        foreach ($relations as $relation){
+            $entities = $relation->getEntities();
+            $json[$entities[0]->getIndex().'_'.$entities[1]->getIndex()] = $relation->getType();
+        }
+        return json_encode($json);
+    }
+
+    /**
+     * get the extension name
+     * @return string
+     * @access public
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getExtensionName(){
+        return $this->getNamespace().'_'.$this->getModuleName();
+    }
+
+    /**
+     * get the restricted entity name
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestrictedEntityNames(){
+        return $this->getDataSetDefault('restricted_entity_names', array_keys((array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/entity')));
+    }
+    /**
+     * get the restricted attribute codes
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestrictedAttributeCodes(){
+        return $this->getDataSetDefault('restricted_attribute_codes', (array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/attribute'));
+    }
+    /**
+     * get the restricted attribute codes because of the method names
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMethodAttributeCodes(){
+        if (!$this->hasData('method_attribute_codes')){
+            $attributes = array();
+            $methods = get_class_methods('Mage_Catalog_Model_Abstract');
+            $start = array('get', 'set', 'has', 'uns');
+            foreach ($methods as  $method){
+                if (in_array(substr($method, 0, 3), $start)){
+                    $attribute = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", substr($method,3)));
+                    $attributes[$attribute] = 1;
+                }
+            }
+            $this->setData('method_attribute_codes', array_keys($attributes));
+        }
+        return $this->getData('method_attribute_codes');
+    }
+
+    /**
+     * build the module
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function buildModule(){
+        $config     = $this->getConfig();
+        $files      = $config->getNode('files');
+        $messages   = array();
+        foreach ((array)$files as $key=>$file){
+            if ($file->scope == 'disabled'){
+                continue;
+            }
+            $this->_createFile($file);
+        }
+        if ($this->getInstall()){
+            $existingFiles = $this->_checkExistingFiles();
+            if (count($existingFiles) > 0){
+                $this->setInstall(false);
+                $messages[] = Mage::helper('modulecreator')->__('The following files already exist. They were NOT overwritten. The extension was not installed. You can download it from the list of extensions and install it manually: %s', implode('<br />', $existingFiles));
+            }
+        }
+        $this->_writeFiles();
+        if (!$this->getInstall()){
+            $contents = array();
+            foreach ($this->_files as $filename=>$file){
+                $contents[] = $this->getRelativeBasePath().$filename;
+            }
+            $_writer = Mage::getModel('modulecreator/writer', $contents);
+            $_writer->setNamePackage(Mage::getBaseDir('var').DS.'modulecreator'.DS.$this->getExtensionName());
+            $_writer->composePackage()->archivePackage();
+            $this->_io->rmdir($this->getBasePath(), true);
+        }
+        return $messages;
+    }
+
+    /**
+     * write files to disk
+     * @access protected
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _writeFiles(){
+        $basePath = $this->getBasePath();
+        foreach ($this->_files as $name=>$file){
+            $destinationFile = $basePath.$name;
+            $this->_writeFile($destinationFile, $file);
+        }
+        $this->_writeLog();
+        $this->_writeUnsintall();
+        return $this;
+    }
+
+    /**
+     * write log with generated files
+     * can be used for uninstall
+     * @access protected
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _writeLog(){
+        $filesToWrite = array_keys($this->_files);
+        asort($filesToWrite);
+        $filesToWrite = array_values($filesToWrite);
+        $text = implode($this->getEol(), $filesToWrite);
+        $this->_writeFile($this->getLogPath(), $text);
+        return $this;
+    }
+    /**
+     * write sql uninstall script
+     * @access protected
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _writeUnsintall(){
+        $lines = array();
+        $module = $this->getPlaceholder('{{module}}');
+        $namespace = $this->getPlaceholder('{{namespace}}');
+        $lines[] = '-- add table prefix if you haven one';
+        foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
+            $entities = $relation->getEntities();
+            $tableName = $module.'_'.$entities[0]->getPlaceholders('{{entity}}').'_'.$entities[1]->getPlaceholders('{{entity}}');
+            $lines[] = 'DROP TABLE '.$tableName.';';
+        }
+        foreach ($this->getEntities() as $entity){
+            if ($entity->getIsEav()){
+                $toRemove = array();
+                $attributes = $entity->getAttributes();
+                foreach ($attributes as $attribute){
+                    $toRemove[] = $attribute->getCode();
+                }
+                foreach ($entity->getSimulatedAttributes() as $attribute){
+                    $toRemove[] = $attribute->getCode();
+                }
+                $toRemoveString = "'".implode("','", $toRemove)."'";
+                $entityTypeCode = $this->getLowerModuleName().'_'.$entity->getPlaceholders('{{entity}}');
+                $lines[] = "DELETE FROM eav_attribute WHERE attribute_code IN ({$toRemoveString}) AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}');";
+                $lines[] = "DELETE FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}';";
+            }
+            if ($entity->getProductAttribute()){
+                $lines[] = "DELETE FROM eav_attribute WHERE attribute_code = '".$entity->getProductAttributeCode()."' AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_product');";
+            }
+            if ($entity->getCategoryAttribute()){
+                $lines[] = "DELETE FROM eav_attribute WHERE attribute_code = '".$entity->getCategoryAttributeCode()."' AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_category');";
+            }
+            if ($entity->getAllowCommentByStore()){
+                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_comment_store';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            if ($entity->getAllowComment()){
+                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_comment';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            if ($entity->getLinkProduct()){
+                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_product';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            if ($entity->getLinkCategory()){
+                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_category';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            if ($entity->getStore()){
+                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_store';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            if ($entity->getIsEav()){
+                foreach (array('int', 'decimal','datetime', 'varchar', 'text') as $type){
+                    $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
+                    $lines[] = 'DROP TABLE '.$tableName.';';
+                }
+                $tableName = $module.'_eav_attribute';
+                $lines[] = 'DROP TABLE '.$tableName.';';
+            }
+            $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}');
+            $lines[] = 'DROP TABLE '.$tableName.';';
+        }
+        $lines[] = "DELETE FROM core_resource WHERE code = '".$namespace.'_'.$module."_setup';";
+        $lines[] = "DELETE FROM core_config_data WHERE path like '".$module."/%';";
+        $text = implode(Mage::helper('modulecreator')->getEol(), $lines);
+        $this->_writeFile($this->getUninstallPath(),$text);
+        return $this;
+    }
+    /**
+     * check if some files already exist so it won't be overwritten
+     * @access protected
+     * @return array()
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _checkExistingFiles(){
+        $existingFiles = array();
+        $io = $this->getIo();
+        $basePath = $this->getBasePath();
+        foreach ($this->_files as $name=>$content){
+            if ($io->fileExists($basePath.$name)){
+                $existingFiles[] = $basePath.$name;
+            }
+        }
+        return $existingFiles;
+    }
+
+    /**
+     * get path for log file
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLogPath(){
+        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getExtensionName().'/files.log';
+    }
+    /**
+     * get path for uninstall sql file
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getUninstallPath(){
+        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getExtensionName().'/uninstall.sql';
+    }
+
+    /**
+     * get module base path
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getBasePath(){
+        if (!$this->getInstall()){
+            return Mage::getBaseDir('var').DS.'modulecreator'.DS.$this->getExtensionName().DS;
+        }
+        return Mage::getBaseDir().DS;
+    }
+    /**
+     * get relative path ro the module
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRelativeBasePath(){
+        $basePath = $this->getBasePath();
+        $remove = Mage::getBaseDir().DS;
+        $relativePath = substr($basePath, strlen($remove));
+        return $relativePath;
+    }
+    /**
+     * get the module config
+     * @access public
+     * @return Varien_Simplexml_Element
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getConfig(){
+        if (is_null($this->_config)){
+            $this->_config = Mage::getConfig()->loadModulesConfiguration('umc_source.xml')->applyExtends();
+        }
+        return $this->_config;
+    }
+    /**
+     * get contents of a file
+     * @access public
+     * @param string $file
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFileContents($file){
+        return file_get_contents($file);
+    }
+
+    /**
+     * create a file
+     * @access protected
+     * @param Varien_Simplexml_Element
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _createFile($config){
+        switch ($config->scope){
+            case 'entity' :
+                $this->_buildEntityFile($config);
+                break;
+            case 'siblings':
+                $this->_buildSiblingFile($config);
+                break;
+            case 'children' :
+                $this->_buildChildrenFile($config);
+                break;
+            case 'attribute' :
+                $this->_buildAttributeFile($config);
+                break;
+            case 'global':
+            default:
+                $this->_buildGlobalFile($config);
+                break;
+        }
+        return $this;
+    }
+
+    /**
+     * validate xml condition
+     * @access protected
+     * @param $entity
+     * @param $conditions
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _validateDepend($entity, $conditions, $params = null){
+        if (!$conditions){
+            return true;
+        }
+        if (!is_array($conditions)){
+            $conditions = $conditions->asArray();
+        }
+        foreach ($conditions as $condition=>$value){
+            if (!$entity->getDataUsingMethod($condition, $params)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+   /** create a file with global scope
+    * @access protected
+    * @param Varien_Simplexml_Element
+    * @return Ultimate_ModuleCreator_Model_Module
+    * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+    */
+    public function _buildGlobalFile($config) {
+        $filetype = $config->filetype;
+        $sourceFolder = $this->getSourceFolder().$this->_filterString((string)$config->source, $filetype);
+        $destination = $this->_filterString((string)$config->destination, $filetype);
+        $content = '';
+        $depend = $config->depend;
+        if (!$this->_validateDepend($this, $depend)){
+            return '';
+        }
+        if ($config->method){
+            $method = (string)$config->method;
+            $content = $this->$method();
+        }
+        else{
+            $code = $this->_sortCodeFiles((array)$config->code);
+            foreach ($code as $key => $file){
+                $sourceContent = $this->getFileContents($sourceFolder.(string)$file->name);
+                $scope = (string)$file->scope;
+                $depend = $file->depend;
+                $scope = $file->scope;
+                if ($scope == 'entity'){
+                    foreach ($this->getEntities() as $entity){
+                        if ($this->_validateDepend($entity, $depend)){
+                            $replace    = $entity->getPlaceholders();
+                            $content   .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'attribute'){
+                    $depend = $file->depend;
+                    $dependType = $file->depend_type;
+                    foreach ($this->getEntities() as $entity){
+                        foreach ($entity->getAttributes() as $attribute){
+                            $valid = $this->_validateDepend($attribute, $depend);
+                            $typeValid = true;
+                            if ($dependType){
+                                $typeValid = false;
+                                foreach ($dependType->asArray() as $condition=>$value){
+                                    if ($attribute->getType() == $condition){
+                                        $typeValid = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if ($valid && $typeValid){
+                                $replace = $entity->getPlaceholders();
+                                $attributeReplace = $attribute->getPlaceholders();
+                                $replace    = array_merge($replace, $attributeReplace);
+                                $content   .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                            }
+                        }
+                    }
+                }
+                elseif($scope == 'siblings'){
+                    foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
+                        $entities       = $relation->getEntities();
+                        $replaceEntity  = $entities[0]->getPlaceholders();
+                        $replaceSibling = $entities[1]->getPlaceholdersAsSibling();
+                        $replace        = array_merge($replaceEntity, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                }
+                elseif($scope == 'siblings_both_tree'){
+                    foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
+                        $entities         = $relation->getEntities();
+                        if ($entities[0]->getIsTree() || $entities[1]->getIsTree()){
+                            if ($entities[0]->getIsTree()){
+                                $tree       = $entities[0];
+                                $sibling    = $entities[1];
+                            }
+                            else{
+                                $tree       = $entities[1];
+                                $sibling    = $entities[0];
+                            }
+                            $replaceEntity  = $tree->getPlaceholders();
+                            $replaceSibling = $sibling->getPlaceholdersAsSibling();
+                            $replace        = array_merge($replaceEntity, $replaceSibling);
+                            $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'siblings_both_not_tree'){
+                    foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
+                        $entities = $relation->getEntities();
+                        if ($entities[0]->getIsTree() || $entities[1]->getIsTree()){
+                            continue;
+                        }
+                        $replaceEntity  = $entities[0]->getPlaceholders();
+                        $replaceSibling = $entities[1]->getPlaceholdersAsSibling();
+                        $replace        = array_merge($replaceEntity, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+
+                        $replaceEntity  = $entities[1]->getPlaceholders();
+                        $replaceSibling = $entities[0]->getPlaceholdersAsSibling();
+                        $replace        = array_merge($replaceEntity, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                }
+                elseif ($scope == 'children'){
+                    foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD) as $relation){
+                        $entities       = $relation->getEntities();
+                        $replaceEntity  = $entities[0]->getPlaceholders();
+                        $replaceSibling = $entities[1]->getPlaceholdersAsSibling();
+                        $replace        = array_merge($replaceEntity, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                    foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT) as $relation){
+                        $entities       = $relation->getEntities();
+                        $replaceEntity  = $entities[1]->getPlaceholders();
+                        $replaceSibling = $entities[0]->getPlaceholdersAsSibling();
+                        $replace        = array_merge($replaceEntity, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                }
+                else{
+                    if ($this->_validateDepend($this, $depend)){
+                        $content .= $this->_filterString($sourceContent, $filetype);
+                    }
+                }
+            }
+        }
+        if ($config->after_build){
+            $function   = (string)$config->after_build;
+            $content    = $this->$function($content);
+        }
+
+        $content = $this->_filterString($content, $config->type);
+        $this->_addFile($destination, $content);
+        return $this;
+    }
+
+    public function _buildEntityFile($config) {
+        foreach ($this->getEntities() as $entity){
+            $filetype           = $config->filetype;
+            $sourceFolder       = $this->getSourceFolder().$this->_filterString((string)$config->source, $filetype);
+            $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $entity->getPlaceholders(), true);
+            $content            =  '';
+            $depend             = $config->depend;
+            if (!$this->_validateDepend($entity, $depend)){
+                continue;
+            }
+            $code = $this->_sortCodeFiles((array)$config->code);
+            foreach ($code as $key=>$file){
+                $sourceContent  = $this->getFileContents($sourceFolder.(string)$file->name);
+                $scope          = (string)$file->scope;
+                $depend         = $file->depend;
+                $dependType     = $file->depend_type;
+                if ($scope == 'attribute'){
+                    foreach ($entity->getAttributes() as $attribute){
+                        $valid = $this->_validateDepend($attribute, $depend);
+                        $typeValid = true;
+                        if ($dependType){
+                            $typeValid = false;
+                            foreach ($dependType->asArray() as $condition=>$value){
+                                if ($attribute->getType() == $condition){
+                                    $typeValid = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if ($valid && $typeValid){
+                            $replace = $entity->getPlaceholders();
+                            $attributeReplace = $attribute->getPlaceholders();
+                            $replace = array_merge($replace, $attributeReplace);
+                            $content .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'siblings'){
+                    foreach ($entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $related){
+                        if ($this->_validateDepend($entity, $depend)){
+                            $placeholders   = $entity->getPlaceholders();
+                            $replaceSibling = $related->getPlaceholdersAsSibling();
+                            $replace        = array_merge($placeholders, $replaceSibling);
+                            $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'siblings_not_tree'){
+                    foreach ($entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $related){
+                        if ($related->getNotIsTree()){
+                            $placeholders   = $entity->getPlaceholders();
+                            $replaceSibling = $related->getPlaceholdersAsSibling();
+                            $replace        = array_merge($placeholders, $replaceSibling);
+                            $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'siblings_tree'){
+                    foreach ($entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $related){
+                        if ($related->getIsTree()){
+                            $placeholders   = $entity->getPlaceholders();
+                            $replaceSibling = $related->getPlaceholdersAsSibling();
+                            $replace        = array_merge($placeholders, $replaceSibling);
+                            $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                        }
+                    }
+                }
+                elseif($scope == 'parents'){
+                    foreach ($entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD) as $related){
+                        $placeholders   = $entity->getPlaceholders();
+                        $replaceSibling = $related->getPlaceholdersAsSibling();
+                        $replace        = array_merge($placeholders, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                }
+                elseif ($depend){
+                    if ($this->_validateDepend($entity, $depend)){
+                        $content .= $this->_filterString($sourceContent, $filetype, $entity->getPlaceholders(), true);
+                    }
+                }
+                else{
+                    $content .= $this->_filterString($sourceContent, $filetype, $entity->getPlaceholders(), true);
+                }
+                $this->_addFile($destinationFile, $content);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * generate files for sibling relations
+     * @access protected
+     * @param $config
+     * @return $this
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _buildSiblingFile($config) {
+        foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
+            $entities = $relation->getEntities();
+            foreach ($entities as $index=>$entity){
+                $depend = $config->depend;
+                if (!$this->_validateDepend($relation, $depend, $index)){
+                    continue;
+                }
+
+                $placeholders       = array_merge($entities[$index]->getPlaceholders(), $entities[1 - $index]->getPlaceholdersAsSibling());
+                $filetype           = $config->filetype;
+                $sourceFolder       = $this->getSourceFolder().$this->_filterString((string)$config->source, $filetype);
+                $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $placeholders, true);
+                $content            = '';
+                $code               = $this->_sortCodeFiles((array)$config->code);
+                foreach ($code as $key=>$file){
+                    $depend = $file->depend;
+                    if (!$this->_validateDepend($relation, $depend, $index)){
+                        continue;
+                    }
+                    $sourceContent = $this->getFileContents($sourceFolder.(string)$file->name);
+                    $content .= $this->_filterString($sourceContent, $filetype, $placeholders, true);
+                }
+                $this->_addFile($destinationFile, $content);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * create files for children relations
+     * @access protected
+     * @param Varien_Simplexml_Element
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _buildChildrenFile($config){
+        foreach ($this->getRelations() as $relation){
+            $type       = $relation->getType();
+            $entities   = $relation->getEntities();
+            $parent     = false;
+            $child      = false;
+            if ($type == Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT){
+                $parent = $entities[0];
+                $child  = $entities[1];
+            }
+            elseif ($type == Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD){
+                $parent = $entities[1];
+                $child  = $entities[0];
+            }
+            if ($parent && $child){
+                $depend = $config->depend;
+                if ($this->_validateDepend($relation, $depend)){
+                    $placeholders = array_merge($parent->getPlaceholders(), $child->getPlaceholdersAsSibling());
+                    $filetype           = $config->filetype;
+                    $sourceFolder       = $this->getSourceFolder().$this->_filterString((string)$config->source, $filetype);
+                    $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $placeholders, true);
+                    $content            = '';
+                    $code               = $this->_sortCodeFiles((array)$config->code);
+                    foreach ($code as $key=>$file){
+                        $depend = $file->depend;
+                        if (!$this->_validateDepend($relation, $depend)){
+                            continue;
+                        }
+                        $sourceContent = $this->getFileContents($sourceFolder.(string)$file->name);
+                        $content .= $this->_filterString($sourceContent, $filetype, $placeholders, true);
+                    }
+                    $this->_addFile($destinationFile, $content);
+                }
+            }
+        }
+        return $this;
+    }
+
+    protected function _buildAttributeFile($config){
+        foreach ($this->getEntities() as $entity){
+            foreach ($entity->getAttributes() as $attribute){
+                $filetype           = $config->filetype;
+                $sourceFolder       = $this->getSourceFolder().$this->_filterString((string)$config->source, $filetype);
+                $placeholders       = array_merge($entity->getPlaceholders(), $attribute->getPlaceholders());
+                $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $placeholders, true);
+                $content            =  '';
+                $depend             = $config->depend;
+                if (!$this->_validateDepend($attribute, $depend)){
+                    continue;
+                }
+                $code = $this->_sortCodeFiles((array)$config->code);
+                foreach ($code as $key=>$file){
+                    $sourceContent  = $this->getFileContents($sourceFolder.(string)$file->name);
+                    $content .= $this->_filterString($sourceContent, $filetype, $placeholders, true);
+                }
+                $this->_addFile($destinationFile, $content);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * get sample files source folder
+     * @access public
+     * @return string
+     * @@author @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSourceFolder(){
+        if (!isset($this->_sourceFolder)){
+            $this->_sourceFolder = Mage::getConfig()->getModuleDir('etc', 'Ultimate_ModuleCreator').DS.'source'.DS;
+        }
+        return $this->_sourceFolder;
+    }
+    /**
+     * filter placeholders
+     * @access protected
+     * @param string $string
+     * @param string $fileType
+     * @param mixed (null|array()) $replaceArray
+     * @param bool $mergeReplace
+     * @param bool $forLicence
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _filterString($string, $fileType, $replaceArray = null, $mergeReplace = false, $forLicence = false){
+        $replace = $this->getPlaceholder();
+        if (!$forLicence) {
+            $replace['{{License}}']     = $this->getLicenseText($fileType);
+        }
+        if (!is_null($replaceArray)){
+            if ($mergeReplace){
+                $replace = array_merge($replace, $replaceArray);
+            }
+            else{
+                $replace = $replaceArray;
+            }
+        }
+        return str_replace(array_keys($replace), array_values($replace), $string);
+    }
+
+    /**
+     * get base placeholders
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getBasePlaceholders(){
+        if (count($this->_basePlaceholders) == 0){
+            $this->_basePlaceholders = array(
+                '{{DS}}'                => DS,
+                '{{namespace}}'         => strtolower($this->getNamespace()),
+                '{{sort_order}}'        => (int)$this->getSortOrder(),
+                '{{module}}'            => strtolower($this->getModuleName()),
+                '{{Namespace}}'         => $this->getNamespace(),
+                '{{Module}}'            => $this->getModuleName(),
+                '{{NAMESPACE}}'         => strtoupper($this->getNamespace()),
+                '{{MODULE}}'            => strtoupper($this->getModuleName()),
+                '{{qwertyuiop}}'        => $this->getQwertyuiop(),
+                '{{Y}}'                 => date('Y'),
+                '{{codepool}}'         => $this->getCodepool(),
+            );
+        }
+        return $this->_basePlaceholders;
+    }
+
+    /**
+     * add file to create list
+     * @access protected
+     * @param $destinationFile
+     * @param $content
+     * @return $this
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _addFile($destinationFile, $content){
+        if (trim($content)){
+            $this->_files[$destinationFile] = $content;
+        }
+        return $this;
+    }
+    /**
+     * get text for licence
+     * @access public
+     * @param string $fileType
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLicenseText($fileType){
+        if (!$this->getData('processed_license_'.$fileType)){
+            $eol        = $this->getEol();
+            $license    = trim($this->getData('license'));
+            if (!$license){
+                return '';
+            }
+            while(strpos($license, '*/') !== false){
+                $license = str_replace('*/', '', $license);
+            }
+            while(strpos($license, '/*') !== false){
+                $license = str_replace('/*', '', $license);
+            }
+            while(strpos($license, '<!--') !== false){
+                $license = str_replace('<!--', '', $license);
+            }
+            while(strpos($license, '-->') !== false){
+                $license = str_replace('-->', '', $license);
+            }
+            $lines = explode("\n", $license);
+            $top = '';
+            $footer = '';
+            if ($fileType == 'xml'){
+                $top = '<!--'.$eol;
+                $footer = $eol.'-->';
+            }
+            $processed = $top.'/**'.$eol;
+            foreach ($lines as $line){
+                $processed .= ' * '.$line.$eol;
+            }
+            $processed .= ' */'.$footer;
+            $this->setData('processed_license_'.$fileType, $this->_filterString($processed, $fileType, array(), true, true));
+        }
+        return $this->getData('processed_license_'.$fileType);
+    }
+    /**
+     * get all placeholders
+     * @access public
+     * @param null $param
+     * @return array|null|string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getPlaceholder($param = null){
+        if (is_null($this->_placeholders)){
+            $this->_placeholders = array(
+                '{{DS}}'                                => DS,
+                '{{namespace}}'                         => strtolower($this->getNamespace()),
+                '{{sort_order}}'                        => (int)$this->getSortOrder(),
+                '{{module}}'                            => strtolower($this->getModuleName()),
+                '{{Namespace}}'                         => $this->getNamespace(),
+                '{{Module}}'                            => $this->getModuleName(),
+                '{{NAMESPACE}}'                         => strtoupper($this->getNamespace()),
+                '{{MODULE}}'                            => strtoupper($this->getModuleName()),
+                '{{qwertyuiop}}'                        => $this->getQwertyuiop(),
+                '{{qwertyuiopp}}'                       => $this->getQwertyuiopp(),
+                '{{Y}}'                                 => date('Y'),
+                '{{entity_default_config}}'             => $this->getEntityDefaultConfig(),
+                '{{module_menu}}'                       => $this->getMenuText(),
+                '{{codepool}}'                          => $this->getCodepool(),
+                '{{version}}'                           => $this->getVersion(),
+                '{{menuItemsXml}}'                      => $this->getMenuItemsXml(),
+                '{{menuAcl}}'                           => $this->getMenuAcl(),
+                '{{ModuleFolder}}'                      => ucfirst(strtolower($this->getModuleName())),
+                '{{ResourceSetup}}'                     => $this->getResourceSetupModel()
+            );
+        }
+        if (is_null($param)){
+            return $this->_placeholders;
+        }
+        if (isset($this->_placeholders[$param])){
+            return $this->_placeholders[$param];
+        }
+        return '';
+    }
+    /**
+     * get config.xml default section
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntityDefaultConfig(){
+        $eol    = $this->getEol();
+        $text   = '';
+        if ($this->getCreateFrontend()) {
+            $text = $eol.$this->getPadding().'<default>'.$eol;
+            $text.= $this->getPadding(2).'<'.strtolower($this->getModuleName()).'>'.$eol;
+            foreach ($this->getEntities() as $entity){
+                $text .= $this->getPadding(3).$entity->getDefaultConfig();
+            }
+            $text.= $this->getPadding(2).'</'.strtolower($this->getModuleName()).'>'.$eol;
+            $text.= $this->getPadding().'</default>';
+        }
+        return $text;
+    }
+
+    /**
+     * check if module related to catalog
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getHasCatalogRelation(){
+        return $this->getLinkProduct() || $this->getLinkCategory();
+    }
+
+    /**
+     * get menu for entities
+     * @access public
+     * @param $padding
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntityMenu($padding){
+        $text = '';
+        foreach ($this->getEntities() as $entity){
+            $text .= $entity->getMenu($padding);
+        }
+        return $text;
+    }
+    /**
+     * get menu ACL for entities
+     * @access public
+     * @param $padding
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntityMenuAcl($padding){
+        $text = '';
+        foreach ($this->getEntities() as $entity){
+            $text .= $entity->getMenuAcl($padding);
+        }
+        return $text;
+    }
+
+    /**
+     * sort source code files
+     * @access protected
+     * @param $files
+     * @param string $sortField
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _sortCodeFiles($files, $sortField = 'sort_order'){
+        $sorted = array();
+        foreach ($files as $key=> $values){
+            $sorted[(int)$values->$sortField][] = $values;
+        }
+        ksort($sorted);
+        $return = array();
+        foreach ($sorted as $sort_order=>$values){
+            foreach ($values as $file){
+                $return[] = $file;
+            }
+        }
+        return $return;
+    }
+
+    /**
+     * get module name in lower case
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLowerModuleName(){
+        return strtolower($this->getModuleName());
+    }
+
+    /**
+     * get menu items xml
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMenuItemsXml(){
+        $xml        = '';
+        $parts      = array();
+        $padding    = 2;
+        $eol        = $this->getEol();
+        if ($this->getMenuParent()){
+            $parts = explode('/', $this->getMenuParent());
+        }
+        foreach ($parts as $part){
+            $xml .= $this->getPadding($padding++).'<'.$part.'>'.$eol;
+            $xml .= $this->getPadding($padding++).'<children>'.$eol;
+        }
+        $xml .= $this->getPadding($padding++).'<'.$this->getLowerModuleName().' translate="title" module="'.$this->getLowerModuleName().'">'.$eol;
+        $xml .= $this->getPadding($padding).'<title>'.$this->getMenuText().'</title>'.$eol;
+        $xml .= $this->getPadding($padding).'<sort_order>'.$this->getSortOrder().'</sort_order>'.$eol;
+        $xml .= $this->getPadding($padding++).'<children>'.$eol;
+        $xml .= $this->getEntityMenu($padding);
+        $xml .= $this->getPadding(--$padding).'</children>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$this->getLowerModuleName().'>'.$eol;
+
+        $parts = array_reverse($parts);
+        foreach ($parts as $part){
+            $xml .= $this->getPadding(--$padding).'</children>'.$eol;
+            $xml .= $this->getPadding(--$padding).'</'.$part.'>'.$eol;
+        }
+        return $xml;
+    }
+
+    /**
+     * get menu ACL
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMenuAcl(){
+        $xml        = '';
+        $parts      = array();
+        $padding    = 5;
+        $eol        = $this->getEol();
+        if ($this->getMenuParent()){
+            $parts = explode('/', $this->getMenuParent());
+        }
+        foreach ($parts as $part){
+            $xml .= $this->getPadding($padding++).'<'.$part.'>'.$eol;
+            $xml .= $this->getPadding($padding++).'<children>'.$eol;
+        }
+        $xml .= $this->getPadding($padding++).'<'.$this->getLowerModuleName().' translate="title" module="'.$this->getLowerModuleName().'">'.$eol;
+        $xml .= $this->getPadding($padding++).'<title>'.$this->getMenuText().'</title>'.$eol;
+        $xml .= $this->getPadding($padding++).'<children>'.$eol;
+        $xml .= $this->getEntityMenuAcl($padding);
+        $xml .= $this->getPadding(--$padding).'</children>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$this->getLowerModuleName().'>'.$eol;
+
+        $parts = array_reverse($parts);
+        foreach ($parts as $part){
+            $xml .= $this->getPadding(--$padding).'</children>'.$eol;
+            $xml .= $this->getPadding(--$padding).'</'.$part.'>'.$eol;
+        }
+        return $xml;
+    }
+
+    /**
+     * get resource setup base class
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getResourceSetupModel(){
+        if ($this->getHasCatalogRelation() || $this->hasEav()){
+            return 'Mage_Catalog_Model_Resource_Setup';
+        }
+        return 'Mage_Core_Model_Resource_Setup';
+    }
+    /**
+     * sort the translation file
+     * @access protected
+     * @param string $content
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _sortTranslationFile($content){
+        $lines = explode($this->getEol(), $content);
+        $distinct = array();
+        foreach ($lines as $line){
+            if (trim($line)){
+                $distinct[$line] = 1;
+            }
+        }
+        //remove blank line
+        if (isset($distinct['"",""'])){
+            unset($distinct['"",""']);
+        }
+        ksort($distinct);
+        $content = implode($this->getEol(), array_keys($distinct));
+        return $content;
+    }
+
+    /**
+     * this does nothing
+     * don't look through the code - go away
+     * I said it does nothing
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getQwertyuiop(){
+        return $this->getHelper()->getQwertyuiop();
+    }
+    /**
+     * this also does nothing
+     * don't look here either
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getQwertyuiopp(){
+        return $this->getHelper()->getQwertyuiopp();
+    }
+}

@@ -1,0 +1,13 @@
+<?php
+{{License}}
+/**
+ * Adminhtml {{entityLabel}} attribute add/edit form options tab
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Options
+    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract {
+
+}

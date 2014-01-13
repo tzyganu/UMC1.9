@@ -1,0 +1,22 @@
+    /**
+     * add the category filter to collection
+     * @access public
+     * @param mixed (Mage_Catalog_Model_Category|int) $category
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
+     * {{qwertyuiop}}
+     */
+    public function addCategoryFilter($category){
+        if ($category instanceof Mage_Catalog_Model_Category){
+            $category = $category->getId();
+        }
+        if (!isset($this->_joinedFields['category'])){
+            $this->getSelect()->join(
+                array('related_category' => $this->getTable('{{module}}/{{entity}}_category')),
+                'related_category.{{entity}}_id = {{entityTableAlias}}.entity_id',
+                array('position')
+            );
+            $this->getSelect()->where('related_category.category_id = ?', $category);
+            $this->_joinedFields['category'] = true;
+        }
+        return $this;
+    }

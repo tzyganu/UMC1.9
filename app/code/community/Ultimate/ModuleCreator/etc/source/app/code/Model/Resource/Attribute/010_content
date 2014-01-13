@@ -1,0 +1,13 @@
+<?php
+{{License}}
+/**
+ * Attribute model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Resource_Attribute
+    extends Mage_Eav_Model_Resource_Entity_Attribute {
+
+}

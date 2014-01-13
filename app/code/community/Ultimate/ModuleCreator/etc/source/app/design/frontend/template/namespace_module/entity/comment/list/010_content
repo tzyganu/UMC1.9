@@ -1,0 +1,33 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comments list template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $_{{entity}} = $this->get{{Entity}}()?>
+<?php if ($_{{entity}}->getAllowComments()) : ?>
+    <?php $_comments = $this->getComments(); ?>
+    <?php if (count($_comments)) : ?>
+        <div class="box-collateral box-reviews" id="{{entity}}-reviews">
+            <h2><?php echo $this->__('Comments for: %s', $_{{entity}}->get{{EntityNameMagicCode}}()) ?></h2>
+            <?php echo $this->getPagerHtml() ?>
+            <dl>
+                <?php foreach ($_comments as $_comment):?>
+                <dt>
+                    <div class="author"><?php echo $this->__('On %s %s wrote:', $this->formatDate($_comment->getCreatedAt(), 'long'), $this->htmlEscape($_comment->getName()))?></div>
+                    <strong><?php echo $this->htmlEscape($_comment->getTitle()) ?></strong>
+                </dt>
+                <dd>
+                    <?php echo nl2br($this->htmlEscape($_comment->getComment())) ?>
+                </dd>
+                <?php endforeach; ?>
+            </dl>
+            <?php echo $this->getPagerHtml() ?>
+        </div>
+    <?php endif;?>
+    <?php echo $this->getChildHtml('comment_form') ?>
+<?php endif;?>

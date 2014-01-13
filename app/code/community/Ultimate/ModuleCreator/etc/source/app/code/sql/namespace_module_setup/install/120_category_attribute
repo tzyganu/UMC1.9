@@ -1,0 +1,14 @@
+$this->addAttribute('catalog_category', '{{categoryAttributeCode}}', array(
+    {{categoryAttributeGroup}}'backend'           => '',
+    'frontend'          => '',
+    'class'             => '',
+    'default'           => '',
+    'label'             => '{{EntityLabel}}',
+    'input'             => 'select',
+    'type'              => 'int',
+    'source'            => '{{module}}/{{entity}}_source',
+    'global'            => {{entityCategoryAttributeScope}},
+    'required'          => 0,
+    'unique'            => 0,
+    'user_defined'      => 1,
+));

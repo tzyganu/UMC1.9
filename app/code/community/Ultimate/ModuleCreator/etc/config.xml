@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ultimate
+ * @package    Ultimate_ModuleCreator
+ * @copyright  Copyright (c) 2014
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+ */
+ -->
+<config>
+    <modules>
+        <Ultimate_ModuleCreator>
+            <version>1.9.0</version>
+            <build>dev1</build>
+        </Ultimate_ModuleCreator>
+    </modules>
+    <global>
+        <blocks>
+            <modulecreator>
+                <class>Ultimate_ModuleCreator_Block</class>
+            </modulecreator>
+        </blocks>
+        <helpers>
+            <modulecreator>
+                <class>Ultimate_ModuleCreator_Helper</class>
+            </modulecreator>
+        </helpers>
+        <models>
+            <modulecreator>
+                <class>Ultimate_ModuleCreator_Model</class>
+            </modulecreator>
+        </models>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Ultimate_ModuleCreator>
+                    <files>
+                        <default>Ultimate_ModuleCreator.csv</default>
+                    </files>
+                </Ultimate_ModuleCreator>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <ultimate_modulecreator>
+                    <file>ultimate_modulecreator.xml</file>
+                </ultimate_modulecreator>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ultimate_ModuleCreator before="Mage_Adminhtml">Ultimate_ModuleCreator_Adminhtml</Ultimate_ModuleCreator>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <modulecreator>
+            <general>
+                <help>1</help>
+                <collapsed>1</collapsed>
+            </general>
+            <settings>
+                <namespace>Ultimate</namespace>
+                <codepool>local</codepool>
+                <install>0</install>
+                <version>1.0.0</version>
+                <license><![CDATA[
+{{Namespace}}_{{Module}} extension
+
+NOTICE OF LICENSE
+
+This source file is subject to the MIT License
+that is bundled with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://opensource.org/licenses/mit-license.php
+
+@category       {{Namespace}}
+@package        {{Namespace}}_{{Module}}
+@copyright      Copyright (c) {{Y}}
+@license        http://opensource.org/licenses/mit-license.php MIT License
+]]></license>
+            </settings>
+            <entity>
+                <type>flat</type>
+                <is_tree>0</is_tree>
+                <store>1</store>
+                <add_created_to_grid>1</add_created_to_grid>
+                <add_updated_to_grid>1</add_updated_to_grid>
+                <search>1</search>
+                <api>0</api>
+                <create_frontend>1</create_frontend>
+                <create_list>1</create_list>
+                <list_template>two_columns_left</list_template>
+                <create_view>1</create_view>
+                <view_template>two_columns_left</view_template>
+                <add_seo>1</add_seo>
+                <url_rewrite>1</url_rewrite>
+                <rss>1</rss>
+                <widget>1</widget>
+                <allow_comment>1</allow_comment>
+                <manage_comment>1</manage_comment>
+                <link_product>0</link_product>
+                <show_on_product>1</show_on_product>
+                <show_products>1</show_products>
+                <product_attribute>0</product_attribute>
+                <product_attribute_scope>1</product_attribute_scope>
+                <link_category>0</link_category>
+                <show_on_category>1</show_on_category>
+                <show_category>1</show_category>
+                <category_attribute>0</category_attribute>
+                <category_attribute_scope>1</category_attribute_scope>
+                <product_attribute_group>General</product_attribute_group>
+                <category_attribute_group>General Information</category_attribute_group>
+            </entity>
+            <attribute>
+                <type>text</type>
+                <scope>0</scope>
+                <required>1</required>
+                <editor>0</editor>
+                <admin_grid>1</admin_grid>
+                <frontend>1</frontend>
+                <widget>1</widget>
+                <rss>1</rss>
+                <options_source>custom</options_source>
+            </attribute>
+        </modulecreator>
+    </default>
+</config>

@@ -1,0 +1,47 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} attributes grid
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
+    extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract {
+    /**
+     * Prepare {{entity}} attributes grid collection object
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
+     * {{qwertyuiop}}
+     */
+    protected function _prepareCollection(){
+        $collection = Mage::getResourceModel('{{module}}/{{entity}}_attribute_collection')
+            ->addVisibleFilter();
+        $this->setCollection($collection);
+        return parent::_prepareCollection();
+    }
+
+    /**
+     * Prepare {{entity}} attributes grid columns
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
+     * {{qwertyuiop}}
+     */
+    protected function _prepareColumns() {
+        parent::_prepareColumns();
+        $this->addColumnAfter('is_global', array(
+            'header'=>Mage::helper('{{module}}')->__('Scope'),
+            'sortable'=>true,
+            'index'=>'is_global',
+            'type' => 'options',
+            'options' => array(
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>Mage::helper('{{module}}')->__('Store View'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('{{module}}')->__('Website'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>Mage::helper('{{module}}')->__('Global'),
+            ),
+            'align' => 'center',
+        ), 'is_user_defined');
+        return $this;
+    }
+}

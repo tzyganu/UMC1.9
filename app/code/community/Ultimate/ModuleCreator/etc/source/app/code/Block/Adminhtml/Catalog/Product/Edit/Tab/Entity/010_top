@@ -1,0 +1,9 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} tab on product edit form
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */

@@ -1,0 +1,37 @@
+    <message name="{{module}}{{Entity}}ListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters"/>
+    </message>
+    <message name="{{module}}{{Entity}}ListResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}ListEntityArray" />
+    </message>
+    <message name="{{module}}{{Entity}}InfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="{{entity}}Id" type="xsd:string" />
+    </message>
+    <message name="{{module}}{{Entity}}InfoResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}InfoEntity" />
+    </message>
+    <message name="{{module}}{{Entity}}AddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="data" type="typens:{{module}}{{Entity}}AddEntity" />
+    </message>
+    <message name="{{module}}{{Entity}}AddResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="{{module}}{{Entity}}UpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="{{entity}}Id" type="xsd:string" />
+        <part name="data" type="typens:{{module}}{{Entity}}UpdateEntity" />
+    </message>
+    <message name="{{module}}{{Entity}}UpdateResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="{{module}}{{Entity}}RemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="{{entity}}Id" type="xsd:string" />
+    </message>
+    <message name="{{module}}{{Entity}}RemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+{{entityWsdlMessages}}

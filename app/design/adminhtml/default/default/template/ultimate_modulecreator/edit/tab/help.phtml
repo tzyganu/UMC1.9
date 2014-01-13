@@ -1,0 +1,33 @@
+<?php
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+/**
+ * help template
+ * @category	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @author 		Marius Strajeru <marius.strajeru@gmail.com>
+ */
+?>
+<div id="modulecreator_help_container">
+    <h2><?php echo $this->__('This section should make it easier for you to use the module creator extension.');?></h2>
+    <div><?php echo $this->__('Each field has a tooltip about what it means, but there are all listed here.')?></div>
+    <div><?php echo $this->__('Current version is <strong>%s</strong>', $this->getVersion())?></div>
+    <?php echo $this->getChildHtml();?>
+    <script type="text/javascript">
+        var umcHelp = new UMC.Help($('modulecreator_help_container'));
+    </script>
+</div>

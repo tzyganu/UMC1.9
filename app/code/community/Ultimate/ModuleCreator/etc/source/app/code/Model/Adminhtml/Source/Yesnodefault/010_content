@@ -1,0 +1,46 @@
+<?php
+{{License}}
+/**
+ * Admin source yes/no/default model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault
+    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+    const YES = 1;
+    const NO = 0;
+    const USE_DEFAULT = 2;
+    /**
+     * get possible values
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function toOptionArray(){
+        return array(
+            array(
+                'label' => Mage::helper('{{module}}')->__('Use default config'),
+                'value' => self::USE_DEFAULT
+            ),
+            array(
+                'label' => Mage::helper('{{module}}')->__('Yes'),
+                'value' => self::YES
+            ),
+            array(
+                'label' => Mage::helper('{{module}}')->__('No'),
+                'value' => self::NO
+            )
+        );
+    }
+    /**
+     * Get list of all available values
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getAllOptions() {
+        return $this->toOptionArray();
+    }
+}

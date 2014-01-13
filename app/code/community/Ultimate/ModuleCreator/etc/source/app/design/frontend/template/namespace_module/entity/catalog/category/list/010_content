@@ -1,0 +1,23 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} category list template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $categories = $this->getCategoryCollection();?>
+<?php if ($categories->count() > 0) :?>
+<h2><?php echo Mage::helper('catalog')->__('Categories');?></h2>
+<div class="box-collateral box-products box-up-sell">
+    <?php foreach ($categories as $category) : ?>
+        <div class="item">
+            <a href="<?php echo $category->getUrl()?>">
+                <?php echo $category->getName();?>
+            </a><br />
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif;?>

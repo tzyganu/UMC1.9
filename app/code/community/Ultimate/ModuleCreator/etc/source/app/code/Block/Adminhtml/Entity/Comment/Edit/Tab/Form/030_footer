@@ -1,0 +1,12 @@
+        $form->addValues($this->getComment()->getData());
+        return parent::_prepareForm();
+    }
+    /**
+     * get the current comment
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
+     */
+    public function getComment(){
+        return Mage::registry('current_comment');
+    }
+}

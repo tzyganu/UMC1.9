@@ -1,0 +1,6 @@
+                    <{{entity}}_{{sibling}}>
+                        <table>{{module}}_{{entity}}_{{sibling}}</table>
+                    </{{entity}}_{{sibling}}>
+                    <{{sibling}}_{{entity}}>
+                        <table>{{module}}_{{entity}}_{{sibling}}</table>
+                    </{{sibling}}_{{entity}}>

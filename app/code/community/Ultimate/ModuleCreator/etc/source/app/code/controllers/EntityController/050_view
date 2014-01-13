@@ -1,0 +1,27 @@
+    /**
+     * init {{EntityLabel}}
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Model_Entity
+     * {{qwertyuiop}}
+     */
+    protected function _init{{Entity}}(){
+        ${{entity}}Id   = $this->getRequest()->getParam('id', 0);
+        ${{entity}}     = Mage::getModel('{{module}}/{{entity}}')
+                        ->setStoreId(Mage::app()->getStore()->getId())
+                        ->load(${{entity}}Id);
+        if (!${{entity}}->getId()){
+            $this->_forward('no-route');
+        }
+        elseif (!${{entity}}->getStatus()){
+            $this->_forward('no-route');
+        }
+        return ${{entity}};
+    }
+    /**
+      * view {{entityLabel}} action
+      * @access public
+      * @return void
+      * {{qwertyuiop}}
+      */
+    public function viewAction(){
+        ${{entity}} = $this->_init{{Entity}}();

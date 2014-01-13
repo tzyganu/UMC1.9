@@ -1,0 +1,9 @@
+    <?php if($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
+        <?php echo $_tabsJsObject ?>.moveTabContentInDest();
+        if (<?php echo $_tabsJsObject ?>.activeTab) {
+            $('active_tab_id').value = <?php echo $_tabsJsObject ?>.activeTab.id;
+        }
+        $('active_tab_id').tabsJsObject = <?php echo $_tabsJsObject ?>;
+    <?php endif; ?>
+//]]>
+</script>

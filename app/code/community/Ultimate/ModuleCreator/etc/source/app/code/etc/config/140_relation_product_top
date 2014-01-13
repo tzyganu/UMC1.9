@@ -1,0 +1,5 @@
+                    <{{entity}}_product>
+                        <type>singleton</type>
+                        <class>{{module}}/adminhtml_observer</class>
+                        <method>addProduct{{Entity}}Block</method>
+                    </{{entity}}_product>

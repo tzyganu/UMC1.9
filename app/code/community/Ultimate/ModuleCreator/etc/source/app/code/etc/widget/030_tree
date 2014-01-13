@@ -1,0 +1,30 @@
+    <{{module}}_{{entity}}_subtree type="{{module}}/{{entity}}_widget_subtree" translate="name description" module="{{module}}">
+        <name>{{EntityLabel}} subtree</name>
+        <description>{{EntityLabel}} subtree widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <{{entity}}_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>{{EntityLabel}}</label>
+                <type>label</type>
+                <helper_block>
+                    <type>{{module}}/adminhtml_{{entity}}_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select {{EntityLabel}}</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </{{entity}}_id>
+            <recursion type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <value>0</value>
+                <label>Levels to show (0 for all)</label>
+                <type>text</type>
+                <sort_order>20</sort_order>
+            </recursion>
+        </parameters>
+    </{{module}}_{{entity}}_subtree>

@@ -1,0 +1,5 @@
+    <adminhtml_{{module}}_{{sibling}}_{{entities}}>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{module}}/adminhtml_{{sibling}}_edit_tab_{{entity}}" name="{{sibling}}.edit.tab.{{entity}}"/>
+        </block>
+    </adminhtml_{{module}}_{{sibling}}_{{entities}}>

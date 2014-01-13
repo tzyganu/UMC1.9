@@ -1,0 +1,11 @@
+<?php
+{{License}}
+/**
+ * Category helper
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Helper_Category
+    extends {{Namespace}}_{{Module}}_Helper_Data {

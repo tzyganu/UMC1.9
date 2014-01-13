@@ -1,0 +1,86 @@
+<?php
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * entity template
+ * @category	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @author 		Marius Strajeru <marius.strajeru@gmail.com>
+ */
+?>
+<?php $_entity = $this->getEntity();?>
+<div class="entry-edit modulecreator-entity" id="entity_<?php echo $this->getIncrement();?>">
+    <div class="entry-edit-head">
+        <h4 id="entity_<?php echo $this->getIncrement()?>_title" class="left">
+            <?php if ($_entity->getLabelSingular()) : ?>
+                <?php echo $_entity->getLabelSingular();?>
+            <?php else : ?>
+                <?php echo Mage::helper('modulecreator')->__('Entity %s', $this->getIncrement());?>
+            <?php endif;?>
+        </h4>
+        <div class="right">
+            <button type="button" class="delete delete-entity">
+                <span>
+                    <span>
+                        <span>
+                            <?php echo Mage::helper('modulecreator')->__('Remove entity');?>
+                        </span>
+                    </span>
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="option-box box fieldset">
+        <div id="entity_<?php echo $this->getIncrement();?>_settings">
+            <?php echo $this->getFormHtml();?>
+        </div>
+        <div id="entity_<?php echo $this->getIncrement();?>_attributes_container" class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo Mage::helper('modulecreator')->__('Fields / Attributes');?></h4>
+                <div class="right">
+                    <button type="button" class="add-attribute add">
+                        <span>
+                            <span>
+                                <span><?php echo Mage::helper('modulecreator')->__('Add field / attribute');?></span>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="box" id="entity_<?php echo $this->getIncrement();?>_attributes" class="attributes-container">
+                <?php $_index = 0; foreach ($_entity->getAttributes() as $_key=>$_attribute) : ?>
+                    <?php
+                    echo $this->getLayout()
+                            ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity_attribute')
+                            ->setTemplate('ultimate_modulecreator/edit/tab/entities/entity/attribute.phtml')
+                            ->setAttributeInstance($_attribute)
+                            ->setEntityId($this->getIncrement())
+                            ->setIncrement($_index++)
+                            ->toHtml();
+                    ?>
+                <?php endforeach;?>
+            </div>
+            <div id="entity_<?php echo $this->getIncrement();?>_attributes_bottom"></div>
+            <button type="button" class="add-attribute add">
+                <span>
+                    <span>
+                        <span><?php echo Mage::helper('modulecreator')->__('Add field / attribute');?></span>
+                    </span>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>

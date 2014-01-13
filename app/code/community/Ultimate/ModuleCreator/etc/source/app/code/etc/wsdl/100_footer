@@ -1,0 +1,7 @@
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

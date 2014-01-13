@@ -1,0 +1,13 @@
+"Manage {{EntityLabel}} Attributes","Manage {{EntityLabel}} Attributes"
+"Add New {{EntityLabel}} Attribute","Add New {{EntityLabel}} Attribute"
+"Save {{EntityLabel}} Attribute","Save {{EntityLabel}} Attribute"
+"Delete {{EntityLabel}} Attribute","Delete {{EntityLabel}} Attribute"
+"Edit {{EntityLabel}} Attribute ""%s""","Edit {{EntityLabel}} Attribute ""%s"""
+"Edit {{EntityLabel}} Attribute","Edit {{EntityLabel}} Attribute"
+"New {{EntityLabel}} Attribute","New {{EntityLabel}} Attribute"
+"{{EntityLabel}} Information","{{EntityLabel}} Information"
+"This {{entityLabel}} attribute no longer exists","This {{entityLabel}} attribute no longer exists"
+"This {{entityLabel}} attribute cannot be edited.","This {{entityLabel}} attribute cannot be edited."
+"The {{entityLabel}} attribute has been saved.","The {{entityLabel}} attribute has been saved."
+"The {{entityLabel}} attribute has been deleted.","The {{entityLabel}} attribute has been deleted."
+

@@ -1,0 +1,56 @@
+<?php
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * help fieldset
+ * @category	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @author 		Marius Strajeru <marius.strajeru@gmail.com>
+ */
+?>
+<?php $fieldsets = $this->getFieldsets();?>
+<?php $columns = $this->getColumns();?>
+<?php if (count($fieldsets) > 0 && count($columns) > 0) : ?>
+    <h2><?php echo $this->getDescription();?></h2>
+    <?php foreach ($fieldsets as $key=>$settings) : ?>
+        <div class="entry-edit modulecretor-help">
+            <div class="entry-edit">
+                <div class="entry-edit-head"><h4><?php echo $settings['label']?></h4></div>
+                <div class="box custom-options grid" id="modulecreator_help_container_<?php echo $key?>">
+                    <table id="help_<?php echo $key?>_table" class="umc-help-table data">
+                        <thead>
+                            <?php foreach ($columns as $column) : ?>
+                                <td><?php echo $column['header']?></td>
+                            <?php endforeach ;?>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($settings['fields'] as $field) : ?>
+                                <tr>
+                                    <?php foreach ($columns as $column) : ?>
+                                        <td><?php echo $this->getFormatedValue($field, $column)?></td>
+                                    <?php endforeach ;?>
+                                </tr>
+                            <?php endforeach ;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            decorateTable('help_<?php echo $key?>_table', {'tbody tr':['odd', 'even'], 'tr td' : ['last']});
+        </script>
+    <?php endforeach;?>
+<?php endif;?>

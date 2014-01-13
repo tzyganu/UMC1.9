@@ -1,0 +1,4 @@
+            <{{entity}}>
+                <class>{{module}}/adminhtml_search_{{entity}}</class>
+                <acl>{{module}}</acl>
+            </{{entity}}>

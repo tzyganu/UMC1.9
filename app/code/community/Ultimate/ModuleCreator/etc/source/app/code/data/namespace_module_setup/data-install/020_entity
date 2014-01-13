@@ -1,0 +1,10 @@
+Mage::getModel('{{module}}/{{entity}}')
+    ->load(1)
+    ->setParentId(0)
+    ->setPath(1)
+    ->setLevel(0)
+    ->setPosition(0)
+    ->setChildrenCount(0)
+    ->set{{EntityNameMagicCode}}('ROOT')
+    ->setInitialSetupFlag(true){{EntityAttributeSetId}}
+    ->save();

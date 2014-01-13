@@ -1,0 +1,1 @@
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>

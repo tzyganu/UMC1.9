@@ -1,0 +1,10 @@
+    public function __construct(){
+        $this->_objectId    = 'entity_id';
+        $this->_blockGroup    = '{{module}}';
+        $this->_controller  = 'adminhtml_{{entity}}';
+        $this->_mode        = 'edit';
+        parent::__construct();
+        $this->setTemplate('{{namespace}}_{{module}}/{{entity}}/edit.phtml');
+    }
+}
+

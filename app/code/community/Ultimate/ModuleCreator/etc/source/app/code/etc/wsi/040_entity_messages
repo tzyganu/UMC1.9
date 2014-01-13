@@ -1,0 +1,31 @@
+    <wsdl:message name="{{module}}{{Entity}}ListRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}ListRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}ListResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}ListResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}InfoRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}InfoRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}InfoResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}InfoResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AddRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AddRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AddResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AddResponseParam"/>
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}UpdateRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}UpdateRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}UpdateResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}UpdateResponseParam"/>
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}RemoveRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}RemoveRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}RemoveResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}RemoveResponseParam" />
+    </wsdl:message>
+{{entityWsiRelationMessages}}

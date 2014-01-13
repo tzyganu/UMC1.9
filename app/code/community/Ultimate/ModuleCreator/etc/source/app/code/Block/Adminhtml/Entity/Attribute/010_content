@@ -1,0 +1,25 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} admin attribute block
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute
+    extends Mage_Adminhtml_Block_Widget_Grid_Container {
+    /**
+     * constructor
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function __construct(){
+        $this->_controller = 'adminhtml_{{entity}}_attribute';
+        $this->_blockGroup = '{{module}}';
+        $this->_headerText = Mage::helper('{{module}}')->__('Manage {{EntityLabel}} Attributes');
+        parent::__construct();
+        $this->_updateButton('add', 'label', Mage::helper('{{module}}')->__('Add New {{EntityLabel}} Attribute'));
+    }
+}

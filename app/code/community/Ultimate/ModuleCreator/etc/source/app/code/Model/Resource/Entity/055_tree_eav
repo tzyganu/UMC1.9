@@ -1,0 +1,280 @@
+    /**
+     * Retrieve {{entityLabel}} tree object
+     * @access protected
+     * @return Varien_Data_Tree_Db
+     * {{qwertyuiop}}
+     */
+    protected function _getTree(){
+        if (!$this->_tree) {
+            $this->_tree = Mage::getResourceModel('{{module}}/{{entity}}_tree')->load();
+        }
+        return $this->_tree;
+    }
+    /**
+     * Process {{entityLabel}} data before delete
+     * update children count for parent {{entityLabel}}
+     * delete child {{entitiesLabel}}
+     * @access protected
+     * @param Varien_Object $object
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    protected function _beforeDelete({{beforeSaveParam}} $object){
+        parent::_beforeDelete($object);
+        /**
+         * Update children count for all parent {{entitiesLabel}}
+         */
+        $parentIds = $object->getParentIds();
+        if ($parentIds) {
+            $childDecrease = $object->getChildrenCount() + 1; // +1 is itself
+            $data = array('children_count' => new Zend_Db_Expr('children_count - ' . $childDecrease));
+            $where = array('entity_id IN(?)' => $parentIds);
+            $this->_getWriteAdapter()->update( $this->getMainTable(), $data, $where);
+        }
+        $this->deleteChildren($object);
+        return $this;
+    }
+    /**
+     * Delete children {{entitiesLabel}} of specific {{entityLabel}}
+     * @access public
+     * @param Varien_Object $object
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    public function deleteChildren(Varien_Object $object){
+        $adapter = $this->_getWriteAdapter();
+        $pathField = $adapter->quoteIdentifier('path');
+        $select = $adapter->select()
+            ->from($this->getMainTable(), array('entity_id'))
+            ->where($pathField . ' LIKE :c_path');
+        $childrenIds = $adapter->fetchCol($select, array('c_path' => $object->getPath() . '/%'));
+        if (!empty($childrenIds)) {
+            $adapter->delete(
+                $this->getMainTable(),
+                array('entity_id IN (?)' => $childrenIds)
+            );
+        }
+        /**
+         * Add deleted children ids to object
+         * This data can be used in after delete event
+         */
+        $object->setDeletedChildrenIds($childrenIds);
+        return $this;
+    }
+    /**
+     * Process {{entityLabel}} data after save {{entityLabel}} object
+     * @access protected
+     * @param Varien_Object $object
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    protected function _afterSave({{beforeSaveParam}} $object){
+        if (substr($object->getPath(), -1) == '/') {
+            $object->setPath($object->getPath() . $object->getId());
+            $this->_savePath($object);
+        }
+        return parent::_afterSave($object);
+    }
+
+    /**
+     * Update path field
+     * @access protected
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} $object
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    protected function _savePath($object){
+        if ($object->getId()) {
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                array('path' => $object->getPath()),
+                array('entity_id = ?' => $object->getId())
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Get maximum position of child {{entitiesLabel}} by specific tree path
+     * @access protected
+     * @param string $path
+     * @return int
+     * {{qwertyuiop}}
+     */
+    protected function _getMaxPosition($path){
+        $adapter = $this->getReadConnection();
+        $positionField = $adapter->quoteIdentifier('position');
+        $level   = count(explode('/', $path));
+        $bind = array(
+            'c_level' => $level,
+            'c_path'  => $path . '/%'
+        );
+        $select  = $adapter->select()
+            ->from($this->getMainTable(), 'MAX(' . $positionField . ')')
+            ->where($adapter->quoteIdentifier('path') . ' LIKE :c_path')
+            ->where($adapter->quoteIdentifier('level') . ' = :c_level');
+
+        $position = $adapter->fetchOne($select, $bind);
+        if (!$position) {
+            $position = 0;
+        }
+        return $position;
+    }
+    /**
+     * Get children {{entitiesLabel}} count
+     * @access public
+     * @param int ${{entity}}Id
+     * @return int
+     * {{qwertyuiop}}
+     */
+    public function getChildrenCount(${{entity}}Id){
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'children_count')
+            ->where('entity_id = :entity_id');
+        $bind = array('entity_id' => ${{entity}}Id);
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+    /**
+     * Check if {{entityLabel}} id exist
+     * @access public
+     * @param int $entityId
+     * @return bool
+     * {{qwertyuiop}}
+     */
+    public function checkId($entityId){
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'entity_id')
+            ->where('entity_id = :entity_id');
+        $bind =  array('entity_id' => $entityId);
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+
+    /**
+     * Check array of {{entitiesLabel}} identifiers
+     * @access public
+     * @param array $ids
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function verifyIds(array $ids){
+        if (empty($ids)) {
+            return array();
+        }
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'entity_id')
+            ->where('entity_id IN(?)', $ids);
+
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+    /**
+     * Get count of active/not active children {{entitiesLabel}}
+     *
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @param bool $isActiveFlag
+     * @return int
+     * {{qwertyuiop}}
+     */
+    public function getChildrenAmount(${{entity}}, $isActiveFlag = true){
+        $bind = array(
+            'active_flag'  => $isActiveFlag,
+            'c_path'   => ${{entity}}->getPath() . '/%'
+        );
+        $select = $adapter->select()
+            ->from(array('m' => $this->getMainTable()), array('COUNT(m.entity_id)'))
+            ->where('m.path LIKE :c_path')
+            ->where('status' . ' = :active_flag');
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+    /**
+     * Return parent {{entitiesLabel}} of {{entityLabel}}
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getParent{{Entities}}(${{entity}}){
+        $pathIds = array_reverse(explode('/', ${{entity}}->getPath()));
+        ${{entities}} = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+            ->addAttributeToFilter('entity_id', array('in' => $pathIds))
+            ->addAttributeToFilter('status', 1)
+            ->addAttributeToSelect('*');
+        return ${{entities}};
+    }
+    /**
+     * Return child {{entitiesLabel}}
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
+     * {{qwertyuiop}}
+     */
+    public function getChildren{{Entities}}(${{entity}}){
+        $collection = ${{entity}}->getCollection();
+        $collection
+            ->addAttributeToFilter('status', 1)
+            ->addIdFilter(${{entity}}->getChildren())
+            ->setOrder('position', Varien_Db_Select::SQL_ASC);
+        return $collection;
+    }
+    /**
+     * Return children ids of {{entityLabel}}
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @param boolean $recursive
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getChildren(${{entity}}, $recursive = true){
+        $attributeId  = (int)$this->_getStatusAttributeId();
+        $backendTable = $this->getTable(array($this->getEntityTablePrefix(), 'int'));
+        $adapter      = $this->_getReadAdapter();
+        $checkSql     = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
+        $bind = array(
+            'attribute_id' => $attributeId,
+            'store_id'     => ${{entity}}->getStoreId(),
+            'scope'        => 1,
+            'c_path'       => ${{entity}}->getPath() . '/%'
+        );
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('m' => $this->getEntityTable()), 'entity_id')
+            ->joinLeft(
+                array('d' => $backendTable),
+                'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = m.entity_id',
+                array()
+            )
+            ->joinLeft(
+                array('c' => $backendTable),
+                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
+                array()
+            )
+            ->where($checkSql . ' = :scope')
+            ->where($adapter->quoteIdentifier('path') . ' LIKE :c_path');
+        if (!$recursive) {
+            $select->where($adapter->quoteIdentifier('level') . ' <= :c_level');
+            $bind['c_level'] = ${{entity}}->getLevel() + 1;
+        }
+
+        return $adapter->fetchCol($select, $bind);
+    }
+    protected $_statusAttributeId = null;
+    /**
+     * Get "is_active" attribute identifier
+     * @access protected
+     * @return int
+     * {{qwertyuiop}}
+     */
+    protected function _getStatusAttributeId() {
+        if ($this->_statusAttributeId === null) {
+            $bind = array(
+                '{{module}}_{{entity}}' => {{Namespace}}_{{Module}}_Model_{{Entity}}::ENTITY,
+                'status'        => 'status',
+            );
+            $select = $this->_getReadAdapter()->select()
+                ->from(array('a'=>$this->getTable('eav/attribute')), array('attribute_id'))
+                ->join(array('t'=>$this->getTable('eav/entity_type')), 'a.entity_type_id = t.entity_type_id')
+                ->where('entity_type_code = :{{module}}_{{entity}}')
+                ->where('attribute_code = :status');
+
+            $this->_statusAttributeId = $this->_getReadAdapter()->fetchOne($select, $bind);
+        }
+        return $this->_statusAttributeId;
+    }

@@ -1,0 +1,81 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comments admin grid block
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Grid
+    extends Mage_Adminhtml_Block_Widget_Grid {
+    /**
+     * constructor
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function __construct(){
+        parent::__construct();
+        $this->setId('{{entity}}CommentGrid');
+        $this->setDefaultSort('comment_id');
+        $this->setDefaultDir('DESC');
+        $this->setSaveParametersInSession(true);
+        $this->setUseAjax(true);
+    }
+    /**
+     * prepare collection
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Grid
+     * {{qwertyuiop}}
+     */
+    protected function _prepareCollection(){
+        $collection = Mage::getModel('{{module}}/{{entity}}_comment')->getCollection();
+        $this->setCollection($collection);
+        return parent::_prepareCollection();
+    }
+    /**
+     * prepare grid collection
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Grid
+     * {{qwertyuiop}}
+     */
+    protected function _prepareColumns(){
+        $this->addColumn('comment_id', array(
+            'header'    => Mage::helper('{{module}}')->__('Id'),
+            'index'     => 'comment_id',
+            'type'      => 'number'
+        ));
+        $this->addColumn('title', array(
+            'header'    => Mage::helper('{{module}}')->__('Title'),
+            'index'     => 'title',
+        ));
+        $this->addColumn('name', array(
+            'header'    => Mage::helper('{{module}}')->__('Poster name'),
+            'index'     => 'name',
+        ));
+        $this->addColumn('email', array(
+            'header'    => Mage::helper('{{module}}')->__('Poster email'),
+            'index'     => 'email',
+        ));
+        $this->addColumn('status', array(
+            'header'    => Mage::helper('{{module}}')->__('Status'),
+            'index'        => 'status',
+            'type'        => 'options',
+            'options'    => array(
+                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{module}}')->__('Pending'),
+                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{module}}')->__('Approved'),
+                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{module}}')->__('Rejected'),
+            )
+        ));
+        $this->addColumn('created_at', array(
+            'header'    => Mage::helper('{{module}}')->__('Created at'),
+            'index'     => 'created_at',
+            'width'     => '120px',
+            'type'      => 'datetime',
+        ));
+        $this->addColumn('updated_at', array(
+            'header'    => Mage::helper('{{module}}')->__('Updated at'),
+            'index'     => 'updated_at',
+            'width'     => '120px',
+            'type'      => 'datetime',
+        ));

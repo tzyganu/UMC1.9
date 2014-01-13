@@ -1,0 +1,1 @@
+        $values['allow_comment'] = {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault::USE_DEFAULT;

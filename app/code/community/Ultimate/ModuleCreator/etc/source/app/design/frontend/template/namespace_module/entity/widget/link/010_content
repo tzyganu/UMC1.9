@@ -1,0 +1,16 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} link widget template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $_{{entity}} = $this->getCurrent{{Entity}}();?>
+<?php if ($_{{entity}}) :?>
+    <div class="{{entity}}-widget-link">
+        <a href="<?php echo $_{{entity}}->get{{Entity}}Url()?>"><?php echo $_{{entity}}->get{{EntityNameMagicCode}}()?></a>
+    </div>
+<?php endif;?>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+{{License}} 
+<config>
+    <tabs>
+        <{{namespace}} translate="label" module="{{module}}">
+            <label>{{Namespace}}</label>
+            <sort_order>2000</sort_order>
+        </{{namespace}}>
+    </tabs>
+     <sections>
+        <{{module}} translate="label" module="{{module}}">
+            <class>separator-top</class>
+            <label>{{Module}}</label>
+            <tab>{{namespace}}</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>

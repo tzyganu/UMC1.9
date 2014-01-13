@@ -1,0 +1,12 @@
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <{{Namespace}}_{{Module}} before="Mage_Adminhtml">{{Namespace}}_{{Module}}_Adminhtml</{{Namespace}}_{{Module}}>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>

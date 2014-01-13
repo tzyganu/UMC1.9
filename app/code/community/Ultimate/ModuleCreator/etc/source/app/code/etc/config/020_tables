@@ -1,0 +1,3 @@
+                    <{{entity}}>
+                        <table>{{module}}_{{entity}}</table>
+                    </{{entity}}>

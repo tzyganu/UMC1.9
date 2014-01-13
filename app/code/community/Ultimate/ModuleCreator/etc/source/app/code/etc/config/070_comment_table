@@ -1,0 +1,3 @@
+                    <{{entity}}_comment>
+                        <table>{{module}}_{{entity}}_comment</table>
+                    </{{entity}}_comment>

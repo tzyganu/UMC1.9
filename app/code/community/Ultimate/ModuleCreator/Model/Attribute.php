@@ -1,0 +1,471 @@
+<?php 
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Model_Abstract{
+    /**
+     * custom option separator
+     */
+    const OPTION_SEPARATOR      = '|';
+    /**
+     * entity object
+     * @var mixed(null|Ultimate_ModuleCreator_Model_Entity)
+     */
+    protected $_entity          = null;
+    /**
+     * attribute type instance
+     * @var mixed(null|Ultimate_ModuleCreator_Model_Attribute_Type_Abstract)
+     */
+    protected $_typeInstance    = null;
+    /**
+     * placeholders for replacing in source
+     * @var mixed
+     */
+    protected $_placeholders    = null;
+    /**
+     * set the model entity
+     * @access public
+     * @param  Ultimate_ModuleCreator_Model_Entity $entity
+     * @return Ultimate_ModuleCreator_Model_Attribute
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function setEntity(Ultimate_ModuleCreator_Model_Entity $entity){
+        $this->_entity = $entity;
+        return $this;
+    }
+    /**
+     * get the attribute entity
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Entity
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntity(){
+        return $this->_entity;
+    }
+    /**
+     * get the magic function code for attribute
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMagicMethodCode(){
+        $code = $this->getCode();
+        return $this->_camelize($code);
+    }
+    /**
+     * get attribute the type instance
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
+     * @throws Ultimate_ModuleCreator_Exception
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeInstance(){
+        if (!$this->_typeInstance){
+            $type = $this->getType();
+            try{
+                $types = Mage::helper('modulecreator')->getAttributeTypes(false);
+                $instanceModel = $types->$type->type_model;
+                $this->_typeInstance = Mage::getModel($instanceModel);
+                $this->_typeInstance->setAttribute($this);
+            }
+            catch (Exception $e){
+                throw new Ultimate_ModuleCreator_Exception("Invalid attribute type: ". $type);
+            }
+        }
+        return $this->_typeInstance;
+    }
+    /**
+     * check if an attribute is in the admin grid
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAdminGrid(){
+        if ($this->getIsName()){
+            return true;
+        }
+        return $this->getTypeInstance()->getAdminGrid();
+    }
+    /**
+     * check if an attribute can use an editor
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEditor(){
+        return $this->getTypeInstance()->getEditor();
+    }
+    /**
+     * check if attribute is required
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRequired(){
+        if ($this->getIsName()){
+            return true;
+        }
+        return $this->getTypeInstance()->getRequired();
+    }
+    /**
+     * check if attribute can behave as name
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsAllowedAsName(){
+        return $this->getTypeInstance()->getIsAllowedAsName();
+    }
+
+    /**
+     * check if the attribute acts as name
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNotIsName(){
+        return !$this->getIsName();
+    }
+
+    /**
+     * get attribute placeholders
+     * @access public
+     * @param null $key
+     * @return mixed|null|string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getPlaceholders($key = null){
+        if (is_null($this->_placeholders)){
+            $placeholders['{{attributeLabel}}']             = $this->getLabel();
+            $placeholders['{{AttributeMagicCode}}']         = $this->getMagicMethodCode();
+            $placeholders['{{attributeCode}}']              = $this->getCode();
+            $placeholders['{{attributeColumnOptions}}']     = $this->getAdminColumnOptions();
+            $placeholders['{{attributeFormType}}']          = $this->getFormType();
+            $placeholders['{{attributeFormOptions}}']       = $this->getFormOptions();
+            $placeholders['{{attributePreElementText}}']    = $this->getPreElementText();
+            $placeholders['{{attributeRssText}}']           = $this->getRssText();
+            $placeholders['{{attributeNote}}']              = $this->getNote();
+            $placeholders['{{AttributeCodeForFile}}']       = ucfirst($this->getCodeForFileName());
+            $placeholders['{{attributeOptions}}']           = $this->getAttributeOptions();
+
+            $eventObject = new Varien_Object(
+                array(
+                    'placeholders' => $placeholders
+                )
+            );
+            Mage::dispatchEvent('umc_attribute_placeholdrers', array('event_object'=>$eventObject));
+            $placeholders = $eventObject->getPlaceholders();
+            $this->_placeholders = $placeholders;
+        }
+        if (is_null($key)){
+            return $this->_placeholders;
+        }
+        if (isset($this->_placeholders[$key])){
+            return $this->_placeholders[$key];
+        }
+        return '';
+    }
+
+    /**
+     * get additional admin grid column options
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAdminColumnOptions(){
+        return $this->getTypeInstance()->getAdminColumnOptions();
+    }
+
+    /**
+     * get options for attribute
+     * @access public
+     * @param bool $asArray
+     * @return array|mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getOptions($asArray = false){
+        if (!$asArray){
+            return $this->getData('options');
+        }
+        return explode(self::OPTION_SEPARATOR, $this->getData('options'));
+    }
+
+    /**
+     * get form type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormType(){
+        return $this->getTypeInstance()->getFormType();
+    }
+
+    /**
+     * get text for rss
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRssText(){
+        return $this->getTypeInstance()->getRssText();
+    }
+    /**
+     * get the sql column
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDdlSqlColumn(){
+        $helper = Mage::helper('modulecreator');
+        $ddl = '';
+        $ddl .= "->addColumn('{$this->getCode()}', Varien_Db_Ddl_Table::".$this->getTypeDdl().", ".$this->getSizeDdl().", array(".$this->getEol();
+        if ($this->getRequired()){
+            $ddl .= $helper->getPadding(2)."'nullable'  => false,".$this->getEol();
+        }
+        if ($this->getType() == 'int'){
+            $ddl .= $helper->getPadding(2)."'unsigned'  => true,".$this->getEol();
+        }
+        $ddl .= $helper->getPadding(2)."), '".$this->getLabel()."')".$this->getEol();
+        return $ddl;
+    }
+    /**
+     * get column ddl type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeDdl(){
+        return $this->getTypeInstance()->getTypeDdl();
+    }
+    /**
+     * get column ddl size
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSizeDdl(){
+        return $this->getTypeInstance()->getSizeDdl();
+    }
+    /**
+     * get the frontend html
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFrontendHtml(){
+        return $this->getTypeInstance()->getFrontendHtml();
+    }
+    /**
+     * get wsdl format for attribute
+     * @access public
+     * @param bool $wsi
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getWsdlFormat($wsi = false){
+        if ($wsi){
+            return '<xsd:element name="'.$this->getCode().'" type="xsd:string" />';
+        }
+        return '<element name="'.$this->getCode().'" type="xsd:string" minOccurs="'.(int)$this->getRequired().'" />';
+    }
+
+    /**
+     * get setup content for attribute
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupContent(){
+        $content    = '';
+        $padding5   = $this->getPadding(5);
+        $padding6   = $this->getPadding(6);
+        $eol        = $this->getEol();
+        $content .= $padding5."'".$this->getCode()."' => array(".$eol;
+        $content .= $padding6."'group'          => 'General',".$eol;
+        $content .= $padding6."'type'           => '".$this->getSetupType()."',".$eol;
+        $content .= $padding6."'backend'        => '".$this->getSetupBackend()."',".$eol;
+        $content .= $padding6."'frontend'       => '',".$eol;
+        $content .= $padding6."'label'          => '".$this->getLabel()."',".$eol;
+        $content .= $padding6."'input'          => '".$this->getSetupInput()."',".$eol;
+        $content .= $padding6."'source'         => '".$this->getSetupSource()."',".$eol;
+        $content .= $padding6."'global'         => ".$this->getSetupIsGlobal().",".$eol;
+        $content .= $padding6."'required'       => '".$this->getRequired()."',".$eol;
+        $content .= $padding6."'user_defined'   => ".$this->getIsUserDefined().",".$eol;
+        $content .= $padding6."'default'        => '',".$eol;
+        $content .= $padding6."'unique'         => false,".$eol;
+        $content .= $padding6."'position'       => '".(int)$this->getPosition()."',".$eol;
+        $content .= $padding6."'note'           => '".(int)$this->getNote()."',".$eol;
+        $content .= $padding6."'visible'        => '".(int)$this->getVisible()."',".$eol;
+        $content .= $padding6."'wysiwyg_enabled'=> '".(int)$this->getEditor()."',".$eol;
+        $content .= $this->getAdditionalSetup();
+        $content .= $padding5 .'),'.$eol;
+
+        return $content;
+    }
+    /**
+     * get setup type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupType(){
+        if ($this->hasForcedSetupType()){
+            return $this->getForcedSetupType();
+        }
+        return $this->getTypeInstance()->getSetupType();
+    }
+    /**
+     * get setup backend
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupBackend(){
+        if ($this->getForcedSetupBackend()){
+            return $this->getForcedSetupBackend();
+        }
+        return $this->getTypeInstance()->getSetupBackend();
+    }
+    /**
+     * get setup input
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupInput(){
+        return $this->getTypeInstance()->getSetupInput();
+    }
+    /**
+     * get setup source
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupSource(){
+        if ($this->getForcedSource()){
+            return $this->getForcedSource();
+        }
+        return $this->getTypeInstance()->getSetupSource();
+    }
+    /**
+     * check id an attribute is global
+     * @access public
+     * @return int
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupIsGlobal(){
+        switch ($this->getScope()){
+            case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE:
+                return 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE';
+                break;
+            case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL:
+                return 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL';
+                break;
+            case Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE:
+                return 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE';
+                break;
+            default :
+                return '';
+                break;
+        }
+    }
+
+
+    /**
+     * get attribute code for file name
+     * @access public
+     * @param bool $uppercase
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCodeForFileName($uppercase = false){
+        $code = str_replace('_', '', $this->getCode());
+        if ($uppercase){
+            $code = ucfirst($code);
+        }
+        return $code;
+    }
+    /**
+     * check if attribute is visible
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getVisible(){
+        if (($this->hasForcedVisible())){
+            return $this->getForcedVisible();
+        }
+        return $this->getTypeInstance()->getVisible();
+    }
+    /**
+     * check if source needs to be generated
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getGenerateSource() {
+        return $this->getTypeInstance()->getGenerateSource();
+    }
+
+    /**
+     * get additional setup values
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAdditionalSetup() {
+        return $this->getTypeInstance()->getAdditionalSetup();
+    }
+    /**
+     * check if attribute is yes/no
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsYesNo() {
+        return $this->getTypeInstance()->getIsYesNo();
+    }
+
+    /**
+     * get attribute options for source model
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAttributeOptions() {
+        return $this->getTypeInstance()->getAttributeOptions();
+    }
+
+    /**
+     * check if attribute is user defined
+     * @access public
+     * @param bool $asText
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsUserDefined($asText = true) {
+        if (!$this->hasData('user_defined')) {
+            $this->setData('user_defined', true);
+        }
+        if (!$asText) {
+            return $this->getData('user_defined');
+        }
+        if ($this->getData('user_defined')) {
+            return 'true';
+        }
+        return 'false';
+    }
+}

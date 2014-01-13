@@ -1,0 +1,4 @@
+"Retrieve one level of {{entitiesLabel}}","Retrieve one level of {{entitiesLabel}}"
+"Move {{entityLabel}} in tree","Move {{entityLabel}} in tree"
+"Cannot move parent inside {{entityLabel}}","Cannot move parent inside {{entityLabel}}"
+"{{EntityLabel}} not moved. Details in error message.","{{EntityLabel}} not moved. Details in error message."

@@ -1,0 +1,1 @@
+                ->addStoreFilter(Mage::app()->getStore())

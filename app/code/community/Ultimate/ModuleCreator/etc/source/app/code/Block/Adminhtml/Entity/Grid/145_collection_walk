@@ -1,0 +1,10 @@
+    /**
+     * after collection load
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Grid
+     * {{qwertyuiop}}
+     */
+    protected function _afterLoadCollection(){
+        $this->getCollection()->walk('afterLoad');
+        parent::_afterLoadCollection();
+    }

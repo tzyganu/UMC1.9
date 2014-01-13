@@ -1,0 +1,26 @@
+        <wsdl:operation name="{{module}}{{Entity}}List">
+            <wsdl:documentation>Retrieve list of {{entitiesLabel}}</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}ListRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}ListResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}Info">
+            <wsdl:documentation>Retrieve {{entityLabel}} info</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}InfoRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}InfoResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}Add">
+            <wsdl:documentation>Add {{entityLabel}}</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AddRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}AddResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}Update">
+            <wsdl:documentation>Update {{entityLabel}}</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}UpdateRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}UpdateResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}Remove">
+            <wsdl:documentation>Remove {{entityLabel}}</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}RemoveRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}RemoveResponse" />
+        </wsdl:operation>
+{{entityWsiPortTypeRelation}}

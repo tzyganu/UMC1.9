@@ -1,0 +1,4 @@
+    <{{module}}_{{entity}}_rss translate="label" module="{{module}}">
+        <label>{{EntitiesLabel}} rss feed</label>
+        <block type="{{module}}/{{entity}}_rss" output="toHtml" name="{{module}}.{{entity}}.rss" />
+    </{{module}}_{{entity}}_rss>

@@ -1,0 +1,10 @@
+    /**
+     * get the selected store
+     * @access protected
+     * @return Mage_Core_Model_Store
+     * {{qwertyuiop}}
+     */
+    protected function _getStore(){
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
+        return Mage::app()->getStore($storeId);
+    }

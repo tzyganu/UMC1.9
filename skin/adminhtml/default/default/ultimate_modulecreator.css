@@ -1,0 +1,161 @@
+.adminhtml-modulecreator-edit a.modulecreator-toggle {
+    width:18px;
+}
+.adminhtml-modulecreator-edit .entry-edit-head {
+    margin-bottom: 3px;
+}
+.adminhtml-modulecreator-edit .form-list td.label label {
+    width:auto!important;
+    padding-right: 0px;
+}
+.adminhtml-modulecreator-edit .form-list td.label {
+    width:30%;
+}
+.adminhtml-modulecreator-edit tr.odd {
+    float:left;
+    width:49%;
+}
+.adminhtml-modulecreator-edit tr.even {
+    float:left;
+    width:49%;
+}
+
+.adminhtml-modulecreator-edit .form-list td.value textarea,
+.adminhtml-modulecreator-edit .form-list td.value input,
+.adminhtml-modulecreator-edit .form-list td.value select {
+    width:90%;
+}
+.adminhtml-modulecreator-edit td.value .link-store-scope {
+    cursor: pointer;
+    margin-top:0px;
+}
+.adminhtml-modulecreator-edit .relation-label,
+.adminhtml-modulecreator-edit .relation-select {
+    float:left;
+    font-size: 15px;
+    margin: 0 10px;
+    padding: 8px;
+}
+.adminhtml-modulecreator-edit .relation-label {
+    font-weight: bold;
+    text-align: center;
+    width:150px;
+}
+.adminhtml-modulecreator-edit .clearfix {
+    clear:both;
+    height:3px;
+}
+#umc-nav {
+    margin-top: 30px;
+}
+#umc-nav ul {
+    list-style-type: none;
+}
+#umc-nav li button.collapsed,
+#umc-nav li button.expanded {
+    width:16px;
+    height:16px;
+    padding: 0!important
+}
+#umc-nav li span {
+    color:#666666;
+    font-size:16px;
+    font-weight: bold;
+}
+#umc-nav li button {
+    font-size: 12px;
+}
+#umc-nav a.insert-menu {
+    color: #CCCCCC;
+    cursor: pointer;
+}
+
+.umc-help-table tr.odd {
+    float:none;
+    width:auto;
+}
+.umc-help-table tr.even {
+    float:none;
+    width:auto;
+}
+.umc-help-table thead tr td {
+    font-weight: bold;
+    text-align: center;
+}
+
+.tree,
+.tree ul,
+.tree li {
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.tree {
+    background:url(images/ultimate_modulecreator/line1.png) repeat-y;
+}
+.tree li {
+    line-height:20px;
+    margin-top:1px;
+    position:relative;
+    width:100%;
+}
+* html .tree li {
+    float:left;
+    display:inline;
+}
+.tree li a {
+    padding-left:28px;
+}
+.tree li span {
+    cursor:auto;
+    float:left;
+    font-size:0;
+    height:13px;
+    left:5px;
+    position:absolute;
+    top:5px;
+    width:13px;
+}
+.tree li span,
+.tree li span.collapsed {
+    background:url(images/ultimate_modulecreator/collapsed.png) no-repeat 0 0;
+}
+.tree li span.expanded {
+    background:url(images/ultimate_modulecreator/expanded.png) no-repeat 0 0;
+}
+.tree li ul {
+    margin-left:28px;
+    background:url(images/ultimate_modulecreator/line1.png) repeat-y;
+}
+.tree li li {
+    background:url(images/ultimate_modulecreator/line2.png) no-repeat 0 0;
+}
+.tree:after,
+.tree ul:after {
+    clear:both;
+    content:".";
+    display:block;
+    height:0;
+    visibility:hidden;
+}
+.tree,
+.tree ul {
+    display:block;
+}
+.tree li.map-category {
+    font-weight:bold;
+}
+.tree li.map-product {
+    font-weight:normal;
+}
+.tree li.map-product a {
+    color:#203548;
+}
+.tree,
+.tree ul {
+   min-height:1%;
+}
+* html .tree,
+* html .tree ul {
+    height:1%;
+}

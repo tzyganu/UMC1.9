@@ -1,0 +1,33 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} category list
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Catalog_Category_List extends Mage_Core_Block_Template {
+    /**
+     * get the list of products
+     * @access public
+     * @return Mage_Catalog_Model_Resource_Category_Collection
+     * {{qwertyuiop}}
+     */
+    public function getCategoryCollection() {
+        $collection = $this->get{{Entity}}()->getSelectedCategoriesCollection();
+        $collection->addAttributeToSelect('name');
+        $collection->getSelect()->order('related.position');
+        $collection->addAttributeToFilter('is_active', 1);
+        return $collection;
+    }
+    /**
+     * get current {{entity}}
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    public function get{{Entity}}() {
+        return Mage::registry('current_{{module}}_{{entity}}');
+    }
+}

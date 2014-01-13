@@ -1,0 +1,54 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comments form template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $data = $this->getCommentData();?>
+<div class="form-add">
+    <h2><?php echo $this->__('Write Your Comment') ?></h2>
+    <?php if ($this->getAllowWriteCommentFlag()): ?>
+        <form action="<?php echo $this->getAction() ?>" method="post" id="comment-form">
+            <fieldset>
+                <ul class="form-list">
+                    <li>
+                        <label for="nickname_field" class="required"><em>*</em><?php echo $this->__('Nickname') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="name" id="name_field" class="input-text required-entry" value="<?php echo $this->htmlEscape($data->getName()) ?>" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="nickname_field" class="required"><em>*</em><?php echo $this->__('E-mail') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="email" id="email_field" class="input-text required-entry validate-email" value="<?php echo $this->htmlEscape($data->getEmail()) ?>" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="title_field" class="required"><em>*</em><?php echo $this->__('Comment title') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="title" id="title_field" class="input-text required-entry" value="<?php echo $this->htmlEscape($data->getTitle()) ?>" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="review_field" class="required"><em>*</em><?php echo $this->__('Comment') ?></label>
+                        <div class="input-box">
+                            <textarea name="comment" id="comment_field" cols="5" rows="3" class="required-entry"><?php echo $this->htmlEscape($data->getComment()) ?></textarea>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="buttons-set">
+                <button type="submit" title="<?php echo $this->__('Submit Comment') ?>" class="button"><span><span><?php echo $this->__('Submit Comment') ?></span></span></button>
+            </div>
+        </form>
+        <script type="text/javascript">var commentForm = new VarienForm('comment-form');</script>
+    <?php else: ?>
+    <p class="review-nologged" id="comment-form">
+        <?php echo $this->__('Only registered users can write comments. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+    </p>
+    <?php endif ?>
+</div>

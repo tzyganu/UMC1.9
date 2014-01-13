@@ -1,0 +1,118 @@
+<?php
+{{License}}
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">
+            <?php echo Mage::helper('{{module}}')->__('{{EntitiesLabel}}') ?>
+        </h4>
+    </div>
+    <fieldset id="grop_fields">
+        <input type="hidden" name="{{entity}}_ids" id="product_{{entities}}" value="<?php echo $this->getIdsString() ?>">
+        <div id="product-{{entities}}" class="tree"></div>
+    </fieldset>
+</div>
+<?php if($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
+<script type="text/javascript">
+    Ext.EventManager.onDocumentReady(function() {
+        var {{entity}}Loader = new Ext.tree.TreeLoader({
+           dataUrl: '<?php echo $this->getLoadTreeUrl()?>'
+        });
+
+        {{entity}}Loader.createNode = function(config) {
+            config.uiProvider = Ext.tree.CheckboxNodeUI;
+            var node;
+            if (config.children && !config.children.length) {
+                delete(config.children);
+                node = new Ext.tree.AsyncTreeNode(config);
+            }
+            else {
+                node = new Ext.tree.TreeNode(config);
+            }
+            return node;
+        };
+        {{entity}}Loader.on("beforeload", function(treeLoader, node) {
+            treeLoader.baseParams.{{entity}} = node.attributes.id;
+        });
+        {{entity}}Loader.on("load", function(treeLoader, node, config) {
+            varienWindowOnload();
+        });
+        var tree = new Ext.tree.TreePanel('product-{{entities}}', {
+            animate:true,
+            loader: {{entity}}Loader,
+            enableDD:false,
+            containerScroll: true,
+            rootUIProvider: Ext.tree.CheckboxNodeUI,
+            selModel: new Ext.tree.CheckNodeMultiSelectionModel(),
+            rootVisible: '<?php echo $this->getRootNode()->getIsVisible() ?>'
+        });
+        tree.on('check', function(node) {
+            if(node.attributes.checked) {
+                {{entity}}Add(node.id);
+            }
+            else {
+                {{entity}}Remove(node.id);
+            }
+            varienElementMethods.setHasChanges(node.getUI().checkbox);
+        }, tree);
+
+        var root = new Ext.tree.TreeNode({
+            text: '<?php echo $this->jsQuoteEscape($this->getRootNode()->getName()) ?>',
+            draggable:false,
+            checked:'<?php echo $this->getRootNode()->getChecked() ?>',
+            id:'<?php echo $this->getRootNode()->getId() ?>',
+            disabled: <?php echo ($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
+            uiProvider: Ext.tree.CheckboxNodeUI
+        });
+        tree.setRootNode(root);
+        bild{{Entity}}Tree(root, <?php echo $this->getTreeJson() ?>);
+        tree.addListener('click', {{entity}}Click.createDelegate(this));
+        // render the tree
+        tree.render();
+        root.expand();
+    });
+    function bild{{Entity}}Tree(parent, config){
+        if (!config) {
+            return null;
+        }
+        if (parent && config && config.length){
+            for (var i = 0; i < config.length; i++){
+                config[i].uiProvider = Ext.tree.CheckboxNodeUI;
+                var node;
+                var _node = Object.clone(config[i]);
+                if (_node.children && !_node.children.length) {
+                    delete(_node.children);
+                    node = new Ext.tree.AsyncTreeNode(_node);
+                }
+                else {
+                    node = new Ext.tree.TreeNode(config[i]);
+                }
+                parent.appendChild(node);
+                node.loader = node.getOwnerTree().loader;
+                if(config[i].children){
+                    bild{{Entity}}Tree(node, config[i].children);
+                }
+            }
+        }
+    }
+    function {{entity}}Click(node, e){
+        if (node.disabled) {
+            return;
+        }
+        node.getUI().check(!node.getUI().checked());
+        varienElementMethods.setHasChanges(Event.element(e), e);
+    };
+    function {{entity}}Add(id) {
+        var ids = $('product_{{entities}}').value.split(',');
+        ids.push(id);
+        $('product_{{entities}}').value = ids.join(',');
+    }
+    function {{entity}}Remove(id) {
+        var ids = $('product_{{entities}}').value.split(',');
+        while (-1 != ids.indexOf(id)) {
+            ids.splice(ids.indexOf(id), 1);
+        }
+        $('product_{{entities}}').value = ids.join(',');
+    }
+</script>
+<?php endif; ?>

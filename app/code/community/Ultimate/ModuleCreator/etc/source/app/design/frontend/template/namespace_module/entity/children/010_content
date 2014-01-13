@@ -1,0 +1,36 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} children list template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $_{{entities}} = $this->get{{Entities}}(); ?>
+<?php if ($_{{entities}}->getSize() > 0) :?>
+    <div class="page-title {{entity}}-title">
+        <h2><?php echo $this->getCurrent{{Entity}}()->get{{EntityNameMagicCode}}(); ?>:<?php echo $this->__('Children')?></h2>
+    </div>
+    <?php if ($this->_getDisplayMode() == 0) : ?>
+        <div class="{{entity}}-list-container">
+            <?php foreach ($_{{entities}} as $_{{entity}}) : ?>
+                <div class="{{entity}}-list-item">
+                    <a href="<?php echo $_{{entity}}->get{{Entity}}Url();?>" title="<?php echo $this->htmlEscape($_{{entity}}->get{{EntityNameMagicCode}}()) ?>">
+                        <?php echo $_{{entity}}->get{{EntityNameMagicCode}}(); ?>
+                    </a>
+                </div>
+            <?php endforeach;?>
+        </div>
+    <?php else : ?>
+        <ul id="{{entities}}-list">
+            <?php foreach ($_{{entities}} as $_{{entity}}) : ?>
+                <?php echo $this->draw{{Entity}}($_{{entity}});?>
+            <?php endforeach;?>
+        </ul>
+        <script type="text/javascript">
+            {{module}}Tree('{{entities}}-list');
+        </script>
+    <?php endif;?>
+<?php endif;?>

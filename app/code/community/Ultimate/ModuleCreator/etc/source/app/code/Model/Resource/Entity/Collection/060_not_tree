@@ -1,0 +1,23 @@
+    /**
+     * get {{entities}} as array
+     * @access protected
+     * @param string $valueField
+     * @param string $labelField
+     * @param array $additional
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _toOptionArray($valueField='entity_id', $labelField='{{nameAttributeCode}}', $additional=array()){
+        return parent::_toOptionArray($valueField, $labelField, $additional);
+    }
+    /**
+     * get options hash
+     * @access protected
+     * @param string $valueField
+     * @param string $labelField
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _toOptionHash($valueField='entity_id', $labelField='{{nameAttributeCode}}'){
+        return parent::_toOptionHash($valueField, $labelField);
+    }

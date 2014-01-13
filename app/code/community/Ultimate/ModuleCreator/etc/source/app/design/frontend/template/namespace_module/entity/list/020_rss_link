@@ -1,0 +1,3 @@
+    <?php if(Mage::helper('{{module}}/{{entity}}')->isRssEnabled()) : ?>
+        <a href="<?php echo Mage::helper('{{module}}/{{entity}}')->getRssUrl();?>" class="link-rss"><?php echo Mage::helper('{{module}}')->__('Subscribe to RSS Feed')?></a>
+    <?php endif;?>

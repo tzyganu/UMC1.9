@@ -1,0 +1,11 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} front contrller
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_{{Entity}}Controller
+    extends Mage_Core_Controller_Front_Action {

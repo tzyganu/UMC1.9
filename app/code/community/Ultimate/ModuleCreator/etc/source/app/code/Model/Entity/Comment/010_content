@@ -1,0 +1,83 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comment model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
+    extends Mage_Core_Model_Abstract {
+    const STATUS_PENDING  = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_REJECTED = 2;
+    /**
+     * Entity code.
+     * Can be used as part of method name for entity processing
+     */
+    const ENTITY    = '{{module}}_{{entity}}_comment';
+    const CACHE_TAG = '{{module}}_{{entity}}_comment';
+    /**
+     * Prefix of model events names
+     * @var string
+     */
+    protected $_eventPrefix = '{{module}}_{{entity}}_comment';
+
+    /**
+     * Parameter name in event
+     * @var string
+     */
+    protected $_eventObject = 'comment';
+    /**
+     * constructor
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function _construct(){
+        parent::_construct();
+        $this->_init('{{module}}/{{entity}}_comment');
+    }
+    /**
+     * before save {{entityLabel}} comment
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
+     * {{qwertyuiop}}
+     */
+    protected function _beforeSave(){
+        parent::_beforeSave();
+        $now = Mage::getSingleton('core/date')->gmtDate();
+        if ($this->isObjectNew()){
+            $this->setCreatedAt($now);
+        }
+        $this->setUpdatedAt($now);
+        return $this;
+    }
+    /**
+     * validate comment
+     * @access public
+     * @return array|bool
+     * {{qwertyuiop}}
+     */
+    public function validate() {
+        $errors = array();
+
+        if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
+            $errors[] = Mage::helper('review')->__('Comment title can\'t be empty');
+        }
+
+        if (!Zend_Validate::is($this->getName(), 'NotEmpty')) {
+            $errors[] = Mage::helper('review')->__('Your name can\'t be empty');
+        }
+
+        if (!Zend_Validate::is($this->getComment(), 'NotEmpty')) {
+            $errors[] = Mage::helper('review')->__('Comment can\'t be empty');
+        }
+
+        if (empty($errors)) {
+            return true;
+        }
+        return $errors;
+    }
+}

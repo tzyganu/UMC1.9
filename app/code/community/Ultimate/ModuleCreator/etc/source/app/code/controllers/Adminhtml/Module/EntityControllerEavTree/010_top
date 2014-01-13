@@ -1,0 +1,268 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} admin controller
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
+    extends Mage_Adminhtml_Controller_Action {
+    /**
+     * Initialize requested {{entityLabel}} and put it into registry.
+     * Root {{entityLabel}} can be returned, if inappropriate store/{{entityLabel}} is specified
+     * @access protected
+     * @param bool $getRootInstead
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    protected function _init{{Entity}}($getRootInstead = false) {
+        $this->_title($this->__('{{module_menu}}'))
+             ->_title($this->__('Manage {{EntitiesLabel}}'));
+        ${{entity}}Id = (int) $this->getRequest()->getParam('id',false);
+        $storeId    = (int) $this->getRequest()->getParam('store');
+        ${{entity}} = Mage::getModel('{{module}}/{{entity}}');
+        ${{entity}}->setStoreId($storeId);
+
+        if (${{entity}}Id) {
+            ${{entity}}->load(${{entity}}Id);
+            if ($storeId) {
+                $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                if (!in_array($rootId, ${{entity}}->getPathIds())) {
+                    // load root {{entityLabel}} instead wrong one
+                    if ($getRootInstead) {
+                        ${{entity}}->load($rootId);
+                    }
+                    else {
+                        $this->_redirect('*/*/', array('_current'=>true, 'id'=>null));
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if ($activeTabId = (string) $this->getRequest()->getParam('active_tab_id')) {
+            Mage::getSingleton('admin/session')->set{{Entity}}ActiveTabId($activeTabId);
+        }
+
+        Mage::register('{{entity}}', ${{entity}});
+        Mage::register('current_{{entity}}', ${{entity}});
+        Mage::getSingleton('cms/wysiwyg_config')->setStoreId($this->getRequest()->getParam('store'));
+        return ${{entity}};
+    }
+    /**
+     * index action
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function indexAction() {
+        $this->_forward('edit');
+    }
+
+    /**
+     * Add new {{entityLabel}} form
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function addAction() {
+        Mage::getSingleton('admin/session')->uns{{Entity}}ActiveTabId();
+        $this->_forward('edit');
+    }
+
+    /**
+     * Edit {{entityLabel}} page
+     */
+    public function editAction() {
+        $params['_current'] = true;
+        $redirect = false;
+
+        $storeId = (int) $this->getRequest()->getParam('store');
+        $parentId = (int) $this->getRequest()->getParam('parent');
+        $_prevStoreId = Mage::getSingleton('admin/session')
+            ->get{{Entity}}LastViewedStore(true);
+
+        if (!empty($_prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
+            $params['store'] = $_prevStoreId;
+            $redirect = true;
+        }
+
+        ${{entity}}Id = (int) $this->getRequest()->getParam('id');
+        $_prev{{Entity}}Id = Mage::getSingleton('admin/session')
+            ->getLastEdited{{Entity}}(true);
+
+
+        if ($_prev{{Entity}}Id
+            && !$this->getRequest()->getQuery('isAjax')
+            && !$this->getRequest()->getParam('clear')) {
+             $this->getRequest()->setParam('id',$_prev{{Entity}}Id);
+        }
+
+         if ($redirect) {
+            $this->_redirect('*/*/edit', $params);
+            return;
+        }
+
+        if ($storeId && !${{entity}}Id && !$parentId) {
+            $store = Mage::app()->getStore($storeId);
+            $_prev{{Entity}}Id = (int)Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+            $this->getRequest()->setParam('id', $_prev{{Entity}}Id);
+        }
+
+        if (!(${{entity}} = $this->_init{{Entity}}(true))) {
+            return;
+        }
+
+        $this->_title(${{entity}}Id ? ${{entity}}->getName() : $this->__('New {{EntityLabel}}'));
+
+        $data = Mage::getSingleton('adminhtml/session')->get{{Entity}}Data(true);
+        if (isset($data['{{entity}}'])) {
+            ${{entity}}->addData($data['{{entity}}']);
+        }
+
+        /**
+         * Build response for ajax request
+         */
+        if ($this->getRequest()->getQuery('isAjax')) {
+            $breadcrumbsPath = ${{entity}}->getPath();
+            if (empty($breadcrumbsPath)) {
+                $breadcrumbsPath = Mage::getSingleton('admin/session')->get{{Entity}}DeletedPath(true);
+                if (!empty($breadcrumbsPath)) {
+                    $breadcrumbsPath = explode('/', $breadcrumbsPath);
+                    if (count($breadcrumbsPath) <= 1) {
+                        $breadcrumbsPath = '';
+                    }
+                    else {
+                        array_pop($breadcrumbsPath);
+                        $breadcrumbsPath = implode('/', $breadcrumbsPath);
+                    }
+                }
+            }
+
+            Mage::getSingleton('admin/session')
+                ->set{{Entity}}LastViewedStore($this->getRequest()->getParam('store'));
+            Mage::getSingleton('admin/session')
+                ->setLastEdited{{Entity}}(${{entity}}->getId());
+            $this->loadLayout();
+
+            $eventResponse = new Varien_Object(array(
+                'content' => $this->getLayout()->getBlock('{{entity}}.edit')->getFormHtml()
+                    . $this->getLayout()->getBlock('{{entity}}.tree')
+                    ->getBreadcrumbsJavascript($breadcrumbsPath, 'editing{{Entity}}Breadcrumbs'),
+                'messages' => $this->getLayout()->getMessagesBlock()->getGroupedHtml(),
+            ));
+
+            Mage::dispatchEvent('{{entity}}_prepare_ajax_response', array(
+                'response' => $eventResponse,
+                'controller' => $this
+            ));
+
+            $this->getResponse()->setBody(
+                Mage::helper('core')->jsonEncode($eventResponse->getData())
+            );
+
+            return;
+        }
+
+        $this->loadLayout();
+        $this->_setActiveMenu('{{selectedMenuPath}}');
+        $this->getLayout()->getBlock('head')->setCanLoadExtJs(true)
+            ->setContainerCssClass('{{entities}}');
+
+        $this->_addBreadcrumb(Mage::helper('{{module}}')->__('Manage {{EntitiesLabel}}'),
+             Mage::helper('catalog')->__('Manage {{EntitiesLabel}}s')
+        );
+
+        $block = $this->getLayout()->getBlock('catalog.wysiwyg.js');
+        if ($block) {
+            $block->setStoreId($storeId);
+        }
+
+        $this->renderLayout();
+    }
+
+    /**
+     * WYSIWYG editor action for ajax request
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function wysiwygAction() {
+        $elementId = $this->getRequest()->getParam('element_id', md5(microtime()));
+        $storeId = $this->getRequest()->getParam('store_id', 0);
+        $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+
+        $content = $this->getLayout()->createBlock('adminhtml/catalog_helper_form_wysiwyg_content', '', array(
+            'editor_element_id' => $elementId,
+            'store_id'          => $storeId,
+            'store_media_url'   => $storeMediaUrl,
+        ));
+
+        $this->getResponse()->setBody($content->toHtml());
+    }
+
+    /**
+     * Get tree node (Ajax version)
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function {{entities}}JsonAction() {
+        if ($this->getRequest()->getParam('expand_all')) {
+            Mage::getSingleton('admin/session')->set{{Entity}}IsTreeWasExpanded(true);
+        } else {
+            Mage::getSingleton('admin/session')->set{{Entity}}IsTreeWasExpanded(false);
+        }
+        if (${{entity}}Id = (int) $this->getRequest()->getPost('id')) {
+            $this->getRequest()->setParam('id', ${{entity}}Id);
+
+            if (!${{entity}} = $this->_init{{Entity}}()) {
+                return;
+            }
+            $this->getResponse()->setBody(
+                $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree')
+                    ->getTreeJson(${{entity}})
+            );
+        }
+    }
+
+    /**
+     * {{EntityLabel}} save
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function saveAction() {
+        if (!${{entity}} = $this->_init{{Entity}}()) {
+            return;
+        }
+
+        $storeId = $this->getRequest()->getParam('store');
+        $refreshTree = 'false';
+        if ($data = $this->getRequest()->getPost()) {
+            ${{entity}}->addData($data['{{entity}}']);
+            if (!${{entity}}->getId()) {
+                $parentId = $this->getRequest()->getParam('parent');
+                if (!$parentId) {
+                    $parentId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                }
+                $parent{{Entity}} = Mage::getModel('{{module}}/{{entity}}')->load($parentId);
+                ${{entity}}->setPath($parent{{Entity}}->getPath());
+            }
+
+            /**
+             * Process "Use Config Settings" checkboxes
+             */
+            if ($useConfig = $this->getRequest()->getPost('use_config')) {
+                foreach ($useConfig as $attributeCode) {
+                    ${{entity}}->setData($attributeCode, null);
+                }
+            }
+
+            ${{entity}}->setAttributeSetId(${{entity}}->getDefaultAttributeSetId());
+
+            Mage::dispatchEvent('{{module}}_{{entity}}_prepare_save', array(
+                '{{entity}}' => ${{entity}},
+                'request' => $this->getRequest()
+            ));
+
+            ${{entity}}->setData("use_post_data_config", $this->getRequest()->getPost('use_config'));
+
+            try {

@@ -1,0 +1,6 @@
+                $categories = $this->getRequest()->getPost('category_ids', -1);
+                if ($categories != -1) {
+                    $categories = explode(',', $categories);
+                    $categories = array_unique($categories);
+                    ${{entity}}->setCategoriesData($categories);
+                }

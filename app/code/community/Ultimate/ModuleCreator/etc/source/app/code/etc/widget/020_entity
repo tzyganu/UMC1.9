@@ -1,0 +1,44 @@
+    <{{module}}_{{entity}}_view type="{{module}}/{{entity}}_widget_view" translate="name description" module="{{module}}">
+        <name>{{EntityLabel}} view</name>
+        <description>{{EntityLabel}} view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <{{entity}}_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>{{EntityLabel}}</label>
+                <type>label</type>
+                <helper_block>
+                    <type>{{module}}/adminhtml_{{entity}}_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select {{EntityLabel}}</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </{{entity}}_id>
+        </parameters>
+    </{{module}}_{{entity}}_view>
+    <{{module}}_{{entity}}_link type="{{module}}/{{entity}}_widget_link" translate="name description" module="{{module}}">
+        <name>{{EntityLabel}} link</name>
+        <description>{{EntityLabel}} link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <{{entity}}_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>{{EntityLabel}}</label>
+                <type>label</type>
+                <helper_block>
+                    <type>{{module}}/adminhtml_{{entity}}_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select {{EntityLabel}}</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </{{entity}}_id>
+        </parameters>
+    </{{module}}_{{entity}}_link>

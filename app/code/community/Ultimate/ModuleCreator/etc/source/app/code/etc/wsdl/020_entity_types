@@ -1,0 +1,34 @@
+            <complexType name="{{module}}{{Entity}}ListEntity">
+                <all>
+                    <element name="entity_id" type="xsd:string" minOccurs="1" />
+{{entityWsdlAttributes}}
+                    <element name="created_at" type="xsd:string" minOccurs="1" />
+                    <element name="updated_at" type="xsd:string" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}ListEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}ListEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AddEntity">
+                <all>
+{{entityWsdlAttributes}}
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}UpdateEntity">
+                <all>
+{{entityWsdlAttributes}}
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}InfoEntity">
+                <all>
+                    <element name="entity_id" type="xsd:string" minOccurs="1" />
+{{entityWsdlAttributes}}
+                    <element name="created_at" type="xsd:string" minOccurs="1" />
+                    <element name="updated_at" type="xsd:string" minOccurs="1" />
+                </all>
+            </complexType>
+{{entityWsdlRelationTypes}}

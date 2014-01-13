@@ -1,0 +1,5 @@
+    <catalog_category_view>
+        <reference name="content">
+            <block type="{{module}}/catalog_category_list_{{entity}}" name="category.info.{{entities}}" as="category_{{entities}}" template="{{namespace}}_{{module}}/catalog/category/list/{{entity}}.phtml" after="-" />
+        </reference>
+    </catalog_category_view>

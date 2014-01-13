@@ -1,0 +1,18 @@
+{{License}}
+.tree,.tree ul,.tree li{list-style:none;margin:0;padding:0;}
+.tree{background:url(../../images/{{namespace}}_{{module}}/line1.png) repeat-y;}
+.tree li{line-height:20px;margin-top:1px;position:relative;width:100%;}
+* html .tree li{float:left;display:inline;}
+.tree li a{padding-left:28px;}
+.tree li span{cursor:auto;float:left;font-size:0;height:13px;left:5px;position:absolute;top:5px;width:13px;}
+.tree li span,.tree li span.collapsed{background:url(../../images/{{namespace}}_{{module}}/collapsed.png) no-repeat 0 0;}
+.tree li span.expanded{background:url(../../images/{{namespace}}_{{module}}/expanded.png) no-repeat 0 0;}
+.tree li ul{margin-left:28px;background:url(../../images/{{namespace}}_{{module}}/line1.png) repeat-y;}
+.tree li li{background:url(../../images/{{namespace}}_{{module}}/line2.png) no-repeat 0 0;}
+.tree:after,.tree ul:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+.tree,.tree ul{display:block;}
+.tree li.map-category{font-weight:bold;}
+.tree li.map-product{font-weight:normal;}
+.tree li.map-product a{color:#203548;}
+/* \*/ .tree,.tree ul{min-height:1%;}
+* html .tree,* html .tree ul{height:1%;}

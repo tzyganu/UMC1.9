@@ -1,0 +1,46 @@
+<?php
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Ultimate
+ * @package        Ultimate_ModuleCreator
+ * @copyright      Copyright (c) 2013
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+/**
+ * entities tab template
+ * @category	Ultimate
+ * @package		Ultimate_ModuleCreator
+ * @author 		Marius Strajeru <marius.strajeru@gmail.com>
+ */
+?>
+<?php $_entities = $this->getEntities();?>
+<div id="entities-wrapper" class="fieldset-wrapper">
+    <div class="fieldset-wrapper-title">
+        <strong class="title active">
+            <span class="entity-title">
+                <?php echo Mage::helper('modulecreator')->__('Entities');?>
+            </span>
+        </strong>
+    </div>
+    <div id="entities_container">
+        <?php $_increment = 0;foreach ($_entities as $_code=>$_entity) : ?>
+            <?php
+            echo $this->getLayout()
+                ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity')
+                ->setTemplate('ultimate_modulecreator/edit/tab/entities/entity.phtml')
+                ->setEntity($_entity)
+                ->setIncrement($_increment++)
+                ->toHtml();
+            ?>
+        <?php endforeach;?>
+    </div>
+</div>

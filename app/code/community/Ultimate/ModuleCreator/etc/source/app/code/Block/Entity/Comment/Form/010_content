@@ -1,0 +1,61 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comment form block
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiop}}
+ */
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
+    extends Mage_Core_Block_Template {
+    /**
+     * initialize
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function __construct() {
+        $customerSession = Mage::getSingleton('customer/session');
+        parent::__construct();
+        $data =  Mage::getSingleton('customer/session')->get{{Entity}}CommentFormData(true);
+        $data = new Varien_Object($data);
+        // add logged in customer name as nickname
+        if (!$data->getName()) {
+            $customer = $customerSession->getCustomer();
+            if ($customer && $customer->getId()) {
+                $data->setName($customer->getFirstname());
+                $data->setEmail($customer->getEmail());
+            }
+        }
+        $this->setAllowWriteCommentFlag($customerSession->isLoggedIn() || Mage::getStoreConfigFlag('{{module}}/{{entity}}/allow_guest_comment'));
+        if (!$this->getAllowWriteCommentFlag()) {
+            $this->setLoginLink(
+                Mage::getUrl('customer/account/login/', array(
+                    Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
+                        Mage::getUrl('*/*/*', array('_current' => true)) .
+                        '#comment-form')
+                    )
+                )
+            );
+        }
+        $this->setCommentData($data);
+    }
+    /**
+     * get current {{EntityLabel}}
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    public function get{{Entity}}() {
+        return Mage::registry('current_{{module}}_{{entity}}');
+    }
+    /**
+     * get form action
+     * @access public
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getAction() {
+        return Mage::getUrl('{{module}}/{{entity}}/commentpost', array('id' => $this->get{{Entity}}()->getId()));
+    }
+}

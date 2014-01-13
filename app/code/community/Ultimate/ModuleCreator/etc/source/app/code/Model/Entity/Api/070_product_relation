@@ -1,0 +1,55 @@
+    /**
+     * Assign product to {{entityLabel}}
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $productId
+     * @param int $position
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function assignProduct(${{entity}}Id, $productId, $position = null){
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $products     = ${{entity}}->getSelectedProducts();
+        foreach ($products as $product){
+            $positions[$product->getId()] = array('position'=>$product->getPosition());
+        }
+        $product = Mage::getModel('catalog/product')->load($productId);
+        if (!$product->getId()){
+            $this->_fault('product_not_exists');
+        }
+        $positions[$productId]['position'] = $position;
+        ${{entity}}->setProductsData($positions);
+        try {
+            ${{entity}}->save();
+        }
+        catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }
+    /**
+     * remove product from {{entityLabel}}
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $productId
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function unassignProduct(${{entity}}Id, $productId){
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $products     = ${{entity}}->getSelectedProducts();
+        foreach ($products as $product){
+            $positions[$product->getId()] = array('position'=>$product->getPosition());
+        }
+        unset($positions[$productId]);
+        ${{entity}}->setProductsData($positions);
+        try {
+            ${{entity}}->save();
+        }
+        catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }

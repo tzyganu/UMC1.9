@@ -1,0 +1,3 @@
+                         ->setStoreId(Mage::app()->getStore()->getId())
+                         ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1);

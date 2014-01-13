@@ -1,0 +1,55 @@
+    /**
+     * Assign category to {{entityLabel}}
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $categoryId
+     * @param int $position
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function assignCategory(${{entity}}Id, $categoryId, $position = null){
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $categories    = ${{entity}}->getSelectedCategories();
+        foreach ($categories as $category){
+            $positions[$category->getId()] = array('position'=>$category->getPosition());
+        }
+        $category = Mage::getModel('catalog/category')->load($categoryId);
+        if (!$category->getId()){
+            $this->_fault('category_not_exists');
+        }
+        $positions[$categoryId]['position'] = $position;
+        ${{entity}}->setCategoriesData($positions);
+        try {
+            ${{entity}}->save();
+        }
+        catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }
+    /**
+     * remove category from {{entityLabel}}
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $categoryId
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function unassignCategory(${{entity}}Id, $categoryId){
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $categories    = ${{entity}}->getSelectedCategories();
+        foreach ($categories as $category){
+            $positions[$category->getId()] = array('position'=>$category->getPosition());
+        }
+        unset($positions[$categoryId]);
+        ${{entity}}->setCategoriesData($positions);
+        try {
+            ${{entity}}->save();
+        }
+        catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }

@@ -1,0 +1,9 @@
+    /**
+     * get default values
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getDefaultValues() {
+        $values = array();
+        $values['status'] = 1;

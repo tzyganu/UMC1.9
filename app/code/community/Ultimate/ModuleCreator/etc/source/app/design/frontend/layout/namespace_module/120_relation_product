@@ -1,0 +1,8 @@
+    <catalog_product_view>
+        <reference name="product.info">
+            <block type="{{module}}/catalog_product_list_{{entity}}" name="product.info.{{entities}}" as="product_{{entities}}" template="{{namespace}}_{{module}}/catalog/product/list/{{entity}}.phtml">
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value" module="{{module}}"><value>{{EntitiesLabel}}</value></action>
+            </block>
+        </reference>
+    </catalog_product_view>

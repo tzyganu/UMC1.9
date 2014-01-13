@@ -1,0 +1,46 @@
+            <{{module}}_{{entity}} translate="title" module="{{module}}">
+                <title>{{EntityLabel}} API</title>
+                <model>{{module}}/{{entity}}_api</model>
+                <acl>{{module}}/{{entity}}</acl>
+                <methods>
+                    <list translate="title" module="{{module}}">
+                        <title>Retrieve list of {{entitiesLabel}}</title>
+                        <method>items</method>
+                        <acl>{{module}}/{{entity}}/list</acl>
+                    </list>
+                    <info translate="title" module="{{module}}">
+                        <title>Retrieve {{entityLabel}} info</title>
+                        <acl>{{module}}/{{entity}}/info</acl>
+                    </info>
+                    <add translate="title" module="{{module}}">
+                        <title>Add {{entityLabel}}</title>
+                        <acl>{{module}}/{{entity}}/add</acl>
+                    </add>
+                    <update translate="title" module="{{module}}">
+                        <title>Update {{entityLabel}}</title>
+                        <acl>{{module}}/{{entity}}/update</acl>
+                    </update>
+                    <remove translate="title" module="{{module}}">
+                        <title>Remove {{entityLabel}}</title>
+                        <acl>{{module}}/{{entity}}/remove</acl>
+                    </remove>
+{{entityApiAdditional}}</methods>
+                <faults module="{{module}}">
+                    <{{entity}}_not_exists>
+                        <code>101</code>
+                        <message>Requested {{entityLabel}} does not exist.</message>
+                    </{{entity}}_not_exists>
+                    <invalid_data>
+                        <code>102</code>
+                        <message>Provided data is invalid.</message>
+                    </invalid_data>
+                    <save_error>
+                        <code>103</code>
+                        <message>Error while saving {{entityLabel}}. Details in error message.</message>
+                    </save_error>
+                    <remove_error>
+                        <code>104</code>
+                        <message>Error while removing {{entityLabel}}. Details in error message.</message>
+                    </remove_error>
+{{entityApiFaults}}</faults>
+            </{{module}}_{{entity}}>

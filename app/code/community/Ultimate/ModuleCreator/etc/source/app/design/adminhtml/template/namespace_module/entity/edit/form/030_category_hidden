@@ -1,0 +1,1 @@
+        <input type="hidden" name="{{entity}}_categories" id="in_{{entity}}_categories" value="" />

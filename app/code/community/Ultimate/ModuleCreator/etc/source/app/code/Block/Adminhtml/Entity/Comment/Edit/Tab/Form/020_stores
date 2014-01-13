@@ -1,0 +1,7 @@
+        if (Mage::app()->isSingleStoreMode()){
+            $fieldset->addField('store_id', 'hidden', array(
+                'name'      => 'stores[]',
+                'value'     => Mage::app()->getStore(true)->getId()
+            ));
+            Mage::registry('current_comment')->setStoreId(Mage::app()->getStore(true)->getId());
+        }

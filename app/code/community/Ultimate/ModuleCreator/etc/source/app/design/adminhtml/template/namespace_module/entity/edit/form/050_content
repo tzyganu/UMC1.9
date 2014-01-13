@@ -1,0 +1,114 @@
+    </div>
+    <div id="{{entity}}_tab_content"></div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    {{entity}}Form = new varienForm('{{entity}}_edit_form');
+    {{entity}}Form.submit= function (url) {
+        this.errorSections = $H({});
+        this.canShowError = true;
+        this.submitUrl = url;
+        if (this.validator && this.validator.validate()) {
+            if(this.validationUrl){
+                this._validate();
+            }
+            else{
+                if (this.isSubmitted) {
+                    return false;
+                }
+                this.isSubmitted = true;
+                this._submit();
+            }
+            displayLoadingMask();
+            return true;
+        }
+        return false;
+    };
+    {{entity}}Form.refreshPath = function () {
+        {{entity}}Id = this.get{{Entity}}Id();
+        if (!{{entity}}Id) {
+            return false;
+        }
+        var refreshPathSuccess = function(transport) {
+            if (transport.responseText.isJSON()) {
+                response = transport.responseText.evalJSON()
+                if (response.error) {
+                    alert(response.message);
+                }
+                else {
+                    if ({{entity}}Form.get{{Entity}}Id() == response['id']) {
+                        {{entity}}Form.set{{Entity}}Path(response['path']);
+                    }
+                }
+            }
+        };
+        new Ajax.Request(
+            '<?php echo $this->getRefreshPathUrl() ?>',
+            {
+                method: 'POST',
+                evalScripts: true,
+                onSuccess: refreshPathSuccess
+            }
+        );
+    };
+
+    {{entity}}Form.get{{Entity}}Id = function () {
+        collection = $(this.formId).getInputs('hidden','{{entity}}[id]');
+        if (collection.size() > 0) {
+            return collection.first().value;
+        }
+        return false;
+    };
+    {{entity}}Form.set{{Entity}}Path = function (path) {
+        collection = $(this.formId).getInputs('hidden','{{entity}}[path]');
+        if (collection.size() > 0) {
+            return collection.first().value = path;
+        }
+    };
+    function {{entity}}Submit(url, useAjax) {
+        var activeTab = $('active_tab_id');
+        if (activeTab) {
+            if (activeTab.tabsJsObject && activeTab.tabsJsObject.activeTab) {
+                activeTab.value = activeTab.tabsJsObject.activeTab.id;
+            }
+        }
+        var params = {};
+        var fields = $('{{entity}}_edit_form').getElementsBySelector('input', 'select');
+        for(var i=0;i<fields.length;i++){
+            if (!fields[i].name) {
+                continue;
+            }
+            params[fields[i].name] = fields[i].getValue();
+        }
+        var {{entity}}Id = params['{{entity}}[id]'] ? params['{{entity}}[id]'] : 0;
+        var isCreating = {{entity}}Id == 0;
+        var path = params['{{entity}}[path]'].split('/');
+        var parentId = path.pop();
+        if (parentId == {{entity}}Id) {
+            parentId = path.pop();
+        }
+        if (isCreating) {
+            if (!tree.currentNodeId) {
+                tree.currentNodeId = parentId;
+            }
+            tree.addNodeTo = parentId;
+        }
+        else {
+            var currentNode = tree.getNodeById({{entity}}Id);
+            var oldClass = 'active-category';
+            var newClass = 'active-category';
+            if (currentNode) {
+                if (parseInt(params['{{entity}}[status]'])) {
+                    var oldClass = 'no-active-category';
+                    var newClass = 'active-category';
+                }
+                else {
+                    var oldClass = 'active-category';
+                    var newClass = 'no-active-category';
+                }
+                Element.removeClassName(currentNode.ui.wrap.firstChild, oldClass);
+                Element.addClassName(currentNode.ui.wrap.firstChild, newClass);
+            }
+        }
+        {{entity}}Form.submit();
+    }

@@ -1,0 +1,24 @@
+    /**
+     * get categories action
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function categoriesAction(){
+        $this->_init{{Entity}}();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    /**
+     * get child categories action
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function categoriesJsonAction(){
+        $this->_init{{Entity}}();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_categories')
+                ->getCategoryChildrenJson($this->getRequest()->getParam('category'))
+        );
+    }

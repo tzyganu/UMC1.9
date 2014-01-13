@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+{{License}}
+<config>
+    <modules>
+        <{{Namespace}}_{{Module}}>
+            <active>true</active>
+            <codePool>{{codepool}}</codePool>
+            <depends>
+                <Mage_Core />
+                <Mage_Catalog />
+            </depends>
+        </{{Namespace}}_{{Module}}>
+    </modules>
+</config>

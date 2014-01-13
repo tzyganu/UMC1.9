@@ -1,0 +1,1 @@
+        $this->_map['fields']['store'] = 'store_table.store_id';

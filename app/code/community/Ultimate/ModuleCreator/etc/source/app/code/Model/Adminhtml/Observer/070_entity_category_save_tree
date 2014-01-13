@@ -1,0 +1,17 @@
+    /**
+     * save {{entity}} - category relation
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return {{Namespace}}_{{Module}}_Model_Adminhtml_Observer
+     * {{qwertyuiop}}
+     */
+    public function saveCategory{{Entity}}Data($observer){
+        $post = Mage::app()->getRequest()->getPost('{{entity}}_ids', -1);
+        if ($post != '-1') {
+            $post = explode(',', $post);
+            $post = array_unique($post);
+            $category = $observer->getEvent()->getCategory();
+            Mage::getResourceSingleton('{{module}}/{{entity}}_category')->saveCategoryRelation($category, $post);
+        }
+        return $this;
+    }

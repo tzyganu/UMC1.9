@@ -1,0 +1,10 @@
+    /**
+     * Retrieve {{entityLabel}} entity
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    public function get{{Entity}}(){
+        return Mage::registry('current_{{entity}}');
+    }
+}

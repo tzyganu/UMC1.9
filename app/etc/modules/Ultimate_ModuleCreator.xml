@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_ModuleCreator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE_UMC.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ultimate
+ * @package    Ultimate_ModuleCreator
+ * @copyright  Copyright (c) 2013
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * @category    Ultimate
+ * @package     Ultimate_ModuleCreator
+ * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
+ */
+ -->
+<config>
+    <modules>
+        <Ultimate_ModuleCreator>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Core />
+                <Mage_Catalog />
+            </depends>
+        </Ultimate_ModuleCreator>
+    </modules>
+</config>

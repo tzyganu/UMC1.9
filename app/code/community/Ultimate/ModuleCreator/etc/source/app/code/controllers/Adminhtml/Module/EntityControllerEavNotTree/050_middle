@@ -1,0 +1,142 @@
+            if ($useDefaults = $this->getRequest()->getPost('use_default')) {
+                foreach ($useDefaults as $attributeCode) {
+                    ${{entity}}->setData($attributeCode, false);
+                }
+            }
+            try {
+                ${{entity}}->save();
+                ${{entity}}Id = ${{entity}}->getId();
+                $this->_getSession()->addSuccess(Mage::helper('{{module}}')->__('{{EntityLabel}} was saved'));
+            }
+            catch (Mage_Core_Exception $e) {
+                Mage::logException($e);
+                $this->_getSession()->addError($e->getMessage())
+                    ->set{{Entity}}Data(${{entity}}Data);
+                $redirectBack = true;
+            }
+            catch (Exception $e){
+                Mage::logException($e);
+                $this->_getSession()->addError(Mage::helper('{{module}}')->__('Error saving {{entityLabel}}'))
+                    ->set{{Entity}}Data(${{entity}}Data);
+                $redirectBack = true;
+            }
+        }
+        if ($redirectBack) {
+            $this->_redirect('*/*/edit', array(
+                'id'    => ${{entity}}Id,
+                '_current'=>true
+            ));
+        }
+        else {
+            $this->_redirect('*/*/', array('store'=>$storeId));
+        }
+    }
+    /**
+     * delete {{entity}}
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function deleteAction(){
+        if ($id = $this->getRequest()->getParam('id')) {
+            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
+            try {
+                ${{entity}}->delete();
+                $this->_getSession()->addSuccess(Mage::helper('{{module}}')->__('The {{entitiesLabel}} has been deleted.'));
+            }
+            catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+            }
+        }
+        $this->getResponse()->setRedirect($this->getUrl('*/*/', array('store'=>$this->getRequest()->getParam('store'))));
+    }
+    /**
+     * mass delete {{entities}}
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function massDeleteAction() {
+        ${{entity}}Ids = $this->getRequest()->getParam('{{entity}}');
+        if (!is_array(${{entity}}Ids)) {
+            $this->_getSession()->addError($this->__('Please select {{entitiesLabel}}.'));
+        }
+        else {
+            try {
+                foreach (${{entity}}Ids as ${{entity}}Id) {
+                    ${{entity}} = Mage::getSingleton('{{module}}/{{entity}}')->load(${{entity}}Id);
+                    Mage::dispatchEvent('{{module}}_controller_{{entity}}_delete', array('{{entity}}' => ${{entity}}));
+                    ${{entity}}->delete();
+                }
+                $this->_getSession()->addSuccess(
+                    Mage::helper('{{module}}')->__('Total of %d record(s) have been deleted.', count(${{entity}}Ids))
+                );
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/index');
+    }
+    /**
+     * grid action
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function gridAction(){
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    /**
+     * restrict access
+     * @access protected
+     * @return bool
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     * {{qwertyuiop}}
+     */
+     protected function _isAllowed(){
+        return Mage::getSingleton('admin/session')->isAllowed('{{namespace}}/{{module}}/{{entity}}');
+    }
+    /**
+     * Export {{entities}} in CSV format
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function exportCsvAction(){
+        $fileName   = '{{entities}}.csv';
+        $content    = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_grid')
+            ->getCsvFile();
+        $this->_prepareDownloadResponse($fileName, $content);
+    }
+
+    /**
+     * Export {{entities}} in Excel XML format
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function exportXmlAction(){
+        $fileName   = '{{entities}}.xls';
+        $content    = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_grid')
+            ->getExcelFile();
+        $this->_prepareDownloadResponse($fileName, $content);
+    }
+    /**
+     * wysiwyg editor action
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function wysiwygAction() {
+        $elementId = $this->getRequest()->getParam('element_id', md5(microtime()));
+        $storeId = $this->getRequest()->getParam('store_id', 0);
+        $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+
+        $content = $this->getLayout()->createBlock('{{module}}/adminhtml_{{module}}_helper_form_wysiwyg_content', '', array(
+            'editor_element_id' => $elementId,
+            'store_id'          => $storeId,
+            'store_media_url'   => $storeMediaUrl,
+        ));
+        $this->getResponse()->setBody($content->toHtml());
+    }

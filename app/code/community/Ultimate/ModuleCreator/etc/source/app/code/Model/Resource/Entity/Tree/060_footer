@@ -1,0 +1,164 @@
+    /**
+     * Get real existing {{entityLabel}} ids by specified ids
+     * @access public
+     * @param array $ids
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getExisting{{Entity}}IdsBySpecifiedIds($ids){
+        if (empty($ids)) {
+            return array();
+        }
+        if (!is_array($ids)) {
+            $ids = array($ids);
+        }
+        $select = $this->_conn->select()
+            ->from($this->_table, array('entity_id'))
+            ->where('entity_id IN (?)', $ids);
+        return $this->_conn->fetchCol($select);
+    }
+    /**
+     * add collection data
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
+     * @param boolean $sorted
+     * @param array $exclude
+     * @param boolean $toLoad
+     * @param boolean $onlyActive
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
+     * {{qwertyuiop}}
+     */
+    public function addCollectionData($collection = null, $sorted = false, $exclude = array(), $toLoad = true, $onlyActive = false){
+        if (is_null($collection)) {
+            $collection = $this->getCollection($sorted);
+        } else {
+            $this->setCollection($collection);
+        }
+        if (!is_array($exclude)) {
+            $exclude = array($exclude);
+        }
+        $nodeIds = array();
+        foreach ($this->getNodes() as $node) {
+            if (!in_array($node->getId(), $exclude)) {
+                $nodeIds[] = $node->getId();
+            }
+        }
+        $collection->addIdFilter($nodeIds);
+        if ($onlyActive) {
+            $disabledIds = $this->_getDisabledIds($collection);
+            if ($disabledIds) {
+                $collection->{{filterMethod}}('entity_id', array('nin' => $disabledIds));
+            }
+            $collection->{{filterMethod}}('status', 1);
+        }
+        if ($toLoad) {
+            $collection->load();
+            foreach ($collection as ${{entity}}) {
+                if ($this->getNodeById(${{entity}}->getId())) {
+                    $this->getNodeById(${{entity}}->getId())->addData(${{entity}}->getData());
+                }
+            }
+            foreach ($this->getNodes() as $node) {
+                if (!$collection->getItemById($node->getId()) && $node->getParent()) {
+                    $this->removeNode($node);
+                }
+            }
+        }
+        return $this;
+    }
+    /**
+      * Add inactive {{entitiesLabel}} ids
+     * @access public
+     * @param unknown_type $ids
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
+     * {{qwertyuiop}}
+     */
+    public function addInactive{{Entity}}Ids($ids){
+        if (!is_array($this->_inactive{{Entity}}Ids)) {
+            $this->_initInactive{{Entity}}Ids();
+        }
+        $this->_inactive{{Entity}}Ids = array_merge($ids, $this->_inactive{{Entity}}Ids);
+        return $this;
+    }
+    /**
+     * Retrieve inactive {{entitiesLabel}} ids
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
+     * {{qwertyuiop}}
+     */
+    protected function _initInactive{{Entity}}Ids(){
+        $this->_inactive{{Entity}}Ids = array();
+        return $this;
+    }
+    /**
+     * Retrieve inactive {{entitiesLabel}} ids
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getInactive{{Entity}}Ids(){
+        if (!is_array($this->_inactive{{Entity}}Ids)) {
+            $this->_initInactive{{Entity}}Ids();
+        }
+        return $this->_inactive{{Entity}}Ids;
+    }
+    /**
+     * Return disable {{entityLabel}} ids
+     * @access protected
+     * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _getDisabledIds($collection){
+        $this->_inactiveItems = $this->getInactive{{Entity}}Ids();
+        $this->_inactiveItems = array_merge(
+            $this->_getInactiveItemIds($collection),
+            $this->_inactiveItems
+        );
+        $allIds = $collection->getAllIds();
+        $disabledIds = array();
+
+        foreach ($allIds as $id) {
+            $parents = $this->getNodeById($id)->getPath();
+            foreach ($parents as $parent) {
+                if (!$this->_getItemIsActive($parent->getId())){
+                    $disabledIds[] = $id;
+                    continue;
+                }
+            }
+        }
+        return $disabledIds;
+    }
+    /**
+     * Retrieve inactive {{entityLabel}} item ids
+     * @access protecte
+     * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _getInactiveItemIds($collection){
+        $filter = $collection->getAllIdsSql();
+        $table = Mage::getSingleton('core/resource')->getTable('{{module}}/{{entity}}');
+        $bind = array(
+            'cond' => 0,
+        );
+        $select = $this->_conn->select()
+            ->from(array('d'=>$table), array('d.entity_id'))
+            ->where('d.entity_id IN (?)', new Zend_Db_Expr($filter))
+            ->where('status = :cond');
+        return $this->_conn->fetchCol($select, $bind);
+    }
+    /**
+     * Check is {{entityLabel}} items active
+     * @access protecte
+     * @param int $id
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    protected function _getItemIsActive($id){
+        if (!in_array($id, $this->_inactiveItems)) {
+            return true;
+        }
+        return false;
+    }
+}

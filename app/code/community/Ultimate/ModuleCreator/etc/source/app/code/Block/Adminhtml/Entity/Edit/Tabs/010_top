@@ -1,0 +1,17 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} admin edit tabs
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tabs
+    extends Mage_Adminhtml_Block_Widget_Tabs {
+    /**
+     * Initialize Tabs
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function __construct() {

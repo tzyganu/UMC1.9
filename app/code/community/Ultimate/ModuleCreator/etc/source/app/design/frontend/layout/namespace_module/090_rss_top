@@ -1,0 +1,3 @@
+    <rss_index_index>
+        <reference name="content">
+            <block type="{{module}}/rss" name="{{module}}.rss" template="{{namespace}}_{{module}}/rss.phtml">

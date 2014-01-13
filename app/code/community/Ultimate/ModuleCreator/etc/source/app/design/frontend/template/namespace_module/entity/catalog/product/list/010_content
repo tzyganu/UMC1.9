@@ -1,0 +1,23 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} product list template
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php $products = $this->getProductCollection();?>
+<?php if ($products->count() > 0) :?>
+<h2><?php echo Mage::helper('catalog')->__('Products');?></h2>
+<div class="box-collateral box-products box-up-sell">
+    <?php foreach ($products as $product) : ?>
+        <div class="item">
+            <a href="<?php echo $product->getProductUrl()?>">
+                <?php echo $product->getName();?><br />
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif;?>

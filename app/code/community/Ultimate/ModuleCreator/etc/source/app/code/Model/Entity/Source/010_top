@@ -1,0 +1,21 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} source model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Source
+    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+    /**
+     * Get all options
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getAllOptions($withEmpty = false) {
+        if (is_null($this->_options)) {
+            $this->_options = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+

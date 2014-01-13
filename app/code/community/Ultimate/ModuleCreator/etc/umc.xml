@@ -1,0 +1,1023 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Ultimate_ModuleCreator extension
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the MIT License
+* that is bundled with this package in the file LICENSE_UMC.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/mit-license.php
+*
+* @category       Ultimate
+* @package        Ultimate_ModuleCreator
+* @copyright      Copyright (c) 2013
+* @license        http://opensource.org/licenses/mit-license.php MIT License
+* @author         Marius Strajeru <ultimate.module.creator@gmail.com>
+*/
+-->
+<config>
+    <forms>
+        <settings>
+            <fieldsets>
+                <settings translate="label description" module="modulecreator">
+                    <label>General Information</label>
+                    <description>This tab allows you to fill in the general data about your module</description>
+                    <fields>
+                        <namespace translate="label tooltip" module="modulecreator">
+                            <label>Namespace</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>10</position>
+                            <system>1</system>
+                            <tooltip>This is the folder name of your new extension. Your company name should go here. Use only letters and numbers. Start with a capital letter.</tooltip>
+                        </namespace>
+                        <module_name translate="label tooltip additional" module="modulecreator">
+                            <label>Module name</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>20</position>
+                            <tooltip><![CDATA[This is your extension/module name. It should be something meaningful and not very long.<br />Try to use a noun in singular form. Start with a capital letter.]]></tooltip>
+                            <additional>For security reasons, to avoid module name collisions with the Magento core you cannot name a module just like an existing one even in a different namespace: "Catalog", "Sales", "Checkout"...</additional>
+                        </module_name>
+                        <codepool translate="label tooltip" module="modulecreator">
+                            <label>Code pool</label>
+                            <type>select</type>
+                            <source>modulecreator/source_codepool</source>
+                            <required>1</required>
+                            <position>25</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[This is the code folder in which your extension will be installed. If you don't know what goes here, choose "local"]]></tooltip>
+                        </codepool>
+                        <install translate="label tooltip additional" module="modulecreator">
+                            <label>Action</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <source>modulecreator/source_install</source>
+                            <position>30</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[This allows you to directly install the module you create on the current Magento instance, or create a zip with it and install it later.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-warning">Warning:</span>The zip is not compatible with Magento Connect. It's just a simple archive with the files of the module.<br />If you choose to install the module directly no file will be overwritten. If by a human error or UMC error a file should be overwritten then the 'Action' is changed to 'Create an archive. I will install it later.' and you will be notified of the files that were not overwritten.]]></additional>
+                        </install>
+                        <version translate="label tooltip" module="modulecreator">
+                            <label>Version</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>35</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[This is the version of the module.]]></tooltip>
+                        </version>
+                        <menu_text translate="label tooltip note" module="modulecreator">
+                            <label>Menu title</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>40</position>
+                            <tooltip>This is the title that will be added to the menu.</tooltip>
+                        </menu_text>
+                        <menu_parent translate="label tooltip note" module="modulecreator">
+                            <label>Parent menu ID</label>
+                            <type>text</type>
+                            <code>menu</code>
+                            <required>0</required>
+                            <position>50</position>
+                            <readonly>1</readonly>
+                            <class>menu-parent-id</class>
+                            <tooltip>This is the parent menu id of the module menu. Leave empty to add in top menu.</tooltip>
+                            <note><![CDATA[<a href="#">Select menu parent and position</a>]]></note>
+                        </menu_parent>
+                        <sort_order  translate="label tooltip" module="modulecreator">
+                            <label>Menu sort order</label>
+                            <type>text</type>
+                            <code>menu</code>
+                            <required>1</required>
+                            <position>60</position>
+                            <class>menu-sort-order</class>
+                            <readonly>1</readonly>
+                            <tooltip>This is the sort order in the menu.</tooltip>
+                            <note><![CDATA[<a href="#">Select menu parent and position</a>]]></note>
+                        </sort_order>
+                        <license translate="label tooltip" module="modulecreator">
+                            <label>License</label>
+                            <type>textarea</type>
+                            <code>license</code>
+                            <required>0</required>
+                            <position>70</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[The text you put here will be added at the top of (almost) each file in the module you create.<br />Use {{Namespace}} as a placeholder for namespace, {{Module}} as a placeholder for the module name and {{Y}} as placeholder for current year.<br />If you don't want any License text on your files just leave this field empty.]]></tooltip>
+                        </license>
+                    </fields>
+                </settings>
+            </fieldsets>
+        </settings>
+        <entity>
+            <fieldsets>
+                <name translate="label description" module="modulecreator">
+                    <label>Name settings</label>
+                    <description>Settings regarding the entity name and code</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <label_singular translate="label tooltip additional" module="modulecreator">
+                            <label>Label singular</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <class>label-singular</class>
+                            <position>10</position>
+                            <tooltip><![CDATA[Each entity must have a label used for buttons, links, messages.<br />This is the singular form of the label. For example in a blog module, the post entity will have the label in singular form 'Post']]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span>Try to use English words for this label. It's not mandatory, but it makes the taxonomy more readable. UMC will create a language file for the modules it generates and you can translate your module.<br /><span class="label label-info">Info:</span>I recommend the first letter to be uppercase.]]></additional>
+                        </label_singular>
+                        <label_plural translate="label tooltip additional" module="modulecreator">
+                            <label>Label plural</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>20</position>
+                            <tooltip>This is the plural form of the label above. It will be used for lists. (For example: 'Posts')</tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span>Try to use English words for this label. It's not mandatory, but it makes the taxonomy more readable. UMC will create a language file for the modules it generates and you can translate your module.<br /><span class="label label-info">Info:</span>I recommend the first letter to be uppercase.]]></additional>
+                        </label_plural>
+                        <name_singular translate="label tooltip additional" module="modulecreator">
+                            <label>Entity code singular</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <class>validate-alphanum validate-code</class>
+                            <position>30</position>
+                            <tooltip><![CDATA[UMC generates the code in a 'human readable' form. It's easier to figure out what the code is about when the variables and methods have a propper name.<br />For example it's easier to read foreach ($_posts as $_post){...} or $_post->getTags() than foreach ($_list as $_item){...} or $_entity->getRelated('tags');<br />The value you fill in here will be used for variable names, file names and table names.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span>Use only letters. No numbers, no underscores, all in lowercase.<br /><span class="label label-info">Info:</span>:There are some restrictions to these values, because there are reserved strings that might make the code not function properly. For example: 'resource', 'setup'. For a complete list of restrictions see Ultimate_ModuleCreator_Helper_Data::$_restrictedEntityNames]]></additional>
+                        </name_singular>
+                        <name_plural translate="label tooltip additional" module="modulecreator">
+                            <label>Entity code plural</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <class>validate-alphanum validate-code</class>
+                            <position>40</position>
+                            <tooltip><![CDATA[This is the plural value of the entity code. For example 'posts'.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span>Use only letters. No numbers, no underscores, all in lowercase.]]></additional>
+                        </name_plural>
+                    </fields>
+                </name>
+
+                <backend translate="label description" module="modulecreator">
+                    <label>Backend settings</label>
+                    <description>Backend settings for you entity</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <type translate="label tooltip" module="modulecreator">
+                            <label>Entity type</label>
+                            <type>select</type>
+                            <source>modulecreator/source_entity_type</source>
+                            <required>1</required>
+                            <position>10</position>
+                            <class>type</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[There are 2 types of entities in Magento <a href="http://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model" target="_blank">EAV</a> and Flat (all fields in one table). Choose yours]]></tooltip>
+                        </type>
+                        <is_tree translate="label tooltip" module="modulecreator">
+                            <label>Behaves as tree</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>20</position>
+                            <class>is_tree</class>
+                            <system>1</system>
+                            <tooltip>If this is set to 'Yes' then your entity will behave as the default Magento categories. It will have the same UI as the categories module have. The fields 'parent_id', 'position' 'children_count' &amp; 'level' will be added automatically to the entity.</tooltip>
+                        </is_tree>
+                        <store translate="label tooltip" module="modulecreator">
+                            <label>Enable by stores</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>25</position>
+                            <class>store-specific</class>
+                            <system>1</system>
+                            <tooltip>If this is set to 'Yes' it will allow you to assign your entity to specific store views (just like pages or static block).</tooltip>
+                        </store>
+                        <add_created_to_grid translate="label tooltip" module="modulecreator">
+                            <label>Add "Created at" to admin grid</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>30</position>
+                            <class>use-not-tree</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[The entities created with UMC will have a field called 'created_at' with the creation date of any entity instance.<br />If this is set to 'Yes' the 'Created at' field will be added to the admin grid.]]></tooltip>
+                        </add_created_to_grid>
+                        <add_updated_to_grid translate="label tooltip" module="modulecreator">
+                            <label>Add "Updated at" to admin grid</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>40</position>
+                            <class>use-not-tree</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[The entities created with UMC will have a field called 'updated_at' with the last update date of any entity instance.<br />If this is set to 'Yes' the 'Updated at' field will be added to the admin grid.]]></tooltip>
+                        </add_updated_to_grid>
+                        <search translate="label tooltip" module="modulecreator">
+                            <label>Include in admin global search</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>50</position>
+                            <class>use-not-tree</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[The Magento admin Global search (at the top of every admin page) searches for the text you enter in products, customers and orders.<br />If you set this to 'Yes' than it will search in your entity also.]]></tooltip>
+                        </search>
+                        <api translate="label tooltip" module="modulecreator">
+                            <label>Create API</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>60</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>
+                        </api>
+                    </fields>
+                </backend>
+
+                <frontend translate="label description" module="modulecreator">
+                    <label>Frontend</label>
+                    <description>Frontend settings for your entity</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <create_frontend translate="label tooltip" module="modulecreator">
+                            <label>Create frontend files</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>10</position>
+                            <class>create-frontend</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes' then the frontend files of your entity will be created.<br />If this is set to 'No', all the other fields in this section will not be available.]]></tooltip>
+                        </create_frontend>
+                        <create_list translate="label tooltip" module="modulecreator">
+                            <label>Create entity list files</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>20</position>
+                            <class>create-list use-frontend</class>
+                            <system>1</system>
+                            <tooltip>If this is set to 'Yes', a link will be added to the footer to a page where your entity instances will be listed. The page has a toolbar for pagination, and it will list the titles of the entity instances.</tooltip>
+                        </create_list>
+                        <list_template translate="label tooltip additional" module="modulecreator">
+                            <label>List page template</label>
+                            <type>select</type>
+                            <source>modulecreator/source_entity_layout</source>
+                            <required>1</required>
+                            <position>30</position>
+                            <class>use-frontend use-create-list</class>
+                            <system>1</system>
+                            <tooltip>From this dropdown you can select the layout of your entity list page from the available page formats.</tooltip>
+                            <additional><![CDATA[All the Magento page layouts are listed here: 1column, 2columns-left, ....<br />If you have any other page layout it will appear here.]]></additional>
+                        </list_template>
+                        <create_view translate="label tooltip" module="modulecreator">
+                            <label>Create entity view files</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>40</position>
+                            <class>create-view use-frontend</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', the files needed for the page details of your entity are created.]]></tooltip>
+                        </create_view>
+                        <view_template translate="label tooltip additional" module="modulecreator">
+                            <label>View page template</label>
+                            <type>select</type>
+                            <source>modulecreator/source_entity_layout</source>
+                            <required>1</required>
+                            <position>50</position>
+                            <class>use-frontend use-create-view</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[From this dropdown you can select the layout of your entity view page from the available page formats.]]></tooltip>
+                            <additional><![CDATA[All the Magento page layouts are listed here: 1column, 2columns-left, ....<br />If you have any other page layout it will appear here.]]></additional>
+                        </view_template>
+                        <add_seo translate="label tooltip" module="modulecreator">
+                            <label>Add SEO attributes</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>60</position>
+                            <class>use-frontend use-create-view</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', 3 extra fields/attributes will be added to your entity, 'meta_title', 'meta_keywords' and 'meta_description'. The values of these fields/attributes will be added used for the details page of your entity.]]></tooltip>
+                        </add_seo>
+                        <url_rewrite translate="label tooltip" module="modulecreator">
+                            <label>Create URL rewrites</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>70</position>
+                            <class>use-frontend use-create-view</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If you set this to 'Yes', a new field will be added to your entity called 'url_key'.<br />This will allow you to use SEF url's for your entity view pages. Example: http://mysite.com/some-key-here.html]]></tooltip>
+                            <additional><![CDATA[If is set to 'No' your entity view page will be accessed in the default way http://mysite.com/module/controller/action/id/7<br /><span class="label label-warning">warning</span>This field is available only if 'Create entity view page' is set to 'Yes'.]]></additional>
+                        </url_rewrite>
+                        <rss translate="label tooltip additional" module="modulecreator">
+                            <label>Create RSS feed</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>80</position>
+                            <class>rss use-frontend</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a RSS feed with your entities will be added to the list or Magento RSS feeds.<br />Also a new fields called 'in_rss' will be added to your entity. This will allow you to filter the entities listed in the RSS feed.<br />You can disable the RSS feature later from the configuration section of your module.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-warning">Known issue:</span>If all the default Magento RSS feeds are disabled, but the general RSS feed is enabled and the RSS feed for your entity is also enabled a message will apprear on the RSS list page: 'There are no Rss Feeds'. This happens because Magento RSS list functionality does not allow adding custom RSS feeds without overriding a block.]]></additional>
+                        </rss>
+                        <widget translate="label tooltip" module="modulecreator">
+                            <label>Create widgets</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>90</position>
+                            <class>widget use-frontend</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', 2 new widgets will be added to the list of widgets that can be used in CMS pages and CMS blocks.<br />One widget will allow you to add a link to your entity instance and one will allow you to add a few details about your entity in CMS page or block.]]></tooltip>
+                        </widget>
+                        <allow_comment translate="label tooltip" module="modulecreator">
+                            <label>Allow comments</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>100</position>
+                            <class>allow-comment use-frontend use-create-view</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes' the users of your website will be able to comment on your custom entities. Comments will be moderated.<br /><span class="label label-warning">warning:</span>This option is available only if "Create frontend view" is set to 'Yes'.]]></tooltip>
+                        </allow_comment>
+                        <manage_comment translate="label tooltip" module="modulecreator">
+                            <label>Enable/disable comments for each instance</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>110</position>
+                            <class>use-frontend use-allow-comment use-create-view</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This setting will add a new attribute/field that will allow you to enable/disable the comment form for each entity instance.<br /><span class="label label-warning">warning:</span>This option is available only if "Allow comments" is set to 'Yes'.]]></tooltip>
+                        </manage_comment>
+                    </fields>
+                </frontend>
+                <product translate="label description" module="modulecreator">
+                    <label>Products</label>
+                    <description>Entity links with products</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <link_product translate="label tooltip" module="modulecreator">
+                            <label>Link "many to many" with products</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>10</position>
+                            <class>link-product</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new tab will be added to the product add/edit form, with a list of your entities. Something similar to the 'Related products' tab.<br />Also on your entity add/edit page a similar tab listing all the products will be added.]]></tooltip>
+                        </link_product>
+                        <show_on_product translate="label tooltip additional" module="modulecreator">
+                            <label>Show associated entities on product page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>20</position>
+                            <class>use-link-product</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your entities related to a specific product will be added to the product view page.]]></tooltip>
+                            <additional><![CDATA[This happens for the default Magento theme and for themes with similar format for the product view page. For custom themes there the block might not appear.<br /><span class="label label-info">Info:</span> This field is available only if 'Link "many to many" with products' is set to 'Yes'.]]></additional>
+                        </show_on_product>
+                        <show_products translate="label tooltip additional" module="modulecreator">
+                            <label>Show associated product on entity page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>30</position>
+                            <class>use-frontend use-create-view use-link-product</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your products related to one entity will be added to the entity view page.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span> This field is available only if 'Link "many to many" with products' is set to 'Yes'.]]></additional>
+                        </show_products>
+                        <product_attribute translate="label tooltip" module="modulecreator">
+                            <label>Make entity a product attribute</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>40</position>
+                            <class>product-attribute</class>
+                            <system>1</system>
+                            <tooltip>This will add a new dropdown attribute to the product where the options will be your entity instances.</tooltip>
+                        </product_attribute>
+                        <product_attribute_code translate="label tooltip" module="modulecreator">
+                            <label>Product attribute code</label>
+                            <type>text</type>
+                            <position>50</position>
+                            <class>use-product-attribute</class>
+                            <tooltip>Fill in the dropdown attribute code.</tooltip>
+                        </product_attribute_code>
+                        <product_attribute_scope translate="label tooltip" module="modulecreator">
+                            <label>Product attribute scope</label>
+                            <type>select</type>
+                            <source>modulecreator/source_attribute_scope</source>
+                            <position>60</position>
+                            <class>use-product-attribute</class>
+                            <system>1</system>
+                            <tooltip>Select the product attribute scope.</tooltip>
+                        </product_attribute_scope>
+                        <product_attribute_group translate="label tooltip" module="modulecreator">
+                            <label>Product attribute group</label>
+                            <type>text</type>
+                            <position>60</position>
+                            <class>use-product-attribute</class>
+                            <system>1</system>
+                            <tooltip>The name of the attribute group where the attribute will be added. If you leave it empty the attribute will not be added to the attribute sets. If the group does not exist it will be created.</tooltip>
+                        </product_attribute_group>
+                    </fields>
+                </product>
+                <category translate="label description" module="modulecreator">
+                    <label>Categories</label>
+                    <description>Entity links with catalog categories</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <link_category translate="label tooltip" module="modulecreator">
+                            <label>Link "many to many" with category</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>10</position>
+                            <class>link-category</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new tab will be added to the category add/edit form, with a list of your entities. Something similar to the 'Products' tab.<br />Also on your entity add/edit page a similar tab listing all the categories will be added.]]></tooltip>
+                        </link_category>
+                        <show_on_category translate="label tooltip" module="modulecreator">
+                            <label>Show associated entities on category page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>20</position>
+                            <class>use-link-category</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your entities related to a specific category will be added to the category view page.]]></tooltip>
+                        </show_on_category>
+                        <show_category translate="label tooltip additional" module="modulecreator">
+                            <label>Show associated categories on entity page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>30</position>
+                            <class>use-frontend use-create-view use-link-category</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your categories related to one entity will be added to the entity view page.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span> This field is available only if 'Link "many to many" with categories' is set to 'Yes'.]]></additional>
+                        </show_category>
+                        <category_attribute translate="label tooltip" module="modulecreator">
+                            <label>Make entity a category attribute</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>40</position>
+                            <class>category-attribute</class>
+                            <system>1</system>
+                            <tooltip>This will add a new dropdown attribute to the category where the options will be your entity instances.</tooltip>
+                        </category_attribute>
+                        <category_attribute_code translate="label" module="modulecreator">
+                            <label>Category attribute code</label>
+                            <type>text</type>
+                            <position>50</position>
+                            <class>use-category-attribute</class>
+                            <tooltip>Fill in the dropdown attribute code.</tooltip>
+                        </category_attribute_code>
+                        <category_attribute_scope translate="label" module="modulecreator">
+                            <label>Category attribute scope</label>
+                            <type>select</type>
+                            <source>modulecreator/source_attribute_scope</source>
+                            <position>60</position>
+                            <class>use-category-attribute</class>
+                            <system>1</system>
+                            <tooltip>Select the category attribute scope.</tooltip>
+                        </category_attribute_scope>
+                        <category_attribute_group translate="label tooltip" module="modulecreator">
+                            <label>Category attribute group</label>
+                            <type>text</type>
+                            <position>60</position>
+                            <class>use-product-attribute</class>
+                            <system>1</system>
+                            <tooltip>The name of the attribute group where the attribute will be added. If you leave it empty the attribute will not be added to the category attribute set. If the group does not exist it will be created.</tooltip>
+                        </category_attribute_group>
+                    </fields>
+                </category>
+            </fieldsets>
+        </entity>
+        <attribute>
+            <fieldsets>
+                <fieldset translate="label description">
+                    <label>Field / Attribute settings</label>
+                    <description>Configure the field / attribute assigned to the entity</description>
+                    <collapsable>1</collapsable>
+                    <use_depends>1</use_depends>
+                    <fields>
+                        <code translate="label tooltip" module="modulecreator">
+                            <label>Attribute code</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>10</position>
+                            <tooltip><![CDATA[This is the attribute code. It will be used in the logic of the extension. Use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.<br />There are some naming restriction. For example the code cannot be: "data", "child]]></tooltip>
+                        </code>
+                        <label translate="label tooltip" module="modulecreator">
+                            <label>Attribute label</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>20</position>
+                            <class>attribute-label</class>
+                            <tooltip>This is the attribute label that will be visible in the back-end in the add/edit form and in some cases in frontend.</tooltip>
+                        </label>
+                        <type translate="label tooltip" module="modulecreator">
+                            <label>Attribute Type</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <source>modulecreator/source_attribute_type</source>
+                            <position>30</position>
+                            <class>attribute-type</class>
+                            <system>1</system>
+                            <tooltip>This is the attribute type. This wil determine the table column type for this field/attribute and its behavior.</tooltip>
+                        </type>
+                        <scope translate="label tooltip" module="modulecreator">
+                            <label>Attribute Scope</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <source>modulecreator/source_attribute_scope</source>
+                            <position>40</position>
+                            <system>1</system>
+                            <class>attribute-scope</class>
+                            <tooltip>This is the attribute scope. It is available only for EAV entities. It works similar to the product attribute scope.</tooltip>
+                        </scope>
+                        <note translate="label tooltip" module="modulecreator">
+                            <label>Note</label>
+                            <type>text</type>
+                            <required>0</required>
+                            <position>50</position>
+                            <tooltip>This will be added as a comment under the field in the admin add/edit form.</tooltip>
+                        </note>
+                        <position>
+                            <label>Position</label>
+                            <type>text</type>
+                            <required>0</required>
+                            <position>60</position>
+                            <tooltip>This is the sort order of the field in the add/edit form.</tooltip>
+                        </position>
+                        <is_name translate="label tooltip" module="modulecreator">
+                            <label>Acts as name</label>
+                            <type>radio</type>
+                            <required>0</required>
+                            <position>70</position>
+                            <class>validate-one-required-by-name is_name</class>
+                            <depend_class>type-text type-int type-decimal type-timestamp</depend_class>
+                            <tooltip><![CDATA[Each entity must have an attribute to behave as "Name". This attribute will be used to identify different entities among themselves. It will also be used in dropdowns with entities. This option is available only for text, number and decimal attributes.]]></tooltip>
+                        </is_name>
+                        <required translate="label tooltip" module="modulecreator">
+                            <label>Required</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>80</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <system>1</system>
+                            <tooltip>This sets the attribute as required in the admin add/edit form. Is available for all the attribute types.</tooltip>
+                        </required>
+                        <editor translate="label tooltip" module="modulecreator">
+                            <label>Use WYSIWYG editor</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>90</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <depend_class>type-textarea</depend_class>
+                            <system>1</system>
+                            <tooltip>This allows you to use a WYSIWYG editor for the attribute. It is available only for Textarea attributes.</tooltip>
+                        </editor>
+                        <admin_grid translate="label tooltip" module="modulecreator">
+                            <label>Show in admin grid</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>100</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <system>1</system>
+                            <depend_class>type-text type-yesno type-timestamp type-int type-decimal type-website type-dropdown type-country</depend_class>
+                            <tooltip><![CDATA[This allows you to display the attribute as a column in the admin grid of the entity. The attribute set to behave as "Name" will be included by default in the grid.]]></tooltip>
+                        </admin_grid>
+                        <frontend translate="label tooltip" module="modulecreator">
+                            <label>Show in frontend</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>110</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <depend_class>type-all use-create-view use-frontend</depend_class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This allows you to show the attribute in the entity view page. Is available for all attribute types.]]></tooltip>
+                        </frontend>
+                        <widget translate="label tooltip" module="modulecreator">
+                            <label>Show in widget</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>120</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <depend_class>type-all use-widget use-frontend</depend_class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This allows you to show the attribute in view widget. Is available for all attribute types.]]></tooltip>
+                        </widget>
+                        <rss translate="label tooltip" module="modulecreator">
+                            <label>Show in rss</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>130</position>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <depend_class>type-all use-rss use-frontend</depend_class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This allows you to show the attribute in rss feed. Is available for all attribute types.]]></tooltip>
+                        </rss>
+                        <options_source translate="label tooltip" module="modulecreator">
+                            <label>Options source</label>
+                            <type>select</type>
+                            <required>1</required>
+                            <position>140</position>
+                            <source>modulecreator/source_attribute_value_source</source>
+                            <depend_class>type-dropdown type-multiselect is-source</depend_class>
+                            <system>1</system>
+                            <tooltip>For dropdown and multiselect attributes you can set the values manually or use the values from a product attribute, a category attribute or a customer attribute.</tooltip>
+                        </options_source>
+                        <options_source_attribute translate="label tooltip" module="modulecreator">
+                            <label>Attribute code for option source</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>160</position>
+                            <depend_class>type-dropdown type-multiselect not-custom-source</depend_class>
+                            <tooltip>If you choose to use teh values of an attribute as values for the dropdown field enter here the attribute code to use. If the product (or category or customer) attribute does not have values or does not support values you will not see any options.</tooltip>
+                        </options_source_attribute>
+                        <options translate="label note tooltip" module="modulecreator">
+                            <label>Options in select</label>
+                            <type>textarea</type>
+                            <required>1</required>
+                            <position>170</position>
+                            <depend_class>type-dropdown type-multiselect custom-source</depend_class>
+                            <note>Separate by | (pipe)</note>
+                            <tooltip>If you choose to enter the values for the dropdown or multiselect manually, input them here. Separate the options with | (pipe). If you want an empty option at the begining start with a | (pipe) symbol.</tooltip>
+                        </options>
+                    </fields>
+                </fieldset>
+            </fieldsets>
+        </attribute>
+    </forms>
+    <xml_attributes>
+        <umc_module>
+            <namespace />
+            <module_name />
+            <install />
+            <codepool />
+            <version />
+            <license />
+            <menu_text />
+            <menu_parent />
+            <sort_order />
+        </umc_module>
+        <umc_entity>
+            <label_singular />
+            <label_plural />
+            <name_singular />
+            <name_plural />
+            <is_tree />
+            <add_created_to_grid />
+            <add_updated_to_grid />
+            <type />
+            <store />
+            <create_frontend />
+            <create_list />
+            <list_template />
+            <create_view />
+            <view_template />
+            <add_seo />
+            <url_rewrite />
+            <rss />
+            <widget />
+            <link_product />
+            <show_on_product />
+            <show_products />
+            <product_attribute />
+            <product_attribute_code />
+            <product_attribute_scope />
+            <link_category />
+            <show_on_category />
+            <show_category />
+            <category_attribute />
+            <category_attribute_code />
+            <category_attribute_scope />
+            <allow_comment />
+            <manage_comment />
+            <search />
+            <api />
+            <product_attribute_group />
+            <category_attribute_group />
+        </umc_entity>
+    </xml_attributes>
+    <types>
+        <umc_entity>
+            <flat translate="label" module="modulecreator">
+                <label>Flat</label>
+                <type_model>modulecreator/entity_type_flat</type_model>
+            </flat>
+            <eav translate="label" module="modulecreator">
+                <label>EAV</label>
+                <type_model>modulecreator/entity_type_eav</type_model>
+            </eav>
+        </umc_entity>
+        <umc_attribute>
+            <country translate="label" module="modulecreator">
+                <label>Country</label>
+                <type_model>modulecreator/attribute_type_country</type_model>
+                <group>dropdown</group>
+                <allow_is_name>0</allow_is_name>
+            </country>
+            <decimal translate="label" module="modulecreator">
+                <label>Decimal</label>
+                <type_model>modulecreator/attribute_type_decimal</type_model>
+                <group>text</group>
+                <allow_is_name>1</allow_is_name>
+            </decimal>
+            <dropdown translate="label" module="modulecreator">
+                <label>Dropdown</label>
+                <type_model>modulecreator/attribute_type_dropdown</type_model>
+                <group>dropdown</group>
+                <allow_is_name>0</allow_is_name>
+            </dropdown>
+            <file translate="label" module="modulecreator">
+                <label>File</label>
+                <type_model>modulecreator/attribute_type_file</type_model>
+                <group>file</group>
+                <allow_is_name>0</allow_is_name>
+            </file>
+            <image translate="label" module="modulecreator">
+                <label>Image</label>
+                <type_model>modulecreator/attribute_type_image</type_model>
+                <group>file</group>
+                <allow_is_name>0</allow_is_name>
+            </image>
+            <int translate="label" module="modulecreator">
+                <label>Int</label>
+                <type_model>modulecreator/attribute_type_int</type_model>
+                <group>text</group>
+                <allow_is_name>1</allow_is_name>
+            </int>
+            <multiselect translate="label" module="modulecreator">
+                <label>Multiselect</label>
+                <type_model>modulecreator/attribute_type_multiselect</type_model>
+                <group>dropdown</group>
+                <allow_is_name>0</allow_is_name>
+            </multiselect>
+            <text translate="label" module="modulecreator">
+                <label>Text</label>
+                <type_model>modulecreator/attribute_type_text</type_model>
+                <group>text</group>
+                <allow_is_name>1</allow_is_name>
+            </text>
+            <textarea translate="label" module="modulecreator">
+                <label>Textarea</label>
+                <type_model>modulecreator/attribute_type_textarea</type_model>
+                <group>text</group>
+                <allow_is_name>0</allow_is_name>
+            </textarea>
+            <yesno translate="label" module="modulecreator">
+                <label>Yes / No</label>
+                <type_model>modulecreator/attribute_type_yesno</type_model>
+                <group>dropdown</group>
+                <allow_is_name>0</allow_is_name>
+            </yesno>
+            <timestamp translate="label" module="modulecreator">
+                <label>Date</label>
+                <type_model>modulecreator/attribute_type_timestamp</type_model>
+                <group>date</group>
+                <allow_is_name>0</allow_is_name>
+            </timestamp>
+        </umc_attribute>
+        <umc_attribute_group>
+            <text translate="label">
+                <label>Text</label>
+            </text>
+            <dropdown translate="label">
+                <label>Dropdown</label>
+            </dropdown>
+            <file translate="label">
+                <label>File</label>
+            </file>
+            <date translate="label">
+                <label>Date</label>
+            </date>
+
+        </umc_attribute_group>
+        <umc_dropdown>
+            <custom translate="label" module="modulecreator">
+                <label>Manually defined</label>
+                <type_model>modulecreator/attribute_type_dropdown_custom</type_model>
+            </custom>
+            <catalog_product translate="label" module="modulecreator">
+                <label>Product attribute</label>
+                <type_model>modulecreator/attribute_type_dropdown_product</type_model>
+            </catalog_product>
+            <catalog_category translate="label" module="modulecreator">
+                <label>Category attribute</label>
+                <type_model>modulecreator/attribute_type_dropdown_category</type_model>
+            </catalog_category>
+            <customer translate="label" module="modulecreator">
+                <label>Customer attribute</label>
+                <type_model>modulecreator/attribute_type_dropdown_customer</type_model>
+            </customer>
+        </umc_dropdown>
+        <umc_relation>
+            <none translate="label description">
+                <label>--Has no relation with--</label>
+                <description>The entities are not related in any way.</description>
+            </none>
+            <parent translate="label description">
+                <label>Is parent for</label>
+                <description><![CDATA[The first entity acts as a parent for the second one <br />. A field will be added to the second entity table as a reference to the first entity.]]></description>
+            </parent>
+            <child translate="label description">
+                <label>Is child of</label>
+                <description><![CDATA[The first entity acts as a child for the second one <br />. A field will be added to the first entity table as a reference to the first entity.]]></description>
+            </child>
+            <sibling translate="label description">
+                <label>Is sibling with</label>
+                <description>The entities are in a many to many relation. A new table will be created to support this relation containing the ids of each entity.</description>
+            </sibling>
+        </umc_relation>
+    </types>
+    <restricted>
+        <entity>
+            <resource />
+            <setup />
+            <attribute />
+            <system />
+            <flat />
+            <data />
+            <collection />
+            <adminhtml />
+            <widget />
+            <observer />
+            <tree />
+            <image />
+            <node />
+            <api />
+            <comment />
+        </entity>
+        <attribute>
+            <created_at translate="message">
+                <message><![CDATA[An attribute/field with code "created_at" will be added by default to your entity.]]></message>
+            </created_at>
+            <updated_at translate="message">
+                <message><![CDATA[An attribute/field with code "updated_at" will be added by default to your entity.]]></message>
+            </updated_at>
+            <status translate="message">
+                <message><![CDATA[An attribute/field with code "status" will be added by default to your entity if you choose to create frontend files for the entity.]]></message>
+                <depend_entity>
+                    <create_frontend>1</create_frontend>
+                </depend_entity>
+            </status>
+            <in_rss translate="message">
+                <message><![CDATA[An attribute/field with code "in_rss" will be added by default to your entity if you choose to create a RSS feed for the entity.]]></message>
+                <depend_entity>
+                    <rss>1</rss>
+                </depend_entity>
+            </in_rss>
+            <meta_title translate="message">
+                <message><![CDATA[An attribute/field with code "meta_title" will be added by default to your entity if you choose to add seo attributes to the entity.]]></message>
+                <depend_entity>
+                    <add_seo>1</add_seo>
+                </depend_entity>
+            </meta_title>
+            <meta_description translate="message">
+                <message><![CDATA[An attribute/field with code "meta_description" will be added by default to your entity if you choose to add seo attributes to the entity.]]></message>
+                <depend_entity>
+                    <add_seo>1</add_seo>
+                </depend_entity>
+            </meta_description>
+            <meta_keywords translate="message">
+                <message><![CDATA[An attribute/field with code "meta_keywords" will be added by default to your entity if you choose to add seo attributes to the entity.]]></message>
+                <depend_entity>
+                    <add_seo>1</add_seo>
+                </depend_entity>
+            </meta_keywords>
+            <parent_id translate="message">
+                <message><![CDATA[A field with the code "parent_id" will be added by default to your entity if the entity has "Tree behavior"]]></message>
+                <depend_entity>
+                    <is_tree>1</is_tree>
+                </depend_entity>
+            </parent_id>
+            <level translate="message">
+                <message><![CDATA[A field with the code "level" will be added by default to your entity if the entity has "Tree behavior"]]></message>
+                <depend_entity>
+                    <is_tree>1</is_tree>
+                </depend_entity>
+            </level>
+            <children_count translate="message">
+                <message><![CDATA[A field with the code "children_count" will be added by default to your entity if the entity has "Tree behavior"]]></message>
+                <depend_entity>
+                    <is_tree>1</is_tree>
+                </depend_entity>
+            </children_count>
+            <path translate="message">
+                <message><![CDATA[A field with the code "path" will be added by default to your entity if the entity has "Tree behavior"]]></message>
+                <depend_entity>
+                    <is_tree>1</is_tree>
+                </depend_entity>
+            </path>
+            <url_key translate="message">
+                <message><![CDATA[A attribute/field with the code "url_key" will be added by default to your entity oif you choose to create URL rewrites for your entity]]></message>
+                <depend_entity>
+                    <url_rewrite>1</url_rewrite>
+                </depend_entity>
+            </url_key>
+            <node translate="message">
+                <message><![CDATA[A field/attribute cannot have the code "node"]]></message>
+            </node>
+        </attribute>
+    </restricted>
+    <system>
+        <p>QGF1dGhvciBVbHRpbWF0ZSBNb2R1bGUgQ3JlYXRvcg==</p>
+        <pp>QGF1dGhvciAgICAgIFVsdGltYXRlIE1vZHVsZSBDcmVhdG9y</pp>
+        <f>YmFzZTY0X2RlY29kZQ==</f>
+    </system>
+    <release_notes>
+        <v1_9_0>
+            <version>1.9.0-dev1</version>
+            <date>2014-01-13</date>
+            <data>
+                <eav_entities trasnlate="label type comment">
+                    <label>Added EAV entities</label>
+                    <type>Feature</type>
+                    <comment>Now you can create EAV entities that you can manage just like products and categories.</comment>
+                </eav_entities>
+                <category_link trasnlate="label type comment">
+                    <label>Added many to many link to categories</label>
+                    <type>Feature</type>
+                    <comment>Now you can link you entities "many to many" with the catalog categories</comment>
+                </category_link>
+                <comments trasnlate="label type comment">
+                    <label>Added comment feature</label>
+                    <type>Feature</type>
+                    <comment>You can choose to allow customers to write comments on your entities.</comment>
+                </comments>
+                <extensible trasnlate="label type comment">
+                    <label>Made extension "extensible"</label>
+                    <type>Feature</type>
+                    <comment>Yeah...like someone is going to extend it</comment>
+                </extensible>
+                <tree_many trasnlate="label type comment">
+                    <label>Many to many relations between tree entities</label>
+                    <type>Feature</type>
+                    <comment>Now the tree entities can be related in "Many to many"</comment>
+                </tree_many>
+                <menu_placing trasnlate="label type comment">
+                    <label>Module menu can be placed anywhere</label>
+                    <type>Feature</type>
+                    <comment>Until now the menu could be placed in admin only on top level. Now it can be placed anywhere in the menu tree.</comment>
+                </menu_placing>
+                <attribute_types trasnlate="label type comment">
+                    <label>Added new attribute types</label>
+                    <type>Feature</type>
+                    <comment>dorpdown, multiselect. Can have different sources - still experimental.</comment>
+                </attribute_types>
+                <attribute_entity trasnlate="label type comment">
+                    <label>Custom entities can be added as product, category and customer attributes.</label>
+                    <type>Feature</type>
+                    <comment />
+                </attribute_entity>
+                <version trasnlate="label type comment">
+                    <label>You can set the version of your generated module.</label>
+                    <type>Feature</type>
+                    <comment>No more hard coded 0.0.1 version.</comment>
+                </version>
+                <source_refactor trasnlate="label type comment">
+                    <label>Source file refactorint</label>
+                    <type>Refactor</type>
+                    <comment>Because some IDEs show errors when parsing incomplete PHP files I've removed the extension of the source files (etc/source)</comment>
+                </source_refactor>
+                <js_refactor trasnlate="label type comment">
+                    <label>Refactored JS</label>
+                    <type>Refactor</type>
+                    <comment>The UI of the module creator now uses prototype classes instead of simple JS functions.</comment>
+                </js_refactor>
+                <ui_refactor trasnlate="label type comment">
+                    <label>UI refactor</label>
+                    <type>Refactor</type>
+                    <comment>'Pimped up' the UI of the module creator</comment>
+                </ui_refactor>
+                <theme trasnlate="label type comment">
+                    <label>Removed frontend package and theme fields</label>
+                    <type>Refactor</type>
+                    <comment>base/default is used for all modules.</comment>
+                </theme>
+                <identation trasnlate="label type comment">
+                    <label>Changed identation from TAB to 4x space</label>
+                    <type>Refactor</type>
+                    <comment />
+                </identation>
+                <speed trasnlate="label type comment">
+                    <label>Improved speed of the module creator</label>
+                    <type>Improvement</type>
+                    <comment>No more AJAX calls to add an entity/attribute. The module save is done in the same step as validation.</comment>
+                </speed>
+                <uninstall trasnlate="label type comment">
+                    <label>Module creator generate sql uninstall script</label>
+                    <type>Improvement</type>
+                    <comment>Along with the list of generated files now an sql uninstall script is generated for the created module.</comment>
+                </uninstall>
+                <ucwords trasnlate="label type comment">
+                    <label>Fixed bug that appears when there is an uppercase letter in the module name.</label>
+                    <type>Bug fix</type>
+                    <comment>In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.</comment>
+                </ucwords>
+
+            </data>
+        </v1_9_0>
+    </release_notes>
+</config>

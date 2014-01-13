@@ -1,0 +1,21 @@
+<?php
+{{License}}
+/**
+ * Admin source model for {{attribute}}
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Source_{{AttributeCodeForFile}}
+    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+    /**
+     * get possible values
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getAllOptions(){
+{{attributeOptions}}
+    }
+}

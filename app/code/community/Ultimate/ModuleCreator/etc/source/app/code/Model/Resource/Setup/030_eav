@@ -1,0 +1,10 @@
+        $entities['{{module}}_{{entity}}'] = array(
+            'entity_model'                  => '{{module}}/{{entity}}',
+            'attribute_model'               => '{{module}}/resource_eav_attribute',
+            'table'                         => '{{module}}/{{entity}}',
+            'additional_attribute_table'    => '{{module}}/eav_attribute',
+            'entity_attribute_collection'   => '{{module}}/{{entity}}_attribute_collection',
+            'attributes'        => array(
+{{entityAttributesSetup}}
+                )
+	 	);

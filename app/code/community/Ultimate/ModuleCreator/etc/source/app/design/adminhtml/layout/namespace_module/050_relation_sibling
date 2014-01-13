@@ -1,0 +1,23 @@
+    <adminhtml_{{module}}_{{entity}}_{{siblings}}>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{entity}}.edit.tab.{{sibling}}"/>
+            <block type="adminhtml/widget_grid_serializer" name="{{sibling}}_grid_serializer">
+                <reference name="{{sibling}}_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>{{entity}}.edit.tab.{{sibling}}</grid_block_name>
+                            <data_callback>getSelected{{Siblings}}</data_callback>
+                            <hidden_input_name>{{siblings}}</hidden_input_name>
+                            <reload_param_name>{{entity}}_{{siblings}}</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_{{module}}_{{entity}}_{{siblings}}>
+    <adminhtml_{{module}}_{{entity}}_{{siblings}}grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{entity}}.edit.tab.{{sibling}}"/>
+        </block>
+    </adminhtml_{{module}}_{{entity}}_{{siblings}}grid>
