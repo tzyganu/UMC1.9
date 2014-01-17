@@ -236,7 +236,7 @@
         public function getChildren{{Entities}}(${{entity}}){
             $collection = ${{entity}}->getCollection();
             $collection
-                ->addFilter('status', 1)
+                ->addFieldToFilter('status', 1)
                 ->addIdFilter(${{entity}}->getChildren())
                 ->setOrder('position', Varien_Db_Select::SQL_ASC)
                 ->load();

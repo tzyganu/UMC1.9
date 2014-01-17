@@ -47,7 +47,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
      * {{qwertyuiop}}
      */
     public function get{{Entity}}() {
-        return Mage::registry('current_{{module}}_{{entity}}');
+        return Mage::registry('current_{{entity}}');
     }
     /**
      * get form action

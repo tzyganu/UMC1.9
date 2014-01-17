@@ -18,12 +18,25 @@ Also any good code is welcomed.
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
 
+**Release Notes 1.9.0-dev2**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Refactor|Refactored some attribute codes|Variables that depend on attribute names now look like this: $someName instead of $some_name|
+|Bug fix|Frontend layout file generation|Frontend layout file was always generated. Now is generated only if there is at least one entity that has frontend.|
+|Bug fix|Fixed dropdown attributes for flat entities|Dropdown attribute for flat entities were not configured correctly in the admin grid and admin add/edid form.|
+|Bug fix|Entities not displaying in product page.|Entities were not displaying in product page unless they had a separate view page.|
+|Bug fix|Fixed field/attribute codes validation.|Field/Attribute codes use the same validation as product attributes|
+|Bug fix|Replaced 'addFilter' with 'addFieldToFilter'|<a href="https://github.com/tzyganu/UMC1.9/issues/1">https://github.com/tzyganu/UMC1.9/issues/1</a>|
+|Bug fix|Inconsistent registry naming |<a href="https://github.com/tzyganu/UMC1.9/issues/3">https://github.com/tzyganu/UMC1.9/issues/3</a>|
+
+
 **Release Notes 1.9.0-dev1**
 
 |Type|Label|Comment|
 |----|-----|-------|
 |Feature|Added EAV entities|Now you can create EAV entities that you can manage just like products and categories.|
-|Feature|Added many to many link to categories|	Now you can link you entities "many to many" with the catalog categories|
+|Feature|Added many to many link to categories|    Now you can link you entities "many to many" with the catalog categories|
 |Feature|Added comment feature|You can choose to allow customers to write comments on your entities.|
 |Feature|Made extension "extensible"|Yeah...like someone is going to extend it|
 |Feature|Many to many relations between tree entities|Now the tree entities can be related in "Many to many"|
@@ -41,13 +54,13 @@ For the rest of the document UMC = Ultimate Module Creator
 |Bug fix|Fixed bug that appears when there is an uppercase letter in the module name.|In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.|  
 
 
-**Known Issues - 1.9.0-dev1**
+**Known Issues**
 
-* The SOAP API does not work for EAV entities and is missign for the commets
+* The SOAP API does not work for EAV entities and is missing for the comments
 * The Language file is missing for UMC
 * Relations between EAV and Flat entities don't work correctly.
-* Dropdown attributes don't work correctly for Flat entities.
+* ~~Dropdown attributes don't work correctly for Flat entities~~.
 * Admin comments grid for generated entities do not include the entity title.
 * EAV Tree entities can be visible in frontend even if the parent is disabled.
-* For EAV entities there the URL rewrite key does not have a unique constraing.
+* ~~For EAV entities there the URL rewrite key does not have a unique constraint~~.
 

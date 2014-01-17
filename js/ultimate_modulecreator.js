@@ -221,7 +221,7 @@ UMC.Entity.prototype = {
                 }
             });
         });
-        $(this.element).select(this.config.addAttributeTrigger).each(function(element){
+        $(this.element).select(this.config.addAttributeTrigger).each(function(element) {
             Element.observe(element, 'click', that.addAttribute.bind(that));
         });
         var index = 0;
@@ -286,6 +286,9 @@ UMC.Entity.prototype = {
             entity_id:this.index,
             attribute_id : that.attributeCount
         });
+        $('entity_' + that.index + '_attributes').show();
+        $('entity_' + that.index + '_attributes_container').select('.modulecreator-toggle')[0].removeClassName('closed');
+        $('entity_' + that.index + '_attributes_container').select('.modulecreator-toggle')[0].addClassName('open');
         $('entity_' + that.index + '_attributes').insert({bottom:attributeTemplate});
         $$('#attribute_' + that.index + '_' + that.attributeCount + ' table').each(function(elem){
             decorateTable(elem);
@@ -311,7 +314,7 @@ UMC.Entity.prototype = {
         }
     },
     getReloaders: function(){
-        var classes = ['type', 'is_tree', 'create-frontend', 'create-list', 'create-view', 'link-product', 'link-category', 'product-attribute', 'category-attribute', 'allow-comment', 'rss', 'widget'];
+        var classes = ['type', 'is_tree', 'create-frontend', 'create-list', 'create-view', 'link-product', 'link-category', 'product-attribute', 'category-attribute', 'allow-comment', 'rss', 'widget', 'url-rewrite'];
         var reloaders = [];
         for (var i=0; i<classes.length; i++){
             reloaders.push(this.getElementByClass(classes[i]));
@@ -358,6 +361,9 @@ UMC.Entity.prototype = {
                 }
                 if (item.hasClassName('use-allow-comment')){
                     canEnable = canEnable && (this.getValueByClass('allow-comment') == 1);
+                }
+                if (item.hasClassName('use-url-rewrite')){
+                    canEnable = canEnable && (this.getValueByClass('url-rewrite') == 1);
                 }
             }
         }

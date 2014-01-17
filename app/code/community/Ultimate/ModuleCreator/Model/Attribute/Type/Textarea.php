@@ -74,4 +74,19 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Textarea
     public function getEditor() {
         return $this->getAttribute()->getData('editor');
     }
+    /**
+     * get the options for form input
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = '';
+        if ($this->getEditor() && !$this->getAttribute()->getEntity()->getIsTree()){
+            $options = $this->getPadding(3)."'config' => "."$"."wysiwygConfig,".$this->getEol();
+        }
+        $options .= parent::getFormOptions();
+        return $options;
+    }
+
 }

@@ -26,6 +26,6 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Children
      * {{qwertyuiop}}
      */
     public function getCurrent{{Entity}}(){
-        return Mage::registry('current_{{module}}_{{entity}}');
+        return Mage::registry('current_{{entity}}');
     }
 }

@@ -1,4 +1,4 @@
-        Mage::register('current_{{module}}_{{entity}}', ${{entity}});
+        Mage::register('current_{{entity}}', ${{entity}});
         $this->loadLayout();
         if ($root = $this->getLayout()->getBlock('root')) {
             $root->addBodyClass('{{module}}-{{entity}} {{module}}-{{entity}}' . ${{entity}}->getId());

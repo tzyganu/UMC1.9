@@ -78,7 +78,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         $entity   = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $attr     = $this->getAttribute()->getCode();
         $options .= $this->getPadding(3)."'type'  => 'options',".$this->getEol();
-        $options .= $this->getPadding(3)."'options' => Mage::helper('".$module."')->convertOptions(Mage::getModel('eav/config')->getAttribute('".$module.'_'.$entity."', '".$attr."')->getSource()->getAllOptions(false))".$this->getEol();
+        if ($this->getAttribute()->getEntity()->getIsEav()) {
+            $options .= $this->getPadding(3)."'options' => Mage::helper('".$module."')->convertOptions(Mage::getModel('eav/config')->getAttribute('".$module.'_'.$entity."', '".$attr."')->getSource()->getAllOptions(false))".$this->getEol();
+        }
+        else {
+            $options .= $this->getPadding(3)."'options' => Mage::helper('".$module."')->convertOptions(Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(false))".$this->getEol();
+        }
         return $options;
     }
     /**
@@ -168,5 +173,61 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      */
     public function getAttributeOptions(){
         return $this->getSubTypeInstance()->getAttributeOptions();
+    }
+    /**
+     * get the options for form input
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = parent::getFormOptions();
+        $padding = $this->getPadding(3);
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
+        $module  = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $entity  = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $options .= $padding."'values'=> Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(false),".$this->getEol();
+        return $options;
+    }
+
+    /**
+     * get the setup type of the dropdown
+     * @access public
+     * @return string|void
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupType(){
+        $setupType = $this->getSubTypeInstance()->getSetupType();
+        if (empty($setupType)) {
+            return parent::getSetupType();
+        }
+        return $setupType;
+    }
+    /**
+     * get the setup type of the dropdown
+     * @access public
+     * @return string|void
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeDdl(){
+        $setupType = $this->getSubTypeInstance()->getTypeDdl();
+        if (empty($setupType)) {
+            return parent::getTypeDdl();
+        }
+        return $setupType;
+    }
+    /**
+     * get column ddl size
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSizeDdl() {
+        $size = $this->getSubTypeInstance()->getSizeDdl();
+        if (empty($size)) {
+            return parent::getSizeDdl();
+        }
+        return $size;
     }
 }

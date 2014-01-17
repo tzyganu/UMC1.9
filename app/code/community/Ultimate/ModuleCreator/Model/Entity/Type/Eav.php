@@ -370,4 +370,22 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getFilterMethod() {
         return 'addAttributeToFilter';
     }
+    /**
+     * convert multiple select fields to strings
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMultipleSelectConvert(){
+        return $this->getEol();
+    }
+    /**
+     * check if the entity helper can be created
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCanCreateEntityHelper(){
+        return true;
+    }
 }

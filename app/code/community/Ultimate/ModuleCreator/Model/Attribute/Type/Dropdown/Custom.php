@@ -76,10 +76,10 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
                 $content .= $padding.$tab.$tab."'label' => Mage::helper('".$module."')->__('".$option."'),".$eol;
-                $content .= $padding.$tab.$tab."'value' => ".$index.$eol;
+                $content .= $padding.$tab.$tab."'value' => ".($index+1).$eol;
                 $content .= $padding.$tab.'),'.$eol;
             }
-            $content .= $padding.")".$eol;
+            $content .= $padding.");".$eol;
         }
         else {
             $content  = $padding.'return array();';

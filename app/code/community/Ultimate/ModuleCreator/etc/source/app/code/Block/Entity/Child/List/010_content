@@ -18,7 +18,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_{{Sibling}}_List
         parent::__construct();
         ${{entity}} = $this->get{{Entity}}();
         if (${{entity}}){
-            $this->get{{Siblings}}()->addFilter('{{entity}}_id', ${{entity}}->getId());
+            $this->get{{Siblings}}()->addFieldToFilter('{{entity}}_id', ${{entity}}->getId());
         }
     }
     /**
@@ -37,6 +37,6 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_{{Sibling}}_List
      * {{qwertyuiop}}
      */
     public function get{{Entity}}(){
-        return Mage::registry('current_{{module}}_{{entity}}');
+        return Mage::registry('current_{{entity}}');
     }
 }

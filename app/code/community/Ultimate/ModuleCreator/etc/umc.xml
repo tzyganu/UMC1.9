@@ -299,17 +299,35 @@
                             <system>1</system>
                             <tooltip><![CDATA[If this is set to 'Yes', 3 extra fields/attributes will be added to your entity, 'meta_title', 'meta_keywords' and 'meta_description'. The values of these fields/attributes will be added used for the details page of your entity.]]></tooltip>
                         </add_seo>
-                        <url_rewrite translate="label tooltip" module="modulecreator">
+                        <url_rewrite translate="label tooltip additional" module="modulecreator">
                             <label>Create URL rewrites</label>
                             <type>select</type>
                             <source>adminhtml/system_config_source_yesno</source>
                             <required>1</required>
                             <position>70</position>
-                            <class>use-frontend use-create-view</class>
+                            <class>use-frontend use-create-view url-rewrite</class>
                             <system>1</system>
                             <tooltip><![CDATA[If you set this to 'Yes', a new field will be added to your entity called 'url_key'.<br />This will allow you to use SEF url's for your entity view pages. Example: http://mysite.com/some-key-here.html]]></tooltip>
                             <additional><![CDATA[If is set to 'No' your entity view page will be accessed in the default way http://mysite.com/module/controller/action/id/7<br /><span class="label label-warning">warning</span>This field is available only if 'Create entity view page' is set to 'Yes'.]]></additional>
                         </url_rewrite>
+                        <url_prefix translate="label tooltip" module="modulecreator">
+                            <label>URL prefix</label>
+                            <type>text</type>
+                            <required>0</required>
+                            <position>73</position>
+                            <class>use-frontend use-create-view use-url-rewrite</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This is the prefix of your url. Example 'news', 'articles'. Leave empty for no prefix.]]></tooltip>
+                        </url_prefix>
+                        <url_suffix translate="label tooltip" module="modulecreator">
+                            <label>URL suffix</label>
+                            <type>text</type>
+                            <required>0</required>
+                            <position>77</position>
+                            <class>use-frontend use-create-view use-url-rewrite</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[This is the suffix of your url. Example 'html', 'htm'. Don't add the dot. Leave empty for no suffix.]]></tooltip>
+                        </url_suffix>
                         <rss translate="label tooltip additional" module="modulecreator">
                             <label>Create RSS feed</label>
                             <type>select</type>
@@ -505,6 +523,7 @@
                             <type>text</type>
                             <required>1</required>
                             <position>10</position>
+                            <class>validate-code</class>
                             <tooltip><![CDATA[This is the attribute code. It will be used in the logic of the extension. Use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.<br />There are some naming restriction. For example the code cannot be: "data", "child]]></tooltip>
                         </code>
                         <label translate="label tooltip" module="modulecreator">
@@ -678,6 +697,8 @@
             <view_template />
             <add_seo />
             <url_rewrite />
+            <url_prefix />
+            <url_suffix />
             <rss />
             <widget />
             <link_product />
@@ -927,7 +948,48 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
-        <v1_9_0>
+        <v1_9_0_dev2>
+            <version>1.9.0-dev2</version>
+            <date>2014-01-17</date>
+            <data>
+                <attribute_codes trasnlate="label type comment">
+                    <label>Refactored some attribute codes</label>
+                    <type>Refactor</type>
+                    <comment>Variables that depend on attribute names now look like this: $someName instead of $some_name</comment>
+                </attribute_codes>
+                <front_layout trasnlate="label type comment">
+                    <label>Frontend layout file generation</label>
+                    <type>Bug fix</type>
+                    <comment>Frontend layout file was always generated. Now is generated only if there is at least one entity that has frontend.</comment>
+                </front_layout>
+                <dropdown trasnlate="label type comment">
+                    <label>Fixed dropdown attributes for flat entities</label>
+                    <type>Bug fix</type>
+                    <comment>Dropdown attribute for flat entities were not configured correctly in the admin grid and admin add/edid form.</comment>
+                </dropdown>
+                <product_relation trasnlate="label type comment">
+                    <label>Entities not displaying in product page.</label>
+                    <type>Bug fix</type>
+                    <comment>Entities were not displaying in product page unless they had a separate view page.</comment>
+                </product_relation>
+                <validation trasnlate="label type comment">
+                    <label>Fixed field/attribute codes validation.</label>
+                    <type>Bug fix</type>
+                    <comment>Field/Attribute codes use the same validation as product attributes</comment>
+                </validation>
+                <add_filter trasnlate="label type">
+                    <label>Replaced 'addFilter' with 'addFieldToFilter'</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/1" target="_blank">https://github.com/tzyganu/UMC1.9/issues/1</a>]]></comment>
+                </add_filter>
+                <inconsistency_3 trasnlate="label type">
+                    <label>Inconsistent registry naming</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/3" target="_blank">https://github.com/tzyganu/UMC1.9/issues/3</a>]]></comment>
+                </inconsistency_3>
+            </data>
+        </v1_9_0_dev2>
+        <v1_9_0_dev1>
             <version>1.9.0-dev1</version>
             <date>2014-01-13</date>
             <data>
@@ -977,7 +1039,7 @@
                     <comment>No more hard coded 0.0.1 version.</comment>
                 </version>
                 <source_refactor trasnlate="label type comment">
-                    <label>Source file refactorint</label>
+                    <label>Source file refactoring</label>
                     <type>Refactor</type>
                     <comment>Because some IDEs show errors when parsing incomplete PHP files I've removed the extension of the source files (etc/source)</comment>
                 </source_refactor>
@@ -1016,8 +1078,17 @@
                     <type>Bug fix</type>
                     <comment>In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.</comment>
                 </ucwords>
-
             </data>
-        </v1_9_0>
+        </v1_9_0_dev1>
     </release_notes>
+    <thanks><!-- no need to translate -->
+        <carco>
+            <to>@carco</to>
+            <for>Thanks for the abstract image helper implementation.</for>
+        </carco>
+        <magepsycho>
+            <to>@MagePsycho</to>
+            <for>Thanks for the free testing and the good ideas.</for>
+        </magepsycho>
+    </thanks>
 </config>

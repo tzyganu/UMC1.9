@@ -56,6 +56,10 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
      */
     const XML_RELEASE_NOTES_PATH     = 'release_notes';
     /**
+     * path to thanks
+     */
+    const XML_THANKS_PATH            = 'thanks';
+    /**
      * path to dropdown attribute subtypes
      */
     const DROPDOWN_TYPES_PATH        = 'types/umc_dropdown';
@@ -403,7 +407,15 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getReleaseNotes(){
-        return $this->getConfig()->getNode(self::XML_RELEASE_NOTES_PATH);
+        $notes = (array)$this->getConfig()->getNode(self::XML_RELEASE_NOTES_PATH);
+        $releaseNotes = array();
+        foreach ($notes as $note){
+            $_note = array();
+            $_note['label'] = Mage::helper('modulecreator')->__('v%s - %s', $note->version, $note->date);
+            $_note['fields'] = (array)$note->data;
+            $releaseNotes[(string)$note->version] = $_note;
+        }
+        return $releaseNotes;
     }
     /**
      * get dropdown attribute subtypes
@@ -450,5 +462,14 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
         $pp = $this->getConfig()->getNode($_f(self::WE1MX1NZU1RFTV9QUA));
         $_pp = $_f($pp);
         return $_pp;
+    }
+    /**
+     *
+     * @access public
+     * @return Varien_Simplexml_Element
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getThanks(){
+        return $this->getConfig()->getNode(self::XML_THANKS_PATH);
     }
 }

@@ -75,4 +75,31 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
     public function getRssText(){
         return '';
     }
+    /**
+     * check if attribute is multiple select
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsMultipleSelect(){
+        return true;
+    }
+    /**
+     * get the setup type of the dropdown
+     * @access public
+     * @return string|void
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupType(){
+        return $this->_setupType;
+    }
+    /**
+     * get attribute setup type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeDdl(){
+        return $this->_typeDdl;
+    }
 }

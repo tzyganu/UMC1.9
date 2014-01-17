@@ -95,4 +95,16 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
         $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         return $module.'/attribute_source_country';
     }
+    /**
+     * get admin from options
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = parent::getFormOptions();
+        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $options .= $this->getPadding(3)."'values'=> Mage::getResourceModel('directory/country_collection')->toOptionArray(),".$this->getEol();
+        return $options;
+    }
 }

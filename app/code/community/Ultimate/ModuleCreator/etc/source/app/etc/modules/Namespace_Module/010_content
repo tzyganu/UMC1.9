@@ -6,9 +6,7 @@
             <active>true</active>
             <codePool>{{codepool}}</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Catalog />
-            </depends>
+{{depends}}             </depends>
         </{{Namespace}}_{{Module}}>
     </modules>
 </config>

@@ -280,4 +280,36 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getFilterMethod() {
         return 'addFieldToFilter';
     }
+    /**
+     * convert multiple select fields to strings
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMultipleSelectConvert(){
+        $padding = $this->getPadding(2);
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
+        $content = '';
+        foreach ($this->getEntity()->getAttributes() as $attribute){
+            if ($attribute->getIsMultipleSelect()){
+                $ucCode = $attribute->getMagicMethodCode();
+                $lcCode = $attribute->getCodeForFileName(false);
+                $content .= '$'.$attribute->getCodeForFileName(false).' = $object->get'.$ucCode.'();'.$eol;
+                $content .= $padding.'if (is_array($'.$lcCode.')) {'.$eol;
+                $content .= $padding.$tab.'$object->set'.$ucCode."(implode(',', $".$lcCode.'));'.$eol;
+                $content .= $padding.'}'.$eol.$padding;
+            }
+        }
+        return $content;
+    }
+    /**
+     * check if the entity helper can be created
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCanCreateEntityHelper(){
+        return false;
+    }
 }

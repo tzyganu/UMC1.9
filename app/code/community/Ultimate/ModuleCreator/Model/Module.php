@@ -101,6 +101,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         if ($entity->getCreateFrontend()){
             $this->setCreateFrontend(true);
+            $this->setCanCreateRouter(true);
         }
         if ($entity->getCreateList()){
             $this->setCreateList(true);
@@ -148,6 +149,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         if ($entity->getAddSeo()){
             $this->setHasSeo(true);
+        }
+        if ($entity->getCanCreateListBlock()){
+            $this->setCreateFrontend(true);
         }
         Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
         return $this;
@@ -1251,7 +1255,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{menuItemsXml}}'                      => $this->getMenuItemsXml(),
                 '{{menuAcl}}'                           => $this->getMenuAcl(),
                 '{{ModuleFolder}}'                      => ucfirst(strtolower($this->getModuleName())),
-                '{{ResourceSetup}}'                     => $this->getResourceSetupModel()
+                '{{ResourceSetup}}'                     => $this->getResourceSetupModel(),
+                '{{depends}}'                           => $this->getDepends()
             );
         }
         if (is_null($param)){
@@ -1478,5 +1483,27 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     public function getQwertyuiopp(){
         return $this->getHelper()->getQwertyuiopp();
+    }
+    /**
+     * check module dependency
+     * @access public
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDepends() {
+        if (!$this->hasData('_depends')){
+            $dependency = array('<Mage_Core />'=>1);
+            if ($this->getLinkCore() || $this->getHasEav()){
+                $dependency['<Mage_Catalog />'] = 1;
+            }
+            $eol = $this->getEol();
+            $padding = $this->getPadding(4);
+            $depends = '';
+            foreach ($dependency as $key=>$value){
+                $depends = $padding.$key.$eol;
+            }
+            $this->setData('_depends', $depends);
+        }
+        return $this->getData('_depends');
     }
 }

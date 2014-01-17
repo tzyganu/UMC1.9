@@ -13,7 +13,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY= '{{module}}_{{entity}}';
+    const ENTITY    = '{{module}}_{{entity}}';
     const CACHE_TAG = '{{module}}_{{entity}}';
     /**
      * Prefix of model events names

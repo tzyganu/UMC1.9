@@ -46,4 +46,4 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss
         );
         $rssObj->_addHeader($data);
         $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection()
-            ->addFilter('status', 1)
+            ->addFieldToFilter('status', 1)

@@ -26,6 +26,6 @@
         return $this->getChildHtml('pager');
     }
     public function get{{Entity}}() {
-        return Mage::registry('current_{{module}}_{{entity}}');
+        return Mage::registry('current_{{entity}}');
     }
 }

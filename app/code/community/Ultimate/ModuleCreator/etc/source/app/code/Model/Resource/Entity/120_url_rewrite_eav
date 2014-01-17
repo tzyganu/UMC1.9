@@ -33,6 +33,7 @@
         $table = $urlRewrite->getBackend()->getTable();
         $select = $this->_getReadAdapter()->select()
             ->from(array('e' => $table))
+            ->where('e.attribute_id = ?', $urlRewrite->getId())
             ->where('e.value = ?', $urlKey)
             ->where('e.store_id IN (?)', $store)
             ->order('e.store_id DESC');

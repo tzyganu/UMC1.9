@@ -77,4 +77,19 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
         $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
         return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>: <?php echo Mage::helper(\'core\')->formatDate($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\');?>'.$this->getEol();
     }
+    /**
+     * get options for admin form
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = parent::getFormOptions();
+        $padding = $this->getPadding(3);
+        $eol     = $this->getEol();
+        $options .= $padding.'\'image\' => $this->getSkinUrl(\'images/grid-cal.gif\'),'.$eol;;
+        $options .= $padding.'\'format\'  => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),'.$eol;
+        return $options;
+    }
+
 }

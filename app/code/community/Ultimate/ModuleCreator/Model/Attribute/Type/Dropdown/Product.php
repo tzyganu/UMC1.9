@@ -28,7 +28,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
      * entity code for source
      * @var string
      */
-    protected $_entityCode = 'catalog_product';
+    protected $_entityCode      = 'catalog_product';
+    /**
+     * entity attribute
+     * @var string
+     */
+    protected $_entityAttribute = null;
     /**
      * get attribute options for source model
      * @access public
@@ -55,5 +60,97 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
      */
     public function getEntityCode(){
         return $this->_entityCode;
+    }
+    /**
+     * get attribute setup type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSetupType(){
+        $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
+        $productAttribute = Mage::getModel('eav/config')->getAttribute($this->getEntityCode(), $attrCode);
+        Mage::log($attrCode);
+        Mage::log($productAttribute);
+        if ($productAttribute->getId()){
+            $type = $productAttribute->getBackendType();
+            if ($type == 'static'){
+                return false;
+            }
+            return $type;
+        }
+        return false;
+    }
+    /**
+     * get attribute setup type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeDdl(){
+        $entityAttribute = $this->_getEntityAttribute();
+        switch($entityAttribute->getBackendType()){
+            case 'int':
+                return 'TYPE_INTEGER';
+            break;
+            case 'varchar':
+                return 'TYPE_TEXT';
+            break;
+            case 'text':
+                return 'TYPE_TEXT';
+            case 'datetime':
+                return 'TYPE_DATETIME';
+            break;
+            case 'decimal':
+                return 'TYPE_DECIMAL';
+            break;
+            default:
+                return false;
+            break;
+        }
+    }
+
+    /**
+     * get attribute setup type
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeSize(){
+        $entityAttribute = $this->_getEntityAttribute();
+        switch($entityAttribute->getBackendType()){
+            case 'int':
+                return 'null';
+                break;
+            case 'varchar':
+                return '255';
+                break;
+            case 'text':
+                return "'64k'";
+            case 'datetime':
+                return "255";
+                break;
+            case 'decimal':
+                return "'12,4'";
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+
+    /**
+     * get the source model attribute
+     * @access public
+     * @return null|string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _getEntityAttribute(){
+        if (is_null($this->_entityAttribute)){
+            $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
+            $productAttribute = Mage::getModel('eav/config')->getAttribute($this->getEntityCode(), $attrCode);
+            $this->_entityAttribute = $productAttribute;
+        }
+        return $this->_entityAttribute;
     }
 }

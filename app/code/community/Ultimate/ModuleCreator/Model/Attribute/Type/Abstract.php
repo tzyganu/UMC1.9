@@ -247,4 +247,24 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
     public function getAttributeOptions(){
         return $this->getPadding(2).'return array();';
     }
+    /**
+     * get admin from options
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = '';
+        $padding = $this->getPadding(3);
+        $eol     = $this->getEol();
+        $note = $this->getAttribute()->getNote();
+        if ($note){
+            $options .= $padding."'note'	=> $"."this->__('".$note."'),".$eol;
+        }
+        if ($this->getRequired()){
+            $options .= $padding."'required'  => true,".$eol;
+            $options .= $padding."'class' => 'required-entry',".$eol;
+        }
+        return $options.$eol;
+    }
 }

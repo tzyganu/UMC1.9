@@ -105,4 +105,28 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
     public function getIsYesNo(){
         return true;
     }
+    /**
+     * get the options for form input
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        $options = parent::getFormOptions();
+        $padding = $this->getPadding(3);
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
+        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $options .= $padding."'values'=> array(".$eol;
+        $options .= $padding.$tab.'array('.$eol;
+        $options .= $padding.$tab.$tab."'value' => 1,".$eol;
+        $options .= $padding.$tab.$tab."'label' => Mage::helper('".$module."')->__('Yes'),".$eol;
+        $options .= $padding.$tab."),".$eol;
+        $options .= $padding.$tab.'array('.$eol;
+        $options .= $padding.$tab.$tab."'value' => 0,".$eol;
+        $options .= $padding.$tab.$tab."'label' => Mage::helper('".$module."')->__('No'),".$eol;
+        $options .= $padding.$tab."),".$eol;
+        $options .= $padding."),".$eol;
+        return $options;
+    }
 }

@@ -58,12 +58,19 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
     /**
      * get the magic function code for attribute
      * @access public
+     * @param bool $ucFirst
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getMagicMethodCode(){
+    public function getMagicMethodCode($ucFirst = true){
         $code = $this->getCode();
-        return $this->_camelize($code);
+        $code = $this->_camelize($code);
+        if ($ucFirst){
+            return $code;
+        }
+        //lcfirst only works for php 5.3+
+        $code{0} = strtolower($code{0});
+        return $code;
     }
     /**
      * get attribute the type instance
@@ -151,6 +158,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         if (is_null($this->_placeholders)){
             $placeholders['{{attributeLabel}}']             = $this->getLabel();
             $placeholders['{{AttributeMagicCode}}']         = $this->getMagicMethodCode();
+            $placeholders['{{attributeMagicCode}}']         = $this->getMagicMethodCode(false);
             $placeholders['{{attributeCode}}']              = $this->getCode();
             $placeholders['{{attributeColumnOptions}}']     = $this->getAdminColumnOptions();
             $placeholders['{{attributeFormType}}']          = $this->getFormType();
@@ -158,7 +166,8 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
             $placeholders['{{attributePreElementText}}']    = $this->getPreElementText();
             $placeholders['{{attributeRssText}}']           = $this->getRssText();
             $placeholders['{{attributeNote}}']              = $this->getNote();
-            $placeholders['{{AttributeCodeForFile}}']       = ucfirst($this->getCodeForFileName());
+            $placeholders['{{AttributeCodeForFile}}']       = $this->getCodeForFileName(true);
+            $placeholders['{{attributeCodeForFile}}']       = $this->getCodeForFileName(false);
             $placeholders['{{attributeOptions}}']           = $this->getAttributeOptions();
 
             $eventObject = new Varien_Object(
@@ -467,5 +476,24 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
             return 'true';
         }
         return 'false';
+    }
+    /**
+     * get admin from options
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFormOptions(){
+        return $this->getTypeInstance()->getFormOptions();
+    }
+
+    /**
+     * check if attribute is multiple select
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsMultipleSelect(){
+        return $this->getTypeInstance()->getIsMultipleSelect();
     }
 }

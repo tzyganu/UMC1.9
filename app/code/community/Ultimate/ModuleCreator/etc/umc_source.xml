@@ -2691,6 +2691,20 @@
                     </depend>
                     <sort_order>280</sort_order>
                 </frontend>
+                <router>
+                    <name>284_router</name>
+                    <depend>
+                        <can_create_router />
+                    </depend>
+                    <sort_order>284</sort_order>
+                </router>
+                <frontend_footer>
+                    <name>287_frontend_footer</name>
+                    <depend>
+                        <create_frontend/>
+                    </depend>
+                    <sort_order>287</sort_order>
+                </frontend_footer>
                 <default_top>
                     <name>290_default_top</name>
                     <depend>
@@ -2713,6 +2727,10 @@
                         <create_frontend/>
                     </depend>
                 </default_footer>
+                <footer>
+                    <name>320_footer</name>
+                    <sort_order>320</sort_order>
+                </footer>
             </code>
         </config_xml>
 
@@ -3112,9 +3130,12 @@
         <helper_entity translate="title description condition" module="modulecreator">
             <title>Entity helper</title>
             <description>Helper for each entity</description>
-            <condition>Generated for each entity.</condition>
+            <condition>Generated for each entity that matches one of these conditions. Is EAV or has frontend files or has a file type field or behaves as tree</condition>
             <scope>entity</scope>
             <filetype>php</filetype>
+            <depend>
+                <can_create_entity_helper />
+            </depend>
             <source>app/code/Helper/Entity/</source>
             <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Helper/{{Entity}}.php</destination>
             <code>
@@ -3730,6 +3751,15 @@
                     </depend>
                     <sort_order>40</sort_order>
                 </not_tree>
+                <before_save_multiple>
+                    <name>045_before_save_multiple</name>
+                    <depend>
+                        <not_is_tree />
+                        <is_flat />
+                        <has_multiple_select />
+                    </depend>
+                    <sort_order>45</sort_order>
+                </before_save_multiple>
                 <tree>
                     <name>050_tree</name>
                     <depend>
@@ -4814,6 +4844,9 @@
             <filetype>xml</filetype>
             <source>app/design/frontend/layout/namespace_module/</source>
             <destination>app/design/frontend/base/default/layout/{{namespace}}_{{module}}.xml</destination>
+            <depend>
+                <create_frontend />
+            </depend>
             <code>
                 <top>
                     <name>010_top</name>

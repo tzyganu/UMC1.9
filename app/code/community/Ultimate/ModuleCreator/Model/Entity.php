@@ -125,6 +125,9 @@ class Ultimate_ModuleCreator_Model_Entity
         if ($attribute->getType() == 'country'){
             $this->setHasCountry(true);
         }
+        if ($attribute->getIsMultipleSelect()) {
+            $this->setHasMultipleSelect(true);
+        }
         Mage::dispatchEvent('umc_entity_add_attribute_after', array('attribute'=>$attribute, 'entity'=>$this));
         return $this;
     }
@@ -312,6 +315,18 @@ class Ultimate_ModuleCreator_Model_Entity
         return $this->getCreateFrontend() && $this->getData('create_list');
     }
     /**
+     * get list template
+     * @access public
+     * @return stromg
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getListTemplate(){
+        if ($this->getCreateList()){
+            return $this->getData('list_template');
+        }
+        return '';
+    }
+    /**
      * check if frontend view files must be created
      * @access public
      * @return bool
@@ -319,6 +334,18 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getCreateView(){
         return $this->getCreateFrontend() && $this->getData('create_view');
+    }
+    /**
+     * get list template
+     * @access public
+     * @return stromg
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getViewTemplate(){
+        if ($this->getCreateView()){
+            return $this->getData('view_template');
+        }
+        return '';
     }
     /**
      * check if widget list files must be created
@@ -336,7 +363,7 @@ class Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAddSeo(){
-        return $this->getCreateFrontend() && $this->getData('add_seo');
+        return $this->getCreateView() && $this->getData('add_seo');
     }
     /**
      * check if SEO attributes should be added
@@ -346,6 +373,39 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getRss(){
         return $this->getCreateFrontend() && $this->getData('rss');
+    }
+    /**
+     * check if url rewrite shoul be added
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getUrlRewrite(){
+        return $this->getCreateView() && $this->getData('url_rewrite');
+    }
+    /**
+     * get url prefix
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getUrlPrefix(){
+        if ($this->getUrlRewrite()){
+            return $this->getData('url_prefix');
+        }
+        return '';
+    }
+    /**
+     * get url suffix
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getUrlSuffix(){
+        if ($this->getUrlRewrite()){
+            return $this->getData('url_suffix');
+        }
+        return '';
     }
     /**
      * check if products are listed in the entity view page
@@ -364,6 +424,15 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getShowOnProduct(){
         return $this->getLinkProduct() && $this->getData('show_on_product');
+    }
+    /**
+     * check if entity list is shown on category page
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getShowOnCategory(){
+        return $this->getLinkCategory() && $this->getData('show_on_category');
     }
     /**
      * add related entities
@@ -534,6 +603,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{beforeSaveParam}}']             = $this->getBeforeSaveParam();
             $this->_placeholders['{{EntityAttributeSetId}}']        = $this->getEntityAttributeSetId();
             $this->_placeholders['{{filterMethod}}']                = $this->getFilterMethod();
+            $this->_placeholders['{{multipleSelectConvert}}']       = $this->getMultipleSelectConvert();
 
             $eventObject = new Varien_Object(
                 array(
@@ -620,6 +690,12 @@ class Ultimate_ModuleCreator_Model_Entity
         $text = '<'.$this->getNameSingular().'>'.$eol;
         if ($this->getCreateFrontend()){
             $text.= $padding3.$padding.'<breadcrumbs>1</breadcrumbs>'.$eol;
+        }
+        if ($this->getUrlRewrite() && $this->getUrlPrefix()){
+            $text.= $padding3.$padding.'<url_prefix>'.$this->getUrlPrefix().'</url_prefix>'.$eol;
+        }
+        if ($this->getUrlRewrite() && $this->getUrlSuffix()){
+            $text.= $padding3.$padding.'<url_suffix>'.$this->getUrlSuffix().'</url_suffix>'.$eol;
         }
         if ($this->getAllowComment()){
             $text.= $padding3.$padding.'<allow_comment>1</allow_comment>'.$eol;
@@ -804,6 +880,12 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getCanCreateListBlock(){
         if ($this->getCreateList()){
+            return true;
+        }
+        if ($this->getShowOnProduct()){
+            return true;
+        }
+        if ($this->getShowOnCategory()){
             return true;
         }
         //check for siblings with frontend view
@@ -1149,6 +1231,29 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.$tab.'<show_in_website>1</show_in_website>'.$eol;
             $content .= $padding.$tab.'<show_in_store>1</show_in_store>'.$eol;
             $content .= $padding.'</breadcrumbs>'.$eol;
+            $position += 10;
+        }
+        if ($this->getUrlRewrite()){
+            $content .= $padding.'<url_prefix translate="label comment">'.$eol;
+            $content .= $padding.$tab.'<label>URL prefix</label>'.$eol;
+            $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;
+            $content .= $padding.$tab.'<sort_order>'.$position.'</sort_order>'.$eol;
+            $content .= $padding.$tab.'<show_in_default>1</show_in_default>'.$eol;
+            $content .= $padding.$tab.'<show_in_website>1</show_in_website>'.$eol;
+            $content .= $padding.$tab.'<show_in_store>1</show_in_store>'.$eol;
+            $content .= $padding.$tab.'<comment>Leave empty for no prefix</comment>'.$eol;
+            $content .= $padding.'</url_prefix>'.$eol;
+            $position += 10;
+
+            $content .= $padding.'<url_suffix translate="label comment">'.$eol;
+            $content .= $padding.$tab.'<label>Url suffix</label>'.$eol;
+            $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;
+            $content .= $padding.$tab.'<sort_order>'.$position.'</sort_order>'.$eol;
+            $content .= $padding.$tab.'<show_in_default>1</show_in_default>'.$eol;
+            $content .= $padding.$tab.'<show_in_website>1</show_in_website>'.$eol;
+            $content .= $padding.$tab.'<show_in_store>1</show_in_store>'.$eol;
+            $content .= $padding.$tab.'<comment>What goes after the dot. Leave empty for no suffix.</comment>'.$eol;
+            $content .= $padding.'</url_suffix>'.$eol;
             $position += 10;
         }
         if ($this->getAllowComment()) {
@@ -2290,5 +2395,34 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getFilterMethod() {
         return $this->getTypeInstance()->getFilterMethod();
+    }
+
+    /**
+     * convert multiple select fields to strings
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMultipleSelectConvert(){
+        return $this->getTypeInstance()->getMultipleSelectConvert();
+    }
+
+    /**
+     * check if the entity helper can be created
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCanCreateEntityHelper(){
+        if ($this->getIsTree()) {
+            return true;
+        }
+        if ($this->getHasFile()) {
+            return true;
+        }
+        if ($this->getCreateFrontend()) {
+            return true;
+        }
+        return $this->getTypeInstance()->getCanCreateEntityHelper();
     }
 }

@@ -254,32 +254,45 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
         $this->setChild('files_help', $filesHelp);
 
         $releaseNotes = (array)Mage::helper('modulecreator')->getReleaseNotes();
-        $releaseNotesBlocks = array();
-        foreach ($releaseNotes as $v=>$settings) {
-            $releaseNotes[$v] = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-                ->setFieldsets(array(
-                    'files'=> array(
-                        'label'=>Mage::helper('modulecreator')->__('v%s - %s', $settings->version, $settings->date),
-                        'fields' => (array)$settings->data)
-                ))
-                ->setColumns(array(
+        $releaseNotesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
+            ->setFieldsets($releaseNotes)
+            ->setColumns(array(
+                'type'     => array(
+                    'header'=>Mage::helper('modulecreator')->__('Type'),
+                    'key'   =>'type'
+                ),
+                'label'     => array(
+                    'header'=>Mage::helper('modulecreator')->__('Label'),
+                    'key'   =>'label'
+                ),
+                'comment'   => array(
+                    'header'=>Mage::helper('modulecreator')->__('Comment'),
+                    'key'   =>'comment'
+                ),
+            ))
+            ->setDescription(Mage::helper('modulecreator')->__('Release notes'))
+        ;
+        $this->setChild('release_notes', $releaseNotesHelp);
+
+        $thanks = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
+            ->setFieldsets(array(
+                'files'=> array(
+                    'label'=>Mage::helper('modulecreator')->__('Thanks'),
+                    'fields' => (array)Mage::helper('modulecreator')->getThanks())
+            ))
+            ->setColumns(array(
                     'type'     => array(
-                        'header'=>Mage::helper('modulecreator')->__('Type'),
-                        'key'   =>'type'
+                        'header'=>Mage::helper('modulecreator')->__('To'),
+                        'key'   =>'to'
                     ),
                     'label'     => array(
-                        'header'=>Mage::helper('modulecreator')->__('Label'),
-                        'key'   =>'label'
+                        'header'=>Mage::helper('modulecreator')->__('Because'),
+                        'key'   =>'for'
                     ),
-                    'comment'   => array(
-                        'header'=>Mage::helper('modulecreator')->__('Comment'),
-                        'key'   =>'comment'
-                    ),
-                ))
-                ->setDescription(Mage::helper('modulecreator')->__('Release notes'))
-            ;
-            $this->setChild('release_notes_'.$v, $releaseNotes[$v]);
-        }
+                )
+            )
+            ->setDescription(Mage::helper('modulecreator')->__('Thank you for your help'));
+        $this->setChild('thanks', $thanks);
         return parent::_prepareLayout();
     }
 }

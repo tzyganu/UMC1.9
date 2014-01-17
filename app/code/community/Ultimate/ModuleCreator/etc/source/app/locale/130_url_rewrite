@@ -3,3 +3,7 @@
 "The URL key contains capital letters or disallowed symbols.","The URL key contains capital letters or disallowed symbols."
 "URL key","URL key"
 "The URL key cannot consist only of numbers.","The URL key cannot consist only of numbers."
+"URL prefix","URL prefix"
+"Leave empty for no prefix","Leave empty for no prefix"
+"What goes after the dot. Leave empty for no suffix.","What goes after the dot. Leave empty for no suffix."
+"URL suffix","URL suffix"
