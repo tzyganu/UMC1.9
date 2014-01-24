@@ -153,6 +153,15 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getCanCreateListBlock()){
             $this->setCreateFrontend(true);
         }
+        if ($entity->getShowOnProduct()) {
+            $this->setShowOnProduct(true);
+        }
+        if ($entity->getShowOnCategory()) {
+            $this->setShowOnCategory(true);
+        }
+        if ($entity->getShowInCategoryMenu()) {
+            $this->setShowInCategoryMenu(true);
+        }
         Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
         return $this;
     }
@@ -213,7 +222,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     /**
      * get the module entities
      * @access public
-     * @return array()
+     * @return Ultimate_ModuleCreator_Model_Entity[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getEntities(){
@@ -1084,6 +1093,13 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         return $this;
     }
 
+    /**
+     * build source file for an attribute
+     * @access public
+     * @param $config
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
     protected function _buildAttributeFile($config){
         foreach ($this->getEntities() as $entity){
             foreach ($entity->getAttributes() as $attribute){
@@ -1098,6 +1114,10 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 }
                 $code = $this->_sortCodeFiles((array)$config->code);
                 foreach ($code as $key=>$file){
+                    $depend             = $file->depend;
+                    if (!$this->_validateDepend($attribute, $depend)){
+                        continue;
+                    }
                     $sourceContent  = $this->getFileContents($sourceFolder.(string)$file->name);
                     $content .= $this->_filterString($sourceContent, $filetype, $placeholders, true);
                 }
@@ -1111,7 +1131,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * get sample files source folder
      * @access public
      * @return string
-     * @@author @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getSourceFolder(){
         if (!isset($this->_sourceFolder)){
@@ -1256,7 +1276,11 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{menuAcl}}'                           => $this->getMenuAcl(),
                 '{{ModuleFolder}}'                      => ucfirst(strtolower($this->getModuleName())),
                 '{{ResourceSetup}}'                     => $this->getResourceSetupModel(),
-                '{{depends}}'                           => $this->getDepends()
+                '{{depends}}'                           => $this->getDepends(),
+                '{{productViewLayout}}'                 => $this->getProductViewLayout(),
+                '{{categoryViewLayout}}'                => $this->getCategoryViewLayout(),
+                '{{defaultLayoutHandle}}'               => $this->getFrontendDefaultLayoutHandle(),
+                '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
             );
         }
         if (is_null($param)){
@@ -1505,5 +1529,154 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $this->setData('_depends', $depends);
         }
         return $this->getData('_depends');
+    }
+
+    /**
+     * get layout for product view page
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getProductViewLayout() {
+        $content = '';
+        $padding = $this->getPadding(3);
+        $eol     = $this->getEol();
+        $tab     = $this->getPadding();
+        $ns      = strtolower($this->getNamespace());
+        $module  = $this->getLowerModuleName();
+        foreach ($this->getEntities() as $entity) {
+            $name  = strtolower($entity->getNameSingular());
+            $names = strtolower($entity->getNamePlural());
+            $label = $entity->getLabelPlural();
+            if ($entity->getShowOnProduct()) {
+                $content .= $padding.'<block type="'.$module.'/catalog_product_list_'.$name.'" name="product.info.'.$names.'" as="product_'.$names.'" template="'.$ns.'_'.$module.'/catalog/product/list/'.$name.'.phtml">'.$eol;
+                $content .= $padding.$tab.'<action method="addToParentGroup"><group>detailed_info</group></action>'.$eol;
+                $content .= $padding.$tab.'<action method="setTitle" translate="value" module="'.$module.'"><value>'.$label.'</value></action>'.$eol;
+                $content .= $padding.'</block>'.$eol;
+            }
+        }
+        return $content;
+    }
+    /**
+     * get layout for category view page
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCategoryViewLayout() {
+        $content = '';
+        $padding = $this->getPadding(3);
+        $eol     = $this->getEol();
+        $ns      = strtolower($this->getNamespace());
+        $module  = $this->getLowerModuleName();
+        foreach ($this->getEntities() as $entity) {
+            $name  = strtolower($entity->getNameSingular());
+            $names = strtolower($entity->getNamePlural());
+            $label = $entity->getLabelPlural();
+            if ($entity->getShowOnProduct()) {
+                $content .= $padding.'<block type="'.$module.'/catalog_category_list_'.$name.'" name="category.info.'.$names.'" as="category_'.$names.'" template="'.$ns.'_'.$module.'/catalog/category/list/'.$name.'.phtml" after="-" />'.$eol;
+            }
+        }
+        return $content;
+    }
+
+    /**
+     * get default layout handle
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFrontendDefaultLayoutHandle() {
+        $padding = $this->getPadding(1);
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
+        $top     = array();
+        $footer  = array();
+        $content = $eol.$padding;
+        $tree    = false;
+        if ($this->getCreateFrontend()) {
+            foreach ($this->getEntities() as $entity) {
+                if ($entity->getCreateList()) {
+                    if ($entity->getListMenu() == Ultimate_ModuleCreator_Model_Source_Entity_Menu::TOP_LINKS) {
+                        $top[] = $entity;
+                    }
+                    elseif ($entity->getListMenu() == Ultimate_ModuleCreator_Model_Source_Entity_Menu::FOOTER_LINKS) {
+                        $footer[] = $entity;
+                    }
+                    if ($entity->getIsTree()) {
+                        $tree = true;
+                    }
+                }
+            }
+        }
+        if (count($top) > 0 || count($footer) > 0 || $tree) {
+            $content .= '<default>'.$eol;
+            if ($tree) {
+                $content .= $padding.'<reference name="head">'.$eol;
+                $content .= $padding.$tab.'<action method="addCss"><js>css/'.strtolower($this->getNamespace()).'_'.$this->getLowerModuleName().'/tree.css</js></action>'.$eol;
+                $content .= $padding.'</reference>'.$eol;
+            }
+            if (count($top) > 0) {
+                $content .= $padding.$tab.'<reference name="top.links">'.$eol;
+                $position = 120;
+                foreach ($top as $entity) {
+                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$this->getLowerModuleName().'">'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<label>'.$entity->getLabelPlural().'</label>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<title>'.$entity->getLabelPlural().'</title>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<prepare />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<urlParams/>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<position>'.$position.'</position>'.$eol;
+                    $content .= $padding.$tab.$tab.'</action>'.$eol;
+                    $position += 10;
+                }
+                $content .= $padding.$tab.'</reference>'.$eol;
+            }
+            if (count($footer) > 0) {
+                $content .= $padding.$tab.'<reference name="footer_links">'.$eol;
+                $position = 120;
+                foreach ($footer as $entity) {
+                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$this->getLowerModuleName().'">'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<label>'.$entity->getLabelPlural().'</label>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<title>'.$entity->getLabelPlural().'</title>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<prepare />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<urlParams/>'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<position>'.$position.'</position>'.$eol;
+                    $content .= $padding.$tab.$tab.'</action>'.$eol;
+                    $position += 10;
+                }
+                $content .= $padding.$tab.'</reference>'.$eol;
+            }
+            $content .= $padding.'</default>';
+        }
+        return $content;
+    }
+
+    /**
+     * get xml for category menu event
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCategoryMenuEvent() {
+        if ($this->getShowInCategoryMenu()) {
+            $eol      = $this->getEol();
+            $padding  = $this->getPadding(2);
+            $tab      = $this->getPadding();
+            $content  = $eol;
+            $content .= $padding.'<events>'.$eol;
+            $content .= $padding.$tab.'<page_block_html_topmenu_gethtml_before>'.$eol;
+            $content .= $padding.$tab.$tab.'<observers>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<'.$this->getLowerModuleName().'>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.$tab.'<class>'.$this->getLowerModuleName().'/observer</class>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.$tab.'<method>addItemsToTopmenuItems</method>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'</'.$this->getLowerModuleName().'>'.$eol;
+            $content .= $padding.$tab.$tab.'</observers>'.$eol;
+            $content .= $padding.$tab.'</page_block_html_topmenu_gethtml_before>'.$eol;
+            $content .= $padding.'</events>'.$eol;
+            return $content;
+        }
+        return '';
     }
 }

@@ -160,7 +160,7 @@ class Ultimate_ModuleCreator_Model_Entity
     /**
      * ge the entity attributes
      * @access public
-     * @return array()
+     * @return Ultimate_ModuleCreator_Model_Attribute[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAttributes(){
@@ -472,6 +472,15 @@ class Ultimate_ModuleCreator_Model_Entity
         return !$this->getIsTree();
     }
     /**
+     * check if entity does not have url rewrites
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNotUrlRewrite(){
+        return !$this->getUrlRewrite();
+    }
+    /**
      * check if entity is EAV
      * @access public
      * @return bool
@@ -604,6 +613,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{EntityAttributeSetId}}']        = $this->getEntityAttributeSetId();
             $this->_placeholders['{{filterMethod}}']                = $this->getFilterMethod();
             $this->_placeholders['{{multipleSelectConvert}}']       = $this->getMultipleSelectConvert();
+            $this->_placeholders['{{toOptionAddition}}']            = $this->getToOptionAddition();
+            $this->_placeholders['{{multiselectMethods}}']          = $this->getMultiselectMethods();
 
             $eventObject = new Varien_Object(
                 array(
@@ -655,6 +666,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholdersAsSibling['{{SiblingListItem}}']                = $this->getHtmlLink();
             $this->_placeholdersAsSibling['{{siblingNameAttribute}}']           = $this->getNameAttributeCode();
             $this->_placeholdersAsSibling['{{siblingAdditionalPrepareCollection}}'] = $this->getAdditionalPrepareCollection();
+            $this->_placeholdersAsSibling['{{siblingTableAlias}}']              = $this->getEntityTableAlias();
 
             $eventObject = new Varien_Object(
                 array(
@@ -948,7 +960,7 @@ class Ultimate_ModuleCreator_Model_Entity
         foreach ($parents as $parent){
             $attr = Mage::getModel('modulecreator/attribute');
             $attr->setCode($parent->getPlaceholders('{{entity}}').'_id');
-            $attr->setLabel($parent->getPlaceholders('{{EntityLabel}} ID'));
+            $attr->setLabel($parent->getPlaceholders('{{EntityLabel}}'). ' ID');
             $attr->setType('int');
             $content .= $padding.$attr->getDdlSqlColumn()."\n";
         }
@@ -978,13 +990,11 @@ class Ultimate_ModuleCreator_Model_Entity
         }
         switch ($type){
             case 'status':
-                if ($this->getUrlRewrite() || $ignoreSettings){
-                    $attr = Mage::getModel('modulecreator/attribute');
-                    $attr->setCode('status');
-                    $attr->setLabel('Enabled');
-                    $attr->setType('yesno');
-                    $attributes[] = $attr;
-                }
+                $attr = Mage::getModel('modulecreator/attribute');
+                $attr->setCode('status');
+                $attr->setLabel('Enabled');
+                $attr->setType('yesno');
+                $attributes[] = $attr;
                 break;
             case 'url_rewrite':
                 if ($this->getUrlRewrite() || $ignoreSettings){
@@ -2344,6 +2354,27 @@ class Ultimate_ModuleCreator_Model_Entity
     }
 
     /**
+     * check if source model can be created
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCanCreateSourceModel() {
+        return $this->getIsAttribute() || $this->getIsParent();
+    }
+
+    /**
+     * check if entity has children
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsParent() {
+        $children = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT);
+        return count($children) > 0;
+    }
+
+    /**
      * get product attribute group
      * @access public
      * @return string
@@ -2424,5 +2455,54 @@ class Ultimate_ModuleCreator_Model_Entity
             return true;
         }
         return $this->getTypeInstance()->getCanCreateEntityHelper();
+    }
+
+    /**
+     * get additional code for toOptionArray()
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionAddition(){
+        return $this->getTypeInstance()->getToOptionAddition();
+    }
+
+    /**
+     * check if entity should be included in the category menu
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getShowInCategoryMenu() {
+        return $this->getListMenu() == Ultimate_ModuleCreator_Model_Source_Entity_Menu::CATEGORY_MENU;
+    }
+
+    /**
+     * get multiselect methods
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMultiselectMethods() {
+        $content = '';
+        $padding = $this->getPadding();
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
+        foreach ($this->getAttributes() as $attribute) {
+            $magicCode = $attribute->getMagicMethodCode();
+            $code      = $attribute->getCode();
+            if ($attribute->getTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect) {
+                $content .= $eol.$padding.'/**'.$eol;
+                $content .= $padding.'  * get '.$attribute->getLabel().$eol;
+                $content .= $padding.'  * @access public'.$eol;
+                $content .= $padding.'  * @return array'.$eol;
+                $content .= $padding.'  * '.$this->getModule()->getQwertyuiop().$eol;
+                $content .= $padding.'  */'.$eol;
+                $content .= $padding.'public function get'.$magicCode.'() {'.$eol;
+                $content .= $padding.$tab.'return explode(\',\',$this->getData(\''.$code.'\'));'.$eol;
+                $content .= $padding.'}';
+            }
+        }
+        return $content;
     }
 }

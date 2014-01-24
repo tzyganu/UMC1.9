@@ -1,3 +1,7 @@
+        if (!${{entity}}) {
+            $this->_forward('no-route');
+            return;
+        }
         Mage::register('current_{{entity}}', ${{entity}});
         $this->loadLayout();
         if ($root = $this->getLayout()->getBlock('root')) {

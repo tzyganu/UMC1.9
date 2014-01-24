@@ -1,0 +1,21 @@
+<?php
+{{License}}
+/**
+ * Frontend observer
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Observer {
+    /**
+	 * add items to main menu
+	 * @access public
+	 * @param Varien_Event_Observer $observer
+	 * @return array()
+	 * {{qwertyuiop}}
+	 */
+    public function addItemsToTopmenuItems($observer) {
+        $menu = $observer->getMenu();
+        $tree = $menu->getTree();
+        $action = Mage::app()->getFrontController()->getAction()->getFullActionName();

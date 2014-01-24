@@ -10,10 +10,10 @@
                         ->setStoreId(Mage::app()->getStore()->getId())
                         ->load(${{entity}}Id);
         if (!${{entity}}->getId()){
-            $this->_forward('no-route');
+            return false;
         }
         elseif (!${{entity}}->getStatus()){
-            $this->_forward('no-route');
+            return false;
         }
         return ${{entity}};
     }

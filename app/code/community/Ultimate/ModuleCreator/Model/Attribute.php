@@ -195,7 +195,11 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdminColumnOptions(){
-        return $this->getTypeInstance()->getAdminColumnOptions();
+        $options = $this->getTypeInstance()->getAdminColumnOptions();
+        if ($this->getUseFilterIndex()){
+            $options .= $this->getPadding(3)."'filter_index' => '".$this->getEntity()->getEntityTableAlias().".".$this->getCode()."'".$this->getEol();
+        }
+        return $options;
     }
 
     /**
@@ -495,5 +499,23 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      */
     public function getIsMultipleSelect(){
         return $this->getTypeInstance()->getIsMultipleSelect();
+    }
+    /**
+     * check if entity is eav
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntityEav() {
+        return $this->getEntity()->getIsEav();
+    }
+    /**
+     * check if entity is not eav
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNotEntityEav() {
+        return !$this->getEntityEav();
     }
 }

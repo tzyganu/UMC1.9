@@ -72,7 +72,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
         $eol      = $this->getEol();
         $module   = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         if ($this->getTypeAttribute()->getAttribute()->getOptions()) {
-            $content = $padding.'return array('.$eol;
+            $content = $padding.'$options =  array('.$eol;
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
                 $content .= $padding.$tab.$tab."'label' => Mage::helper('".$module."')->__('".$option."'),".$eol;
@@ -80,6 +80,10 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
                 $content .= $padding.$tab.'),'.$eol;
             }
             $content .= $padding.");".$eol;
+            $content .= $padding.'if ($withEmpty) {'.$eol;
+            $content .= $padding.$tab.'array_unshift($options, array(\'label\'=>\'\', \'value\'=>\'\'));'.$eol;
+            $content .= $padding.'}'.$eol;
+            $content .= $padding.'return $options;'.$eol;
         }
         else {
             $content  = $padding.'return array();';

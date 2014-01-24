@@ -102,4 +102,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
     public function getTypeDdl(){
         return $this->_typeDdl;
     }
+    /**
+     * check if options should be returned with empty
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getOptionsFlag() {
+        return 'false';
+    }
 }

@@ -1,8 +1,0 @@
-            <action method="addLink" translate="label title" module="{{module}}">
-                <label>{{EntitiesLabel}}</label>
-                <url helper="{{module}}/{{entity}}/get{{Entities}}Url" />
-                <title>{{EntitiesLabel}}</title>
-                <prepare />
-                <urlParams/>
-                <position>120</position>
-            </action>

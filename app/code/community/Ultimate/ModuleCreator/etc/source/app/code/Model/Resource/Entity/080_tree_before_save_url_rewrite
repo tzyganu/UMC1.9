@@ -7,7 +7,7 @@
      * {{qwertyuiop}}
      */
     protected function _beforeSave({{beforeSaveParam}} $object){
-        if (!$object->getInitialSetupFlag()){
+        {{multipleSelectConvert}}if (!$object->getInitialSetupFlag()){
             if (!$this->getIsUniqueUrlKey($object)) {
                 Mage::throwException(Mage::helper('{{module}}')->__('URL key already exists.'));
             }

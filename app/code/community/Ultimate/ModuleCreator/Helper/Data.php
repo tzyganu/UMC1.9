@@ -182,11 +182,13 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
                 if ($field->readonly) {
                     $settings['readonly'] = "readonly";
                 }
-                if ($field->tooltip){
-                    $settings['after_element_html'] = $this->getTooltipHtml($field->label, (string)$field->tooltip);
-                }
-                if ($field->note){
-                    $settings['note'] = $field->note;
+                if ($field->type != 'hidden') {
+                    if ($field->tooltip){
+                        $settings['after_element_html'] = $this->getTooltipHtml($field->label, (string)$field->tooltip);
+                    }
+                    if ($field->note){
+                        $settings['note'] = $field->note;
+                    }
                 }
                 if ($set->use_depends) {
                     $dependClass = (string)$field->depend_class;

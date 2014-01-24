@@ -48,7 +48,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
         $module   = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
         $content .= $padding.'$'."source  = Mage::getModel('eav/config')->getAttribute('".$this->getEntityCode()."', '".$attrCode."');".$eol;
-        $content .= $padding.'return $source->getSource()->getAllOptions();';
+        $content .= $padding.'return $source->getSource()->getAllOptions($withEmpty, $defaultValues);';
         return $content;
     }
 

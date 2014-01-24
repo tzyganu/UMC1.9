@@ -155,14 +155,18 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-     * TODO: add non eav value
      */
     public function getFrontendHtml() {
         $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $ucEntity = ucfirst($entityName);
         $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         if ($this->getAttribute()->getEntity()->getIsEav()){
-            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.strtolower($this->getAttribute()->getEntity()->getNameSingular()).'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
+            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.$entityName.'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
+        }
+        else {
+            $attributeFile = $this->getAttribute()->getCodeForFileName(false);
+            $code = $this->getAttribute()->getMagicMethodCode();
+            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo Mage::getSingleton(\''.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($_'.$entityName.'->get'.$code.'())'.';?>'.$this->getEol();
         }
     }
     /**
@@ -187,10 +191,20 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         $eol     = $this->getEol();
         $module  = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $entity  = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $options .= $padding."'values'=> Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(false),".$this->getEol();
+        $flag    = $this->getOptionsFlag();
+        $options .= $padding."'values'=> Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         return $options;
     }
 
+    /**
+     * check if options should be returned with empty
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getOptionsFlag() {
+        return 'true';
+    }
     /**
      * get the setup type of the dropdown
      * @access public

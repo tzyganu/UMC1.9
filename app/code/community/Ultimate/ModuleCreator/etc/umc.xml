@@ -220,15 +220,15 @@
                             <system>1</system>
                             <tooltip><![CDATA[The Magento admin Global search (at the top of every admin page) searches for the text you enter in products, customers and orders.<br />If you set this to 'Yes' than it will search in your entity also.]]></tooltip>
                         </search>
-                        <api translate="label tooltip" module="modulecreator">
-                            <label>Create API</label>
-                            <type>select</type>
-                            <source>adminhtml/system_config_source_yesno</source>
-                            <required>1</required>
-                            <position>60</position>
-                            <system>1</system>
-                            <tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>
-                        </api>
+                        <!--<api translate="label tooltip" module="modulecreator">-->
+                            <!--<label>Create API</label>-->
+                            <!--<type>select</type>-->
+                            <!--<source>adminhtml/system_config_source_yesno</source>-->
+                            <!--<required>1</required>-->
+                            <!--<position>60</position>-->
+                            <!--<system>1</system>-->
+                            <!--<tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>-->
+                        <!--</api>-->
                     </fields>
                 </backend>
 
@@ -268,6 +268,16 @@
                             <tooltip>From this dropdown you can select the layout of your entity list page from the available page formats.</tooltip>
                             <additional><![CDATA[All the Magento page layouts are listed here: 1column, 2columns-left, ....<br />If you have any other page layout it will appear here.]]></additional>
                         </list_template>
+                        <list_menu translate="label tooltip additional" module="modulecreator">
+                            <label>Add link to list in menu</label>
+                            <type>select</type>
+                            <source>modulecreator/source_entity_menu</source>
+                            <required>0</required>
+                            <position>35</position>
+                            <class>use-frontend use-create-list</class>
+                            <system>1</system>
+                            <tooltip>Select the menu where you want to add the link to your entities. It may not work on very custom themes.</tooltip>
+                        </list_menu>
                         <create_view translate="label tooltip" module="modulecreator">
                             <label>Create entity view files</label>
                             <type>select</type>
@@ -563,9 +573,10 @@
                         </note>
                         <position>
                             <label>Position</label>
-                            <type>text</type>
+                            <type>hidden</type>
                             <required>0</required>
                             <position>60</position>
+                            <class>position</class>
                             <tooltip>This is the sort order of the field in the add/edit form.</tooltip>
                         </position>
                         <is_name translate="label tooltip" module="modulecreator">
@@ -692,6 +703,7 @@
             <store />
             <create_frontend />
             <create_list />
+            <list_menu />
             <list_template />
             <create_view />
             <view_template />
@@ -716,7 +728,7 @@
             <allow_comment />
             <manage_comment />
             <search />
-            <api />
+            <!--<api />-->
             <product_attribute_group />
             <category_attribute_group />
         </umc_entity>
@@ -948,6 +960,52 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev3>
+            <version>1.9.0-dev3</version>
+            <date>2014-01-24</date>
+            <data>
+                <attribtues trasnlate="label type comment">
+                    <label>Drag &amp; drop attributes</label>
+                    <type>Feature</type>
+                    <comment>When creating an entity you can drag and drop attributes to sort them in the list</comment>
+                </attribtues>
+                <menu trasnlate="label type comment">
+                    <label>Select menu for entity link</label>
+                    <type>Feature</type>
+                    <comment>Added ability to select the frontend menu where the link to your entity page should be placed</comment>
+                </menu>
+                <api trasnlate="label type comment">
+                    <label>Temporarily disable API</label>
+                    <type>???</type>
+                    <comment>The API does not yet work for EAV entities and comments. It is temporarily disabled until I get it working.</comment>
+                </api>
+                <view_page trasnlate="label type comment">
+                    <label>Empty page for non existing entities</label>
+                    <type>Bug fix</type>
+                    <comment>The entity view page displayed as blank if looking at an entity that does not exist. Now redirects to 404 page.</comment>
+                </view_page>
+                <category_relation trasnlate="label type comment">
+                    <label>Fixed display on category page</label>
+                    <type>Bug fix</type>
+                    <comment>Entities related to categories were displayed on the category page at the top. Now they are after the product list.</comment>
+                </category_relation>
+                <relations trasnlate="label type comment">
+                    <label>Fixed entity relations</label>
+                    <type>Bug fix</type>
+                    <comment>Entities can be related independent of their type</comment>
+                </relations>
+                <url trasnlate="label type comment">
+                    <label>Fixed or generation for entities without url rewrites</label>
+                    <type>Bug fix</type>
+                    <comment>Entities without url rewrites generated an empty url.</comment>
+                </url>
+                <multi_attr trasnlate="label type comment">
+                    <label>Fixed multiselect attributes in combination with url rewrite</label>
+                    <type>Bug fix</type>
+                    <comment>For flat entities that have multiselect attributes and url rewrite the _beforeSave method was generated twice.</comment>
+                </multi_attr>
+            </data>
+        </v1_9_0_dev3>
         <v1_9_0_dev2>
             <version>1.9.0-dev2</version>
             <date>2014-01-17</date>

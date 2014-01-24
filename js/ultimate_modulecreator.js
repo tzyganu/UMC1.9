@@ -269,6 +269,7 @@ UMC.Entity.prototype = {
     },
     setIndex: function(index){
         this.index = index;
+        this.initAttributeSort()
     },
     remove: function(){
         var that = this;
@@ -296,6 +297,7 @@ UMC.Entity.prototype = {
         var attribute = new UMC.Attribute($('attribute_' + that.index + '_' + that.attributeCount), {});
         Effect.ScrollTo($('attribute_' + that.index + '_' + that.attributeCount), { duration:1});
         that.registerAttribute(attribute);
+        this.initAttributeSort();
     },
     registerAttribute: function(attribute){
         attribute.setEntity(this);
@@ -407,6 +409,23 @@ UMC.Entity.prototype = {
     enableItem: function(item){
         $(item).removeAttribute('disabled');
         return this;
+    },
+    initAttributeSort: function() {
+        var that = this;
+        Sortable.create('entity_' + this.index +'_attributes', {
+            tag:'div',
+            onUpdate: function(){
+                that.reloadAttributePositions()
+            }
+        });
+        this.reloadAttributePositions();
+    },
+    reloadAttributePositions: function() {
+        var position = 10;
+        $(this.element).select('input.position').each(function(element){
+            $(element).value = position;
+            position += 10;
+        });
     }
 }
 
@@ -481,7 +500,6 @@ UMC.Attribute.prototype = {
         if (index == this.entity.config.nameAttribute){
             $(this.element).select('input.is_name')[0].setAttribute('checked', 'checked');
         }
-
     },
     remove: function(){
         var that = this;

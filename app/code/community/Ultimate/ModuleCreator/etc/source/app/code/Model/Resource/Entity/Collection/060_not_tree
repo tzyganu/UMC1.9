@@ -8,7 +8,7 @@
      * {{qwertyuiop}}
      */
     protected function _toOptionArray($valueField='entity_id', $labelField='{{nameAttributeCode}}', $additional=array()){
-        return parent::_toOptionArray($valueField, $labelField, $additional);
+        {{toOptionAddition}}return parent::_toOptionArray($valueField, $labelField, $additional);
     }
     /**
      * get options hash
@@ -19,5 +19,5 @@
      * {{qwertyuiop}}
      */
     protected function _toOptionHash($valueField='entity_id', $labelField='{{nameAttributeCode}}'){
-        return parent::_toOptionHash($valueField, $labelField);
+        {{toOptionAddition}}return parent::_toOptionHash($valueField, $labelField);
     }

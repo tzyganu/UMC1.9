@@ -31,7 +31,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
         }
         $collection->getSelect()->joinLeft(
             array('related'=>$collection->getTable('{{module}}/{{entity}}_{{sibling}}')),
-            'related.{{sibling}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
+            'related.{{sibling}}_id={{siblingTableAlias}}.entity_id AND '.$constraint,
             array('position'));
         $this->setCollection($collection);
         parent::_prepareCollection();

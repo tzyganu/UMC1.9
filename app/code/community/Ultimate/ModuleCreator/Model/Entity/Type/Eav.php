@@ -16,6 +16,7 @@
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
 class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreator_Model_Entity_Type_Abstract{
+    protected $_parentAttributes = null;
     /**
      * get collection attributes
      * @access public
@@ -26,6 +27,11 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $result = '';
         $eol = $this->getEol();
         $padding = $this->getPadding(3);
+        foreach ($this->_getParentAttributes() as $attribute) {
+            $result .= $eol;
+            $result .= $padding;
+            $result .= '->addAttributeToSelect(\''.$attribute->getCode().'\')';
+        }
         foreach ($this->getEntity()->getAttributes() as $attribute){
             if ($attribute->getAdminGrid() && $attribute->getCode() != $this->getEntity()->getNameAttributeCode()){
                 $result .= $eol;
@@ -174,6 +180,35 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getAllowCommentByStore() {
         return $this->getEntity()->getAllowComment();
     }
+
+    /**
+     * get parent attributes
+     * @access protected
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    protected function _getParentAttributes(){
+        if (is_null($this->_parentAttributes)) {
+            $parents = $this->getEntity()->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+            $this->_parentAttributes = array();
+            foreach ($parents as $parent) {
+                $module = $parent->getModule()->getLowerModuleName();
+                $name   = $parent->getNameSingular();
+                $attr   = Mage::getModel('modulecreator/attribute');
+                $attr->setCode($name.'_id');
+                $attr->setLabel($parent->getLabelSingular());
+                $attr->setType('dropdown');
+                $attr->setOptionsSource('custom');
+                $attr->setForcedSource($module.'/'.$name.'_source');
+                $attr->setScope(Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL);
+                $attr->setEntity($this->getEntity());
+                $attr->setUseFilterIndex(true);
+                $this->_parentAttributes[] = $attr;
+            }
+        }
+        return $this->_parentAttributes;
+    }
+
     /**
      * get attributes content for setup
      * @access public
@@ -183,6 +218,10 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getAttributesSetup() {
         $content = '';
         $position = 0;
+        //all parent attributes
+        foreach ($this->_getParentAttributes() as $attribute) {
+            $content .= $attribute->getSetupContent();
+        }
         foreach ($this->getEntity()->getAttributes() as $attribute){
             $content .= $attribute->getSetupContent();
             $position = $attribute->getPosition();
@@ -387,5 +426,15 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      */
     public function getCanCreateEntityHelper(){
         return true;
+    }
+    /**
+     * get additional code for toOptionArray()
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionAddition(){
+        $attribute = $this->getEntity()->getNameAttributeCode();
+        return '$this->addAttributeToSelect(\''.$attribute.'\');'.$this->getEol().$this->getPadding(2);
     }
 }

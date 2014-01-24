@@ -312,4 +312,13 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getCanCreateEntityHelper(){
         return false;
     }
+    /**
+     * get additional code for toOptionArray()
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionAddition(){
+        return '';
+    }
 }

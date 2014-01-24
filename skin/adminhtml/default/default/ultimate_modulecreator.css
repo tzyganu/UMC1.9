@@ -83,6 +83,10 @@
     text-align: center;
 }
 
+.modulecreator-attribute h4 {
+    cursor: move;
+}
+
 .tree,
 .tree ul,
 .tree li {

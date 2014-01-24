@@ -2331,11 +2331,11 @@
                     <scope>siblings_not_tree</scope>
                     <sort_order>40</sort_order>
                 </sibling_save>
-                <sibling_save>
+                <sibling_save_tree>
                     <name>045_sibling_save_tree</name>
                     <scope>siblings_tree</scope>
                     <sort_order>45</sort_order>
-                </sibling_save>
+                </sibling_save_tree>
                 <middle>
                     <name>050_middle</name>
                     <sort_order>50</sort_order>
@@ -2348,19 +2348,24 @@
                     </depend_type>
                     <sort_order>60</sort_order>
                 </mass_action>
+                <mass_parents>
+                    <name>065_mass_parents</name>
+                    <scope>parents</scope>
+                    <sort_order>65</sort_order>
+                </mass_parents>
                 <product_relation_action>
                     <name>070_product_relation_actions</name>
                     <depend>
                         <link_product />
                     </depend>
-                    <sort_order>070</sort_order>
+                    <sort_order>70</sort_order>
                 </product_relation_action>
                 <category_relation_action>
                     <name>080_category_relation_actions</name>
                     <depend>
                         <link_category />
                     </depend>
-                    <sort_order>080</sort_order>
+                    <sort_order>80</sort_order>
                 </category_relation_action>
                 <sibling_grid>
                     <name>090_sibling_grid</name>
@@ -3298,6 +3303,36 @@
             </code>
         </model_adminhtml_search>
 
+        <model_observer translate="title description condition" module="modulecreator">
+            <title>Frontend observer</title>
+            <description>Observer for frontend</description>
+            <condition>Generated if at least one entity is set to have the link in the category menu</condition>
+            <scope>global</scope>
+            <filetype>php</filetype>
+            <depend>
+                <show_in_category_menu />
+            </depend>
+            <source>app/code/Model/Observer/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Observer.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <entity>
+                    <name>020_entity</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <show_in_category_menu />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </entity>
+                <footer>
+                    <name>030_footer</name>
+                    <sort_order>30</sort_order>
+                </footer>
+            </code>
+        </model_observer>
         <model_entity translate="title description condition" module="modulecreator">
             <title>Entity model</title>
             <description>The entity model. Simple as that.</description>
@@ -3337,8 +3372,8 @@
                 <url>
                     <name>060_url</name>
                     <depend>
-                        <use_frontend/>
-                        <not_url_rewrite/>
+                        <create_view />
+                        <not_url_rewrite />
                     </depend>
                     <sort_order>60</sort_order>
                 </url>
@@ -3457,7 +3492,7 @@
             <source>app/code/Model/Entity/Source/</source>
             <scope>entity</scope>
             <depend>
-                <is_attribute />
+                <can_create_source_model />
             </depend>
             <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/{{Entity}}/Source.php</destination>
             <code>
@@ -3757,6 +3792,7 @@
                         <not_is_tree />
                         <is_flat />
                         <has_multiple_select />
+                        <not_url_rewrite />
                     </depend>
                     <sort_order>45</sort_order>
                 </before_save_multiple>
@@ -4285,6 +4321,17 @@
                     <name>010_content</name>
                     <sort_order>10</sort_order>
                 </content>
+                <eav>
+                    <name>020_eav</name>
+                    <depend>
+                        <not_entity_eav />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </eav>
+                <footer>
+                    <name>030_footer</name>
+                    <sort_order>30</sort_order>
+                </footer>
             </code>
         </dropdown_source_model>
 
@@ -4852,37 +4899,6 @@
                     <name>010_top</name>
                     <sort_order>10</sort_order>
                 </top>
-                <default_top>
-                    <name>020_default_top</name>
-                    <depend>
-                        <create_list/>
-                    </depend>
-                    <sort_order>20</sort_order>
-                </default_top>
-                <default>
-                    <name>030_default</name>
-                    <scope>entity</scope>
-                    <depend>
-                        <create_list/>
-                    </depend>
-                    <sort_order>30</sort_order>
-                </default>
-                <subtree>
-                    <name>040_subtree</name>
-                    <scope>global</scope>
-                    <depend>
-                        <create_frontend/>
-                        <has_tree/>
-                    </depend>
-                    <sort_order>40</sort_order>
-                </subtree>
-                <default_footer>
-                    <name>050_default_footer</name>
-                    <depend>
-                        <create_list/>
-                    </depend>
-                    <sort_order>50</sort_order>
-                </default_footer>
                 <list>
                     <name>060_list</name>
                     <scope>entity</scope>
@@ -4931,7 +4947,6 @@
                 </rss_footer>
                 <relation_product>
                     <name>120_relation_product</name>
-                    <scope>entity</scope>
                     <depend>
                         <show_on_product/>
                     </depend>
@@ -4939,7 +4954,6 @@
                 </relation_product>
                 <relation_category>
                     <name>130_relation_category</name>
-                    <scope>entity</scope>
                     <depend>
                         <show_on_category/>
                     </depend>

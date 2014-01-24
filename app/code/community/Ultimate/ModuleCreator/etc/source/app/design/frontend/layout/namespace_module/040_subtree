@@ -1,3 +1,0 @@
-        <reference name="head">
-            <action method="addCss"><js>css/{{namespace}}_{{module}}/tree.css</js></action>
-        </reference>
