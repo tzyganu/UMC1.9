@@ -25,14 +25,10 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Text
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
-     * check if attribute can behave as name
-     * @access public
-     * @return bool
-     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     * type code
+     * @var string
      */
-    public function getIsAllowedAsName() {
-        return true;
-    }
+    protected $_type = 'text';
     /**
      * get admin column options
      * @access public

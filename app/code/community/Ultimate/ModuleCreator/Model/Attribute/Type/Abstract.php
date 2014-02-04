@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
     extends Ultimate_ModuleCreator_Model_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type            = 'abstract';
+    /**
      * attribute object
      * @var mixed
      */
@@ -107,7 +112,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        return $this->getPadding(3).'$'.'description .= $item->get'.$this->getAttribute()->getMagicMethodCode().'();'.$this->getEol();
+        $attribute = $this->getAttribute();
+        $module = $attribute->getEntity()->getModule()->getLowerModuleName();
+        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'</div>\';'.$this->getEol();
     }
     /**
      * get the type for the form
@@ -266,5 +273,67 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
             $options .= $padding."'class' => 'required-entry',".$eol;
         }
         return $options.$eol;
+    }
+
+    /**
+     * getter for attribute type
+     * @return string
+     * @access public
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getType(){
+        return $this->_type;
+    }
+    /**
+     * getter xml node for attribute
+     * @return string
+     * @access public
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getTypeConfigPath() {
+        return Ultimate_ModuleCreator_Helper_Data::ATTRIBUTE_TYPES_PATH.'/'.$this->getType();
+    }
+    /**
+     * getter config for attribute
+     * @access public
+     * @param $path
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getConfig($path = null) {
+        if (!is_null($path)){
+            $path = $this->getTypeConfigPath().'/'.$path;
+        }
+        else {
+            $path = $this->getTypeConfigPath();
+        }
+        return Mage::helper('modulecreator')->getConfig()->getNode($path);
+    }
+    /**
+     * check if attribute can behave as name
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getIsAllowedAsName() {
+        return (bool)(string)$this->getConfig('allow_is_name');
+    }
+    /**
+     * check if attribute can be in mass update
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassUpdate() {
+        return (bool)(string)$this->getConfig('mass_update');
+    }
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        return '';
     }
 }

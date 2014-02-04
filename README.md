@@ -18,6 +18,17 @@ Also any good code is welcomed.
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
 
+**Release Notes 1.9.0-dev4 - 2014-02-04**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Allowed more attribtues in mass action|Country and Dropdown attributes can be set by mass action from grid.|
+|Bug fix|Fixed tree widget chooser|Tree widget chooser was giving fatal error.|
+|Bug fix|Fixed relations between tree behaving entities|A "sibling" relation between and EAV Tree entity and a Flat Tree entity did not behave as expected. but this is no problem. No one will use this kind of relation.|
+|Bug fix|Fixed RSS display|Now all attribute types displayed properly in the rss feed.|
+|Bug fix|Fixed tree entities display|Tree entities rendered wrong when the view page was disabled.|
+|Refactored|Widgets|Refactored widget view contents|
+
 **Release Notes 1.9.0-dev3 - 2014-01-24**
 
 |Type|Label|Comment|

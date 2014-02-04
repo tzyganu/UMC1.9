@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Textarea
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'textarea';
+    /**
      * sql column ddl type
      * @var string
      */

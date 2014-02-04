@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'dropdown';
+    /**
      * dropdown subtype
      * @var Ultimate_ModuleCreator_Model_Abstract
      */
@@ -101,14 +106,20 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    //TODO: implement this
     public function getRssText(){
         $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $ucEntity = ucfirst($entityName);
         $module = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
         $content = '';
-        //$content = '$options = '
-        return $this->getPadding(3).'$description .= Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.($item->get'.$this->getAttribute()->getMagicMethodCode().'() == 1) ? Mage::helper(\''.$module.'\')->__(\'Yes\') : Mage::helper(\''.$module.'\')->__(\'No\');';
+        if ($this->getAttribute()->getEntity()->getIsEav()){
+            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.$item->getAttributeText(\''.$this->getAttribute()->getCode().'\').\'</div>\';'.$this->getEol();
+        }
+        else {
+            $attributeFile = $this->getAttribute()->getCodeForFileName(false);
+            $code = $this->getAttribute()->getMagicMethodCode();
+            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.Mage::getSingleton(\''.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($item->get'.$code.'()).\'</div>\';'.$this->getEol();
+        }
+        return '';
     }
     /**
      * check if source needs to be generated
@@ -244,4 +255,16 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         }
         return $size;
     }
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        return "Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+    }
+
 }

@@ -35,7 +35,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss
      * {{qwertyuiop}}
      */
     protected function _toHtml(){
-        $url = Mage::helper('{{module}}')->get{{Entities}}Url();
+        $url = Mage::helper('{{module}}/{{entity}}')->get{{Entities}}Url();
         $title = Mage::helper('{{module}}')->__('{{EntitiesLabel}}');
         $rssObj = Mage::getModel('rss/rss');
         $data = array(

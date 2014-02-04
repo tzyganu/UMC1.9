@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Country
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'country';
+    /**
      * sql column ddl size
      * @var string
      */
@@ -67,7 +72,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
         $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $ucEntity = ucfirst($entityName);
         $module = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
-        return $this->getPadding(3).'$description .= Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($item->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$module.'\')->__(\'None\'));'.$this->getEol();
+        return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($item->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$module.'\')->__(\'None\')).\'</div>\';'.$this->getEol();
     }
     /**
      * get html for frontend
@@ -106,5 +111,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
         $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $options .= $this->getPadding(3)."'values'=> Mage::getResourceModel('directory/country_collection')->toOptionArray(),".$this->getEol();
         return $options;
+    }
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        return 'Mage::getResourceModel(\'directory/country_collection\')->toOptionArray()'.$this->getEol();
     }
 }

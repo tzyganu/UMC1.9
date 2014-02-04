@@ -196,7 +196,6 @@
         $pathIds = array_reverse(explode('/', ${{entity}}->getPath()));
         ${{entities}} = Mage::getResourceModel('{{module}}/{{entity}}_collection')
             ->addAttributeToFilter('entity_id', array('in' => $pathIds))
-            ->addAttributeToFilter('status', 1)
             ->addAttributeToSelect('*');
         return ${{entities}};
     }

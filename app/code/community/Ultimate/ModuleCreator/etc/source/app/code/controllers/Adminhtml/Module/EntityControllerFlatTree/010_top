@@ -21,6 +21,9 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         if (${{entity}}Id) {
             ${{entity}}->load(${{entity}}Id);
         }
+        else {
+            ${{entity}}->setData(${{entity}}->getDefaultValues());
+        }
         if ($activeTabId = (string) $this->getRequest()->getParam('active_tab_id')) {
             Mage::getSingleton('admin/session')->set{{Entity}}ActiveTabId($activeTabId);
         }

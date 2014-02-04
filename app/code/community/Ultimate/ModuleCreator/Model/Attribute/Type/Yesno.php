@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'yesno';
+    /**
      * sql colum ddl type
      * @var string
      */
@@ -82,7 +87,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
         $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $ucEntity   = ucfirst($entityName);
         $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
-        return $this->getPadding(3).'$description .= Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.($item->get'.$this->getAttribute()->getMagicMethodCode().'() == 1) ? Mage::helper(\''.$module.'\')->__(\'Yes\') : Mage::helper(\''.$module.'\')->__(\'No\');';
+        return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'() == 1) ? Mage::helper(\''.$module.'\')->__(\'Yes\') : Mage::helper(\''.$module.'\')->__(\'No\')).\'</div>\';'.$this->getEol();
     }
     /**
      * get html for frontend
@@ -128,5 +133,22 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
         $options .= $padding.$tab."),".$eol;
         $options .= $padding."),".$eol;
         return $options;
+    }
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        $eol      = $this->getEol();
+        $module   = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $padding  = $this->getPadding(7);
+        $tab      = $this->getPadding();
+        $content  = 'array('.$eol;
+        $content .= $padding.$tab."'1' => Mage::helper('".$module."')->__('Yes'),".$eol;
+        $content .= $padding.$tab."'0' => Mage::helper('".$module."')->__('No'),".$eol;
+        $content .= $padding.')'.$eol;
+        return $content;
     }
 }

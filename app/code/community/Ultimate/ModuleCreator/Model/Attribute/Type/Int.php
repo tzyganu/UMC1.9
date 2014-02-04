@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Int
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'int';
+    /**
      * sql colum ddl type
      * @var string
      */

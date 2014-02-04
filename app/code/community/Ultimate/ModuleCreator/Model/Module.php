@@ -1458,7 +1458,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getResourceSetupModel(){
-        if ($this->getHasCatalogRelation() || $this->hasEav()){
+        if ($this->getHasCatalogRelation() || $this->getHasEav()){
             return 'Mage_Catalog_Model_Resource_Setup';
         }
         return 'Mage_Core_Model_Resource_Setup';

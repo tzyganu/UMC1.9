@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_File
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type       = 'file';
+    /**
      * eav setup input
      * @var string
      */
@@ -67,11 +72,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
         $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
         $ucEntity   = ucfirst($entityName);
         $eol        = $this->getEol();
-        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
+        $module     = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $content   .= $this->getPadding(3).'if ($item->get'.$this->getAttribute()->getMagicMethodCode().'()) {'.$eol;
-        $content   .= $this->getPadding(4).'$description .= \'<a href="\'.Mage::helper(\''.$module.'/'.$entityName.'\')->getFileBaseUrl().$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'">\';'.$eol;
-        $content   .= $this->getPadding(4).'$description .=    \'    <span>\'. basename($item->get'.$this->getAttribute()->getMagicMethodCode().'()).\'</span>\';'.$eol;
-        $content   .= $this->getPadding(4).'$description .=    \'</a>\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'<div>\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'    <a href="\'.Mage::helper(\''.$module.'/'.$entityName.'\')->getFileBaseUrl().$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'">\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'        <span>\'. basename($item->get'.$this->getAttribute()->getMagicMethodCode().'()).\'</span>\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'    </a>\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'</div>\';'.$eol;
         $content   .= $this->getPadding(3).'}'.$eol;
 
         return $content;

@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'timestamp';
+    /**
      * sql column ddl type
      * @var string
      */
@@ -91,5 +96,15 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
         $options .= $padding.'\'format\'  => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),'.$eol;
         return $options;
     }
-
+    /**
+     * get text for rss
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRssText() {
+        $attribute = $this->getAttribute();
+        $module = $attribute->getEntity()->getModule()->getLowerModuleName();
+        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.Mage::helper(\'core\')->formatDate($item->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\').\'</div>\';'.$this->getEol();
+    }
 }

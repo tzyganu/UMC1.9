@@ -5,4 +5,5 @@
             'controller'    => '{{entity}}',
             'action'        => 'view',
             'param'         => 'id',
+            'check_path'    => {{isTree}}
         ));

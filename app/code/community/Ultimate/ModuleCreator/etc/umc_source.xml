@@ -286,16 +286,54 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </not_tree>
-                <tree>
-                    <name>030_tree</name>
+                <not_tree_eav>
+                    <name>030_not_tree_eav</name>
+                    <depend>
+                        <not_is_tree/>
+                        <is_eav />
+                    </depend>
                     <sort_order>30</sort_order>
+                </not_tree_eav>
+                <not_tree_content>
+                    <name>040_not_tree_content</name>
+                    <depend>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>40</sort_order>
+                </not_tree_content>
+                <not_tree_store>
+                    <name>050_not_tree_store</name>
+                    <depend>
+                        <not_is_tree/>
+                        <store />
+                    </depend>
+                    <sort_order>50</sort_order>
+                </not_tree_store>
+                <not_tree_footer>
+                    <name>060_not_tree_footer</name>
+                    <depend>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>60</sort_order>
+                </not_tree_footer>
+                <not_tree_flat>
+                    <name>070_not_tree_flat</name>
+                    <depend>
+                        <not_is_tree />
+                        <is_flat />
+                    </depend>
+                    <sort_order>70</sort_order>
+                </not_tree_flat>
+                <tree>
+                    <name>080_tree</name>
+                    <sort_order>80</sort_order>
                     <depend>
                         <is_tree/>
                     </depend>
                 </tree>
                 <footer>
-                    <name>040_footer</name>
-                    <sort_order>40</sort_order>
+                    <name>090_footer</name>
+                    <sort_order>90</sort_order>
                 </footer>
             </code>
         </entity_widget_chooser_block>
@@ -535,10 +573,24 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </stores>
+                <eav>
+                    <name>025_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>25</sort_order>
+                </eav>
                 <content>
                     <name>030_content</name>
                     <sort_order>30</sort_order>
                 </content>
+                <tree>
+                    <name>035_tree</name>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                    <sort_order>35</sort_order>
+                </tree>
                 <attributes>
                     <name>040_attributes</name>
                     <scope>attribute</scope>
@@ -608,6 +660,24 @@
                     <name>010_content</name>
                     <sort_order>10</sort_order>
                 </content>
+                <not_tree>
+                    <name>020_not_tree</name>
+                    <depend>
+                        <not_is_tree />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </not_tree>
+                <tree>
+                    <name>030_tree</name>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                    <sort_order>30</sort_order>
+                </tree>
+                <footer>
+                    <name>040_footer</name>
+                    <sort_order>40</sort_order>
+                </footer>
             </code>
         </entity_widget_view_block>
 
@@ -1525,9 +1595,9 @@
                 <mass_action_flags>
                     <name>120_mass_action_flags</name>
                     <scope>attribute</scope>
-                    <depend_type>
-                        <yesno/>
-                    </depend_type>
+                    <depend>
+                        <mass_update />
+                    </depend>
                     <sort_order>120</sort_order>
                 </mass_action_flags>
                 <mass_action_parents>
@@ -2013,7 +2083,7 @@
                 <allow_comment />
             </depend>
             <source>app/code/controllers/Adminhtml/Module/Entity/CommentController/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}/CommentController.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}/CommentController.php</destination>
             <code>
                 <content>
                     <name>010_content</name>
@@ -2032,7 +2102,7 @@
                 <widget/>
             </depend>
             <source>app/code/controllers/Adminhtml/Module/Entity/WidgetController/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}/WidgetController.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}/WidgetController.php</destination>
             <code>
                 <top>
                     <name>010_top</name>
@@ -2063,7 +2133,7 @@
                 <not_is_tree/>
             </depend>
             <source>app/code/controllers/Adminhtml/Module/EntityControllerFlatNotTree/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}Controller.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}Controller.php</destination>
             <code>
                 <top>
                     <name>010_top</name>
@@ -2153,12 +2223,12 @@
                     <name>110_center</name>
                     <sort_order>140</sort_order>
                 </center>
-                <mass_update><!-- TODO: add other types of mass update attributes-->
+                <mass_update>
                     <name>120_mass_update</name>
                     <scope>attribute</scope>
-                    <depend_type>
-                        <yesno/>
-                    </depend_type>
+                    <depend>
+                        <mass_update />
+                    </depend>
                     <sort_order>150</sort_order>
                 </mass_update>
                 <mass_parents>
@@ -2208,7 +2278,7 @@
                 <is_tree/>
             </depend>
             <source>app/code/controllers/Adminhtml/Module/EntityControllerFlatTree/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}Controller.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}Controller.php</destination>
             <code>
                 <top>
                     <name>010_top</name>
@@ -2265,6 +2335,11 @@
                     <scope>siblings</scope>
                     <sort_order>90</sort_order>
                 </sibling_data>
+                <sibling_data_tree>
+                    <name>095_sibling_data_tree</name>
+                    <scope>siblings_tree</scope>
+                    <sort_order>95</sort_order>
+                </sibling_data_tree>
                 <real_save>
                     <name>100_real_save</name>
                     <sort_order>100</sort_order>
@@ -2285,9 +2360,14 @@
                 </category_relation_action>
                 <sibling_actions>
                     <name>130_sibling_actions</name>
-                    <scope>siblings</scope>
+                    <scope>siblings_not_tree</scope>
                     <sort_order>130</sort_order>
                 </sibling_actions>
+                <sibling_actions_tree>
+                    <name>135_sibling_actions_tree</name>
+                    <scope>siblings_tree</scope>
+                    <sort_order>135</sort_order>
+                </sibling_actions_tree>
                 <footer>
                     <name>140_footer</name>
                     <sort_order>140</sort_order>
@@ -2306,7 +2386,7 @@
                 <not_is_tree/>
             </depend>
             <source>app/code/controllers/Adminhtml/Module/EntityControllerEavNotTree/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}Controller.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}Controller.php</destination>
             <code>
                 <top>
                     <name>010_top</name>
@@ -2343,9 +2423,9 @@
                 <mass_action>
                     <name>060_mass_action</name>
                     <scope>attribute</scope>
-                    <depend_type><!-- TODO: add different types here -->
-                        <yesno/>
-                    </depend_type>
+                    <depend>
+                        <mass_update />
+                    </depend>
                     <sort_order>60</sort_order>
                 </mass_action>
                 <mass_parents>
@@ -2394,7 +2474,7 @@
                 <is_tree/>
             </depend>
             <source>app/code/controllers/Adminhtml/Module/EntityControllerEavTree/</source>
-            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{Module}}/{{Entity}}Controller.php</destination>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}Controller.php</destination>
             <code>
                 <top>
                     <name>010_top</name>
@@ -2416,9 +2496,14 @@
                 </category_data>
                 <sibling_data>
                     <name>040_sibling_data</name>
-                    <scope>siblings</scope>
+                    <scope>siblings_not_tree</scope>
                     <sort_order>40</sort_order>
                 </sibling_data>
+                <sibling_data_tree>
+                    <name>045_sibling_data_tree</name>
+                    <scope>siblings_tree</scope>
+                    <sort_order>45</sort_order>
+                </sibling_data_tree>
                 <real_save>
                     <name>050_real_save</name>
                     <sort_order>50</sort_order>
@@ -3804,6 +3889,23 @@
                     </depend>
                     <sort_order>50</sort_order>
                 </tree>
+                <tree_store>
+                    <name>052_tree_store</name>
+                    <depend>
+                        <is_tree/>
+                        <is_flat />
+                        <store />
+                    </depend>
+                    <sort_order>52</sort_order>
+                </tree_store>
+                <tree_after>
+                    <name>053_tree_after</name>
+                    <depend>
+                        <is_tree/>
+                        <is_flat />
+                    </depend>
+                    <sort_order>53</sort_order>
+                </tree_after>
                 <tree_eav>
                     <name>055_tree_eav</name>
                     <depend>

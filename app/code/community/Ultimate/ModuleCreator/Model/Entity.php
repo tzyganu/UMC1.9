@@ -108,6 +108,7 @@ class Ultimate_ModuleCreator_Model_Entity
         if ($attribute->getIsName()){
             if (!$attribute->getIsAllowedAsName()){
                 $attributeTypes = Mage::helper('modulecreator')->getNameAttributeTypes(true);
+                echo "<pre>"; print_r($attribute->getTypeInstance()->getConfig('allow_is_name'));exit;
                 throw new Ultimate_ModuleCreator_Exception(Mage::helper('modulecreator')->__('An attribute that acts as name must have one of the types "%s".', implode(', ', $attributeTypes)));
             }
             $attribute->setUserDefined(false);
@@ -615,6 +616,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{multipleSelectConvert}}']       = $this->getMultipleSelectConvert();
             $this->_placeholders['{{toOptionAddition}}']            = $this->getToOptionAddition();
             $this->_placeholders['{{multiselectMethods}}']          = $this->getMultiselectMethods();
+            $this->_placeholders['{{nameHtml}}']                    = $this->getNameHtml();
+            $this->_placeholders['{{isTree}}']                      = (int)$this->getIsTree();
 
             $eventObject = new Varien_Object(
                 array(
@@ -955,6 +958,9 @@ class Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getParentEntitiesFkAttributes($padding){
+        if ($this->getIsEav()) {
+            return '';
+        }
         $parents = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
         $content = '';
         foreach ($parents as $parent){
@@ -1212,9 +1218,11 @@ class Ultimate_ModuleCreator_Model_Entity
     public function getViewWidgetAttributesHtml(){
         $content = '';
         $padding = $this->getPadding(3);
+        $tab     = $this->getPadding();
+        $eol     = $this->getEol();
         foreach ($this->getAttributes() as $attribute){
             if ($attribute->getWidget()){
-                $content .= $padding.$attribute->getFrontendHtml();
+                $content .= $padding.'<div class="'.$attribute->getCode().'-widget">'.$eol.$padding.$tab.$attribute->getFrontendHtml().$padding.'</div>'.$eol;
             }
         }
         return $content;
@@ -2499,9 +2507,32 @@ class Ultimate_ModuleCreator_Model_Entity
                 $content .= $padding.'  * '.$this->getModule()->getQwertyuiop().$eol;
                 $content .= $padding.'  */'.$eol;
                 $content .= $padding.'public function get'.$magicCode.'() {'.$eol;
-                $content .= $padding.$tab.'return explode(\',\',$this->getData(\''.$code.'\'));'.$eol;
+                $content .= $padding.$tab.'if (!$this->getData(\''.$code.'\')) {'.$eol;
+                $content .= $padding.$tab.$tab.'return explode(\',\',$this->getData(\''.$code.'\'));'.$eol;
+                $content .= $padding.$tab.'}'.$eol;
+                $content .= $padding.$tab.'return $this->getData(\''.$code.'\');'.$eol;
                 $content .= $padding.'}';
             }
+        }
+        return $content;
+    }
+
+    /**
+     * get html for displaying the name
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNameHtml() {
+        $content = '';
+        $lower   = strtolower($this->getNameSingular());
+        $ucFirst = ucfirst($lower);
+        $name    = $this->getNameAttributeMagicCode();
+        if ($this->getCreateView()) {
+            $content .= '\'<a href="\'.$'.$lower.'->get'.$ucFirst.'Url().\'">\'.$'.$lower.'->get'.$name.'().\'</a>\'';
+        }
+        else {
+            $content .= '\'<a href="#">\'.$'.$lower.'->get'.$name.'().\'</a>\'';
         }
         return $content;
     }

@@ -750,66 +750,77 @@
                 <type_model>modulecreator/attribute_type_country</type_model>
                 <group>dropdown</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>1</mass_update>
             </country>
             <decimal translate="label" module="modulecreator">
                 <label>Decimal</label>
                 <type_model>modulecreator/attribute_type_decimal</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
+                <mass_update>0</mass_update>
             </decimal>
             <dropdown translate="label" module="modulecreator">
                 <label>Dropdown</label>
                 <type_model>modulecreator/attribute_type_dropdown</type_model>
                 <group>dropdown</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>1</mass_update>
             </dropdown>
             <file translate="label" module="modulecreator">
                 <label>File</label>
                 <type_model>modulecreator/attribute_type_file</type_model>
                 <group>file</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>0</mass_update>
             </file>
             <image translate="label" module="modulecreator">
                 <label>Image</label>
                 <type_model>modulecreator/attribute_type_image</type_model>
                 <group>file</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>0</mass_update>
             </image>
             <int translate="label" module="modulecreator">
                 <label>Int</label>
                 <type_model>modulecreator/attribute_type_int</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
+                <mass_update>0</mass_update>
             </int>
             <multiselect translate="label" module="modulecreator">
                 <label>Multiselect</label>
                 <type_model>modulecreator/attribute_type_multiselect</type_model>
                 <group>dropdown</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>0</mass_update>
             </multiselect>
             <text translate="label" module="modulecreator">
                 <label>Text</label>
                 <type_model>modulecreator/attribute_type_text</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
+                <mass_update>0</mass_update>
             </text>
             <textarea translate="label" module="modulecreator">
                 <label>Textarea</label>
                 <type_model>modulecreator/attribute_type_textarea</type_model>
                 <group>text</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>0</mass_update>
             </textarea>
             <yesno translate="label" module="modulecreator">
                 <label>Yes / No</label>
                 <type_model>modulecreator/attribute_type_yesno</type_model>
                 <group>dropdown</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>1</mass_update>
             </yesno>
             <timestamp translate="label" module="modulecreator">
                 <label>Date</label>
                 <type_model>modulecreator/attribute_type_timestamp</type_model>
                 <group>date</group>
                 <allow_is_name>0</allow_is_name>
+                <mass_update>0</mass_update>
             </timestamp>
         </umc_attribute>
         <umc_attribute_group>
@@ -960,6 +971,42 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev4>
+            <version>1.9.0-dev4</version>
+            <date>2014-02-04</date>
+            <data>
+                <mass_action trasnlate="label type comment">
+                    <label>Allowed more attribtues in mass action</label>
+                    <type>Feature</type>
+                    <comment>Country and Dropdown attributes can be set by mass action from grid.</comment>
+                </mass_action>
+                <tree_widget trasnlate="label type comment">
+                    <label>Fixed tree widget chooser</label>
+                    <type>Bug fix</type>
+                    <comment>Tree widget chooser was giving fatal error.</comment>
+                </tree_widget>
+                <tree_relations trasnlate="label type comment">
+                    <label>Fixed relations between tree behaving entities</label>
+                    <type>Bug fix</type>
+                    <comment>A "sibling" relation between and EAV Tree entity and a Flat Tree entity did not behave as expected. but this is no problem. No one will use this kind of relation.</comment>
+                </tree_relations>
+                <rss trasnlate="label type comment">
+                    <label>Fixed RSS display</label>
+                    <type>Bug fix</type>
+                    <comment>Now all attribute types displayed properly in the rss feed.</comment>
+                </rss>
+                <tree trasnlate="label type comment">
+                    <label>Fixed tree entities display</label>
+                    <type>Bug fix</type>
+                    <comment>Tree entities rendered wrong when the view page was disabled.</comment>
+                </tree>
+                <widget trasnlate="label type comment">
+                    <label>Widgets</label>
+                    <type>Refactored</type>
+                    <comment>Refactored widget view contents</comment>
+                </widget>
+            </data>
+        </v1_9_0_dev4>
         <v1_9_0_dev3>
             <version>1.9.0-dev3</version>
             <date>2014-01-24</date>

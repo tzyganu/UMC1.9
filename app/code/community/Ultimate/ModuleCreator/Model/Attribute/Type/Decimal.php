@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Decimal
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Int {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'decimal';
+    /**
      * sql column ddl type
      * @var string
      */

@@ -197,4 +197,34 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
             $this->_redirect('*/*/');
         }
     }
+    /**
+     * download module action
+     * @access public
+     * @return void
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function downloadAction(){
+        $what = $this->getRequest()->getParam('type');
+        $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
+        $path = Mage::helper('modulecreator')->getLocalModulesDir();
+        switch ($what) {
+            case 'list':
+                $file = $path.'package'.DS.$packageName . DS. 'files.log';
+                break;
+            case 'uninstall' :
+                $file = $path.'package'.DS.$packageName . DS. 'uninstall.sql';
+                break;
+            default:
+                $file = $path . $packageName . '.tgz';
+                break;
+        }
+        if (file_exists($file) && is_readable($file)) {
+            $content = file_get_contents($file);
+            $this->_prepareDownloadResponse(basename($file), $content);
+        }
+        else{
+            $this->_getSession()->addError(Mage::helper('modulecreator')->__('Your extension archive was not created or is not readable'));
+            $this->_redirect('*/*');
+        }
+    }
 }

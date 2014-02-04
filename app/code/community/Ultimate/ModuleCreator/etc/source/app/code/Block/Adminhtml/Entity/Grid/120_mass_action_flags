@@ -7,10 +7,7 @@
                         'type' => 'select',
                         'class' => 'required-entry',
                         'label' => Mage::helper('{{module}}')->__('{{attributeLabel}}'),
-                        'values' => array(
-                                '1' => Mage::helper('{{module}}')->__('Yes'),
-                                '0' => Mage::helper('{{module}}')->__('No'),
-                        )
+                        'values' => {{massActionValues}}
                 )
             )
         ));

@@ -12,6 +12,9 @@
             $model = Mage::getModel($settings->getModel());
             $id = $model->checkUrlKey($urlKey, Mage::app()->getStore()->getId());
             if ($id){
+                if ($settings->getCheckPath() && !$model->load($id)->getStatusPath()) {
+                    continue;
+                }
                 $request->setModuleName('{{module}}')
                     ->setControllerName($settings->getController())
                     ->setActionName($settings->getAction())

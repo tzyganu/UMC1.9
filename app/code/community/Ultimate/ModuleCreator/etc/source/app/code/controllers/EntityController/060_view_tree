@@ -1,3 +1,4 @@
         if (!${{entity}}->getStatusPath()){
-            return false;
+            $this->_forward('no-route');
+            return;
         }

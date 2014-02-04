@@ -1,3 +1,5 @@
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
+    extends {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Tree {
     protected $_selected{{Entities}} = array();
     /**
      * Block construction

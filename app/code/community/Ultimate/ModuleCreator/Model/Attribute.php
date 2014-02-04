@@ -169,6 +169,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
             $placeholders['{{AttributeCodeForFile}}']       = $this->getCodeForFileName(true);
             $placeholders['{{attributeCodeForFile}}']       = $this->getCodeForFileName(false);
             $placeholders['{{attributeOptions}}']           = $this->getAttributeOptions();
+            $placeholders['{{massActionValues}}']           = $this->getMassActionValues();
 
             $eventObject = new Varien_Object(
                 array(
@@ -517,5 +518,25 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      */
     public function getNotEntityEav() {
         return !$this->getEntityEav();
+    }
+
+    /**
+     * check if attribute can be in mass update
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassUpdate() {
+        return $this->getTypeInstance()->getMassUpdate();
+    }
+
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        return $this->getTypeInstance()->getMassActionValues();
     }
 }

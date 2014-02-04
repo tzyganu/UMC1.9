@@ -65,7 +65,7 @@
             }
         }
         $html .= '<li>';
-        $html .= '<a href="'.${{entity}}->get{{Entity}}Url().'">'.${{entity}}->get{{EntityNameMagicCode}}().'</a>';
+        $html .= {{nameHtml}};
         if (count($activeChildren) > 0) {
             $html .= '<ul>';
             foreach ($children as $child){

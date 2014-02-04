@@ -1,0 +1,25 @@
+        $oldStores = $this->lookupStoreIds($object->getId());
+        $newStores = (array)$object->getStores();
+        if (empty($newStores)) {
+            $newStores = (array)$object->getStoreId();
+        }
+        $table  = $this->getTable('{{module}}/{{entity}}_store');
+        $insert = array_diff($newStores, $oldStores);
+        $delete = array_diff($oldStores, $newStores);
+        if ($delete) {
+            $where = array(
+                '{{entity}}_id = ?' => (int) $object->getId(),
+                'store_id IN (?)' => $delete
+            );
+            $this->_getWriteAdapter()->delete($table, $where);
+        }
+        if ($insert) {
+            $data = array();
+            foreach ($insert as $storeId) {
+                $data[] = array(
+                    '{{entity}}_id'  => (int) $object->getId(),
+                    'store_id' => (int) $storeId
+                );
+            }
+            $this->_getWriteAdapter()->insertMultiple($table, $data);
+        }

@@ -54,7 +54,7 @@
         } else {
             $column['type']     = Varien_Db_Ddl_Table::TYPE_INTEGER;
             $column['nullable'] = true;
-            $column['comment']  = $attributeCode . ' tax column';
+            $column['comment']  = $attributeCode . ' {{EntityLabel}} column';
         }
         return array($attributeCode => $column);
    }

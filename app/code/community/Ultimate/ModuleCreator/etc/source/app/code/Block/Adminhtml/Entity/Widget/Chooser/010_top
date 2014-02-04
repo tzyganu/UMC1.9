@@ -7,5 +7,4 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
-    extends Mage_Adminhtml_Block_Widget_Grid {
+

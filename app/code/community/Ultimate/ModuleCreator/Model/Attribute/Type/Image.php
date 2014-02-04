@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Image
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type       = 'image';
+    /**
      * eav setup input
      * @var string
      */
@@ -69,7 +74,10 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
         $ucEntity   = ucfirst($entityName);
         $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
         $content   .= $this->getPadding(3).'if ($item->get'.$this->getAttribute()->getMagicMethodCode().'()) {'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'<div>\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'<img src="\'.Mage::helper(\''.$module.'/'.$entityName.'_image\')->init($item, \''.$this->getAttribute()->getCode().'\')->resize(75).\'" alt="\'.$this->htmlEscape($item->get'.$this->getAttribute()->getEntity()->getNameAttributeMagicCode().'()).\'" />\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'</div>\';'.$eol;
         $content   .= $this->getPadding(3).'}'.$eol;
         return $content;
     }

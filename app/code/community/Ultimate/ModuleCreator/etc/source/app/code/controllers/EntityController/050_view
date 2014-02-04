@@ -25,3 +25,7 @@
       */
     public function viewAction(){
         ${{entity}} = $this->_init{{Entity}}();
+        if (!${{entity}}) {
+            $this->_forward('no-route');
+            return;
+        }

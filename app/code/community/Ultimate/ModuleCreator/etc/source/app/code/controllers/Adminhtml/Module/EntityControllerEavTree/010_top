@@ -109,7 +109,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
             $this->getRequest()->setParam('id', $_prev{{Entity}}Id);
         }
 
-        if (!(${{entity}} = $this->_init{{Entity}}(true))) {
+        if (!(${{entity}} = $this->_init{{Entity}}())) {
             return;
         }
 

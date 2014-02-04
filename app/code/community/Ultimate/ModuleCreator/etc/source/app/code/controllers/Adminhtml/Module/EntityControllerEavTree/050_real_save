@@ -105,7 +105,7 @@
             }
         }
 
-        ${{entity}} = $this->_init{{Entity}}(true);
+        ${{entity}} = $this->_init{{Entity}}();
 
         $block = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree');
         $root  = $block->getRoot();

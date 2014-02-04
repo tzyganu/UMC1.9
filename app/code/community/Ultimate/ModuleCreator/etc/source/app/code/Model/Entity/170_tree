@@ -230,7 +230,11 @@
      */
     public function getStatusPath(){
         $parents = $this->getParent{{Entities}}();
+        $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
         foreach ($parents as $parent){
+            if ($parent->getId() == $rootId) {
+                continue;
+            }
             if (!$parent->getStatus()){
                 return false;
             }

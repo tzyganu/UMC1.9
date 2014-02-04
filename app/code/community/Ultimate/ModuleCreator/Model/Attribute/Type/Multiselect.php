@@ -25,6 +25,11 @@
 class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
     extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown {
     /**
+     * type code
+     * @var string
+     */
+    protected $_type        = 'multiselect';
+    /**
      * sql column ddl type
      * @var string
      */
@@ -66,16 +71,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
         return 'multiselect';
     }
     /**
-     * get text for rss
-     * @access public
-     * @return string
-     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-     */
-    //TODO: implement this
-    public function getRssText(){
-        return '';
-    }
-    /**
      * check if attribute is multiple select
      * @access public
      * @return bool
@@ -110,5 +105,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
      */
     public function getOptionsFlag() {
         return 'false';
+    }
+    /**
+     * get values for mass action
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getMassActionValues() {
+        return '';
     }
 }

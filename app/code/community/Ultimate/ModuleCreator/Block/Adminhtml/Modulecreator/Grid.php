@@ -71,21 +71,57 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid
         ));
         $this->addColumn('action',
             array(
-                'header'=>  Mage::helper('modulecreator')->__('Download'),
+                'header'=>  Mage::helper('modulecreator')->__('Download Module'),
                 'width' => '100',
                 'type'  => 'action',
                 'getter'=> 'getSafeId',
                 'actions'   => array(
                     array(
-                        'caption'   => Mage::helper('modulecreator')->__('Download'),
+                        'caption'   => Mage::helper('modulecreator')->__('Download Module'),
                         'url'   => array('base'=> '*/*/download'),
+                        'field' => 'id'
+                    ),
+                ),
+                'filter'=> false,
+                'is_system'    => true,
+                'sortable'  => false,
+        ));
+
+        $this->addColumn('action_list',
+            array(
+                'header'=>  Mage::helper('modulecreator')->__('Download List of Files'),
+                'width' => '100',
+                'type'  => 'action',
+                'getter'=> 'getSafeId',
+                'actions'   => array(
+                    array(
+                        'caption'   => Mage::helper('modulecreator')->__('Download List of Files'),
+                        'url'   => array('base'=> '*/*/download/type/list'),
+                        'field' => 'id'
+                    ),
+                ),
+                'filter'=> false,
+                'is_system'    => true,
+                'sortable'  => false,
+            ));
+
+        $this->addColumn('action_uninstall',
+            array(
+                'header'=>  Mage::helper('modulecreator')->__('Download Uninstall DB Script'),
+                'width' => '200',
+                'type'  => 'action',
+                'getter'=> 'getSafeId',
+                'actions'   => array(
+                    array(
+                        'caption'   => Mage::helper('modulecreator')->__('Download Uninstall DB Script'),
+                        'url'   => array('base'=> '*/*/download/type/uninstall'),
                         'field' => 'id'
                     )
                 ),
                 'filter'=> false,
                 'is_system'    => true,
                 'sortable'  => false,
-        ));
+            ));
 
         return parent::_prepareColumns();
     }
