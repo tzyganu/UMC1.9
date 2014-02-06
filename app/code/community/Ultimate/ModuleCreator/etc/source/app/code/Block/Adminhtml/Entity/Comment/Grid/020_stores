@@ -1,7 +1,7 @@
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('stores', array(
                 'header'=> Mage::helper('{{module}}')->__('Store Views'),
-                'index' => 'store_id',
+                'index' => 'stores',
                 'type'  => 'store',
                 'store_all' => true,
                 'store_view'=> true,

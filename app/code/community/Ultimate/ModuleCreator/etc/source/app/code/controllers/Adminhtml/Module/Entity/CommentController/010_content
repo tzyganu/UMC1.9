@@ -187,10 +187,10 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentCont
         else {
             try {
                 foreach ($commentIds as $commentId) {
-                $comment = Mage::getSingleton('{{module}}/{{entity}}_comment')->load($commentId)
-                            ->setStatus($this->getRequest()->getParam('status'))
-                            ->setIsMassupdate(true)
-                            ->save();
+                    $comment = Mage::getSingleton('{{module}}/{{entity}}_comment')->load($commentId)
+                             ->setStatus($this->getRequest()->getParam('status'))
+                             ->setIsMassupdate(true)
+                             ->save();
                 }
                 $this->_getSession()->addSuccess($this->__('Total of %d comments were successfully updated.', count($commentIds)));
             }

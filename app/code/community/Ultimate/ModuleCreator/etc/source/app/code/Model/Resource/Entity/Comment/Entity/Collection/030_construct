@@ -1,0 +1,8 @@
+    /**
+     * construct
+     * @access protected
+     * {{qwertyuiop}}
+     */
+    protected function _construct() {
+        $this->_init('{{module}}/{{entity}}');
+        $this->_setIdFieldName('comment_id');

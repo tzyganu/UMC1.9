@@ -1,0 +1,55 @@
+        $this->getSelect()
+            ->join(array('ct' => $commentTable),
+                'ct.{{entity}}_id = {{entityTableAlias}}.entity_id',
+                array(
+                    'ct_title'=>'title',
+                    'ct_comment_id'=>'comment_id',
+                    'ct_name'=> 'name',
+                    'ct_status'=>'status',
+                    'ct_email'=>'email',
+                    'ct_created_at'=>'created_at',
+                    'ct_updated_at'=>'updated_at'
+                )
+            );
+        return $this;
+    }
+
+    /**
+     * Retrive all ids for collection
+     * @access public
+     * @param mixed $limit
+     * @param mixed $offset
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getAllIds($limit = null, $offset = null) {
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->columns('ct.comment_id');
+        return $this->getConnection()->fetchCol($idsSelect);
+    }
+    /**
+     * Retrieves column values
+     * @access public
+     * @param string $colName
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getColumnValues($colName) {
+        $col = array();
+        foreach ($this->getItems() as $item) {
+            $col[] = $item->getData($colName);
+        }
+        return $col;
+    }
+    /**
+     * Render SQL for retrieve product count
+     * @access public
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getSelectCountSql() {
+        $select = parent::getSelectCountSql();

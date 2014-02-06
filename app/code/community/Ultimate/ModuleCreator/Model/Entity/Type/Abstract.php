@@ -321,4 +321,13 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getToOptionAddition(){
         return '';
     }
+    /**
+     * get comment name field filter index
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCommentFilterIndexPrefix() {
+        return $this->getEntityTableAlias().'.';
+    }
 }

@@ -1,0 +1,1 @@
+            ->addFieldToFilter('main_table.status', 1) //only active entities

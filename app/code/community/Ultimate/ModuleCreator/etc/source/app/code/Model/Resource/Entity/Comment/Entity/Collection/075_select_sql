@@ -1,0 +1,6 @@
+        $select->reset(Zend_Db_Select::COLUMNS)
+            ->columns('COUNT({{entityTableAlias}}.entity_id)')
+            ->reset(Zend_Db_Select::HAVING);
+
+        return $select;
+    }

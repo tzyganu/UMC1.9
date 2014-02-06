@@ -264,7 +264,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
     public function getMassActionValues() {
         $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        return "Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+        if ($this->getAttribute()->getEntity()->getIsEav()) {
+            return "Mage::getModel('eav/config')->getAttribute('".$module."_".$entity."', '".$this->getAttribute()->getCode()."')->getSource()->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+        }
+        else {
+            return "Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+        }
     }
 
 }

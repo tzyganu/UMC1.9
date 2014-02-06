@@ -1,0 +1,19 @@
+    /**
+     * init the check select
+     * @access protected
+     * @param string $urlKey
+      * @param array $store
+     * @return Zend_Db_Select
+     * {{qwertyuiop}}
+     */
+    protected function _initCheckUrlKeySelect($urlKey, $store){
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('e' => $this->getMainTable()))
+            ->join(
+                array('es' => $this->getTable('{{module}}/{{entity}}_store')),
+                'e.entity_id = es.{{entity}}_id',
+                array())
+            ->where('e.url_key = ?', $urlKey)
+            ->where('es.store_id IN (?)', $store);
+        return $select;
+    }

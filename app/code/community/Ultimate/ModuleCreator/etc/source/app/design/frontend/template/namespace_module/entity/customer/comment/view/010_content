@@ -1,0 +1,29 @@
+<?php
+{{License}}
+/**
+ * customer {{EntitiesLabel}} comments view
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title">
+    <h1><?php echo $this->getComment()->getTitle() ?></h1>
+</div>
+<div class="comment-view">
+    <h2>
+        <a class="product-name" href="<?php echo $this->get{{Entity}}()->get{{Entity}}Url()?>">
+            <?php echo $this->get{{Entity}}()->get{{EntityNameMagicCode}}()?>
+        </a>
+    </h2>
+    <div class="comment-date">
+        <?php echo $this->__('On %s you wrote:', $this->formatDate($this->getComment()->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_FULL))?>
+    </div>
+    <div>
+        <?php echo Mage::helper('core')->escapeHtml($this->getComment()->getComment());?>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    </div>
+</div>

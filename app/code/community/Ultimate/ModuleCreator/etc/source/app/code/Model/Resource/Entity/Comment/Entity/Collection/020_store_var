@@ -1,0 +1,19 @@
+    /**
+     * Comment store table
+     *
+     * @var string
+     */
+    protected $_commentStoreTable;
+
+    /**
+     * Add store data flag
+     *
+     * @var boolean
+     */
+    protected $_addStoreDataFlag     = false;
+    /**
+     * Filter by stores for the collection
+     *
+     * @var array
+     */
+    protected $_storesIds           = array();

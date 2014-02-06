@@ -1,0 +1,3 @@
+    <customer_account>
+        <reference name="customer_account_navigation">{{customerCommentLinks}}        </reference>
+    </customer_account>

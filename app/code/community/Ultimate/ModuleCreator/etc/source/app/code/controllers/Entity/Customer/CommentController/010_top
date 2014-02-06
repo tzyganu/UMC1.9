@@ -1,0 +1,55 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} comments controller
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController
+    extends Mage_Core_Controller_Front_Action {
+    /**
+     * Action predispatch
+     * Check customer authentication for some actions
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function preDispatch() {
+        parent::preDispatch();
+        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+        }
+    }
+    /**
+     * List comments
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function indexAction() {
+        $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+
+        if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
+            $navigationBlock->setActive('{{module}}/{{entity}}_customer_comment/');
+        }
+        if ($block = $this->getLayout()->getBlock('{{entity}}_customer_comment_list')) {
+            $block->setRefererUrl($this->_getRefererUrl());
+        }
+
+        $this->getLayout()->getBlock('head')->setTitle($this->__('My {{EntityLabel}} Comments'));
+
+        $this->renderLayout();
+    }
+    /**
+     * View comment
+     * @access public
+     * {{qwertyuiop}}
+     */
+    public function viewAction() {
+        $commentId = $this->getRequest()->getParam('id');
+        $comment = Mage::getModel('{{module}}/{{entity}}_comment')->load($commentId);
+        if (!$comment->getId() || $comment->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId() || $comment->getStatus() != {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED) {
+            $this->_forward('no-route');
+            return;
+        }

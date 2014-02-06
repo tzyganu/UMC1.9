@@ -54,7 +54,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tab_Form
                     'label' => Mage::helper('{{module}}')->__('Approved'),
                 ),
                 array(
-                    'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment,
+                    'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED,
                     'label' => Mage::helper('{{module}}')->__('Rejected'),
                 ),
             ),

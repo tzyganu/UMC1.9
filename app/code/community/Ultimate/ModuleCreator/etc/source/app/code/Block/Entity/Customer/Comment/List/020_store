@@ -1,0 +1,1 @@
+            ->setStoreFilter(Mage::app()->getStore()->getId(), true)

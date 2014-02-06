@@ -1,0 +1,1 @@
+            ->addAttributeToFilter('status', 1) //only active entities

@@ -1,0 +1,12 @@
+    /**
+     * Adds store filter into array
+     * @access public
+     * @param mixed $storeId
+     * @param bool $withAdmin
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
+     * {{qwertyuiop}}
+     */
+    public function addStoreFilter($storeId = null, $withAdmin = true) {
+        if (is_null($storeId)) {
+            $storeId = $this->getStoreId();
+        }

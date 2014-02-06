@@ -1,0 +1,5 @@
+        $stores = array(Mage::app()->getStore()->getId(), 0);
+        if (count(array_intersect($stores, $comment->getStoreId())) == 0) {
+            $this->_forward('no-route');
+            return;
+        }

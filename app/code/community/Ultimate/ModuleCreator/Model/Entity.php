@@ -618,6 +618,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{multiselectMethods}}']          = $this->getMultiselectMethods();
             $this->_placeholders['{{nameHtml}}']                    = $this->getNameHtml();
             $this->_placeholders['{{isTree}}']                      = (int)$this->getIsTree();
+            $this->_placeholders['{{commentFilterIndexPrefix}}']    = $this->getCommentFilterIndexPrefix();
 
             $eventObject = new Varien_Object(
                 array(
@@ -2535,5 +2536,24 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= '\'<a href="#">\'.$'.$lower.'->get'.$name.'().\'</a>\'';
         }
         return $content;
+    }
+
+    /**
+     * check if the entity is not store related
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNoStore() {
+        return !$this->getStore();
+    }
+    /**
+     * get comment name field filter index
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCommentFilterIndexPrefix() {
+        return $this->getTypeInstance()->getCommentFilterIndexPrefix();
     }
 }

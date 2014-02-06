@@ -1281,6 +1281,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{categoryViewLayout}}'                => $this->getCategoryViewLayout(),
                 '{{defaultLayoutHandle}}'               => $this->getFrontendDefaultLayoutHandle(),
                 '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
+                '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks()
             );
         }
         if (is_null($param)){
@@ -1678,5 +1679,20 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             return $content;
         }
         return '';
+    }
+
+    public function getCustomerCommentLinks() {
+        $eol     = $this->getEol();
+        $padding = $this->getPadding(3);
+        $content = $eol;
+        $module  = $this->getLowerModuleName();
+        foreach ($this->getEntities() as $entity) {
+            if ($entity->getAllowComment()) {
+                $entityName = strtolower($entity->getNameSingular());
+                $label      = $entity->getLabelPlural();
+                $content   .= $padding . '<action method="addLink" translate="label" module="'.$module.'"><name>'.$entityName.'_comments</name><path>'.$module.'/'.$entityName.'_customer_comment</path><label>'.$label.' Comments</label></action>'.$eol;
+            }
+        }
+        return $content;
     }
 }

@@ -1,0 +1,1 @@
+        $this->_commentStoreTable = Mage::getSingleton('core/resource')->getTableName('{{module}}/{{entity}}_comment_store');

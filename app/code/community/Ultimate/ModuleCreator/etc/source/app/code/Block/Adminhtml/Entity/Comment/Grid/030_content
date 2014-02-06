@@ -3,7 +3,7 @@
                 'header'=>  Mage::helper('{{module}}')->__('Action'),
                 'width' => '100',
                 'type'  => 'action',
-                'getter'=> 'getId',
+                'getter'=> 'getCtCommentId',
                 'actions'   => array(
                     array(
                         'caption'   => Mage::helper('{{module}}')->__('Edit'),
@@ -27,7 +27,9 @@
      * {{qwertyuiop}}
      */
     protected function _prepareMassaction(){
-        $this->setMassactionIdField('entity_id');
+        $this->setMassactionIdField('ct_comment_id');
+        $this->setMassactionIdFilter('ct.comment_id');
+        $this->setMassactionIdFieldOnlyIndexValue(true);
         $this->getMassactionBlock()->setFormFieldName('comment');
         $this->getMassactionBlock()->addItem('delete', array(
             'label'=> Mage::helper('{{module}}')->__('Delete'),
@@ -72,15 +74,3 @@
     public function getGridUrl(){
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }
-    /**
-     * after collection load
-     * @access protected
-     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Grid
-     * {{qwertyuiop}}
-     */
-    protected function _afterLoadCollection(){
-        $this->getCollection()->walk('afterLoad');
-        parent::_afterLoadCollection();
-    }
-
-

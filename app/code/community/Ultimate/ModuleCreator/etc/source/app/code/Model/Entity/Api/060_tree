@@ -10,7 +10,7 @@
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         $parent_{{entity}} = $this->_init{{Entity}}($parentId);
         if ($afterId === null && $parent_{{entity}}->hasChildren()) {
-            $parentChildren = $parent_{{entity}}->getChildren();
+            $parentChildren = $parent_{{entity}}->getChild{{Entities}}();
             $afterId = array_pop(explode(',', $parentChildren));
         }
         if( strpos($parent_{{entity}}->getPath(), ${{entity}}->getPath()) === 0) {

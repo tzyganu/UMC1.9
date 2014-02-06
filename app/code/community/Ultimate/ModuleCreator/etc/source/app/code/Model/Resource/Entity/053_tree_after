@@ -135,7 +135,7 @@
         public function getChildren{{Entities}}(${{entity}}){
             $collection = ${{entity}}->getCollection();
             $collection
-                ->addIdFilter(${{entity}}->getChildren())
+                ->addIdFilter(${{entity}}->getChild{{Entities}}())
                 ->setOrder('position', Varien_Db_Select::SQL_ASC)
                 ->load();
             return $collection;

@@ -1,0 +1,13 @@
+        Mage::register('current_comment', $comment);
+        Mage::register('current_{{entity}}', ${{entity}});
+        $this->loadLayout();
+        if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
+            $navigationBlock->setActive('{{module}}/{{entity}}_customer_comment/');
+        }
+        if ($block = $this->getLayout()->getBlock('customer_{{entity}}_comment')) {
+            $block->setRefererUrl($this->_getRefererUrl());
+        }
+        $this->getLayout()->getBlock('head')->setTitle($this->__('My {{EntityLabel}} Comments'));
+        $this->renderLayout();
+    }
+}

@@ -1,0 +1,3 @@
+            case 'stores':
+                $this->setStoreFilter($condition);
+                break;

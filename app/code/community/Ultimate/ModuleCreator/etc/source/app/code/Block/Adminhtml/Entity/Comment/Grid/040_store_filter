@@ -10,6 +10,6 @@
         if (!$value = $column->getFilter()->getValue()) {
             return;
         }
-        $collection->addStoreFilter($value);
+        $collection->setStoreFilter($value);
         return $this;
     }

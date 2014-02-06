@@ -1373,6 +1373,17 @@
                     <name>010_top</name>
                     <sort_order>10</sort_order>
                 </top>
+                <store_data>
+                    <name>013_store_data</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>13</sort_order>
+                </store_data>
+                <prepare>
+                    <name>016_prepare</name>
+                    <sort_order>16</sort_order>
+                </prepare>
                 <stores>
                     <name>020_stores</name>
                     <depend>
@@ -3955,6 +3966,24 @@
                     </depend>
                     <sort_order>100</sort_order>
                 </url_rewrite>
+                <url_rewrite_store>
+                    <name>103_url_rewrite_store</name>
+                    <depend>
+                        <url_rewrite/>
+                        <is_flat />
+                        <store />
+                    </depend>
+                    <sort_order>103</sort_order>
+                </url_rewrite_store>
+                <url_rewrite_no_store>
+                    <name>107_url_rewrite_no_store</name>
+                    <depend>
+                        <url_rewrite/>
+                        <is_flat />
+                        <no_store />
+                    </depend>
+                    <sort_order>107</sort_order>
+                </url_rewrite_no_store>
                 <url_rewrite_before_save_not_tree>
                     <name>110_url_rewrite_before_save_not_tree</name>
                     <depend>
@@ -5001,6 +5030,13 @@
                     <name>010_top</name>
                     <sort_order>10</sort_order>
                 </top>
+                <comment>
+                    <name>020_comment</name>
+                    <depend>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </comment>
                 <list>
                     <name>060_list</name>
                     <scope>entity</scope>
@@ -5061,6 +5097,14 @@
                     </depend>
                     <sort_order>130</sort_order>
                 </relation_category>
+                <entity_comment>
+                    <name>135_entity_comment</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>135</sort_order>
+                </entity_comment>
                 <footer>
                     <name>140_footer</name>
                     <sort_order>140</sort_order>
@@ -5356,6 +5400,259 @@
                 </content>
             </code>
         </entity_comment_form_template>
+
+        <entity_customer_comment_controller translate="title description condition" module="modulecreator">
+            <title>Customer comments controller</title>
+            <description>Controller used to list and view customer reviews for an entity</description>
+            <condition>Generated for entities that allow comments</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/code/controllers/Entity/Customer/CommentController/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/{{Entity}}/Customer/CommentController.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <entity_eav>
+                    <name>020_entity_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </entity_eav>
+                <entity_flat>
+                    <name>030_entity_flat</name>
+                    <depend>
+                        <is_flat />
+                    </depend>
+                    <sort_order>30</sort_order>
+                </entity_flat>
+                <store>
+                    <name>040_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>40</sort_order>
+                </store>
+                <entity_flat_store>
+                    <name>050_entity_flat_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                        <is_flat />
+                    </depend>
+                    <sort_order>50</sort_order>
+                </entity_flat_store>
+                <footer>
+                    <name>060_footer</name>
+                    <sort_order>60</sort_order>
+                </footer>
+            </code>
+        </entity_customer_comment_controller>
+
+        <entity_customer_comment_view translate="title description condition" module="modulecreator">
+            <title>Comment view block</title>
+            <description>Block used for viewing own comment</description>
+            <condition>Generated for entities that allow comments</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/code/Block/Entity/Customer/Comment/View/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/{{Entity}}/Customer/Comment/View.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </entity_customer_comment_view>
+
+        <entity_customer_comment_view_template translate="title description condition" module="modulecreator">
+            <title>Comment view template</title>
+            <description>Template used for viewing own comment</description>
+            <condition>Generated for entities that allow comments</condition>
+            <scope>entity</scope>
+            <filetype>phtml</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/design/frontend/template/namespace_module/entity/customer/comment/view/</source>
+            <destination>app/design/frontend/base/default/template/{{namespace}}_{{module}}/{{entity}}/customer/comment/view.phtml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </entity_customer_comment_view_template>
+
+        <entity_model_resource_entity_comment_entity_collection translate="title description condition" module="modulecreator">
+            <title>Entity - Comment resource collection</title>
+            <description>Resource used to link comments to entities</description>
+            <condition>Generated for entities that allow comments</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/code/Model/Resource/Entity/Comment/Entity/Collection/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Resource/{{Entity}}/Comment/{{Entity}}/Collection.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <store_var>
+                    <name>020_store_var</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </store_var>
+                <construct>
+                    <name>030_construct</name>
+                    <sort_order>30</sort_order>
+                </construct>
+                <construct_store>
+                    <name>040_construct_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>40</sort_order>
+                </construct_store>
+                <content>
+                    <name>050_content</name>
+                    <sort_order>50</sort_order>
+                </content>
+                <eav_title>
+                    <name>060_eav_title</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>60</sort_order>
+                </eav_title>
+                <more_content>
+                    <name>070_more_content</name>
+                    <sort_order>70</sort_order>
+                </more_content>
+                <select_count_store>
+                    <name>073_select_count_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>73</sort_order>
+                </select_count_store>
+                <select_sql>
+                    <name>075_select_sql</name>
+                    <sort_order>75</sort_order>
+                </select_sql>
+                <store_top>
+                    <name>080_store_top</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>80</sort_order>
+                </store_top>
+                <flat_store>
+                    <name>090_flat_store</name>
+                    <depend>
+                        <is_flat />
+                        <store />
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>90</sort_order>
+                </flat_store>
+                <store>
+                    <name>100_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>100</sort_order>
+                </store>
+                <filter>
+                    <name>110_filter</name>
+                    <sort_order>110</sort_order>
+                </filter>
+                <store_filter>
+                    <name>120_store_filter</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>120</sort_order>
+                </store_filter>
+                <footer>
+                    <name>130_footer</name>
+                    <sort_order>130</sort_order>
+                </footer>
+            </code>
+        </entity_model_resource_entity_comment_entity_collection>
+        <entity_customer_comment_list_block translate="title description condition" module="modulecreator">
+            <title>Block for rendering customer comments</title>
+            <description>This is the main block for listing comments posted by a customer</description>
+            <condition>Generated for entities that support comments</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/code/Block/Entity/Customer/Comment/List/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/{{Entity}}/Customer/Comment/List.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <store>
+                    <name>020_store</name>
+                    <depend>
+                        <allow_comment_by_store />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </store>
+                <filter_eav>
+                    <name>030_filter_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>30</sort_order>
+                </filter_eav>
+                <filter_flat>
+                    <name>040_filter_flat</name>
+                    <depend>
+                        <is_flat />
+                    </depend>
+                    <sort_order>40</sort_order>
+                </filter_flat>
+                <footer>
+                    <name>050_footer</name>
+                    <sort_order>50</sort_order>
+                </footer>
+            </code>
+        </entity_customer_comment_list_block>
+
+        <entity_customer_comment_list_template translate="title description condition" module="modulecreator">
+            <title>Template for rendering customer comments</title>
+            <description>This template renders the customer submitted comments</description>
+            <condition>Generated for entities that support comments</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <allow_comment />
+            </depend>
+            <source>app/design/frontend/template/namespace_module/entity/customer/comment/list/</source>
+            <destination>app/design/frontend/base/default/template/{{namespace}}_{{module}}/{{entity}}/customer/comment/list.phtml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </entity_customer_comment_list_template>
 
         <rss_template translate="title description condition" module="modulecreator">
             <title>Frontend rss list template</title>

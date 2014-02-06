@@ -971,36 +971,62 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev5>
+            <version>1.9.0-dev5</version>
+            <date>2014-02-06</date>
+            <data>
+                <language_file translate="label type comment">
+                    <label>Added language file</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[Added the en_US locale file for the module. The file was generated using <a href="https://github.com/tzyganu/MagentoTranslationTool" target="_blank">MagentoTranslationTool</a>]]></comment>
+                </language_file>
+                <comments_grid translate="label type comment">
+                    <label>Comments grid include entity name</label>
+                    <type>Improvement</type>
+                    <comment>The admin grids for each entity comments include the entity name.</comment>
+                </comments_grid>
+                <comments translate="label type comment">
+                    <label>Added my comments for customers</label>
+                    <type>Feature</type>
+                    <comment>There is a new section in the customer account menu that links to "my comments" for each entity.</comment>
+                </comments>
+                <url_rewrite translate="label type comment">
+                    <label>Fix url rewrite save</label>
+                    <type>Bug Fix</type>
+                    <comment>Flat entities with url rewrites and no stores could not be saved.</comment>
+                </url_rewrite>
+            </data>
+        </v1_9_0_dev5>
         <v1_9_0_dev4>
             <version>1.9.0-dev4</version>
             <date>2014-02-04</date>
             <data>
-                <mass_action trasnlate="label type comment">
-                    <label>Allowed more attribtues in mass action</label>
+                <mass_action translate="label type comment">
+                    <label>Allowed more attributes in mass action</label>
                     <type>Feature</type>
                     <comment>Country and Dropdown attributes can be set by mass action from grid.</comment>
                 </mass_action>
-                <tree_widget trasnlate="label type comment">
+                <tree_widget translate="label type comment">
                     <label>Fixed tree widget chooser</label>
                     <type>Bug fix</type>
                     <comment>Tree widget chooser was giving fatal error.</comment>
                 </tree_widget>
-                <tree_relations trasnlate="label type comment">
+                <tree_relations translate="label type comment">
                     <label>Fixed relations between tree behaving entities</label>
                     <type>Bug fix</type>
                     <comment>A "sibling" relation between and EAV Tree entity and a Flat Tree entity did not behave as expected. but this is no problem. No one will use this kind of relation.</comment>
                 </tree_relations>
-                <rss trasnlate="label type comment">
+                <rss translate="label type comment">
                     <label>Fixed RSS display</label>
                     <type>Bug fix</type>
                     <comment>Now all attribute types displayed properly in the rss feed.</comment>
                 </rss>
-                <tree trasnlate="label type comment">
+                <tree translate="label type comment">
                     <label>Fixed tree entities display</label>
                     <type>Bug fix</type>
                     <comment>Tree entities rendered wrong when the view page was disabled.</comment>
                 </tree>
-                <widget trasnlate="label type comment">
+                <widget translate="label type comment">
                     <label>Widgets</label>
                     <type>Refactored</type>
                     <comment>Refactored widget view contents</comment>
@@ -1011,42 +1037,42 @@
             <version>1.9.0-dev3</version>
             <date>2014-01-24</date>
             <data>
-                <attribtues trasnlate="label type comment">
+                <attribtues translate="label type comment">
                     <label>Drag &amp; drop attributes</label>
                     <type>Feature</type>
                     <comment>When creating an entity you can drag and drop attributes to sort them in the list</comment>
                 </attribtues>
-                <menu trasnlate="label type comment">
+                <menu translate="label type comment">
                     <label>Select menu for entity link</label>
                     <type>Feature</type>
                     <comment>Added ability to select the frontend menu where the link to your entity page should be placed</comment>
                 </menu>
-                <api trasnlate="label type comment">
+                <api translate="label type comment">
                     <label>Temporarily disable API</label>
                     <type>???</type>
                     <comment>The API does not yet work for EAV entities and comments. It is temporarily disabled until I get it working.</comment>
                 </api>
-                <view_page trasnlate="label type comment">
+                <view_page translate="label type comment">
                     <label>Empty page for non existing entities</label>
                     <type>Bug fix</type>
                     <comment>The entity view page displayed as blank if looking at an entity that does not exist. Now redirects to 404 page.</comment>
                 </view_page>
-                <category_relation trasnlate="label type comment">
+                <category_relation translate="label type comment">
                     <label>Fixed display on category page</label>
                     <type>Bug fix</type>
                     <comment>Entities related to categories were displayed on the category page at the top. Now they are after the product list.</comment>
                 </category_relation>
-                <relations trasnlate="label type comment">
+                <relations translate="label type comment">
                     <label>Fixed entity relations</label>
                     <type>Bug fix</type>
                     <comment>Entities can be related independent of their type</comment>
                 </relations>
-                <url trasnlate="label type comment">
+                <url translate="label type comment">
                     <label>Fixed or generation for entities without url rewrites</label>
                     <type>Bug fix</type>
                     <comment>Entities without url rewrites generated an empty url.</comment>
                 </url>
-                <multi_attr trasnlate="label type comment">
+                <multi_attr translate="label type comment">
                     <label>Fixed multiselect attributes in combination with url rewrite</label>
                     <type>Bug fix</type>
                     <comment>For flat entities that have multiselect attributes and url rewrite the _beforeSave method was generated twice.</comment>
@@ -1057,37 +1083,37 @@
             <version>1.9.0-dev2</version>
             <date>2014-01-17</date>
             <data>
-                <attribute_codes trasnlate="label type comment">
+                <attribute_codes translate="label type comment">
                     <label>Refactored some attribute codes</label>
                     <type>Refactor</type>
                     <comment>Variables that depend on attribute names now look like this: $someName instead of $some_name</comment>
                 </attribute_codes>
-                <front_layout trasnlate="label type comment">
+                <front_layout translate="label type comment">
                     <label>Frontend layout file generation</label>
                     <type>Bug fix</type>
                     <comment>Frontend layout file was always generated. Now is generated only if there is at least one entity that has frontend.</comment>
                 </front_layout>
-                <dropdown trasnlate="label type comment">
+                <dropdown translate="label type comment">
                     <label>Fixed dropdown attributes for flat entities</label>
                     <type>Bug fix</type>
                     <comment>Dropdown attribute for flat entities were not configured correctly in the admin grid and admin add/edid form.</comment>
                 </dropdown>
-                <product_relation trasnlate="label type comment">
+                <product_relation translate="label type comment">
                     <label>Entities not displaying in product page.</label>
                     <type>Bug fix</type>
                     <comment>Entities were not displaying in product page unless they had a separate view page.</comment>
                 </product_relation>
-                <validation trasnlate="label type comment">
+                <validation translate="label type comment">
                     <label>Fixed field/attribute codes validation.</label>
                     <type>Bug fix</type>
                     <comment>Field/Attribute codes use the same validation as product attributes</comment>
                 </validation>
-                <add_filter trasnlate="label type">
+                <add_filter translate="label type">
                     <label>Replaced 'addFilter' with 'addFieldToFilter'</label>
                     <type>Bug fix</type>
                     <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/1" target="_blank">https://github.com/tzyganu/UMC1.9/issues/1</a>]]></comment>
                 </add_filter>
-                <inconsistency_3 trasnlate="label type">
+                <inconsistency_3 translate="label type">
                     <label>Inconsistent registry naming</label>
                     <type>Bug fix</type>
                     <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/3" target="_blank">https://github.com/tzyganu/UMC1.9/issues/3</a>]]></comment>
@@ -1098,87 +1124,87 @@
             <version>1.9.0-dev1</version>
             <date>2014-01-13</date>
             <data>
-                <eav_entities trasnlate="label type comment">
+                <eav_entities translate="label type comment">
                     <label>Added EAV entities</label>
                     <type>Feature</type>
                     <comment>Now you can create EAV entities that you can manage just like products and categories.</comment>
                 </eav_entities>
-                <category_link trasnlate="label type comment">
+                <category_link translate="label type comment">
                     <label>Added many to many link to categories</label>
                     <type>Feature</type>
                     <comment>Now you can link you entities "many to many" with the catalog categories</comment>
                 </category_link>
-                <comments trasnlate="label type comment">
+                <comments translate="label type comment">
                     <label>Added comment feature</label>
                     <type>Feature</type>
                     <comment>You can choose to allow customers to write comments on your entities.</comment>
                 </comments>
-                <extensible trasnlate="label type comment">
+                <extensible translate="label type comment">
                     <label>Made extension "extensible"</label>
                     <type>Feature</type>
                     <comment>Yeah...like someone is going to extend it</comment>
                 </extensible>
-                <tree_many trasnlate="label type comment">
+                <tree_many translate="label type comment">
                     <label>Many to many relations between tree entities</label>
                     <type>Feature</type>
                     <comment>Now the tree entities can be related in "Many to many"</comment>
                 </tree_many>
-                <menu_placing trasnlate="label type comment">
+                <menu_placing translate="label type comment">
                     <label>Module menu can be placed anywhere</label>
                     <type>Feature</type>
                     <comment>Until now the menu could be placed in admin only on top level. Now it can be placed anywhere in the menu tree.</comment>
                 </menu_placing>
-                <attribute_types trasnlate="label type comment">
+                <attribute_types translate="label type comment">
                     <label>Added new attribute types</label>
                     <type>Feature</type>
                     <comment>dorpdown, multiselect. Can have different sources - still experimental.</comment>
                 </attribute_types>
-                <attribute_entity trasnlate="label type comment">
+                <attribute_entity translate="label type comment">
                     <label>Custom entities can be added as product, category and customer attributes.</label>
                     <type>Feature</type>
                     <comment />
                 </attribute_entity>
-                <version trasnlate="label type comment">
+                <version translate="label type comment">
                     <label>You can set the version of your generated module.</label>
                     <type>Feature</type>
                     <comment>No more hard coded 0.0.1 version.</comment>
                 </version>
-                <source_refactor trasnlate="label type comment">
+                <source_refactor translate="label type comment">
                     <label>Source file refactoring</label>
                     <type>Refactor</type>
                     <comment>Because some IDEs show errors when parsing incomplete PHP files I've removed the extension of the source files (etc/source)</comment>
                 </source_refactor>
-                <js_refactor trasnlate="label type comment">
+                <js_refactor translate="label type comment">
                     <label>Refactored JS</label>
                     <type>Refactor</type>
                     <comment>The UI of the module creator now uses prototype classes instead of simple JS functions.</comment>
                 </js_refactor>
-                <ui_refactor trasnlate="label type comment">
+                <ui_refactor translate="label type comment">
                     <label>UI refactor</label>
                     <type>Refactor</type>
                     <comment>'Pimped up' the UI of the module creator</comment>
                 </ui_refactor>
-                <theme trasnlate="label type comment">
+                <theme translate="label type comment">
                     <label>Removed frontend package and theme fields</label>
                     <type>Refactor</type>
                     <comment>base/default is used for all modules.</comment>
                 </theme>
-                <identation trasnlate="label type comment">
+                <identation translate="label type comment">
                     <label>Changed identation from TAB to 4x space</label>
                     <type>Refactor</type>
                     <comment />
                 </identation>
-                <speed trasnlate="label type comment">
+                <speed translate="label type comment">
                     <label>Improved speed of the module creator</label>
                     <type>Improvement</type>
                     <comment>No more AJAX calls to add an entity/attribute. The module save is done in the same step as validation.</comment>
                 </speed>
-                <uninstall trasnlate="label type comment">
+                <uninstall translate="label type comment">
                     <label>Module creator generate sql uninstall script</label>
                     <type>Improvement</type>
                     <comment>Along with the list of generated files now an sql uninstall script is generated for the created module.</comment>
                 </uninstall>
-                <ucwords trasnlate="label type comment">
+                <ucwords translate="label type comment">
                     <label>Fixed bug that appears when there is an uppercase letter in the module name.</label>
                     <type>Bug fix</type>
                     <comment>In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.</comment>
@@ -1189,7 +1215,7 @@
     <thanks><!-- no need to translate -->
         <carco>
             <to>@carco</to>
-            <for>Thanks for the abstract image helper implementation.</for>
+            <for>Thanks for the abstract image helper implementation. and "cârcoteli"</for>
         </carco>
         <magepsycho>
             <to>@MagePsycho</to>

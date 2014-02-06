@@ -5,3 +5,6 @@
 "{{EntityLabel}} Comment","{{EntityLabel}} Comment"
 "{{EntityLabel}} comment","{{EntityLabel}} comment"
 "This {{entityLabel}} does not allow comments","This {{entityLabel}} does not allow comments"
+"My {{EntityLabel}} Comments","My {{EntityLabel}} Comments"
+"You have submitted no comments for {{entitiesLabel}}.","You have submitted no comments for {{entitiesLabel}}."
+"My {{EntitiesLabel}} comment view","My {{EntitiesLabel}} comment view"

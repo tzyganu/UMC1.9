@@ -437,4 +437,13 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $attribute = $this->getEntity()->getNameAttributeCode();
         return '$this->addAttributeToSelect(\''.$attribute.'\');'.$this->getEol().$this->getPadding(2);
     }
+    /**
+     * get comment name field filter index
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getCommentFilterIndexPrefix() {
+        return '';
+    }
 }

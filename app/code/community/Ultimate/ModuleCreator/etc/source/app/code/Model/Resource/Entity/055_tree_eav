@@ -210,7 +210,7 @@
         $collection = ${{entity}}->getCollection();
         $collection
             ->addAttributeToFilter('status', 1)
-            ->addIdFilter(${{entity}}->getChildren())
+            ->addIdFilter(${{entity}}->getChild{{Entities}}())
             ->setOrder('position', Varien_Db_Select::SQL_ASC);
         return $collection;
     }

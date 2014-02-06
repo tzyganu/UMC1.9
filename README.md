@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9-dev1
+Ultimate Module Creator 1.9-dev5
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,14 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-dev5 - 2014-02-06**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Improvement|Comments grid include entity name|The admin grids for each entity comments include the entity name.|
+|Feature|Added my comments for customers|There is a new section in the customer account menu that links to "my comments" for each entity.|
+|Bug Fix|Fix url rewrite save|Flat entities with url rewrites and no stores could not be saved.|
 
 **Release Notes 1.9.0-dev4 - 2014-02-04**
 
@@ -81,10 +89,10 @@ For the rest of the document UMC = Ultimate Module Creator
 **Known Issues**
 
 * ~~The SOAP API does not work for EAV entities and is missing for the comments~~ (Disabled SOAP API option completely. This needs to be refactored)
-* The Language file is missing for UMC
+* ~~The Language file is missing for UMC~~
 * ~~Relations between EAV and Flat entities don't work correctly~~.
 * ~~Dropdown attributes don't work correctly for Flat entities~~.
-* Admin comments grid for generated entities do not include the entity title.
-* EAV Tree entities can be visible in frontend even if the parent is disabled.
+* ~~Admin comments grid for generated entities do not include the entity title.~~
+* ~~EAV Tree entities can be visible in frontend even if the parent is disabled.~~
 * ~~For EAV entities there the URL rewrite key does not have a unique constraint~~.
 
