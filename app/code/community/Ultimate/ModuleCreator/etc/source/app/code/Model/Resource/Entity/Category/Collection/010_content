@@ -1,7 +1,7 @@
 <?php
 {{License}}
 /**
- * {{EntityLabel}} - {{SiblingLabel}} relation resource model collection
+ * {{EntityLabel}} - Category relation resource model collection
  *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}

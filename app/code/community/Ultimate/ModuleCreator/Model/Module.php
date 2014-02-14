@@ -162,6 +162,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getShowInCategoryMenu()) {
             $this->setShowInCategoryMenu(true);
         }
+        if ($entity->getSearch()) {
+            $this->setSearch(true);
+        }
         Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
         return $this;
     }

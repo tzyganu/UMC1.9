@@ -1,1 +1,1 @@
-            <{{entity}}>{{module}}_{{entity}}</{{entity}}>
+            <{{entity}}>{{module}}_{{entity}}</{{entity}}>{{entityApiResourcesAlias}}

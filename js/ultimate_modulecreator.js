@@ -65,8 +65,9 @@ UMC.Module.prototype =  {
         var template = new Template(that.entityTemplate, this.templateSyntax);
         var entityTemplate = template.evaluate({entity_id:that.entityCount});
         $(that.config.entitiesContainer).insert({bottom:entityTemplate});
-        var entity = new UMC.Entity($('entity_' + that.entityCount), {collapsed: that.config.collapsed});
 
+        var entity = new UMC.Entity($('entity_' + that.entityCount), {collapsed: that.config.collapsed});
+        Effect.Pulsate('entity_' + that.entityCount, { pulses: 2, duration: 2 });
         Effect.ScrollTo($('entity_' + that.entityCount), { duration:'1'});
         that.registerEntity(entity);
     },
@@ -278,7 +279,11 @@ UMC.Entity.prototype = {
         if (module){
             module.removeEntity(index);
         }
-        $(that.element).remove();
+        $(that.element).slideUp({
+            afterFinish: function(){
+                $(that.element).remove();
+            }
+        });
     },
     addAttribute: function(){
         var that = this;
@@ -296,6 +301,7 @@ UMC.Entity.prototype = {
         });
         var attribute = new UMC.Attribute($('attribute_' + that.index + '_' + that.attributeCount), {});
         Effect.ScrollTo($('attribute_' + that.index + '_' + that.attributeCount), { duration:1});
+        Effect.Pulsate('attribute_' + that.index + '_' + that.attributeCount, { pulses: 2, duration: 2 });
         that.registerAttribute(attribute);
         this.initAttributeSort();
     },
@@ -508,7 +514,12 @@ UMC.Attribute.prototype = {
         if (entity){
             entity.removeAttribute(index);
         }
-        $(that.element).remove();
+        //$(that.element).remove();
+        $(that.element).slideUp({
+            afterFinish: function(){
+                $(that.element).remove();
+            }
+        });
     },
     reloadSettings: function(withEntity){
         var that = this;

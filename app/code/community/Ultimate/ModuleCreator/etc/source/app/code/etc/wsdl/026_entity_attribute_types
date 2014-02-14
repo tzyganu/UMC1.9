@@ -1,0 +1,104 @@
+            <complexType name="{{module}}{{Entity}}AdditionalAttributesEntity">
+                <all>
+                    <element name="multi_data" type="typens:associativeMultiArray" minOccurs="0" />
+                    <element name="single_data" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionEntity">
+                <all>
+                    <element name="label" type="xsd:string"/>
+                    <element name="value" type="xsd:string"/>
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}AttributeOptionEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionLabelEntity">
+                <all>
+                    <element name="store_id" type="typens:ArrayOfString" />
+                    <element name="value" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}AttributeOptionLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}RequestAttributes">
+                <all>
+                    <element name="attributes" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="additional_attributes" type="typens:ArrayOfString" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeFrontendLabelEntity">
+                <all>
+                    <element name="store_id" type="xsd:string" />
+                    <element name="label" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeFrontendLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}AttributeFrontendLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeEntityToCreate">
+                <all>
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeEntityToUpdate">
+                <all>
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeEntity">
+                <all>
+                    <element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="options" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionLabelEntity">
+                <all>
+                    <element name="store_id" type="typens:ArrayOfString" />
+                    <element name="value" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}AttributeOptionLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}AttributeOptionEntityToAdd">
+                <all>
+                    <element name="label" type="typens:{{module}}{{Entity}}AttributeOptionLabelArray" />
+                    <element name="order" type="xsd:int" />
+                    <element name="is_default" type="xsd:int" />
+                </all>
+            </complexType>

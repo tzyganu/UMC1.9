@@ -1,0 +1,60 @@
+        <wsdl:operation name="{{module}}{{Entity}}ListOfAdditionalAttributes">
+            <wsdl:documentation>Get list of additional attributes which are not in default create/update list</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeCurrentStore">
+            <wsdl:documentation>Set/Get current store view</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeCurrentStoreRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeCurrentStoreResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}ListOfAdditionalAttributes">
+            <wsdl:documentation>Get list of additional attributes which are not in default create/update list</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeList">
+            <wsdl:documentation>Retrieve {{entityLabel}} attribute list</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeListRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeListResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeOptions">
+            <wsdl:documentation>Retrieve {{entityLabel}} attribute options</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeOptionsRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeOptionsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeTypes">
+            <wsdl:documentation>Get list of possible {{entityLabel}} attribute types</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeTypesRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeTypesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeCreate">
+            <wsdl:documentation>Create new {{entityLabel}} attribute</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeCreateRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeCreateResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeRemove">
+            <wsdl:documentation>Delete {{entityLabel}} attribute</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeRemoveRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeRemoveResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeInfo">
+            <wsdl:documentation>Get full information about {{entityLabel}} attribute with list of options</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeInfoRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeInfoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeUpdate">
+            <wsdl:documentation>Update {{entityLabel}} attribute</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeUpdateRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeUpdateResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeAddOption">
+            <wsdl:documentation>Add option to {{entityLabel}} attribute</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeAddOptionRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeAddOptionResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}AttributeRemoveOption">
+            <wsdl:documentation>Remove option from {{entityLabel}} attribute</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}AttributeRemoveOptionRequest"/>
+            <wsdl:output message="typens:{{module}}{{Entity}}AttributeRemoveOptionResponse"/>
+        </wsdl:operation>

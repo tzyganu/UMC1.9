@@ -3,23 +3,22 @@
      * @access public
      * @param int ${{entity}}Id
      * @param int $categoryId
-     * @param int $position
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function assignCategory(${{entity}}Id, $categoryId, $position = null){
+    public function assignCategory(${{entity}}Id, $categoryId){
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
-        $positions    = array();
-        $categories    = ${{entity}}->getSelectedCategories();
-        foreach ($categories as $category){
-            $positions[$category->getId()] = array('position'=>$category->getPosition());
-        }
-        $category = Mage::getModel('catalog/category')->load($categoryId);
+        $category   = Mage::getModel('catalog/category')->load($categoryId);
         if (!$category->getId()){
             $this->_fault('category_not_exists');
         }
-        $positions[$categoryId]['position'] = $position;
-        ${{entity}}->setCategoriesData($positions);
+        $categories = ${{entity}}->getSelectedCategories();
+        $categoryIds = array();
+        foreach ($categories as $category) {
+            $categoryIds[] = $category->getId();
+        }
+        $categoryIds[] = $categoryId;
+        ${{entity}}->setCategoriesData($categoryIds);
         try {
             ${{entity}}->save();
         }
@@ -37,14 +36,15 @@
      * {{qwertyuiop}}
      */
     public function unassignCategory(${{entity}}Id, $categoryId){
-        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
-        $positions    = array();
+        ${{entity}}    = $this->_init{{Entity}}(${{entity}}Id);
         $categories    = ${{entity}}->getSelectedCategories();
-        foreach ($categories as $category){
-            $positions[$category->getId()] = array('position'=>$category->getPosition());
+        $categoryIds   = array();
+        foreach ($categories as $key=>$category){
+            if ($category->getId() != $categoryId){
+                $categoryIds[] = $category->getId();
+            }
         }
-        unset($positions[$categoryId]);
-        ${{entity}}->setCategoriesData($positions);
+        ${{entity}}->setCategoriesData($categoryIds);
         try {
             ${{entity}}->save();
         }

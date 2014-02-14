@@ -22,7 +22,7 @@ class {{Namespace}}_{{Module}}_Model_Adminhtml_Search_{{Entity}}
             return $this;
         }
         $collection = Mage::getResourceModel('{{module}}/{{entity}}_collection')
-            ->addFieldToFilter('{{nameAttribute}}', array('like' => $this->getQuery().'%'))
+            ->{{filterMethod}}('{{nameAttributeCode}}', array('like' => $this->getQuery().'%'))
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())
             ->load();

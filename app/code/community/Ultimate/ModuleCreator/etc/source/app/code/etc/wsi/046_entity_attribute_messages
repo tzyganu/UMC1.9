@@ -1,0 +1,66 @@
+    <wsdl:message name="{{module}}{{Entity}}ListOfAdditionalAttributesRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}ListOfAdditionalAttributesRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}ListOfAdditionalAttributesResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}ListOfAdditionalAttributesResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeCurrentStoreRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeCurrentStoreRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeCurrentStoreResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeCurrentStoreResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeListRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeListRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeListResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeListResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeOptionsRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeOptionsRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeOptionsResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeOptionsResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeTypesRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeTypesRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeTypesResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeTypesResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeCreateRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeCreateRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeCreateResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeCreateResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeRemoveRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeRemoveRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeRemoveResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeRemoveResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeInfoRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeInfoRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeInfoResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeInfoResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeUpdateRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeUpdateRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeUpdateResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeUpdateResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeAddOptionRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeAddOptionRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeAddOptionResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeAddOptionResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeRemoveOptionRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeRemoveOptionRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}AttributeRemoveOptionResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}AttributeRemoveOptionResponseParam" />
+    </wsdl:message>

@@ -1,0 +1,21 @@
+            <complexType name="{{module}}{{Entity}}CommentListEntity">
+                <all>
+                    <element name="comment_id" type="xsd:string" minOccurs="1" />
+                    <element name="{{entity}}_id" type="xsd:string" minOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" />
+                    <element name="comment" type="xsd:string" minOccurs="1" />
+                    <element name="status" type="xsd:string" minOccurs="1" />
+                    <element name="customer_id" type="xsd:string" minOccurs="1" />
+                    <element name="name" type="xsd:string" minOccurs="1" />
+                    <element name="email" type="xsd:string" minOccurs="1" />
+                    <element name="created_at" type="xsd:string" minOccurs="1" />
+                    <element name="updated_at" type="xsd:string" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="{{module}}{{Entity}}CommentListEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}CommentListEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>

@@ -446,4 +446,287 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getCommentFilterIndexPrefix() {
         return '';
     }
+    /**
+     * get additional api xml
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiAdditional(){
+        $eol      = $this->getEol();
+        $padding  = $this->getPadding(5);
+        $tab      = $this->getPadding();
+        $content  = '';
+        $content .= $padding.'<currentStore>'.$eol;
+        $content .= $padding.$tab.'<title>Set/Get current store view</title>'.$eol;
+        $content .= $padding.'</currentStore>'.$eol;
+        $content .= $padding.'<listOfAdditionalAttributes translate="title" module="'.$this->getEntity()->getModule()->getLowerModuleName().'">'.$eol;
+        $content .= $padding.$tab.'<title>Get list of non-default attributes</title>'.$eol;
+        $content .= $padding.$tab.'<method>getAdditionalAttributes</method>'.$eol;
+        $content .= $padding.'</listOfAdditionalAttributes>'.$eol;
+        return $content;
+    }
+    /**
+     * get additional api faults
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiFaults(){
+        $eol      = $this->getEol();
+        $padding  = $this->getPadding(5);
+        $tab      = $this->getPadding();
+        $content  = '';
+        $content .= $padding.'<store_not_exists>'.$eol;
+        $content .= $padding.$tab.'<code>100</code>'.$eol;
+        $content .= $padding.$tab.'<message>Requested store view not found.</message>'.$eol;
+        $content .= $padding.'</store_not_exists>'.$eol;
+        return $content;
+    }
+    /**
+     * additional API subentities.
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiAdditionalSettings() {
+        $content = '';
+        $padding  = $this->getPadding(3);
+        $tab      = $this->getPadding();
+        $module   = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $eol      = $this->getEol();
+        $content .= $eol;
+        $content .= $padding.'<'.$module.'_'.$entity.'_attribute translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<title>Product attributes API</title>'.$eol;
+        $content .= $padding.$tab.'<model>'.$module.'/'.$entity.'_attribute_api</model>'.$eol;
+        $content .= $padding.$tab.'<acl>'.$module.'/'.$entity.'</acl>'.$eol;
+        $content .= $padding.$tab.'<methods>'.$eol;
+        $content .= $padding.$tab.$tab.'<currentStore translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Set/Get current store view</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/write</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</currentStore>'.$eol;
+        $content .= $padding.$tab.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Retrieve attribute list</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<method>items</method>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/read</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</list>'.$eol;
+        $content .= $padding.$tab.$tab.'<options translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Retrieve attribute options</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/read</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</options>'.$eol;
+        $content .= $padding.$tab.$tab.'<types translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Get list of possible attribute types</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/types</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</types>'.$eol;
+        $content .= $padding.$tab.$tab.'<create translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Create new attribute</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/create</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</create>'.$eol;
+        $content .= $padding.$tab.$tab.'<update translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Update attribute</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/update</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</update>'.$eol;
+        $content .= $padding.$tab.$tab.'<remove translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Delete attribute</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/remove</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</remove>'.$eol;
+        $content .= $padding.$tab.$tab.'<info translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Get full information about attribute with list of options</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/info</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</info>'.$eol;
+        $content .= $padding.$tab.$tab.'<addOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Add option</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/option/add</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</addOption>'.$eol;
+        $content .= $padding.$tab.$tab.'<removeOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<title>Remove option</title>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/option/remove</acl>'.$eol;
+        $content .= $padding.$tab.$tab.'</removeOption>'.$eol;
+        $content .= $padding.$tab.'</methods>'.$eol;
+        $content .= $padding.$tab.'<faults module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<store_not_exists>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>100</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Requested store view not found.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</store_not_exists>'.$eol;
+        $content .= $padding.$tab.$tab.'<not_exists>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>101</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Requested attribute not found.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</not_exists>'.$eol;
+        $content .= $padding.$tab.$tab.'<invalid_parameters>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>102</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Invalid request parameters.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</invalid_parameters>'.$eol;
+        $content .= $padding.$tab.$tab.'<invalid_code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>103</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</invalid_code>'.$eol;
+        $content .= $padding.$tab.$tab.'<invalid_frontend_input>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>104</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Incorrect attribute type.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</invalid_frontend_input>'.$eol;
+        $content .= $padding.$tab.$tab.'<unable_to_save>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>105</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Unable to save attribute.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</unable_to_save>'.$eol;
+        $content .= $padding.$tab.$tab.'<can_not_delete>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>106</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>This attribute cannot be deleted.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</can_not_delete>'.$eol;
+        $content .= $padding.$tab.$tab.'<can_not_edit>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>107</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>This attribute cannot be edited.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</can_not_edit>'.$eol;
+        $content .= $padding.$tab.$tab.'<unable_to_add_option>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>108</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Unable to add option.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</unable_to_add_option>'.$eol;
+        $content .= $padding.$tab.$tab.'<unable_to_remove_option>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<code>109</code>'.$eol;
+        $content .= $padding.$tab.$tab.$tab.'<message>Unable to remove option.</message>'.$eol;
+        $content .= $padding.$tab.$tab.'</unable_to_remove_option>'.$eol;
+        $content .= $padding.$tab.'</faults>'.$eol;
+        $content .= $padding.'</'.$module.'_'.$entity.'_attribute>'.$eol;
+        return $content;
+    }
+
+    /**
+     * get subentities acl
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSubEntitiesAcl(){
+        $content = '';
+        $padding  = $this->getPadding(5);
+        $tab      = $this->getPadding();
+        $module   = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $eol      = $this->getEol();
+        $title    = $this->getEntity()->getLabelSingular().' Attributes';
+
+        $content .= $eol;
+
+        $content .= $padding.'<'.$entity.'_attribute translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<title>'.$title.'</title>'.$eol;
+        $content .= $padding.$tab.'<sort_order>'.($this->getEntity()->getPosition() + 6).'</sort_order>'.$eol;
+        $content .= $padding.$tab.'<currentStore translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Set/Get current store view</title>'.$eol;
+        $content .= $padding.$tab.'</currentStore>'.$eol;
+        $content .= $padding.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Retrieve attribute list</title>'.$eol;
+        $content .= $padding.$tab.'</list>'.$eol;
+        $content .= $padding.$tab.'<options translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Retrieve attribute options</title>'.$eol;
+        $content .= $padding.$tab.'</options>'.$eol;
+        $content .= $padding.$tab.'<types translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Get list of possible attribute types</title>'.$eol;
+        $content .= $padding.$tab.'</types>'.$eol;
+        $content .= $padding.$tab.'<create translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Create new attribute</title>'.$eol;
+        $content .= $padding.$tab.'</create>'.$eol;
+        $content .= $padding.$tab.'<update translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Update attribute</title>'.$eol;
+        $content .= $padding.$tab.'</update>'.$eol;
+        $content .= $padding.$tab.'<remove translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Remove attribute</title>'.$eol;
+        $content .= $padding.$tab.'</remove>'.$eol;
+        $content .= $padding.$tab.'<info translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Get full information about attribute with list of options</title>'.$eol;
+        $content .= $padding.$tab.'</info>'.$eol;
+        $content .= $padding.$tab.'<addOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Add option</title>'.$eol;
+        $content .= $padding.$tab.'</addOption>'.$eol;
+        $content .= $padding.$tab.'<removeOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<title>Remove option</title>'.$eol;
+        $content .= $padding.$tab.'</removeOption>'.$eol;
+        $content .= $padding.'</'.$entity.'_attribute>'.$eol;
+        return $content;
+    }
+    /**
+     * get api aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAlias() {
+        $content = '';
+        $padding  = $this->getPadding(3);
+        $tab      = $this->getPadding();
+        $module   = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $eol      = $this->getEol();
+        $content .= $eol;
+        $content .= $padding.'<'.$entity.'_attribute>'.$module.'_'.$entity.'_attribute</'.$entity.'_attribute>';
+        return $content;
+    }
+    /**
+     * get api V2 aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAliasV2() {
+        $content = '';
+        $padding  = $this->getPadding(4);
+        $tab      = $this->getPadding();
+        $module   = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $eol      = $this->getEol();
+        $content .= $eol;
+        $content .= $padding.'<'.$entity.'_attribute>'.$module.ucfirst($entity).'Attribute</'.$entity.'_attribute>';
+        return $content;
+    }
+    /**
+     * get attributes format for wsdl
+     * @access public
+     * @param bool $wsi
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getWsdlAttributes($wsi = false){
+        $tab        = $this->getPadding();
+        $padding    = str_repeat($tab, 5);
+        $eol        = $this->getEol();
+        $content    = '';
+        $module     = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity     = ucfirst($this->getEntity()->getNameSingular());
+        if (!$wsi) {
+            $content   .= $padding.'<element name="additional_attributes" type="typens:'.$module.$entity.'AdditionalAttributesEntity" minOccurs="0"/>'.$eol;
+        }
+        else {
+            $content   .= $padding.'<xsd:element name="additional_attributes" type="typens:associativeArray" minOccurs="0" />'.$eol;
+        }
+        return $content;
+    }
+    /**
+     * get default api attributes
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultApiAttributes(){
+        $padding  = $this->getPadding();
+        $tab      = $padding;
+        $eol      = $this->getEol();
+        $entity   = $this->getEntity();
+        $content  = $padding.'protected $_defaultAttributeList = array('.$eol;
+        $parents  = $entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+        foreach ($parents as $parent){
+            $content .= $padding.$tab."'".$parent->getNameSingular().'_id'."', ".$eol;
+        }
+        foreach ($entity->getAttributes() as $attribute){
+            $content .= $padding.$tab."'".$attribute->getCode()."'".', '.$eol;
+        }
+        $simulated = $entity->getSimulatedAttributes(null, false);
+        foreach ($simulated as $attr){
+            if (!$attr->getIgnoreApi()){
+                $content .= $padding.$tab."'".$attr->getCode()."'".', '.$eol;
+            }
+        }
+        $content .= $padding.$tab."'created_at', ".$eol;
+        $content .= $padding.$tab."'updated_at', ".$eol;
+        $content .= $padding.');'.$eol;
+        return $content;
+    }
 }

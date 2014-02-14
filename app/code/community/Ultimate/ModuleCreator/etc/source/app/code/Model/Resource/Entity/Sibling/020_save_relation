@@ -10,15 +10,34 @@
         if (!is_array($data)) {
             $data = array();
         }
-        $deleteCondition = $this->_getWriteAdapter()->quoteInto('{{entity}}_id=?', ${{entity}}->getId());
-        $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
+
+        $adapter = $this->_getWriteAdapter();
+        $bind    = array(
+            ':{{entity}}_id'    => (int)${{entity}}->getId(),
+        );
+        $select = $adapter->select()
+            ->from($this->getMainTable(), array('rel_id', '{{sibling}}_id'))
+            ->where('{{entity}}_id = :{{entity}}_id');
+
+        $related   = $adapter->fetchPairs($select, $bind);
+        $deleteIds = array();
+        foreach($related as $relId => ${{sibling}}Id) {
+            if (!isset($data[${{sibling}}Id])) {
+                $deleteIds[] = (int)$relId;
+            }
+        }
+        if (!empty($deleteIds)) {
+            $adapter->delete($this->getMainTable(), array(
+                'rel_id IN (?)' => $deleteIds,
+            ));
+        }
 
         foreach ($data as ${{sibling}}Id => $info) {
-            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+            $adapter->insertOnDuplicate($this->getMainTable(), array(
                 '{{entity}}_id'      => ${{entity}}->getId(),
                 '{{sibling}}_id'     => ${{sibling}}Id,
                 'position'      => @$info['position']
-            ));
+            ), array('position'));
         }
         return $this;
     }

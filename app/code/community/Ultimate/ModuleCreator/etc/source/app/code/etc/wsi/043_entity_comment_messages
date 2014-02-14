@@ -1,0 +1,12 @@
+    <wsdl:message name="{{module}}{{Entity}}CommentListRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}CommentListRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}CommentListResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}CommentListResponseParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}CommentUpdateStatusRequest">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}CommentUpdateStatusRequestParam" />
+    </wsdl:message>
+    <wsdl:message name="{{module}}{{Entity}}CommentUpdateStatusResponse">
+        <wsdl:part name="parameters" element="typens:{{module}}{{Entity}}CommentUpdateStatusResponseParam" />
+    </wsdl:message>

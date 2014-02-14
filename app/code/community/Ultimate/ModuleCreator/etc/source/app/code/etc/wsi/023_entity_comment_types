@@ -1,0 +1,19 @@
+            <xsd:complexType name="{{module}}{{Entity}}CommentListEntity">
+                <xsd:sequence>
+                    <xsd:element name="comment_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="{{entity}}_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="comment" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="status" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="customer_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="email" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="created_at" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="updated_at" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}CommentListEntityArray">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}CommentListEntity[]" />
+                </xsd:sequence>
+            </xsd:complexType>

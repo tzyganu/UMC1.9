@@ -43,4 +43,4 @@
                         <message>Error while removing {{entityLabel}}. Details in error message.</message>
                     </remove_error>
 {{entityApiFaults}}</faults>
-            </{{module}}_{{entity}}>
+            </{{module}}_{{entity}}>{{entityApiAdditionalSettings}}

@@ -1,0 +1,10 @@
+        <wsdl:operation name="{{module}}{{Entity}}CommentList">
+            <wsdl:documentation>Retrieve list of {{entityLabel}} comments</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}CommentListRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}CommentListResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="{{module}}{{Entity}}CommentUpdateStatus">
+            <wsdl:documentation>Change {{entityLabel}} comment status</wsdl:documentation>
+            <wsdl:input message="typens:{{module}}{{Entity}}CommentUpdateStatusRequest" />
+            <wsdl:output message="typens:{{module}}{{Entity}}CommentUpdateStatusResponse" />
+        </wsdl:operation>

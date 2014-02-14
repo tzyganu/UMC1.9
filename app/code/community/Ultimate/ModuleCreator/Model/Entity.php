@@ -619,6 +619,12 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{nameHtml}}']                    = $this->getNameHtml();
             $this->_placeholders['{{isTree}}']                      = (int)$this->getIsTree();
             $this->_placeholders['{{commentFilterIndexPrefix}}']    = $this->getCommentFilterIndexPrefix();
+            $this->_placeholders['{{entityApiAdditionalSettings}}'] = $this->getApiAdditionalSettings();
+            $this->_placeholders['{{subEntitiesAcl}}']              = $this->getSubEntitiesAcl();
+            $this->_placeholders['{{position}}']                    = $this->getPosition();
+            $this->_placeholders['{{entityApiResourcesAlias}}']     = $this->getApiResourcesAlias();
+            $this->_placeholders['{{entityApiResourcesAliasV2}}']   = $this->getApiResourcesAliasV2();
+            $this->_placeholders['{{defaultApiAttributes}}']        = $this->getDefaultApiAttributes();
 
             $eventObject = new Varien_Object(
                 array(
@@ -1376,7 +1382,8 @@ class Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getApiAdditional(){
-        $content = $this->getApiTree();
+        $content  = $this->getApiTree();
+        $content .= $this->getTypeInstance()->getApiAdditional();
         $content .= $this->getApiRelations();
         return $content;
     }
@@ -1431,10 +1438,10 @@ class Ultimate_ModuleCreator_Model_Entity
         $string .= $prefix.$padding. '<acl>'.$module.'/'.$entity.'/update</acl>'.$eol;
         $string .= $prefix. '</assign'.$relatedCode.'>'.$eol;
 
-        $string .= $prefix. '<unassignProduct translate="title" module="'.$module.'">'.$eol;
-        $string .= $prefix.$padding. '<title>Remove product from '.$entityLabel.'</title>'.$eol;
+        $string .= $prefix. '<unassign'.$relatedCode.' translate="title" module="'.$module.'">'.$eol;
+        $string .= $prefix.$padding. '<title>Remove '.$relatedLabel.' from '.$entityLabel.'</title>'.$eol;
         $string .= $prefix.$padding. '<acl>'.$module.'/'.$entity.'/update</acl>'.$eol;
-        $string .= $prefix. '</unassignProduct>'.$eol;
+        $string .= $prefix. '</unassign'.$relatedCode.'>'.$eol;
         return $string;
     }
 
@@ -1529,6 +1536,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $string .= $this->getApiFaultsSection($entity.'_'.$siblingName, $siblingLabelUc, $code);
             $code++;
         }
+        $string .= $this->getTypeInstance()->getApiFaults();
         $string .= str_repeat($padding, 4);
         return $string;
     }
@@ -1585,6 +1593,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 $content .= $padding.$attr->getWsdlFormat($wsi).$eol;
             }
         }
+        $content .= $this->getTypeInstance()->getWsdlAttributes($wsi);
         return $content;
     }
     /**
@@ -2047,7 +2056,7 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<wsdl:message name="'.$module.$entityUc.$sectionName.'Request">'.$eol;
         $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.$module.$entityUc.$sectionName.'RequestParam" />'.$eol;
         $content .= $padding.'</wsdl:message>'.$eol;
-        $content .= $padding.'<wsdl:message name="'.$module.$entityUc.'MoveResponse">'.$eol;
+        $content .= $padding.'<wsdl:message name="'.$module.$entityUc.$sectionName.'Response">'.$eol;
         $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.$module.$entityUc.$sectionName.'ResponseParam" />'.$eol;
         $content .= $padding.'</wsdl:message>'.$eol;
 
@@ -2555,5 +2564,132 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getCommentFilterIndexPrefix() {
         return $this->getTypeInstance()->getCommentFilterIndexPrefix();
+    }
+    /**
+     * additional API subentities.
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiAdditionalSettings() {
+        $content = '';
+
+        if ($this->getAllowComment()) {
+            $padding  = $this->getPadding(3);
+            $tab      = $this->getPadding();
+            $module   = $this->getModule()->getLowerModuleName();
+            $entity   = strtolower($this->getNameSingular());
+            $eol      = $this->getEol();
+            $title    = $this->getLabelSingular().' Comments';
+
+            $content .= $eol;
+            $content .= $padding.'<'.$module.'_'.$entity.'_comment translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.'<title>'.$title.'</title>'.$eol;
+            $content .= $padding.$tab.'<model>'.$module.'/'.$entity.'_comment_api</model>'.$eol;
+            $content .= $padding.$tab.'<acl>'.$module.'/'.$entity.'/comment</acl>'.$eol;
+            $content .= $padding.$tab.'<methods>'.$eol;
+            $content .= $padding.$tab.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<title>Retrieve '.$title.'</title>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<method>items</method>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_comment/list</acl>'.$eol;
+            $content .= $padding.$tab.$tab.'</list>'.$eol;
+            $content .= $padding.$tab.$tab.'<updateStatus translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<title>Update '.$this->getLabelSingular().' Status</title>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<method>updateStatus</method>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_comment/updateStatus</acl>'.$eol;
+            $content .= $padding.$tab.$tab.'</updateStatus>'.$eol;
+            $content .= $padding.$tab.'</methods>'.$eol;
+            $content .= $padding.$tab.'<faults module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.$tab.'<not_exists>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<code>101</code>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<message>Requested comment not found.</message>'.$eol;
+            $content .= $padding.$tab.$tab.'</not_exists>'.$eol;
+            $content .= $padding.$tab.'</faults>'.$eol;
+            $content .= $padding.'</'.$module.'_'.$entity.'_comment>'.$eol;
+        }
+        $content .= $this->getTypeInstance()->getApiAdditionalSettings();
+        return $content;
+    }
+    /**
+     * get subentities acl
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSubEntitiesAcl(){
+        $content = '';
+        if ($this->getAllowComment()) {
+            $padding  = $this->getPadding(5);
+            $tab      = $this->getPadding();
+            $module   = $this->getModule()->getLowerModuleName();
+            $entity   = strtolower($this->getNameSingular());
+            $eol      = $this->getEol();
+            $title    = $this->getLabelSingular().' Comments';
+
+            $content .= $eol;
+
+            $content .= $padding.'<'.$entity.'_comment translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.'<title>'.$title.'</title>'.$eol;
+            $content .= $padding.$tab.'<sort_order>'.($this->getPosition() + 3).'</sort_order>'.$eol;
+            $content .= $padding.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.$tab.'<title>List</title>'.$eol;
+            $content .= $padding.$tab.'</list>'.$eol;
+            $content .= $padding.$tab.'<updateStatus translate="title" module="'.$module.'">'.$eol;
+            $content .= $padding.$tab.$tab.'<title>Update Status</title>'.$eol;
+            $content .= $padding.$tab.'</updateStatus>'.$eol;
+            $content .= $padding.'</'.$entity.'_comment>'.$eol;
+        }
+        $content .= $this->getTypeInstance()->getSubEntitiesAcl();
+        return $content;
+    }
+    /**
+     * get api aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAlias() {
+        $content = '';
+        if ($this->getAllowComment()) {
+            $padding  = $this->getPadding(3);
+            $tab      = $this->getPadding();
+            $module   = $this->getModule()->getLowerModuleName();
+            $entity   = strtolower($this->getNameSingular());
+            $eol      = $this->getEol();
+            $content .= $eol;
+            $content .= $padding.'<'.$entity.'_comment>'.$module.'_'.$entity.'_comment</'.$entity.'_comment>';
+        }
+        $content .= $this->getTypeInstance()->getApiResourcesAlias();
+        return $content;
+    }
+    /**
+     * get api V2 aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAliasV2() {
+        $content = '';
+        if ($this->getAllowComment()) {
+            $padding  = $this->getPadding(4);
+            $tab      = $this->getPadding();
+            $module   = $this->getModule()->getLowerModuleName();
+            $entity   = strtolower($this->getNameSingular());
+            $eol      = $this->getEol();
+            $content .= $eol;
+            $content .= $padding.'<'.$entity.'_comment>'.$module.ucfirst($entity).'Comment</'.$entity.'_comment>';
+        }
+        $content .= $this->getTypeInstance()->getApiResourcesAliasV2();
+        return $content;
+    }
+
+    /**
+     * get default api attributes
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultApiAttributes(){
+        return $this->getTypeInstance()->getDefaultApiAttributes();
     }
 }

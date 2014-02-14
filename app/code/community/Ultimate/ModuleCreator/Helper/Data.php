@@ -64,6 +64,10 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
      */
     const DROPDOWN_TYPES_PATH        = 'types/umc_dropdown';
     /**
+     * config path to show tooltips
+     */
+    const SHOW_TOOLTIPS_PATH         = 'modulecreator/general/tooltips';
+    /**
      * nothing to see here
      * just some constants
      */
@@ -183,8 +187,10 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
                     $settings['readonly'] = "readonly";
                 }
                 if ($field->type != 'hidden') {
-                    if ($field->tooltip){
-                        $settings['after_element_html'] = $this->getTooltipHtml($field->label, (string)$field->tooltip);
+                    if (Mage::getStoreConfigFlag(self::SHOW_TOOLTIPS_PATH)) {
+                        if ($field->tooltip){
+                            $settings['after_element_html'] = $this->getTooltipHtml($field->label, (string)$field->tooltip);
+                        }
                     }
                     if ($field->note){
                         $settings['note'] = $field->note;

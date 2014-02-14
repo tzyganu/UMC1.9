@@ -1,0 +1,60 @@
+        <operation name="{{module}}{{Entity}}ListOfAdditionalAttributes">
+            <documentation>Get list of additional attributes which are not in default create/update list</documentation>
+            <input message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesRequest"/>
+            <output message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeCurrentStoreRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeCurrentStoreResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}ListOfAdditionalAttributes">
+            <documentation>Get list of additional attributes which are not in default create/update list</documentation>
+            <input message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesRequest"/>
+            <output message="typens:{{module}}{{Entity}}ListOfAdditionalAttributesResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeList">
+            <documentation>Retrieve {{entityLabel}} attribute list</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeListRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeListResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeOptions">
+            <documentation>Retrieve {{entityLabel}} attribute options</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeOptionsRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeOptionsResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeTypes">
+            <documentation>Get list of possible {{entityLabel}} attribute types</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeTypesRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeTypesResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeCreate">
+            <documentation>Create new {{entityLabel}} attribute</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeCreateRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeCreateResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeRemove">
+            <documentation>Delete {{entityLabel}} attribute</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeRemoveRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeRemoveResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeInfo">
+            <documentation>Get full information about {{entityLabel}} attribute with list of options</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeInfoRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeInfoResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeUpdate">
+            <documentation>Update {{entityLabel}} attribute</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeUpdateRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeUpdateResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeAddOption">
+            <documentation>Add option to {{entityLabel}} attribute</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeAddOptionRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeAddOptionResponse"/>
+        </operation>
+        <operation name="{{module}}{{Entity}}AttributeRemoveOption">
+            <documentation>Remove option from {{entityLabel}} attribute</documentation>
+            <input message="typens:{{module}}{{Entity}}AttributeRemoveOptionRequest"/>
+            <output message="typens:{{module}}{{Entity}}AttributeRemoveOptionResponse"/>
+        </operation>

@@ -1,0 +1,15 @@
+    <message name="{{module}}{{Entity}}CommentListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters"/>
+    </message>
+    <message name="{{module}}{{Entity}}CommentListResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}CommentListEntityArray" />
+    </message>
+    <message name="{{module}}{{Entity}}CommentUpdateStatusRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="commentId" type="xsd:string" />
+        <part name="status" type="xsd:string" />
+    </message>
+    <message name="{{module}}{{Entity}}CommentUpdateStatusResponse">
+        <part name="result" type="typens:int" />
+    </message>

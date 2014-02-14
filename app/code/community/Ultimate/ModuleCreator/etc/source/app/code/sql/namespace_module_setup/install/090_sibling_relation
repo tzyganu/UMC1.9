@@ -22,5 +22,13 @@ $table = $this->getConnection()
     ), 'Position')
     ->addForeignKey($this->getFkName('{{module}}/{{entity}}_{{sibling}}', '{{entity}}_id', '{{module}}/{{entity}}', 'entity_id'), '{{entity}}_id', $this->getTable('{{module}}/{{entity}}'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey($this->getFkName('{{module}}/{{entity}}_{{sibling}}', '{{sibling}}_id', '{{module}}/{{entity}}', 'entity_id'),    '{{sibling}}_id', $this->getTable('{{module}}/{{sibling}}'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $this->getIdxName(
+            '{{module}}/{{entity}}_{{sibling}}',
+            array('{{entity}}_id', '{{sibling}}_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('{{entity}}_id', '{{sibling}}_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
     ->setComment('{{EntityLabel}} to {{SiblingLabel}} Linkage Table');
 $this->getConnection()->createTable($table);

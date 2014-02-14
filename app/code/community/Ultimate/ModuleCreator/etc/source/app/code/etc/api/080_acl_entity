@@ -1,6 +1,6 @@
                     <{{entity}} translate="title" module="{{module}}">
                         <title>{{EntityLabel}}</title>
-                        <sort_order>{{entityApiSortOrder}}</sort_order>
+                        <sort_order>{{position}}</sort_order>
                         <list translate="title" module="{{module}}">
                             <title>List</title>
                         </list>
@@ -16,4 +16,4 @@
                         <remove translate="title" module="{{module}}">
                             <title>Remove</title>
                         </remove>
-{{entityAdditionalApiAcl}}</{{entity}}>
+{{entityAdditionalApiAcl}}</{{entity}}>{{subEntitiesAcl}}

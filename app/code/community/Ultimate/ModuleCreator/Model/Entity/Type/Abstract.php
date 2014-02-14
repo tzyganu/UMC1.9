@@ -330,4 +330,77 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getCommentFilterIndexPrefix() {
         return $this->getEntityTableAlias().'.';
     }
+    /**
+     * get additional api xml
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiAdditional(){
+        return '';
+    }
+    /**
+     * get additional api faults
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiFaults(){
+        return '';
+    }
+    /**
+     * additional API subentities.
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiAdditionalSettings() {
+        return '';
+    }
+    /**
+     * get subentities acl
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSubEntitiesAcl(){
+        return '';
+    }
+    /**
+     * get api aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAlias() {
+        return '';
+    }
+    /**
+     * get api V2 aliases
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getApiResourcesAliasV2() {
+        return '';
+    }
+    /**
+     * get attributes format for wsdl
+     * @access public
+     * @param bool $wsi
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getWsdlAttributes($wsi = false){
+        return '';
+    }
+    /**
+     * get default api attributes
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultApiAttributes(){
+        return '';
+    }
 }

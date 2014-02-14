@@ -1,7 +1,7 @@
 <?php
 {{License}}
 /**
- * Admin source model for {{attribute}}
+ * Admin source model for {{attributeLabel}}
  *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}

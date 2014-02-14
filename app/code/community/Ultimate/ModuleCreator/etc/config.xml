@@ -20,7 +20,7 @@
     <modules>
         <Ultimate_ModuleCreator>
             <version>1.9.0</version>
-            <build>dev5</build>
+            <build>dev6</build>
         </Ultimate_ModuleCreator>
     </modules>
     <global>
@@ -74,6 +74,7 @@
             <general>
                 <help>1</help>
                 <collapsed>1</collapsed>
+                <tooltips>1</tooltips>
             </general>
             <settings>
                 <namespace>Ultimate</namespace>

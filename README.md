@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9-dev5
+Ultimate Module Creator 1.9-dev6
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,21 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-dev6 - 2014-02-14**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Added support for SOAP API |The generated extensions can contain files used for the SOAP API.|
+|Improvement|Added unique indexes to relation tables|The relation tables between entities and products or categories or other entities now have a unique index on the entity id and the related entity id.|
+|Improvement|Changed the way sibling entities relations are saved|The sibling relations are not recreated completely anymore. They are merged.|
+|Bug Fix |Fixed admin search|Selecting to include entities in admin search had no effect.|
+|Useless|Added UI Effects|The UMC UI has pulsating and sliding effects on different operations.|
+
+**Known issues 1.9.0-dev6**
+
+The WS-I compliance does not work. (the file is not generated even. In the current state it will break the global WSDL).
+The SOAP API for the generated modules is not fully tested.
 
 **Release Notes 1.9.0-dev5 - 2014-02-06**
 

@@ -1,0 +1,10 @@
+        <operation name="{{module}}{{Entity}}CommentList">
+            <documentation>Retrieve list of {{entityLabel}} comments</documentation>
+            <input message="typens:{{module}}{{Entity}}CommentListRequest" />
+            <output message="typens:{{module}}{{Entity}}CommentListResponse" />
+        </operation>
+        <operation name="{{module}}{{Entity}}CommentUpdateStatus">
+            <documentation>Change {{entityLabel}} comment status</documentation>
+            <input message="typens:{{module}}{{Entity}}CommentUpdateStatusRequest" />
+            <output message="typens:{{module}}{{Entity}}CommentUpdateStatusResponse" />
+        </operation>

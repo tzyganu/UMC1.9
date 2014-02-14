@@ -220,15 +220,15 @@
                             <system>1</system>
                             <tooltip><![CDATA[The Magento admin Global search (at the top of every admin page) searches for the text you enter in products, customers and orders.<br />If you set this to 'Yes' than it will search in your entity also.]]></tooltip>
                         </search>
-                        <!--<api translate="label tooltip" module="modulecreator">-->
-                            <!--<label>Create API</label>-->
-                            <!--<type>select</type>-->
-                            <!--<source>adminhtml/system_config_source_yesno</source>-->
-                            <!--<required>1</required>-->
-                            <!--<position>60</position>-->
-                            <!--<system>1</system>-->
-                            <!--<tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>-->
-                        <!--</api>-->
+                        <api translate="label tooltip" module="modulecreator">
+                            <label>Create SOAP API</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>60</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>
+                        </api>
                     </fields>
                 </backend>
 
@@ -728,7 +728,7 @@
             <allow_comment />
             <manage_comment />
             <search />
-            <!--<api />-->
+            <api />
             <product_attribute_group />
             <category_attribute_group />
         </umc_entity>
@@ -836,7 +836,6 @@
             <date translate="label">
                 <label>Date</label>
             </date>
-
         </umc_attribute_group>
         <umc_dropdown>
             <custom translate="label" module="modulecreator">
@@ -971,6 +970,37 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev6>
+            <version>1.9.0-dev6</version>
+            <date>2014-02-14</date>
+            <data>
+                <api translate="label type comment">
+                    <label>Added support for SOAP API</label>
+                    <type>Feature</type>
+                    <comment>The generated extensions can contain files used for the SOAP API.</comment>
+                </api>
+                <relation_table translate="label type comment">
+                    <label>Added unique indexes to relation tables</label>
+                    <type>Improvement</type>
+                    <comment>The relation tables between entities and products or categories or other entities now have a unique index on the entity id and the related entity id.</comment>
+                </relation_table>
+                <relation_save translate="label type comment">
+                    <label>Changed the way sibling entities relations are saved</label>
+                    <type>Improvement</type>
+                    <comment>The sibling relations are not recreated completely anymore. They are merged.</comment>
+                </relation_save>
+                <admin_search translate="label type comment">
+                    <label>Fixed admin search</label>
+                    <type>Bug Fix</type>
+                    <comment>Selecting to include entities in admin search had no effect.</comment>
+                </admin_search>
+                <effects translate="label type comment">
+                    <label>Added UI Effects</label>
+                    <type>Useless</type>
+                    <comment>The UMC UI has pulsating and sliding effects on different operations.</comment>
+                </effects>
+            </data>
+        </v1_9_0_dev6>
         <v1_9_0_dev5>
             <version>1.9.0-dev5</version>
             <date>2014-02-06</date>

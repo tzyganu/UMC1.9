@@ -1,0 +1,78 @@
+    <message name="{{module}}{{Entity}}ListOfAdditionalAttributesRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="{{module}}{{Entity}}ListOfAdditionalAttributesResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}AttributeEntityArray" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeListRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeListResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}AttributeEntityArray"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeOptionsRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeOptionsResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeTypesResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="data" type="typens:{{module}}{{Entity}}AttributeEntityToCreate"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeInfoResponse">
+        <part name="result" type="typens:{{module}}{{Entity}}AttributeEntity" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:{{module}}{{Entity}}AttributeEntityToUpdate"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeUpdateResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeAddOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:{{module}}{{Entity}}AttributeOptionEntityToAdd"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeAddOptionResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="{{module}}{{Entity}}AttributeRemoveOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+    </message>
+    <message name="{{module}}{{Entity}}AttributeRemoveOptionResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
