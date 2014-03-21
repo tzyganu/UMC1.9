@@ -1,0 +1,6 @@
+            if (isset($data['additional_attributes']) && is_array($data['additional_attributes'])){
+                foreach ($data['additional_attributes'] as $key=>$value){
+                    $data[$key] = $value;
+                }
+                unset($data['additional_attributes']);
+            }

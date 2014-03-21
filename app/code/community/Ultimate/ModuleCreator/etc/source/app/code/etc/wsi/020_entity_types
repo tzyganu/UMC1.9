@@ -1,9 +1,9 @@
-            <xsd:complexType name="{{module}}{{Entity}}ListEntityArray">
+            <xsd:complexType name="{{module}}{{Entity}}EntityArray">
                 <xsd:sequence>
-                    <xsd:element maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}ListEntity" />
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}Entity" />
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:complexType name="{{module}}{{Entity}}ListEntity">
+            <xsd:complexType name="{{module}}{{Entity}}Entity">
                 <xsd:sequence>
                     <xsd:element name="entity_id" type="xsd:string" />
 {{entityWsiAttributes}}
@@ -41,7 +41,7 @@
             <xsd:element name="{{module}}{{Entity}}ListResponseParam">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}ListEntityArray" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}EntityArray" />
                     </xsd:sequence>
                  </xsd:complexType>
             </xsd:element>

@@ -970,6 +970,32 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev7>
+            <version>1.9.0-dev7</version>
+            <date>2014-03-21</date>
+            <data>
+                <wsi_api translate="label type comment">
+                    <label>Added WS-I support for API for EAV entities</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[Added WS-I support for API for EAV entities and their attributes.]]></comment>
+                </wsi_api>
+                <attributes_save translate="label type comment">
+                    <label>Values for manually added attributes for EAV attributes are not saved</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[The values for manually added attributes for EAV entities were not saved due to the attributes not belonging to a group.]]></comment>
+                </attributes_save>
+                <layout_messages translate="label type comment">
+                    <label>Added initLayoutMessages for frontend controllers</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Different types of session messages were not displayed in the entity actions (view/list) <a href="https://github.com/tzyganu/UMC1.9/issues/2">(#2)</a>]]></comment>
+                </layout_messages>
+                <relations translate="label type comment">
+                    <label>Relations not saved when 3 or more entities exist</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[The entities relations were not displayed correctly when the module contained 3 or more entities. <a href="https://github.com/tzyganu/UMC1.9/issues/5">(#5)</a>]]></comment>
+                </relations>
+            </data>
+        </v1_9_0_dev7>
         <v1_9_0_dev6>
             <version>1.9.0-dev6</version>
             <date>2014-02-14</date>

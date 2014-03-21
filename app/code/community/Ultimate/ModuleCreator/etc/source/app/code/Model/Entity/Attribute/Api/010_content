@@ -154,6 +154,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
         $model->addData($data);
         $model->setEntityTypeId($this->_entityTypeId);
         $model->setIsUserDefined(1);
+        $model->setIsVisible(1);
 
         try {
             $model->save();

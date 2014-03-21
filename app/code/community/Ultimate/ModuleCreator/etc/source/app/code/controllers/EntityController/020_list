@@ -6,6 +6,9 @@
       */
     public function indexAction(){
          $this->loadLayout();
+         $this->_initLayoutMessages('catalog/session');
+         $this->_initLayoutMessages('customer/session');
+         $this->_initLayoutMessages('checkout/session');
          if (Mage::helper('{{module}}/{{entity}}')->getUseBreadcrumbs()){
              if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')){
                  $breadcrumbBlock->addCrumb('home', array(

@@ -1,3 +1,39 @@
+            <xsd:complexType name="{{module}}{{Entity}}AttributeEntity">
+                <xsd:sequence>
+                    <xsd:element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="scope" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="required" type="xsd:int" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}AttributeEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}AttributeEntityInfo">
+                <xsd:sequence>
+                    <xsd:element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="scope" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="required" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="0" />
+                    <xsd:element name="additional_fields" type="typens:associativeArray" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}AttributeOptionEntity">
+                <xsd:sequence>
+                    <xsd:element name="label" type="xsd:string" />
+                    <xsd:element name="value" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="{{module}}{{Entity}}AttributeOptionEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeOptionEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AdditionalAttributesEntity">
                 <xsd:sequence>
                     <xsd:element name="multi_data" type="typens:associativeMultiArray" minOccurs="0" />
@@ -12,7 +48,7 @@
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionEntityArray">
                 <xsd:sequence>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}OptionEntity" />
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeOptionEntity" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionLabelEntity">
@@ -23,7 +59,7 @@
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionLabelArray">
                 <xsd:sequence>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeOptionLabel" />
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeOptionLabelEntity" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}RequestAttributes">
@@ -40,7 +76,7 @@
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeFrontendLabelArray">
                 <xsd:sequence>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeFrontendLabel" />
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeFrontendLabelEntity" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeEntityToCreate">
@@ -63,19 +99,7 @@
                     <xsd:element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="1" />
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:complexType name="{{module}}{{Entity}}AttributeEntity">
-                <xsd:sequence>
-                    <xsd:element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
-                    <xsd:element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
-                    <xsd:element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
-                    <xsd:element name="scope" type="xsd:string" minOccurs="0" />
-                    <xsd:element name="default_value" type="xsd:string" minOccurs="0" />
-                    <xsd:element name="is_required" type="xsd:int" minOccurs="0" />
-                    <xsd:element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
-                    <xsd:element name="options" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray" minOccurs="0"/>
-                    <xsd:element name="frontend_label" type="typens:{{module}}{{Entity}}AttributeFrontendLabelArray" minOccurs="1" />
-                </xsd:sequence>
-            </xsd:complexType>
+
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionLabelEntity">
                 <xsd:sequence>
                     <xsd:element name="store_id" type="typens:ArrayOfString" />
@@ -83,11 +107,9 @@
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionLabelArray">
-                <complexContent>
-                    <restriction base="soapenc:Array">
-                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:{{module}}{{Entity}}AttributeOptionLabelEntity[]"/>
-                    </restriction>
-                </complexContent>
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}AttributeOptionLabelEntity" />
+                </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AttributeOptionEntityToAdd">
                 <xsd:sequence>
@@ -96,3 +118,175 @@
                     <xsd:element name="is_default" type="xsd:int" />
                 </xsd:sequence>
             </xsd:complexType>
+
+            <xsd:element name="{{module}}{{Entity}}AttributeCurrentStoreRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="store" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeCurrentStoreResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:int" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}AttributeEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeOptionsRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attributeId" type="xsd:int" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="store" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeOptionsResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeCreateRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AttributeEntityToCreate" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeCreateResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeTypesRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeTypesResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AttributeOptionEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="{{module}}{{Entity}}ListOfAdditionalAttributesRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}ListOfAdditionalAttributesResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AttributeEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="{{module}}{{Entity}}AttributeUpdateRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AttributeEntityToUpdate" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeUpdateResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="{{module}}{{Entity}}AttributeRemoveRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeRemoveResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="{{module}}{{Entity}}AttributeInfoRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeInfoResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}AttributeEntity" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="{{module}}{{Entity}}AttributeAddOptionRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:apitestArticleAttributeOptionEntityToAdd" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeAddOptionResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeRemoveOptionRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="optionId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}AttributeRemoveOptionResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>

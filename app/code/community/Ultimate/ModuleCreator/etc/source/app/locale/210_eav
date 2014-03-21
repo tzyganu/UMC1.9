@@ -24,3 +24,4 @@
 "Unable to find an attribute to delete.","Unable to find an attribute to delete."
 "Default Values","Default Values"
 "Attribute ""%s"" is required.","Attribute ""%s"" is required."
+"This attribute is not deletable","This attribute is not deletable"

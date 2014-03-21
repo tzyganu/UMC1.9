@@ -1627,16 +1627,16 @@ class Ultimate_ModuleCreator_Model_Entity
 
         $content .= $padding.'<'.$mainTag .' name="'.$module.$entityUc.'Assign'.$relatedCode.'Entity">'.$eol;
         $content .= $padding.$tab.'<'.$subtag.'>'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
         $content .= $padding.$tab.'<'.$element.' name="position" type="xsd:string"'.((!$wsi)?' minOccurs="0"':'').' />'.$eol;
         $content .= $padding.$tab.'</'.$subtag.'>'.$eol;
         $content .= $padding.'</'.$mainTag.'>'.$eol;
 
         $content .= $padding.'<'.$mainTag .' name="'.$module.$entityUc.'Unassign'.$relatedCode.'Entity">'.$eol;
         $content .= $padding.$tab.'<'.$subtag.'>'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
         $content .= $padding.$tab.'</'.$subtag.'>'.$eol;
         $content .= $padding.'</'.$mainTag.'>'.$eol;
 
@@ -1945,8 +1945,8 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
         $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'_id" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'_id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="0" maxOccurs="1" name="position" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
@@ -1964,7 +1964,7 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
         $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'_id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
@@ -2001,9 +2001,9 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.$tab.'<xsd:complexType>'.$eol;
             $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
             $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="session_id" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'_id" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="parent_id" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="0" maxOccurs="1" name="after_id" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="parentId" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="0" maxOccurs="1" name="afterId" type="xsd:string" />'.$eol;
             $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
             $content .= $padding.$tab.'</xsd:complexType>'.$eol;
             $content .= $padding.'</xsd:element>'.$eol;
@@ -2122,9 +2122,9 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.$tab.'<part name="result" type="xsd:boolean" />'.$eol;
         $content .= $padding.'</message>'.$eol;
         $content .= $padding.'<message name="'.$module.$entityUc.'Unassign'.$sectionName.'Request">'.$eol;
-        $content .= $padding.$tab.'<part name="session_d" type="xsd:string" />'.$eol;
-        $content .= $padding.$tab.'<part name="'.$entity.'_d" type="xsd:string" />'.$eol;
-        $content .= $padding.$tab.'<part name="'.$sectionParam.'_d" type="xsd:string" />'.$eol;
+        $content .= $padding.$tab.'<part name="session_id" type="xsd:string" />'.$eol;
+        $content .= $padding.$tab.'<part name="'.$entity.'_id" type="xsd:string" />'.$eol;
+        $content .= $padding.$tab.'<part name="'.$sectionParam.'_id" type="xsd:string" />'.$eol;
         $content .= $padding.'</message>'.$eol;
         $content .= $padding.'<message name="'.$module.$entityUc.'Unassign'.$sectionName.'Response">'.$eol;
         $content .= $padding.$tab.'<part name="result" type="xsd:boolean" />'.$eol;

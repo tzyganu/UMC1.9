@@ -370,8 +370,7 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         $relations = (array)$xml->descend('relations');
         if ($relations) {
-            $relations = isset($relations['relation']) ? $relations['relation'] : array();
-            foreach ((array)$relations as $key=>$type) {
+            foreach ($relations as $key=>$type) {
                 $parts = explode('_', $key);
                 if (count($parts) == 2){
                     $e1 = $module->getEntity($parts[0]);

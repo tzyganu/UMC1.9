@@ -3114,147 +3114,147 @@
             </code>
         </wsdl_xml>
 
-        <!--<wsi_xml translate="title description condition" module="modulecreator">-->
-            <!--<title>WSI file</title>-->
-            <!--<description>API xml for WS-I complience</description>-->
-            <!--<condition>Generated if at least one entity has API enabled</condition>-->
-            <!--<filetype>xml</filetype>-->
-            <!--<depend>-->
-                <!--<api/>-->
-            <!--</depend>-->
-            <!--<source>app/code/etc/wsi/</source>-->
-            <!--<destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/etc/wsi.xml</destination>-->
-            <!--<code>-->
-                <!--<top>-->
-                    <!--<name>010_top</name>-->
-                    <!--<sort_order>10</sort_order>-->
-                <!--</top>-->
-                <!--<entity_types>-->
-                    <!--<name>020_entity_types</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>20</sort_order>-->
-                <!--</entity_types>-->
-                <!--<entity_comment_types>-->
-                    <!--<name>023_entity_comment_types</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<allow_comment />-->
-                    <!--</depend>-->
-                    <!--<sort_order>23</sort_order>-->
-                <!--</entity_comment_types>-->
-                <!--<entity_attribute_types>-->
-                    <!--<name>026_entity_attribute_types</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<is_eav />-->
-                    <!--</depend>-->
-                    <!--<sort_order>26</sort_order>-->
-                <!--</entity_attribute_types>-->
-                <!--<schema_footer>-->
-                    <!--<name>030_schema_footer</name>-->
-                    <!--<sort_order>30</sort_order>-->
-                <!--</schema_footer>-->
-                <!--<entity_messages>-->
-                    <!--<name>040_entity_messages</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>40</sort_order>-->
-                <!--</entity_messages>-->
-                <!--<entity_comment_messages>-->
-                    <!--<name>043_entity_comment_messages</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<allow_comment />-->
-                    <!--</depend>-->
-                    <!--<sort_order>43</sort_order>-->
-                <!--</entity_comment_messages>-->
-                <!--<entity_attribute_messages>-->
-                    <!--<name>046_entity_attribute_messages</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<is_eav />-->
-                    <!--</depend>-->
-                    <!--<sort_order>46</sort_order>-->
-                <!--</entity_attribute_messages>-->
-                <!--<porttype_top>-->
-                    <!--<name>050_porttype_top</name>-->
-                    <!--<sort_order>50</sort_order>-->
-                <!--</porttype_top>-->
-                <!--<porttype_entity>-->
-                    <!--<name>060_porttype_entity.</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>60</sort_order>-->
-                <!--</porttype_entity>-->
-                <!--<porttype_entity_comment>-->
-                    <!--<name>063_porttype_entity_comment</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<allow_comment />-->
-                    <!--</depend>-->
-                    <!--<sort_order>63</sort_order>-->
-                <!--</porttype_entity_comment>-->
-                <!--<porttype_entity_attribute>-->
-                    <!--<name>066_porttype_entity_attribute</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<is_eav />-->
-                    <!--</depend>-->
-                    <!--<sort_order>66</sort_order>-->
-                <!--</porttype_entity_attribute>-->
-                <!--<porttype_footer>-->
-                    <!--<name>070_porttype_footer</name>-->
-                    <!--<sort_order>70</sort_order>-->
-                <!--</porttype_footer>-->
-                <!--<binding_top>-->
-                    <!--<name>080_binding_top</name>-->
-                    <!--<sort_order>80</sort_order>-->
-                <!--</binding_top>-->
-                <!--<entity_binding>-->
-                    <!--<name>090_entity_binding</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>90</sort_order>-->
-                <!--</entity_binding>-->
-                <!--<entity_binding_comment>-->
-                    <!--<name>093_entity_binding_comment</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<allow_comment />-->
-                    <!--</depend>-->
-                    <!--<sort_order>93</sort_order>-->
-                <!--</entity_binding_comment>-->
-                <!--<entity_binding_attribute>-->
-                    <!--<name>096_entity_binding_attribute</name>-->
-                    <!--<scope>entity</scope>-->
-                    <!--<depend>-->
-                        <!--<api/>-->
-                        <!--<is_eav />-->
-                    <!--</depend>-->
-                    <!--<sort_order>96</sort_order>-->
-                <!--</entity_binding_attribute>-->
-                <!--<footer>-->
-                    <!--<name>100_footer</name>-->
-                    <!--<sort_order>100</sort_order>-->
-                <!--</footer>-->
-            <!--</code>-->
-        <!--</wsi_xml>-->
+        <wsi_xml translate="title description condition" module="modulecreator">
+            <title>WSI file</title>
+            <description>API xml for WS-I complience</description>
+            <condition>Generated if at least one entity has API enabled</condition>
+            <filetype>xml</filetype>
+            <depend>
+                <api/>
+            </depend>
+            <source>app/code/etc/wsi/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/etc/wsi.xml</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <entity_types>
+                    <name>020_entity_types</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                    </depend>
+                    <sort_order>20</sort_order>
+                </entity_types>
+                <entity_comment_types>
+                    <name>023_entity_comment_types</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>23</sort_order>
+                </entity_comment_types>
+                <entity_attribute_types>
+                    <name>026_entity_attribute_types</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <is_eav />
+                    </depend>
+                    <sort_order>26</sort_order>
+                </entity_attribute_types>
+                <schema_footer>
+                    <name>030_schema_footer</name>
+                    <sort_order>30</sort_order>
+                </schema_footer>
+                <entity_messages>
+                    <name>040_entity_messages</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                    </depend>
+                    <sort_order>40</sort_order>
+                </entity_messages>
+                <entity_comment_messages>
+                    <name>043_entity_comment_messages</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>43</sort_order>
+                </entity_comment_messages>
+                <entity_attribute_messages>
+                    <name>046_entity_attribute_messages</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <is_eav />
+                    </depend>
+                    <sort_order>46</sort_order>
+                </entity_attribute_messages>
+                <porttype_top>
+                    <name>050_porttype_top</name>
+                    <sort_order>50</sort_order>
+                </porttype_top>
+                <porttype_entity>
+                    <name>060_porttype_entity.</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                    </depend>
+                    <sort_order>60</sort_order>
+                </porttype_entity>
+                <porttype_entity_comment>
+                    <name>063_porttype_entity_comment</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>63</sort_order>
+                </porttype_entity_comment>
+                <porttype_entity_attribute>
+                    <name>066_porttype_entity_attribute</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <is_eav />
+                    </depend>
+                    <sort_order>66</sort_order>
+                </porttype_entity_attribute>
+                <porttype_footer>
+                    <name>070_porttype_footer</name>
+                    <sort_order>70</sort_order>
+                </porttype_footer>
+                <binding_top>
+                    <name>080_binding_top</name>
+                    <sort_order>80</sort_order>
+                </binding_top>
+                <entity_binding>
+                    <name>090_entity_binding</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                    </depend>
+                    <sort_order>90</sort_order>
+                </entity_binding>
+                <entity_binding_comment>
+                    <name>093_entity_binding_comment</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <allow_comment />
+                    </depend>
+                    <sort_order>93</sort_order>
+                </entity_binding_comment>
+                <entity_binding_attribute>
+                    <name>096_entity_binding_attribute</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api/>
+                        <is_eav />
+                    </depend>
+                    <sort_order>96</sort_order>
+                </entity_binding_attribute>
+                <footer>
+                    <name>100_footer</name>
+                    <sort_order>100</sort_order>
+                </footer>
+            </code>
+        </wsi_xml>
 
         <helper_data translate="title description condition" module="modulecreator">
             <title>Module default helper.</title>
@@ -3835,12 +3835,34 @@
                     <name>016_content</name>
                     <sort_order>16</sort_order>
                 </content>
+                <add_eav>
+                    <name>017_add_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>17</sort_order>
+                </add_eav>
+                <add_end>
+                    <name>018_add_end</name>
+                    <sort_order>18</sort_order>
+                </add_end>
+                <update_eav>
+                    <name>019_update_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>19</sort_order>
+                </update_eav>
+                <update_footer>
+                    <name>020_update_footer</name>
+                    <sort_order>20</sort_order>
+                </update_footer>
                 <product_relation_info>
-                    <name>020_product_relation_info</name>
+                    <name>024_product_relation_info</name>
                     <depend>
                         <link_product/>
                     </depend>
-                    <sort_order>20</sort_order>
+                    <sort_order>24</sort_order>
                 </product_relation_info>
                 <category_relation_info>
                     <name>030_category_relation_info</name>
@@ -3896,6 +3918,20 @@
                     </depend>
                     <sort_order>97</sort_order>
                 </get_attributes>
+                <get_api_data_flat>
+                    <name>098_get_api_data_flat</name>
+                    <depend>
+                        <is_flat />
+                    </depend>
+                    <sort_order>98</sort_order>
+                </get_api_data_flat>
+                <get_api_data_eav>
+                    <name>099_get_api_data_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>99</sort_order>
+                </get_api_data_eav>
                 <footer>
                     <name>100_footer</name>
                     <sort_order>100</sort_order>

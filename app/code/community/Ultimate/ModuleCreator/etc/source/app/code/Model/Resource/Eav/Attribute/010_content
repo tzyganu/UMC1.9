@@ -75,4 +75,17 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
             break;
         }
     }
+    /**
+     * don't delete system attributes
+     * @access public
+     * @param string $type
+     * @return string
+     * {{qwertyuiop}}
+     */
+    protected function _beforeDelete(){
+        if (!$this->getIsUserDefined()){
+            throw new Mage_Core_Exception(Mage::helper('{{module}}')->__('This attribute is not deletable'));
+        }
+        return parent::_beforeDelete();
+    }
 }

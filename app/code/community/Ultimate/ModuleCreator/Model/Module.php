@@ -214,7 +214,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $xml .= '</entities>'.$eol;
         $xml .= '<relations>'.$eol;
         foreach ($this->getRelations() as $relation){
-            $xml .= $relation->toXml(array(), 'relation', false, $addCdata);
+            $xml .= $relation->toXml(array(), '', false, $addCdata);
         }
         $xml .= '</relations>'.$eol;
         if (!empty($rootName)) {
@@ -597,17 +597,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         foreach ($this->getEntities() as $entity){
             if ($entity->getIsEav()){
-                $toRemove = array();
-                $attributes = $entity->getAttributes();
-                foreach ($attributes as $attribute){
-                    $toRemove[] = $attribute->getCode();
-                }
-                foreach ($entity->getSimulatedAttributes() as $attribute){
-                    $toRemove[] = $attribute->getCode();
-                }
-                $toRemoveString = "'".implode("','", $toRemove)."'";
                 $entityTypeCode = $this->getLowerModuleName().'_'.$entity->getPlaceholders('{{entity}}');
-                $lines[] = "DELETE FROM eav_attribute WHERE attribute_code IN ({$toRemoveString}) AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}');";
+                $lines[] = "DELETE FROM eav_attribute WHERE entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}');";
                 $lines[] = "DELETE FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}';";
             }
             if ($entity->getProductAttribute()){

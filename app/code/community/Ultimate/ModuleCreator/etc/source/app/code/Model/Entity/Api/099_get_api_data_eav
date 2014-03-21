@@ -1,0 +1,28 @@
+    /**
+     * get data for api
+     * @access protected
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @return array()
+     * {{qwertyuiop}}
+     */
+    protected function _getApiData({{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}) {
+        $data = array();
+        $additional = array();
+        $additionalAttributes = $this->getAdditionalAttributes();
+        $additionalByCode = array();
+        foreach($additionalAttributes as $attribute){
+            $additionalByCode[] = $attribute['code'];
+        }
+        foreach (${{entity}}->getData() as $key=>$value) {
+            if (!in_array($key, $additionalByCode)) {
+                $data[$key] = $value;
+            }
+            else {
+                $additional[] = array('key'=>$key, 'value'=>$value);
+            }
+        }
+        if (!empty($additional)) {
+            $data['additional_attributes'] = $additional;
+        }
+        return $data;
+    }

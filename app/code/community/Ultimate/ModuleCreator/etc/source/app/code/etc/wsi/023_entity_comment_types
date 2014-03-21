@@ -14,6 +14,37 @@
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}CommentListEntityArray">
                 <xsd:sequence>
-                    <xsd:element maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}CommentListEntity[]" />
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:{{module}}{{Entity}}CommentListEntity" />
                 </xsd:sequence>
             </xsd:complexType>
+            <xsd:element name="{{module}}{{Entity}}CommentListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="0" maxOccurs="1" name="filters" type="typens:filters" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}CommentListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="1" name="result" type="typens:{{module}}{{Entity}}CommentListEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}CommentUpdateStatusRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="commentId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="status" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="{{module}}{{Entity}}CommentUpdateStatusResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="1" name="result" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>

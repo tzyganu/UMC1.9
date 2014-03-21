@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9-dev6
+Ultimate Module Creator 1.9-dev7
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,15 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-dev7 - 2014-03-21**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Added WS-I support for API for EAV entities|Added WS-I support for API for EAV entities and their attributes.|
+|Bug Fix|Values for manually added attributes for EAV attributes are not saved|The values for manually added attributes for EAV entities were not saved due to the attributes not belonging to a group.|
+|Bug Fix|Added `initLayoutMessages` for frontend controllers|Different types of session messages were not displayed in the entity actions (view/list) (<a href="https://github.com/tzyganu/UMC1.9/issues/2">(#2)</a>)|
+|Bug Fix|Relations not saved when 3 or more entities exist|The entities relations were not displayed correctly when the module contained 3 or more entities. (<a href="https://github.com/tzyganu/UMC1.9/issues/5">(#5)</a>)|
 
 **Release Notes 1.9.0-dev6 - 2014-02-14**
 

@@ -8,7 +8,7 @@
  * {{qwertyuiopp}}
  */
 class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api_V2
-    extends Mage_Catalog_Model_Product_Attribute_Api {
+    extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api {
     /**
      * Create new {{entityLabel}} attribute
      * @access public

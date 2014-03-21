@@ -22,8 +22,8 @@
      * {{qwertyuiop}}
      */
     public function getHeaderText(){
-        if( Mage::registry('{{entity}}_data') && Mage::registry('{{entity}}_data')->getId() ) {
-            return Mage::helper('{{module}}')->__("Edit {{EntityLabel}} '%s'", $this->htmlEscape(Mage::registry('{{entity}}_data')->get{{EntityNameMagicCode}}()));
+        if( Mage::registry('current_{{entity}}') && Mage::registry('current_{{entity}}')->getId() ) {
+            return Mage::helper('{{module}}')->__("Edit {{EntityLabel}} '%s'", $this->escapeHtml(Mage::registry('current_{{entity}}')->get{{EntityNameMagicCode}}()));
         }
         else {
             return Mage::helper('{{module}}')->__('Add {{EntityLabel}}');

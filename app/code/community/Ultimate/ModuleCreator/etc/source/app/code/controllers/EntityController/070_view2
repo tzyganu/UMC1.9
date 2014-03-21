@@ -1,5 +1,8 @@
         Mage::register('current_{{entity}}', ${{entity}});
         $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('checkout/session');
         if ($root = $this->getLayout()->getBlock('root')) {
             $root->addBodyClass('{{module}}-{{entity}} {{module}}-{{entity}}' . ${{entity}}->getId());
         }
