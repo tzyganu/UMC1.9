@@ -15,12 +15,12 @@
             </complexType>
             <complexType name="{{module}}{{Entity}}AddEntity">
                 <all>
-{{entityWsdlAttributes}}
+{{entityWsdlAttributesForAdd}}
                 </all>
             </complexType>
             <complexType name="{{module}}{{Entity}}UpdateEntity">
                 <all>
-{{entityWsdlAttributes}}
+{{entityWsdlAttributesForAdd}}
                 </all>
             </complexType>
             <complexType name="{{module}}{{Entity}}InfoEntity">

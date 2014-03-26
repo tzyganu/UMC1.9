@@ -10,7 +10,7 @@
         if ($post != '-1') {
             $post = Mage::helper('adminhtml/js')->decodeGridSerializedInput($post);
             $category = Mage::registry('category');
-            ${{entity}}Category = Mage::getResourceSingleton('{{module}}/{{entity}}_category')->saveCategoryRelation($category, $post);
+            ${{entity}}Category = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_category')->saveCategoryRelation($category, $post);
         }
         return $this;
     }

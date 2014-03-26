@@ -1,12 +1,12 @@
         $this->addColumn('action',
             array(
-                'header'=>  Mage::helper('{{module}}')->__('Action'),
+                'header'=>  Mage::helper('{{namespace}}_{{module}}')->__('Action'),
                 'width' => '100',
                 'type'  => 'action',
                 'getter'=> 'getId',
                 'actions'   => array(
                     array(
-                        'caption'   => Mage::helper('{{module}}')->__('Edit'),
+                        'caption'   => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
                         'url'   => array('base'=> '*/*/edit'),
                         'field' => 'id'
                     )
@@ -15,8 +15,8 @@
                 'is_system'    => true,
                 'sortable'  => false,
         ));
-        $this->addExportType('*/*/exportCsv', Mage::helper('{{module}}')->__('CSV'));
-        $this->addExportType('*/*/exportExcel', Mage::helper('{{module}}')->__('Excel'));
-        $this->addExportType('*/*/exportXml', Mage::helper('{{module}}')->__('XML'));
+        $this->addExportType('*/*/exportCsv', Mage::helper('{{namespace}}_{{module}}')->__('CSV'));
+        $this->addExportType('*/*/exportExcel', Mage::helper('{{namespace}}_{{module}}')->__('Excel'));
+        $this->addExportType('*/*/exportXml', Mage::helper('{{namespace}}_{{module}}')->__('XML'));
         return parent::_prepareColumns();
     }

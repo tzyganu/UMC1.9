@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -68,9 +68,10 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         if (!$this->getGenerateSource()){
             return parent::getSetupSource();
         }
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        return $module.'/'.$entity.'_attribute_source_'.$this->getAttribute()->getCodeForFileName();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        $entity     = $this->getEntity()->getNameSingular(true);
+        return $namespace.'_'.$module.'/'.$entity.'_attribute_source_'.$this->getAttribute()->getCodeForFileName();
     }
     /**
      * get admin column options
@@ -78,16 +79,17 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdminColumnOptions() {
-        $options  = $this->getEol();
-        $module   = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        $entity   = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $attr     = $this->getAttribute()->getCode();
-        $options .= $this->getPadding(3)."'type'  => 'options',".$this->getEol();
+        $options    = $this->getEol();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        $entity     = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $attr       = $this->getAttribute()->getCode();
+        $options   .= $this->getPadding(3)."'type'  => 'options',".$this->getEol();
         if ($this->getAttribute()->getEntity()->getIsEav()) {
-            $options .= $this->getPadding(3)."'options' => Mage::helper('".$module."')->convertOptions(Mage::getModel('eav/config')->getAttribute('".$module.'_'.$entity."', '".$attr."')->getSource()->getAllOptions(false))".$this->getEol();
+            $options .= $this->getPadding(3)."'options' => Mage::helper('".$namespace.'_'.$module."')->convertOptions(Mage::getModel('eav/config')->getAttribute('".$namespace.'_'.$module.'_'.$entity."', '".$attr."')->getSource()->getAllOptions(false))".$this->getEol();
         }
         else {
-            $options .= $this->getPadding(3)."'options' => Mage::helper('".$module."')->convertOptions(Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(false))".$this->getEol();
+            $options .= $this->getPadding(3)."'options' => Mage::helper('".$namespace.'_'.$module."')->convertOptions(Mage::getModel('".$namespace.'_'.$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(false))".$this->getEol();
         }
         return $options;
     }
@@ -107,19 +109,19 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText(){
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $ucEntity = ucfirst($entityName);
-        $module = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
-        $content = '';
+        $entityName     = $this->getEntity()->getNameSingular(true);
+        $ucEntity       = ucfirst($entityName);
+        $module         = $this->getModule()->getLowerModuleName();
+        $namespace      = $this->getNamespace(true);
+        $content        = '';
         if ($this->getAttribute()->getEntity()->getIsEav()){
-            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.$item->getAttributeText(\''.$this->getAttribute()->getCode().'\').\'</div>\';'.$this->getEol();
+            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.$item->getAttributeText(\''.$this->getAttribute()->getCode().'\').\'</div>\';'.$this->getEol();
         }
         else {
             $attributeFile = $this->getAttribute()->getCodeForFileName(false);
             $code = $this->getAttribute()->getMagicMethodCode();
-            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.Mage::getSingleton(\''.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($item->get'.$code.'()).\'</div>\';'.$this->getEol();
+            return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.Mage::getSingleton(\''.$namespace.'_'.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($item->get'.$code.'()).\'</div>\';'.$this->getEol();
         }
-        return '';
     }
     /**
      * check if source needs to be generated
@@ -168,16 +170,17 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFrontendHtml() {
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $ucEntity = ucfirst($entityName);
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $entityName     = $this->getEntity()->getNameSingular(true);
+        $ucEntity       = ucfirst($entityName);
+        $module         = $this->getModule()->getLowerModuleName();
+        $namespace      = $this->getNamespace(true);
         if ($this->getAttribute()->getEntity()->getIsEav()){
-            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.$entityName.'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
+            return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.$entityName.'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
         }
         else {
             $attributeFile = $this->getAttribute()->getCodeForFileName(false);
             $code = $this->getAttribute()->getMagicMethodCode();
-            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo Mage::getSingleton(\''.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($_'.$entityName.'->get'.$code.'())'.';?>'.$this->getEol();
+            return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo Mage::getSingleton(\''.$namespace.'_'.$module.'/'.$entityName.'_attribute_source_'.$attributeFile.'\')->getOptionText($_'.$entityName.'->get'.$code.'())'.';?>'.$this->getEol();
         }
     }
     /**
@@ -196,14 +199,15 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFormOptions(){
-        $options = parent::getFormOptions();
-        $padding = $this->getPadding(3);
-        $tab     = $this->getPadding();
-        $eol     = $this->getEol();
-        $module  = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        $entity  = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $flag    = $this->getOptionsFlag();
-        $options .= $padding."'values'=> Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+        $options    = parent::getFormOptions();
+        $padding    = $this->getPadding(3);
+        $tab        = $this->getPadding();
+        $eol        = $this->getEol();
+        $module     = $this->getModule()->getLowerModuleName();
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $namespace  = $this->getNamespace(true);
+        $flag       = $this->getOptionsFlag();
+        $options   .= $padding."'values'=> Mage::getModel('".$namespace.'_'.$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         return $options;
     }
 
@@ -262,13 +266,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getMassActionValues() {
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        if ($this->getAttribute()->getEntity()->getIsEav()) {
-            return "Mage::getModel('eav/config')->getAttribute('".$module."_".$entity."', '".$this->getAttribute()->getCode()."')->getSource()->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+        $module     = $this->getModule()->getLowerModuleName();
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $namespace  = $this->getNamespace(true);
+        if ($this->getEntity()->getIsEav()) {
+            return "Mage::getModel('eav/config')->getAttribute('".$namespace.'_'.$module."_".$entity."', '".$this->getAttribute()->getCode()."')->getSource()->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         }
         else {
-            return "Mage::getModel('".$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
+            return "Mage::getModel('".$namespace.'_'.$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         }
     }
 

@@ -19,11 +19,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Stores
         $form = new Varien_Data_Form();
         $form->setFieldNameSuffix('{{entity}}');
         $this->setForm($form);
-        $fieldset = $form->addFieldset('{{entity}}_stores_form', array('legend'=>Mage::helper('{{module}}')->__('Store views')));
+        $fieldset = $form->addFieldset('{{entity}}_stores_form', array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Store views')));
         $field = $fieldset->addField('store_id', 'multiselect', array(
             'name'  => 'stores[]',
-            'label' => Mage::helper('{{module}}')->__('Store Views'),
-            'title' => Mage::helper('{{module}}')->__('Store Views'),
+            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
+            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
             'required'  => true,
             'values'=> Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
         ));

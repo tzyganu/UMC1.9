@@ -10,7 +10,7 @@
         $product = Mage::registry('product');
         if ($block instanceof Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs && $this->_canAddTab($product)){
             $block->addTab('{{entities}}', array(
-                'label' => Mage::helper('{{module}}')->__('{{EntitiesLabel}}'),
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
                 'url'   => Mage::helper('adminhtml')->getUrl('adminhtml/{{module}}_{{entity}}_catalog_product/{{entities}}', array('_current' => true)),
                 'class' => 'ajax',
             ));

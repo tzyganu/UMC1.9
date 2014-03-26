@@ -10,7 +10,7 @@
      */
     protected function _prepareLayout(){
         parent::_prepareLayout();
-        $pager = $this->getLayout()->createBlock('page/html_pager', '{{module}}.{{entity}}.html.pager')
+        $pager = $this->getLayout()->createBlock('page/html_pager', '{{namespace}}_{{module}}.{{entity}}.html.pager')
             ->setCollection($this->getComments());
         $this->setChild('pager', $pager);
         $this->getComments()->load();

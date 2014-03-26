@@ -1,4 +1,4 @@
-    <{{module}}_{{entity}}_rss translate="label" module="{{module}}">
+    <{{namespace}}_{{module}}_{{entity}}_rss translate="label" module="{{namespace}}_{{module}}">
         <label>{{EntitiesLabel}} rss feed</label>
-        <block type="{{module}}/{{entity}}_rss" output="toHtml" name="{{module}}.{{entity}}.rss" />
-    </{{module}}_{{entity}}_rss>
+        <block type="{{namespace}}_{{module}}/{{entity}}_rss" output="toHtml" name="{{namespace}}_{{module}}.{{entity}}.rss" />
+    </{{namespace}}_{{module}}_{{entity}}_rss>

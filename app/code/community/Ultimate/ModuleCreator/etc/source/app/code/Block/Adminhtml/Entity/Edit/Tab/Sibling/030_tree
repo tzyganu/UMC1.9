@@ -76,9 +76,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}} e
         }
         $root = Mage::registry('{{sibling}}_root');
         if (is_null($root)) {
-            $rootId = Mage::helper('{{module}}/{{sibling}}')->getRoot{{Sibling}}Id();
+            $rootId = Mage::helper('{{namespace}}_{{module}}/{{sibling}}')->getRoot{{Sibling}}Id();
             $ids = $this->getSelected{{Sibling}}PathIds($rootId);
-            $tree = Mage::getResourceSingleton('{{module}}/{{sibling}}_tree')
+            $tree = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{sibling}}_tree')
                 ->loadByIds($ids, false, false);
             if ($this->get{{Sibling}}()) {
                 $tree->loadEnsuredNodes($this->get{{Sibling}}(), $tree->getNodeById($rootId));
@@ -157,7 +157,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}} e
      * {{qwertyuiop}}
      */
     public function get{{Sibling}}ChildrenJson(${{sibling}}Id){
-        ${{sibling}} = Mage::getModel('{{module}}/{{sibling}}')->load(${{sibling}}Id);
+        ${{sibling}} = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}')->load(${{sibling}}Id);
         $node = $this->getRoot(${{sibling}}, 1)->getTree()->getNodeById(${{sibling}}Id);
         if (!$node || !$node->hasChildren()) {
             return '[]';
@@ -192,7 +192,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}} e
         if (empty(${{sibling}}Ids)) {
             return array();
         }
-        $collection = Mage::getResourceModel('{{module}}/{{sibling}}_collection');
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection');
         if ($rootId) {
             $collection->addFieldToFilter('parent_id', $rootId);
         }

@@ -3,7 +3,7 @@
         if (empty($newStores)) {
             $newStores = (array)$object->getStoreId();
         }
-        $table  = $this->getTable('{{module}}/{{entity}}_store');
+        $table  = $this->getTable('{{namespace}}_{{module}}/{{entity}}_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
         if ($delete) {

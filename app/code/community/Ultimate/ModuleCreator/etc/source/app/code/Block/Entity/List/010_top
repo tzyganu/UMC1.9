@@ -16,4 +16,4 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_List
      */
      public function __construct(){
         parent::__construct();
-         ${{entities}} = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+         ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')

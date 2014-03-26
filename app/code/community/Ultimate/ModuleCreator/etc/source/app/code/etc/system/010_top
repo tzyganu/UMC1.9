@@ -2,13 +2,13 @@
 {{License}} 
 <config>
     <tabs>
-        <{{namespace}} translate="label" module="{{module}}">
+        <{{namespace}} translate="label" module="{{namespace}}_{{module}}">
             <label>{{Namespace}}</label>
             <sort_order>2000</sort_order>
         </{{namespace}}>
     </tabs>
-     <sections>
-        <{{module}} translate="label" module="{{module}}">
+    <sections>
+        <{{namespace}}_{{module}} translate="label" module="{{namespace}}_{{module}}">
             <class>separator-top</class>
             <label>{{Module}}</label>
             <tab>{{namespace}}</tab>

@@ -5,7 +5,7 @@
      * {{qwertyuiop}}
      */
     public function rssAction(){
-        if (Mage::helper('{{module}}/{{entity}}')->isRssEnabled()) {
+        if (Mage::helper('{{namespace}}_{{module}}/{{entity}}')->isRssEnabled()) {
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
             $this->loadLayout(false);
             $this->renderLayout();

@@ -8,7 +8,7 @@
     public function lookupStoreIds(${{entity}}Id){
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
-            ->from($this->getTable('{{module}}/{{entity}}_store'), 'store_id')
+            ->from($this->getTable('{{namespace}}_{{module}}/{{entity}}_store'), 'store_id')
             ->where('{{entity}}_id = ?',(int)${{entity}}Id);
         return $adapter->fetchCol($select);
     }
@@ -40,7 +40,7 @@
         if ($object->getStoreId()) {
             $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());
             $select->join(
-                array('{{module}}_{{entity}}_store' => $this->getTable('{{module}}/{{entity}}_store')),
+                array('{{module}}_{{entity}}_store' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_store')),
                 $this->getMainTable() . '.entity_id = {{module}}_{{entity}}_store.{{entity}}_id',
                 array()
             )

@@ -17,7 +17,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
      * {{qwertyuiop}}
      */
     public function items($filters = null){
-        $collection = Mage::getModel('{{module}}/{{entity}}_comment')->getCollection();
+        $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->getCollection();
         $apiHelper = Mage::helper('api');
         $filters = $apiHelper->parseFilters($filters);
         try {
@@ -42,7 +42,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
      * {{qwertyuiop}}
      */
     public function updateStatus($commentId, $status){
-        $comment = Mage::getModel('{{module}}/{{entity}}_comment')->load($commentId);
+        $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->load($commentId);
         if (!$comment->getId()){
             $this->_fault('not_exists');
         }

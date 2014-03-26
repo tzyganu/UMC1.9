@@ -1,5 +1,5 @@
-                    <{{entity}}_product>
+                    <{{namespace}}_{{module}}_{{entity}}_product>
                         <type>singleton</type>
-                        <class>{{module}}/adminhtml_observer</class>
+                        <class>{{namespace}}_{{module}}/adminhtml_observer</class>
                         <method>saveProduct{{Entity}}Data</method>
-                    </{{entity}}_product>
+                    </{{namespace}}_{{module}}_{{entity}}_product>

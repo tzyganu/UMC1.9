@@ -5,5 +5,5 @@
      * {{qwertyuiop}}
      */
     public function get{{Entities}}Url(){
-        return Mage::getUrl('{{module}}/{{entity}}/index');
+        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/index');
     }

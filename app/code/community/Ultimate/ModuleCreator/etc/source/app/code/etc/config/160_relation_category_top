@@ -1,9 +1,9 @@
             <adminhtml_catalog_category_tabs>
                 <observers>
-                    <{{entity}}_category>
+                    <{{namespace}}_{{module}}_{{entity}}_category>
                         <type>singleton</type>
-                        <class>{{module}}/adminhtml_observer</class>
+                        <class>{{namespace}}_{{module}}/adminhtml_observer</class>
                         <method>addCategory{{Entity}}Block</method>
-                    </{{entity}}_category>
+                    </{{namespace}}_{{module}}_{{entity}}_category>
                 </observers>
             </adminhtml_catalog_category_tabs>

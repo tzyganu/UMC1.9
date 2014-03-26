@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -87,7 +87,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Textarea
      */
     public function getFormOptions(){
         $options = '';
-        if ($this->getEditor() && !$this->getAttribute()->getEntity()->getIsTree()){
+        if ($this->getEditor() && !$this->getEntity()->getIsTree()){
             $options = $this->getPadding(3)."'config' => "."$"."wysiwygConfig,".$this->getEol();
         }
         $options .= parent::getFormOptions();

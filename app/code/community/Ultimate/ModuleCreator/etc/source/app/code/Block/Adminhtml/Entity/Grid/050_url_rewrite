@@ -1,4 +1,4 @@
         $this->addColumn('url_key', array(
-            'header' => Mage::helper('{{module}}')->__('URL key'),
+            'header' => Mage::helper('{{namespace}}_{{module}}')->__('URL key'),
             'index'  => 'url_key',
         ));

@@ -7,7 +7,7 @@
     public function {{siblings}}Action(){
         $this->_init{{Entity}}();
         $this->loadLayout();
-        $this->getLayout()->getBlock('{{module}}.{{entity}}.edit.tab.{{sibling}}')
+        $this->getLayout()->getBlock('{{namespace}}_{{module}}.{{entity}}.edit.tab.{{sibling}}')
             ->set{{Entity}}{{Siblings}}($this->getRequest()->getPost('{{siblings}}', null));
         $this->renderLayout();
     }
@@ -20,7 +20,7 @@
     public function {{siblings}}GridAction(){
         $this->_init{{Entity}}();
         $this->loadLayout();
-        $this->getLayout()->getBlock('{{module}}.{{entity}}.edit.tab.{{sibling}}')
+        $this->getLayout()->getBlock('{{namespace}}_{{module}}.{{entity}}.edit.tab.{{sibling}}')
             ->set{{Entity}}{{Siblings}}($this->getRequest()->getPost('{{siblings}}', null));
         $this->renderLayout();
     }

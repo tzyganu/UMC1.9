@@ -4,9 +4,9 @@
         $seoAttributes->getSelect()->order('additional_table.position', 'ASC');
 
         $this->addTab('meta', array(
-            'label'     => Mage::helper('{{module}}')->__('Meta'),
-            'title'     => Mage::helper('{{module}}')->__('Meta'),
-            'content'   => $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_attributes')
+            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+            'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_attributes')
                             ->setAttributes($seoAttributes)
                             ->toHtml(),
         ));

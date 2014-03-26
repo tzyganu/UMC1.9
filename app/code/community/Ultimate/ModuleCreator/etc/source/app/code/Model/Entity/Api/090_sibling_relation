@@ -14,7 +14,7 @@
         foreach (${{siblings}} as ${{sibling}}){
             ${{siblings}}[${{sibling}}->getId()] = array('position'=>${{sibling}}->getPosition());
         }
-        ${{sibling}} = Mage::getModel('{{module}}/{{sibling}}')->load(${{sibling}}Id);
+        ${{sibling}} = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}')->load(${{sibling}}Id);
         if (!${{sibling}}->getId()){
             $this->_fault('{{entity}}_{{sibling}}_not_exists');
         }

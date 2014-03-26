@@ -12,7 +12,7 @@
 *
 * @category       Ultimate
 * @package        Ultimate_ModuleCreator
-* @copyright      Copyright (c) 2013
+* @copyright      Copyright (c) 2014
 * @license        http://opensource.org/licenses/mit-license.php MIT License
 * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
 */
@@ -3824,6 +3824,13 @@
                     <name>010_top</name>
                     <sort_order>10</sort_order>
                 </top>
+                <tree_filter>
+                    <name>014_tree_filter</name>
+                    <sort_order>14</sort_order>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                </tree_filter>
                 <eav>
                     <name>013_eav</name>
                     <sort_order>13</sort_order>

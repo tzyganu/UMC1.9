@@ -1,10 +1,10 @@
     <adminhtml_{{module}}_{{entity}}_categories>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_categories" name="{{entity}}.edit.tab.categories"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_categories" name="{{entity}}.edit.tab.categories"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_categories>
     <adminhtml_{{module}}_{{entity}}_catalog_category_{{entities}}grid>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_catalog_category_tab_{{entity}}" name="category.edit.tab.{{entity}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_catalog_category_tab_{{entity}}" name="category.edit.tab.{{entity}}"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_catalog_category_{{entities}}grid>

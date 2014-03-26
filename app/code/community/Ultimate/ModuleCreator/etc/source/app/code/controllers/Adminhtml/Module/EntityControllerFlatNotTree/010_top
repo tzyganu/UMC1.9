@@ -16,7 +16,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
      */
     protected function _init{{Entity}}(){
         ${{entity}}Id  = (int) $this->getRequest()->getParam('id');
-        ${{entity}}    = Mage::getModel('{{module}}/{{entity}}');
+        ${{entity}}    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}');
         if (${{entity}}Id) {
             ${{entity}}->load(${{entity}}Id);
         }
@@ -31,8 +31,8 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
      */
     public function indexAction() {
         $this->loadLayout();
-        $this->_title(Mage::helper('{{module}}')->__('{{module_menu}}'))
-             ->_title(Mage::helper('{{module}}')->__('{{EntitiesLabel}}'));
+        $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
+             ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'));
         $this->renderLayout();
     }
     /**
@@ -54,7 +54,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         ${{entity}}Id    = $this->getRequest()->getParam('id');
         ${{entity}}      = $this->_init{{Entity}}();
         if (${{entity}}Id && !${{entity}}->getId()) {
-            $this->_getSession()->addError(Mage::helper('{{module}}')->__('This {{entityLabel}} no longer exists.'));
+            $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
@@ -64,13 +64,13 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         }
         Mage::register('{{entity}}_data', ${{entity}});
         $this->loadLayout();
-        $this->_title(Mage::helper('{{module}}')->__('{{module_menu}}'))
-             ->_title(Mage::helper('{{module}}')->__('{{EntitiesLabel}}'));
+        $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
+             ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'));
         if (${{entity}}->getId()){
             $this->_title(${{entity}}->get{{EntityNameMagicCode}}());
         }
         else{
-            $this->_title(Mage::helper('{{module}}')->__('Add {{entityLabel}}'));
+            $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('Add {{entityLabel}}'));
         }
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);

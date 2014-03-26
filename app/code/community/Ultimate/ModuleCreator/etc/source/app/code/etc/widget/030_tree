@@ -1,4 +1,4 @@
-    <{{module}}_{{entity}}_subtree type="{{module}}/{{entity}}_widget_subtree" translate="name description" module="{{module}}">
+    <{{module}}_{{entity}}_subtree type="{{namespace}}_{{module}}/{{entity}}_widget_subtree" translate="name description" module="{{namespace}}_{{module}}">
         <name>{{EntityLabel}} subtree</name>
         <description>{{EntityLabel}} subtree widget</description>
         <is_email_compatible>0</is_email_compatible>
@@ -9,7 +9,7 @@
                 <label>{{EntityLabel}}</label>
                 <type>label</type>
                 <helper_block>
-                    <type>{{module}}/adminhtml_{{entity}}_widget_chooser</type>
+                    <type>{{namespace}}_{{module}}/adminhtml_{{entity}}_widget_chooser</type>
                     <data>
                         <button translate="open">
                             <open>Select {{EntityLabel}}</open>

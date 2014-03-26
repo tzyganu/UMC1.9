@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -69,10 +69,11 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $ucEntity = ucfirst($entityName);
-        $module = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
-        return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($item->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$module.'\')->__(\'None\')).\'</div>\';'.$this->getEol();
+        $entityName = $this->getEntity()->getNameSingular(true);
+        $ucEntity   = ucfirst($entityName);
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($item->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$namespace.'_'.$module.'\')->__(\'None\')).\'</div>\';'.$this->getEol();
     }
     /**
      * get html for frontend
@@ -81,13 +82,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFrontendHtml() {
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        $ucEntity = ucfirst($entityName);
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        if ($this->getAttribute()->getEntity()->getIsEav()){
-            return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.strtolower($this->getAttribute()->getEntity()->getNameSingular()).'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
+        $entityName = $this->getEntity()->getNameSingular(true);
+        $ucEntity   = ucfirst($entityName);
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        if ($this->getEntity()->getIsEav()){
+            return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo $_'.$this->getEntity()->getNameSingular(true).'->getAttributeText(\''.$this->getAttribute()->getCode().'\');?>'.$this->getEol();
         }
-        return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$module.'\')->__(\'None\') ?>'.$this->getEol();
+        return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$namespace.'_'.$module.'\')->__(\'None\') ?>'.$this->getEol();
     }
     /**
      * get source for setup
@@ -96,9 +98,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getSetupSource() {
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
-        $entity = strtolower($this->getAttribute()->getEntity()->getNameSingular());
-        return $module.'/attribute_source_country';
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return $namespace.'_'.$module.'/attribute_source_country';
     }
     /**
      * get admin from options
@@ -108,7 +110,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      */
     public function getFormOptions(){
         $options = parent::getFormOptions();
-        $module = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $module = $this->getModule()->getLowerModuleName();
         $options .= $this->getPadding(3)."'values'=> Mage::getResourceModel('directory/country_collection')->toOptionArray(),".$this->getEol();
         return $options;
     }

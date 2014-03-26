@@ -11,7 +11,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api
      * {{qwertyuiopp}}
      */
     protected function _init{{Entity}}(${{entity}}Id){
-        ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load(${{entity}}Id);
+        ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
         if (!${{entity}}->getId()) {
             $this->_fault('{{entity}}_not_exists');
         }
@@ -25,4 +25,4 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api
      * {{qwertyuiop}}
      */
     public function items($filters = null){
-        $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection()
+        $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection()

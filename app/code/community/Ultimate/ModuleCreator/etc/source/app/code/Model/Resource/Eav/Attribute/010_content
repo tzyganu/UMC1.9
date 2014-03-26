@@ -10,9 +10,9 @@
 class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
     extends Mage_Eav_Model_Entity_Attribute {
     const MODULE_NAME   = '{{Namespace}}_{{Module}}';
-    const ENTITY        = '{{module}}_eav_attribute';
+    const ENTITY        = '{{namespace}}_{{module}}_eav_attribute';
 
-    protected $_eventPrefix = '{{module}}_entity_attribute';
+    protected $_eventPrefix = '{{namespace}}_{{module}}_entity_attribute';
     protected $_eventObject = 'attribute';
 
     /**
@@ -27,7 +27,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
      * {{qwertyuiop}}
      */
     protected function _construct() {
-        $this->_init('{{module}}/attribute');
+        $this->_init('{{namespace}}_{{module}}/attribute');
     }
     /**
      * check if scope is store view
@@ -84,7 +84,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
      */
     protected function _beforeDelete(){
         if (!$this->getIsUserDefined()){
-            throw new Mage_Core_Exception(Mage::helper('{{module}}')->__('This attribute is not deletable'));
+            throw new Mage_Core_Exception(Mage::helper('{{namespace}}_{{module}}')->__('This attribute is not deletable'));
         }
         return parent::_beforeDelete();
     }

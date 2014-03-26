@@ -21,5 +21,5 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Customer_Comment_List
      * {{qwertyuiop}}
      */
     protected function _construct() {
-        $this->_collection = Mage::getResourceModel('{{module}}/{{entity}}_comment_{{entity}}_collection');
+        $this->_collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_{{entity}}_collection');
         $this->_collection

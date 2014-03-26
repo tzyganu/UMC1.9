@@ -18,4 +18,4 @@ class {{Namespace}}_{{Module}}_Block_Catalog_Category_List_{{Entity}}
     public function get{{Entity}}Collection(){
         if (!$this->hasData('{{entity}}_collection')){
             $category = Mage::registry('current_category');
-            $collection = Mage::getResourceSingleton('{{module}}/{{entity}}_collection')
+            $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')

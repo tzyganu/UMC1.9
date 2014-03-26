@@ -49,7 +49,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Abstract
         if ($this->get{{Entity}}()) {
             return $this->get{{Entity}}()->getPath();
         }
-        return Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+        return Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
     }
     /**
      * check if there is a root {{entityLabel}}
@@ -78,19 +78,19 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Abstract
         }
         $root = Mage::registry('root');
         if (is_null($root)) {
-            $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
-            $tree = Mage::getResourceSingleton('{{module}}/{{entity}}_tree')
+            $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+            $tree = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree')
                 ->load(null, $recursionLevel);
             if ($this->get{{Entity}}()) {
                 $tree->loadEnsuredNodes($this->get{{Entity}}(), $tree->getNodeById($rootId));
             }
             $tree->addCollectionData($this->get{{Entity}}Collection());
             $root = $tree->getNodeById($rootId);
-            if ($root && $rootId != Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+            if ($root && $rootId != Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
                 $root->setIsVisible(true);
             }
-            elseif($root && $root->getId() == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
-                $root->set{{EntityNameMagicCode}}(Mage::helper('{{module}}')->__('Root'));
+            elseif($root && $root->getId() == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+                $root->set{{EntityNameMagicCode}}(Mage::helper('{{namespace}}_{{module}}')->__('Root'));
             }
             Mage::register('root', $root);
         }
@@ -107,16 +107,16 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Abstract
     public function getRootByIds($ids) {
         $root = Mage::registry('root');
         if (null === $root) {
-            ${{entity}}TreeResource = Mage::getResourceSingleton('{{module}}/{{entity}}_tree');
+            ${{entity}}TreeResource = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree');
             $ids     = ${{entity}}TreeResource->getExisting{{Entity}}IdsBySpecifiedIds($ids);
             $tree   = ${{entity}}TreeResource->loadByIds($ids);
-            $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+            $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
             $root   = $tree->getNodeById($rootId);
-            if ($root && $rootId != Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+            if ($root && $rootId != Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
                 $root->setIsVisible(true);
             }
-            else if($root && $root->getId() == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
-                $root->setName(Mage::helper('{{module}}')->__('Root'));
+            else if($root && $root->getId() == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+                $root->setName(Mage::helper('{{namespace}}_{{module}}')->__('Root'));
             }
             $tree->addCollectionData($this->get{{Entity}}Collection());
             Mage::register('root', $root);
@@ -132,16 +132,16 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Abstract
      * {{qwertyuiop}}
      */
     public function getNode($parentNode{{Entity}}, $recursionLevel = 2) {
-        $tree = Mage::getResourceModel('{{module}}/{{entity}}_tree');
+        $tree = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree');
         $nodeId     = $parentNode{{Entity}}->getId();
         $parentId   = $parentNode{{Entity}}->getParentId();
         $node = $tree->loadNode($nodeId);
         $node->loadChildren($recursionLevel);
-        if ($node && $nodeId != Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+        if ($node && $nodeId != Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
             $node->setIsVisible(true);
         }
-        elseif($node && $node->getId() == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
-            $node->set{{EntityNameMagicCode}}(Mage::helper('{{module}}')->__('Root'));
+        elseif($node && $node->getId() == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()) {
+            $node->set{{EntityNameMagicCode}}(Mage::helper('{{namespace}}_{{module}}')->__('Root'));
         }
         $tree->addCollectionData($this->get{{Entity}}Collection());
         return $node;
@@ -175,6 +175,6 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Abstract
      * {{qwertyuiop}}
      */
     public function getRootIds() {
-        return array(Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id());
+        return array(Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id());
     }
 }

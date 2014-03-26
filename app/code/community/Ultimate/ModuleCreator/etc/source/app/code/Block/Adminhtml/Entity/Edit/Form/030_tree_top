@@ -26,12 +26,12 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Form
         ${{entity}} = $this->get{{Entity}}();
         ${{entity}}Id = (int)${{entity}}->getId();
         $this->setChild('tabs',
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tabs', 'tabs')
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tabs', 'tabs')
         );
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label' => Mage::helper('{{module}}')->__('Save {{EntityLabel}}'),
+                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}}'),
                     'onclick'   => "{{entity}}Submit('" . $this->getSaveUrl() . "', true)",
                     'class' => 'save'
             ))
@@ -41,7 +41,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Form
             $this->setChild('delete_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
-                        'label' => Mage::helper('{{module}}')->__('Delete {{EntityLabel}}'),
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}}'),
                         'onclick'   => "{{entity}}Delete('" . $this->getUrl('*/*/delete', array('_current' => true)) . "', true, {${{entity}}Id})",
                         'class' => 'delete'
                 ))
@@ -53,7 +53,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Form
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label' => Mage::helper('{{module}}')->__('Reset'),
+                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Reset'),
                     'onclick'   => "{{entity}}Reset('".$this->getUrl($resetPath, array('_current'=>true))."',true)"
             ))
         );
@@ -151,7 +151,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Form
             return $this->get{{Entity}}{{EntityNameMagicCode}}();
         }
         else {
-            return Mage::helper('{{module}}')->__('New Root {{EntityLabel}}');
+            return Mage::helper('{{namespace}}_{{module}}')->__('New Root {{EntityLabel}}');
         }
     }
     /**

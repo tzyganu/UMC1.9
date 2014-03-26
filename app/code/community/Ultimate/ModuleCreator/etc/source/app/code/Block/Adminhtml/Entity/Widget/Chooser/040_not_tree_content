@@ -9,7 +9,7 @@
      */
     protected function _prepareColumns(){
         $this->addColumn('chooser_id', array(
-            'header'    => Mage::helper('{{module}}')->__('Id'),
+            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Id'),
             'align'     => 'right',
             'index'     => 'entity_id',
             'type'        => 'number',
@@ -17,7 +17,7 @@
         ));
 
         $this->addColumn('chooser_{{nameAttributeCode}}', array(
-            'header'=> Mage::helper('{{module}}')->__('{{nameAttributeLabel}}'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{nameAttributeCode}}',
         ));

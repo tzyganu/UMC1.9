@@ -15,6 +15,6 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
     public function _construct(){
-        $this->_init('{{module}}/{{entity}}_comment', 'comment_id');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}_comment', 'comment_id');
     }
 

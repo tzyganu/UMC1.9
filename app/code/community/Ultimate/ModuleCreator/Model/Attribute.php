@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -538,5 +538,25 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      */
     public function getMassActionValues() {
         return $this->getTypeInstance()->getMassActionValues();
+    }
+
+    /**
+     * get module
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getModule(){
+        return $this->getEntity()->getModule();
+    }
+    /**
+     * get namespace
+     * @access public
+     * @param bool $lower
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNamespace($lower = false){
+        return $this->getModule()->getNamespace($lower);
     }
 }

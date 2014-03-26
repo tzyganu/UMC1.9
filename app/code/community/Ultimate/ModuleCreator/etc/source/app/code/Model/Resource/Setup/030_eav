@@ -1,9 +1,9 @@
-        $entities['{{module}}_{{entity}}'] = array(
-            'entity_model'                  => '{{module}}/{{entity}}',
-            'attribute_model'               => '{{module}}/resource_eav_attribute',
-            'table'                         => '{{module}}/{{entity}}',
-            'additional_attribute_table'    => '{{module}}/eav_attribute',
-            'entity_attribute_collection'   => '{{module}}/{{entity}}_attribute_collection',
+        $entities['{{namespace}}_{{module}}_{{entity}}'] = array(
+            'entity_model'                  => '{{namespace}}_{{module}}/{{entity}}',
+            'attribute_model'               => '{{namespace}}_{{module}}/resource_eav_attribute',
+            'table'                         => '{{namespace}}_{{module}}/{{entity}}',
+            'additional_attribute_table'    => '{{namespace}}_{{module}}/eav_attribute',
+            'entity_attribute_collection'   => '{{namespace}}_{{module}}/{{entity}}_attribute_collection',
             'attributes'        => array(
 {{entityAttributesSetup}}
                 )

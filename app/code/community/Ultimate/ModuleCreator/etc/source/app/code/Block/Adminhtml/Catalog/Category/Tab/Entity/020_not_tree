@@ -36,7 +36,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
      * {{qwertyuiop}}
      */
     protected function _prepareCollection() {
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
         if ($this->getCategory()->getId()){
             $constraint = 'related.category_id='.$this->getCategory()->getId();
         }
@@ -44,7 +44,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
             $constraint = 'related.category_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related'=>$collection->getTable('{{module}}/{{entity}}_category')),
+            array('related'=>$collection->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
             'related.{{entity}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );
@@ -68,18 +68,18 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
             'index' => 'entity_id'
         ));
         $this->addColumn('entity_id', array(
-            'header'=> Mage::helper('{{module}}')->__('Id'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Id'),
             'type'  => 'number',
             'align' => 'left',
             'index' => 'entity_id',
         ));
         $this->addColumn('{{nameAttributeCode}}', array(
-            'header'=> Mage::helper('{{module}}')->__('{{nameAttributeLabel}}'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{nameAttributeCode}}',
         ));
         $this->addColumn('position', array(
-            'header'        => Mage::helper('{{module}}')->__('Position'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
             'name'          => 'position',
             'width'         => 60,
             'type'        => 'number',
@@ -112,7 +112,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
     public function getSelected{{Entities}}() {
         ${{entities}} = array();
         //used helper here in order not to override the category model
-        $selected = Mage::helper('{{module}}/category')->getSelected{{Entities}}(Mage::registry('current_category'));
+        $selected = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}(Mage::registry('current_category'));
         if (!is_array($selected)){
             $selected = array();
         }

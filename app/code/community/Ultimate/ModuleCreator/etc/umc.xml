@@ -12,7 +12,7 @@
 *
 * @category       Ultimate
 * @package        Ultimate_ModuleCreator
-* @copyright      Copyright (c) 2013
+* @copyright      Copyright (c) 2014
 * @license        http://opensource.org/licenses/mit-license.php MIT License
 * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
 */
@@ -69,14 +69,14 @@
                             <tooltip><![CDATA[This is the version of the module.]]></tooltip>
                         </version>
                         <menu_text translate="label tooltip note" module="modulecreator">
-                            <label>Menu title</label>
+                            <label>Admin menu title</label>
                             <type>text</type>
                             <required>1</required>
                             <position>40</position>
                             <tooltip>This is the title that will be added to the menu.</tooltip>
                         </menu_text>
                         <menu_parent translate="label tooltip note" module="modulecreator">
-                            <label>Parent menu ID</label>
+                            <label>Admin parent menu ID</label>
                             <type>text</type>
                             <code>menu</code>
                             <required>0</required>
@@ -87,9 +87,9 @@
                             <note><![CDATA[<a href="#">Select menu parent and position</a>]]></note>
                         </menu_parent>
                         <sort_order  translate="label tooltip" module="modulecreator">
-                            <label>Menu sort order</label>
+                            <label>Admin menu sort order</label>
                             <type>text</type>
-                            <code>menu</code>
+                            <code>sort_order</code>
                             <required>1</required>
                             <position>60</position>
                             <class>menu-sort-order</class>
@@ -106,6 +106,15 @@
                             <system>1</system>
                             <tooltip><![CDATA[The text you put here will be added at the top of (almost) each file in the module you create.<br />Use {{Namespace}} as a placeholder for namespace, {{Module}} as a placeholder for the module name and {{Y}} as placeholder for current year.<br />If you don't want any License text on your files just leave this field empty.]]></tooltip>
                         </license>
+                        <front_key translate="label tooltip" module="modulecreator">
+                            <label>Frontend key</label>
+                            <type>text</type>
+                            <code>front_key</code>
+                            <required>0</required>
+                            <position>80</position>
+                            <system>0</system>
+                            <tooltip><![CDATA[This is the route name of your module. It's the first part of the URL. ('module/controller/action'). This is what goes instead of 'module'. Useful only if you have frontend listing or viewing for at least one entity. Leave empty to use default value 'namespace_module'.]]></tooltip>
+                        </front_key>
                     </fields>
                 </settings>
             </fieldsets>
@@ -690,6 +699,7 @@
             <menu_text />
             <menu_parent />
             <sort_order />
+            <front_key />
         </umc_module>
         <umc_entity>
             <label_singular />
@@ -970,6 +980,32 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_dev8>
+            <version>1.9.0-dev8</version>
+            <date>2014-26-03</date>
+            <data>
+                <class_alias translate="label type comment">
+                    <label>Change module class aliases</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[Changed the class aliases from `module` to `namespace_module`. For example a model will be instantiated using `Mage::getModel('namespace_module/some_model')` to avoid extension conflicts.]]></comment>
+                </class_alias>
+                <routes translate="label type comment">
+                    <label>Added configurable frontend routes</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[The route of the module can be configured. (<a href="https://github.com/tzyganu/UMC1.9/issues/4">#4</a>)]]></comment>
+                </routes>
+                <comment_row translate="label type comment">
+                    <label>Fixed comment row URL</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[A click on any row on the comments grid ended up in a "Comment not found" error.]]></comment>
+                </comment_row>
+                <category_url translate="label type comment">
+                    <label>Fixed entities in category page</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Links to entities related to categories had a wrong format in the category view page.]]></comment>
+                </category_url>
+            </data>
+        </v1_9_0_dev8>
         <v1_9_0_dev7>
             <version>1.9.0-dev7</version>
             <date>2014-03-21</date>
@@ -994,6 +1030,11 @@
                     <type>Bug Fix</type>
                     <comment><![CDATA[The entities relations were not displayed correctly when the module contained 3 or more entities. <a href="https://github.com/tzyganu/UMC1.9/issues/5">(#5)</a>]]></comment>
                 </relations>
+                <acl translate="label type comment">
+                    <label>Fixed admin ACL for comments and EAV attributes</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[When setting specific permissions for an admin the comments & EAV attributes grid got "Access denied".]]></comment>
+                </acl>
             </data>
         </v1_9_0_dev7>
         <v1_9_0_dev6>

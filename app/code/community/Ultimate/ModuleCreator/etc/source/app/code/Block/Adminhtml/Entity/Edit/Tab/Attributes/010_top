@@ -22,11 +22,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Attributes
         $form->setDataObject(Mage::registry('current_{{entity}}'));
         $fieldset = $form->addFieldset('info',
             array(
-                'legend'=>Mage::helper('{{module}}')->__('{{EntityLabel}} Information'),
+                'legend'=>Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Information'),
                  'class'=>'fieldset-wide',
             )
         );
         $attributes = $this->getAttributes();
         foreach ($attributes as $attribute){
-            $attribute->setEntity(Mage::getResourceModel('{{module}}/{{entity}}'));
+            $attribute->setEntity(Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}'));
         }

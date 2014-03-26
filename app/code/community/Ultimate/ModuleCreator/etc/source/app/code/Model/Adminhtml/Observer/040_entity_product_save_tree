@@ -11,7 +11,7 @@
             $post = explode(',', $post);
             $post = array_unique($post);
             $product = $observer->getEvent()->getProduct();
-            Mage::getResourceSingleton('{{module}}/{{entity}}_product')->saveProductRelation($product, $post);
+            Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_product')->saveProductRelation($product, $post);
         }
         return $this;
     }

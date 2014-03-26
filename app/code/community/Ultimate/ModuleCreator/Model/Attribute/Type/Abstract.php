@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -85,7 +85,34 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
     public function getAttribute() {
         return $this->_attribute;
     }
-
+    /**
+     * get module
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEntity(){
+        return $this->getAttribute()->getEntity();
+    }
+    /**
+     * get module
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Module
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getModule(){
+        return $this->getAttribute()->getModule();
+    }
+    /**
+     * get namespace
+     * @access public
+     * @param bool $lower
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNamespace($lower = false){
+        return $this->getModule()->getNamespace($lower);
+    }
     /**
      * check if attribute can be in admin grid
      * @access public
@@ -112,9 +139,10 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        $attribute = $this->getAttribute();
-        $module = $attribute->getEntity()->getModule()->getLowerModuleName();
-        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'</div>\';'.$this->getEol();
+        $attribute  = $this->getAttribute();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'</div>\';'.$this->getEol();
     }
     /**
      * get the type for the form
@@ -150,7 +178,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFrontendHtml() {
-        return '<?php echo Mage::helper(\''.strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName()).'\')->__(\''.$this->getAttribute()->getLabel().'\');?>:<?php echo $_'.strtolower($this->getAttribute()->getEntity()->getNameSingular()).'->get'.$this->getAttribute()->getMagicMethodCode().'();?>'.$this->getHelper()->getEol();
+        return '<?php echo Mage::helper(\''.$this->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'\')->__(\''.$this->getAttribute()->getLabel().'\');?>:<?php echo $_'.strtolower($this->getAttribute()->getEntity()->getNameSingular()).'->get'.$this->getAttribute()->getMagicMethodCode().'();?>'.$this->getHelper()->getEol();
     }
     /**
      * get the setup type

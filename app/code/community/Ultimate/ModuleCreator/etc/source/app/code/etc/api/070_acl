@@ -2,5 +2,5 @@
         </v2>
         <acl>
             <resources>
-                <{{module}} translate="title" module="{{module}}">
+                <{{namespace}}_{{module}} translate="title" module="{{namespace}}_{{module}}">
                     <title>{{Module}}</title>

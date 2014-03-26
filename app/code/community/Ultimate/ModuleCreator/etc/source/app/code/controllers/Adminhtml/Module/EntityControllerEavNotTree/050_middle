@@ -6,7 +6,7 @@
             try {
                 ${{entity}}->save();
                 ${{entity}}Id = ${{entity}}->getId();
-                $this->_getSession()->addSuccess(Mage::helper('{{module}}')->__('{{EntityLabel}} was saved'));
+                $this->_getSession()->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} was saved'));
             }
             catch (Mage_Core_Exception $e) {
                 Mage::logException($e);
@@ -16,7 +16,7 @@
             }
             catch (Exception $e){
                 Mage::logException($e);
-                $this->_getSession()->addError(Mage::helper('{{module}}')->__('Error saving {{entityLabel}}'))
+                $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('Error saving {{entityLabel}}'))
                     ->set{{Entity}}Data(${{entity}}Data);
                 $redirectBack = true;
             }
@@ -39,10 +39,10 @@
      */
     public function deleteAction(){
         if ($id = $this->getRequest()->getParam('id')) {
-            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
+            ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
             try {
                 ${{entity}}->delete();
-                $this->_getSession()->addSuccess(Mage::helper('{{module}}')->__('The {{entitiesLabel}} has been deleted.'));
+                $this->_getSession()->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entitiesLabel}} has been deleted.'));
             }
             catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -64,12 +64,12 @@
         else {
             try {
                 foreach (${{entity}}Ids as ${{entity}}Id) {
-                    ${{entity}} = Mage::getSingleton('{{module}}/{{entity}}')->load(${{entity}}Id);
-                    Mage::dispatchEvent('{{module}}_controller_{{entity}}_delete', array('{{entity}}' => ${{entity}}));
+                    ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
+                    Mage::dispatchEvent('{{namespace}}_{{module}}_controller_{{entity}}_delete', array('{{entity}}' => ${{entity}}));
                     ${{entity}}->delete();
                 }
                 $this->_getSession()->addSuccess(
-                    Mage::helper('{{module}}')->__('Total of %d record(s) have been deleted.', count(${{entity}}Ids))
+                    Mage::helper('{{namespace}}_{{module}}')->__('Total of %d record(s) have been deleted.', count(${{entity}}Ids))
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -86,12 +86,12 @@
     public function massStatusAction(){
         ${{entity}}Ids = $this->getRequest()->getParam('{{entity}}');
         if(!is_array(${{entity}}Ids)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('Please select {{entitiesLabel}}.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Please select {{entitiesLabel}}.'));
         }
         else {
             try {
                 foreach (${{entity}}Ids as ${{entity}}Id) {
-                ${{entity}} = Mage::getSingleton('{{module}}/{{entity}}')->load(${{entity}}Id)
+                ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)
                             ->setStatus($this->getRequest()->getParam('status'))
                             ->setIsMassupdate(true)
                             ->save();
@@ -102,7 +102,7 @@
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
             catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('There was an error updating {{entitiesLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating {{entitiesLabel}}.'));
                 Mage::logException($e);
             }
         }
@@ -126,7 +126,7 @@
      * {{qwertyuiop}}
      */
      protected function _isAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('{{namespace}}/{{module}}/{{entity}}');
+        return Mage::getSingleton('admin/session')->isAllowed('{{selectedMenuPath}}');
     }
     /**
      * Export {{entities}} in CSV format
@@ -136,7 +136,7 @@
      */
     public function exportCsvAction(){
         $fileName   = '{{entities}}.csv';
-        $content    = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_grid')
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
             ->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -149,7 +149,7 @@
      */
     public function exportXmlAction(){
         $fileName   = '{{entities}}.xls';
-        $content    = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_grid')
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
             ->getExcelFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -164,7 +164,7 @@
         $storeId = $this->getRequest()->getParam('store_id', 0);
         $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 
-        $content = $this->getLayout()->createBlock('{{module}}/adminhtml_{{module}}_helper_form_wysiwyg_content', '', array(
+        $content = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{module}}_helper_form_wysiwyg_content', '', array(
             'editor_element_id' => $elementId,
             'store_id'          => $storeId,
             'store_media_url'   => $storeMediaUrl,

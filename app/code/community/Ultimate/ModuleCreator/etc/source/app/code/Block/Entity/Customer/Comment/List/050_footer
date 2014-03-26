@@ -70,7 +70,7 @@
         if ($comment instanceof Varien_Object){
             $comment = $comment->getCtCommentId();
         }
-        return Mage::getUrl('{{module}}/{{entity}}_customer_comment/view/', array('id'=>$comment));
+        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}_customer_comment/view/', array('id'=>$comment));
     }
 
     /**

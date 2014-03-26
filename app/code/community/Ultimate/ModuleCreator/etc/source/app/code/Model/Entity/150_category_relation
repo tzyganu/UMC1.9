@@ -6,7 +6,7 @@
      */
     public function getCategoryInstance(){
         if (!$this->_categoryInstance) {
-            $this->_categoryInstance = Mage::getSingleton('{{module}}/{{entity}}_category');
+            $this->_categoryInstance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_category');
         }
         return $this->_categoryInstance;
     }

@@ -18,7 +18,7 @@
         }
         foreach ($attributes as $attributeCode) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-            $attribute = Mage::getResourceSingleton('{{module}}/{{entity}}')->getAttribute($attributeCode);
+            $attribute = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {
                 $tableDefault   = sprintf('d_%s', $attributeCode);

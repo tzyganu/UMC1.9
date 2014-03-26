@@ -4,5 +4,5 @@
      * {{qwertyuiop}}
      */
     public function _construct(){
-        $this->_init('{{module}}/{{entity}}', 'entity_id');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}', 'entity_id');
     }

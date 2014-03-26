@@ -6,7 +6,7 @@ $this->addAttribute('catalog_product', '{{productAttributeCode}}', array(
     'label'             => '{{EntityLabel}}',
     'input'             => 'select',
     'type'              => 'int',
-    'source'            => '{{module}}/{{entity}}_source',
+    'source'            => '{{namespace}}_{{module}}/{{entity}}_source',
     'global'            => {{entityProductAttributeScope}},
     'is_visible'        => 1,
     'required'          => 0,

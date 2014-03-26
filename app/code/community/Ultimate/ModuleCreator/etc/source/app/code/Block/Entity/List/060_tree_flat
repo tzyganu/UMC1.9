@@ -12,7 +12,7 @@
         parent::_prepareLayout();
         $this->get{{Entities}}()->addFieldToFilter('level', 1);
         if ($this->_getDisplayMode() == 0){
-            $pager = $this->getLayout()->createBlock('page/html_pager', '{{module}}.{{entities}}.html.pager')
+            $pager = $this->getLayout()->createBlock('page/html_pager', '{{namespace}}_{{module}}.{{entities}}.html.pager')
                 ->setCollection($this->get{{Entities}}());
             $this->setChild('pager', $pager);
             $this->get{{Entities}}()->load();
@@ -35,7 +35,7 @@
      * {{qwertyuiop}}
      */
     protected function _getDisplayMode(){
-        return Mage::getStoreConfigFlag('{{module}}/{{entity}}/tree');
+        return Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/tree');
     }
     /**
      * draw {{entityLabel}}
@@ -51,7 +51,7 @@
         if ($recursion !== '0' && $level >= $recursion){
             return '';
         }
-        $storeIds = Mage::getResourceSingleton('{{module}}/{{entity}}')->lookupStoreIds(${{entity}}->getId());
+        $storeIds = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->lookupStoreIds(${{entity}}->getId());
         $validStoreIds = array(0, Mage::app()->getStore()->getId());
         if (!array_intersect($storeIds, $validStoreIds)){
             return '';
@@ -63,7 +63,7 @@
         $activeChildren = array();
         if ($recursion == 0 || $level < $recursion-1){
             foreach ($children as $child) {
-                $childStoreIds = Mage::getResourceSingleton('{{module}}/{{entity}}')->lookupStoreIds($child->getId());
+                $childStoreIds = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->lookupStoreIds($child->getId());
                 $validStoreIds = array(0, Mage::app()->getStore()->getId());
                 if (!array_intersect($childStoreIds, $validStoreIds)){
                     continue;
@@ -93,7 +93,7 @@
      */
     public function getRecursion(){
         if (!$this->hasData('recursion')){
-            $this->setData('recursion', Mage::getStoreConfig('{{module}}/{{entity}}/recursion'));
+            $this->setData('recursion', Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/recursion'));
         }
         return $this->getData('recursion');
     }

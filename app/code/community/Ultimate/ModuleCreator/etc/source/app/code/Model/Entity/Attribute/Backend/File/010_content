@@ -27,7 +27,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_File
             return;
         }
 
-        $path = Mage::helper('{{module}}/{{entity}}')->getFileBaseDir();
+        $path = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getFileBaseDir();
 
         try {
             $uploader = new Varien_File_Uploader($this->getAttribute()->getName());

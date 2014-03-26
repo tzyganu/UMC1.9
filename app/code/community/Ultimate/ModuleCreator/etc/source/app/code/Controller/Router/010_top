@@ -18,7 +18,7 @@ class {{Namespace}}_{{Module}}_Controller_Router
      */
     public function initControllerRouters($observer){
         $front = $observer->getEvent()->getFront();
-        $front->addRouter('{{module}}', $this);
+        $front->addRouter('{{namespace}}_{{module}}', $this);
         return $this;
     }
     /**

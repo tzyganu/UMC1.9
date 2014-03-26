@@ -117,7 +117,7 @@
         $additional['label'] = $labelField;
 
         foreach ($this as $item) {
-            if ($item->getId() == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()){
+            if ($item->getId() == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()){
                 continue;
             }
             foreach ($additional as $code => $field) {
@@ -138,7 +138,7 @@
     protected function _toOptionHash($valueField='entity_id', $labelField='{{nameAttributeCode}}'){
         $res = array();
         foreach ($this as $item) {
-            if ($item->getId() == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id()){
+            if ($item->getId() == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id()){
                 continue;
             }
             $res[$item->getData($valueField)] = $item->getData($labelField);

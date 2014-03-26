@@ -263,7 +263,7 @@
                     <xsd:sequence>
                         <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
                         <xsd:element minOccurs="1" maxOccurs="1" name="attribute" type="xsd:string" />
-                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:apitestArticleAttributeOptionEntityToAdd" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:{{module}}{{Entity}}AttributeOptionEntityToAdd" />
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>

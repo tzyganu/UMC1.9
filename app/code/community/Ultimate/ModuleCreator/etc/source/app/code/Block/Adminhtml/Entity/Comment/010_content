@@ -17,9 +17,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment
      */
     public function __construct(){
         $this->_controller         = 'adminhtml_{{entity}}_comment';
-        $this->_blockGroup         = '{{module}}';
+        $this->_blockGroup         = '{{namespace}}_{{module}}';
         parent::__construct();
-        $this->_headerText         = Mage::helper('{{module}}')->__('{{EntityLabel}} Comments');
+        $this->_headerText         = Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Comments');
         $this->_removeButton('add');
     }
 }

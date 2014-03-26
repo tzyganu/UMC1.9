@@ -18,7 +18,7 @@
     public function categoriesJsonAction(){
         $this->_init{{Entity}}();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_categories')
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_categories')
                 ->getCategoryChildrenJson($this->getRequest()->getParam('category'))
         );
     }

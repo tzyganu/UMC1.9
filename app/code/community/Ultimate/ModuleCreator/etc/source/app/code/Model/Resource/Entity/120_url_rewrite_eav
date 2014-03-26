@@ -26,7 +26,7 @@
      * {{qwertyuiop}}
      */
     protected function _initCheckUrlKeySelect($urlKey, $store){
-        $urlRewrite = Mage::getModel('eav/config')->getAttribute('{{module}}_{{entity}}', 'url_key');
+        $urlRewrite = Mage::getModel('eav/config')->getAttribute('{{namespace}}_{{module}}_{{entity}}', 'url_key');
         if (!$urlRewrite || !$urlRewrite->getId()){
             return false;
         }

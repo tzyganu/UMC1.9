@@ -23,7 +23,7 @@
      * {{qwertyuiop}}
      */
     public function getSelected{{Entities}}Collection(Mage_Catalog_Model_Category $category){
-        $collection = Mage::getResourceSingleton('{{module}}/{{entity}}_collection')
+        $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')
             ->addCategoryFilter($category);
         return $collection;
     }

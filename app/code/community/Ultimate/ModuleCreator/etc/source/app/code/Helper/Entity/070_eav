@@ -28,10 +28,10 @@
                 'source_model'      => 'eav/entity_attribute_source_boolean'
             ),
             'file'			=> array(
-            	'backend_model'		=> '{{module}}/{{entity}}_attribute_backend_file'
+            	'backend_model'		=> '{{namespace}}_{{module}}/{{entity}}_attribute_backend_file'
             ),
             'image'			=> array(
-            	'backend_model'		=> '{{module}}/{{entity}}_attribute_backend_image'
+            	'backend_model'		=> '{{namespace}}_{{module}}/{{entity}}_attribute_backend_image'
             ),
         );
 

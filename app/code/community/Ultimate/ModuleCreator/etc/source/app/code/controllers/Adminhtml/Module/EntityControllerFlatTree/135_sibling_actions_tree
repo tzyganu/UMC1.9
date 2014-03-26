@@ -18,7 +18,7 @@
     public function {{siblings}}JsonAction(){
         $this->_init{{Entity}}();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}')
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}')
                 ->get{{Sibling}}ChildrenJson($this->getRequest()->getParam('{{sibling}}'))
         );
     }

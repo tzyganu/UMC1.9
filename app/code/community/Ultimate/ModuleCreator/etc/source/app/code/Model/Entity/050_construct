@@ -6,7 +6,7 @@
      */
     public function _construct(){
         parent::_construct();
-        $this->_init('{{module}}/{{entity}}');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}');
     }
     /**
      * before save {{entityLabel}}

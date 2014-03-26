@@ -1,6 +1,6 @@
     <adminhtml_{{module}}_{{entity}}_{{siblings}}>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{module}}.{{entity}}.edit.tab.{{sibling}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{module}}.{{entity}}.edit.tab.{{sibling}}"/>
             <block type="adminhtml/widget_grid_serializer" name="{{sibling}}_grid_serializer">
                 <reference name="{{sibling}}_grid_serializer">
                     <action method="initSerializerBlock">
@@ -18,6 +18,6 @@
     </adminhtml_{{module}}_{{entity}}_{{siblings}}>
     <adminhtml_{{module}}_{{entity}}_{{siblings}}grid>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{module}}.{{entity}}.edit.tab.{{sibling}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}" name="{{module}}.{{entity}}.edit.tab.{{sibling}}"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_{{siblings}}grid>

@@ -32,8 +32,8 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
     public function __construct(){
         $resource = Mage::getSingleton('core/resource');
         parent::__construct(
-            $resource->getConnection('{{module}}_write'),
-            $resource->getTableName('{{module}}/{{entity}}'),
+            $resource->getConnection('{{namespace}}_{{module}}_write'),
+            $resource->getTableName('{{namespace}}_{{module}}/{{entity}}'),
             array(
                 Varien_Data_Tree_Dbp::ID_FIELD   => 'entity_id',
                 Varien_Data_Tree_Dbp::PATH_FIELD => 'path',
@@ -76,4 +76,4 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      */
     protected function _getDefaultCollection($sorted = false){
-        $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection();
+        $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection();

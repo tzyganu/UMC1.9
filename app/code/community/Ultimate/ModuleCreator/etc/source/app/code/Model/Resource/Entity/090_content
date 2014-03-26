@@ -10,7 +10,7 @@
      * {{qwertyuiop}}
      */
     public function get{{Entities}}($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true){
-        $tree = Mage::getResourceModel('{{module}}/{{entity}}_tree');
+        $tree = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree');
         $nodes = $tree->loadNode($parent)
             ->loadChildren($recursionLevel)
             ->getChildren();
@@ -41,7 +41,7 @@
      * {{qwertyuiop}}
      */
     public function isForbiddenToDelete(${{entity}}Id){
-        return (${{entity}}Id == Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id());
+        return (${{entity}}Id == Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id());
     }
     /**
      * Get {{entityLabel}} path value by its id

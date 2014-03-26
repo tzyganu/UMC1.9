@@ -1,9 +1,9 @@
 
         ${{entity}}NodeId = '{{entity}}';
         $data = array(
-            'name' => Mage::helper('{{module}}')->__('{{EntitiesLabel}}'),
+            'name' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
             'id' => ${{entity}}NodeId,
-            'url' => Mage::helper('{{module}}/{{entity}}')->get{{Entities}}Url(),
+            'url' => Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url(),
             'is_active' => ($action == '{{module}}_{{entity}}_index' || $action == '{{module}}_{{entity}}_view')
         );
         ${{entity}}Node = new Varien_Data_Tree_Node($data, 'id', $tree, $menu);

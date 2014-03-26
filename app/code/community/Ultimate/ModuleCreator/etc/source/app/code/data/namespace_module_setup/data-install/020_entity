@@ -1,4 +1,4 @@
-Mage::getModel('{{module}}/{{entity}}')
+Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
     ->load(1)
     ->setParentId(0)
     ->setPath(1)

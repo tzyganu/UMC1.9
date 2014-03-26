@@ -7,12 +7,12 @@
     public function mass{{Sibling}}IdAction(){
         ${{entity}}Ids = $this->getRequest()->getParam('{{entity}}');
         if(!is_array(${{entity}}Ids)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('Please select {{entitiesLabel}}.'));
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Please select {{entitiesLabel}}.'));
         }
         else {
             try {
                 foreach (${{entity}}Ids as ${{entity}}Id) {
-                ${{entity}} = Mage::getSingleton('{{module}}/{{entity}}')->load(${{entity}}Id)
+                ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)
                             ->set{{Sibling}}Id($this->getRequest()->getParam('flag_{{sibling}}_id'))
                             ->setIsMassupdate(true)
                             ->save();
@@ -23,7 +23,7 @@
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
             catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('There was an error updating {{entitiesLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating {{entitiesLabel}}.'));
                 Mage::logException($e);
             }
         }

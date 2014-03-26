@@ -11,7 +11,7 @@
             $post = explode(',', $post);
             $post = array_unique($post);
             $category = $observer->getEvent()->getCategory();
-            Mage::getResourceSingleton('{{module}}/{{entity}}_category')->saveCategoryRelation($category, $post);
+            Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_category')->saveCategoryRelation($category, $post);
         }
         return $this;
     }

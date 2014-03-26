@@ -1,2 +1,2 @@
-        </{{module}}>
+        </{{namespace}}_{{module}}>
     </default>

@@ -9,51 +9,51 @@
      */
     protected function _prepareColumns(){
         $this->addColumn('ct_comment_id', array(
-            'header'        => Mage::helper('{{module}}')->__('Id'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Id'),
             'index'         => 'ct_comment_id',
             'type'          => 'number',
             'filter_index'  => 'ct.comment_id',
         ));
         $this->addColumn('{{nameAttributeCode}}', array(
-            'header'        => Mage::helper('{{module}}')->__('{{nameAttributeLabel}}'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'index'         => '{{nameAttributeCode}}',
             'filter_index'  => '{{commentFilterIndexPrefix}}{{nameAttributeCode}}',
         ));
         $this->addColumn('ct_title', array(
-            'header'        => Mage::helper('{{module}}')->__('Comment Title'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Comment Title'),
             'index'         => 'ct_title',
             'filter_index'  => 'ct.title',
         ));
         $this->addColumn('ct_name', array(
-            'header'        => Mage::helper('{{module}}')->__('Poster name'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Poster name'),
             'index'         => 'ct_name',
             'filter_index'  => 'ct.name',
         ));
         $this->addColumn('ct_email', array(
-            'header'        => Mage::helper('{{module}}')->__('Poster email'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Poster email'),
             'index'         => 'ct_email',
             'filter_index'  => 'ct.email',
         ));
         $this->addColumn('ct_status', array(
-            'header'        => Mage::helper('{{module}}')->__('Status'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
             'index'         => 'ct_status',
             'filter_index'  => 'ct.status',
             'type'          => 'options',
             'options'       => array(
-                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{module}}')->__('Pending'),
-                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{module}}')->__('Approved'),
-                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{module}}')->__('Rejected'),
+                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
+                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
+                    {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
             )
         ));
         $this->addColumn('ct_created_at', array(
-            'header'        => Mage::helper('{{module}}')->__('Created at'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Created at'),
             'index'         => 'ct_created_at',
             'width'         => '120px',
             'type'          => 'datetime',
             'filter_index'  => 'ct.created_at',
         ));
         $this->addColumn('ct_updated_at', array(
-            'header'        => Mage::helper('{{module}}')->__('Updated at'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Updated at'),
             'index'         => 'ct_updated_at',
             'width'         => '120px',
             'type'          => 'datetime',

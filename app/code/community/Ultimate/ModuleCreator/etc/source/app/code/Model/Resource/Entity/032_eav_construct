@@ -6,7 +6,7 @@
      */
     public function __construct() {
         $resource = Mage::getSingleton('core/resource');
-        $this->setType('{{module}}_{{entity}}')
+        $this->setType('{{namespace}}_{{module}}_{{entity}}')
             ->setConnection(
                 $resource->getConnection('{{entity}}_read'),
                 $resource->getConnection('{{entity}}_write')

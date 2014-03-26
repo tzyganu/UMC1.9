@@ -14,14 +14,14 @@
     <col width="1" />
     <thead>
         <tr>
-            <th colspan="2"><?php echo Mage::helper('{{module}}')->__('{{Module}} Feeds') ?></th>
+            <th colspan="2"><?php echo Mage::helper('{{namespace}}_{{module}}')->__('{{Module}} Feeds') ?></th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($_feeds as $_feed): ?>
         <tr>
             <td><?php echo $_feed->getLabel() ?></td>
-            <td><a href="<?php echo $_feed->getUrl() ?>" class="link-rss"><?php echo Mage::helper('{{module}}')->__('Get Feed'); ?></a></td>
+            <td><a href="<?php echo $_feed->getUrl() ?>" class="link-rss"><?php echo Mage::helper('{{namespace}}_{{module}}')->__('Get Feed'); ?></a></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

@@ -16,13 +16,13 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY    = '{{module}}_{{entity}}_comment';
-    const CACHE_TAG = '{{module}}_{{entity}}_comment';
+    const ENTITY    = '{{namespace}}_{{module}}_{{entity}}_comment';
+    const CACHE_TAG = '{{namespace}}_{{module}}_{{entity}}_comment';
     /**
      * Prefix of model events names
      * @var string
      */
-    protected $_eventPrefix = '{{module}}_{{entity}}_comment';
+    protected $_eventPrefix = '{{namespace}}_{{module}}_{{entity}}_comment';
 
     /**
      * Parameter name in event
@@ -37,7 +37,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      */
     public function _construct(){
         parent::_construct();
-        $this->_init('{{module}}/{{entity}}_comment');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}_comment');
     }
     /**
      * before save {{entityLabel}} comment

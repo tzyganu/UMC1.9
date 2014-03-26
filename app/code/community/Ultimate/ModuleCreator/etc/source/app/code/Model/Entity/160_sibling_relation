@@ -6,7 +6,7 @@
      */
     public function get{{Sibling}}Instance(){
         if (!$this->_{{sibling}}Instance) {
-            $this->_{{sibling}}Instance = Mage::getSingleton('{{module}}/{{entity}}_{{sibling}}');
+            $this->_{{sibling}}Instance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_{{sibling}}');
         }
         return $this->_{{sibling}}Instance;
     }

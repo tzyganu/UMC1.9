@@ -1,10 +1,10 @@
-    <{{module}}_category>
+    <{{namespace}}_{{module}}_category>
         <reference name="content">
 {{categoryViewLayout}}        </reference>
-    </{{module}}_category>
+    </{{namespace}}_{{module}}_category>
     <catalog_category_default>
-        <update handle="{{module}}_category" />
+        <update handle="{{namespace}}_{{module}}_category" />
     </catalog_category_default>
     <catalog_category_layered>
-        <update handle="{{module}}_category" />
+        <update handle="{{namespace}}_{{module}}_category" />
     </catalog_category_layered>

@@ -117,7 +117,7 @@
             return '';
         }
 
-        ${{entities}} = Mage::getResourceSingleton('{{module}}/{{entity}}_tree')->loadBreadcrumbsArray($path);
+        ${{entities}} = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree')->loadBreadcrumbsArray($path);
         if (empty(${{entities}})) {
             return '';
         }

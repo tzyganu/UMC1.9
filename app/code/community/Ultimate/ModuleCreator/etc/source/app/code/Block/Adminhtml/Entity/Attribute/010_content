@@ -17,9 +17,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute
      */
     public function __construct(){
         $this->_controller = 'adminhtml_{{entity}}_attribute';
-        $this->_blockGroup = '{{module}}';
-        $this->_headerText = Mage::helper('{{module}}')->__('Manage {{EntityLabel}} Attributes');
+        $this->_blockGroup = '{{namespace}}_{{module}}';
+        $this->_headerText = Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntityLabel}} Attributes');
         parent::__construct();
-        $this->_updateButton('add', 'label', Mage::helper('{{module}}')->__('Add New {{EntityLabel}} Attribute'));
+        $this->_updateButton('add', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Add New {{EntityLabel}} Attribute'));
     }
 }

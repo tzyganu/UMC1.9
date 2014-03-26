@@ -11,7 +11,7 @@
         }
         if (!isset($this->_joinedFields['product'])){
             $this->getSelect()->join(
-                array('related_product' => $this->getTable('{{module}}/{{entity}}_product')),
+                array('related_product' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_product')),
                 'related_product.{{entity}}_id = {{entityTableAlias}}.entity_id',
                 array('position')
             );

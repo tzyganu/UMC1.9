@@ -8,22 +8,22 @@
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('{{entity}}');
         $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('{{module}}')->__('Delete'),
+            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
             'url'  => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('{{module}}')->__('Are you sure?')
+            'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
         ));
         $this->getMassactionBlock()->addItem('status', array(
-            'label'=> Mage::helper('{{module}}')->__('Change status'),
+            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
             'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
             'additional' => array(
                 'status' => array(
                         'name' => 'status',
                         'type' => 'select',
                         'class' => 'required-entry',
-                        'label' => Mage::helper('{{module}}')->__('Status'),
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
                         'values' => array(
-                                '1' => Mage::helper('{{module}}')->__('Enabled'),
-                                '0' => Mage::helper('{{module}}')->__('Disabled'),
+                                '1' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
+                                '0' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
                         )
                 )
             )

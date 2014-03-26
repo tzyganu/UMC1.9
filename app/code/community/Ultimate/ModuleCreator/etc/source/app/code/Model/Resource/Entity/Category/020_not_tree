@@ -15,11 +15,12 @@
 
         foreach ($data as $categoryId) {
             if (!empty($categoryId)){
-                $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                $insert = array(
                     '{{entity}}_id'      => ${{entity}}->getId(),
                     'category_id'     => $categoryId,
                     'position'      => 1
-                ));
+                );
+                $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $insert, array_keys($insert));
             }
         }
         return $this;

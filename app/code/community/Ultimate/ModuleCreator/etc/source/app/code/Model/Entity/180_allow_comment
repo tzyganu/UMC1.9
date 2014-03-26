@@ -11,5 +11,5 @@
         if ($this->getData('allow_comment') == {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault::YES) {
             return true;
         }
-        return Mage::getStoreConfigFlag('{{module}}/{{entity}}/allow_comment');
+        return Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_comment');
     }

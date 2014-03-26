@@ -27,16 +27,16 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
      * {{qwertyuiop}}
      */
     protected function _initAction(){
-        $this->_title(Mage::helper('{{module}}')->__('{{EntityLabel}}'))
-             ->_title(Mage::helper('{{module}}')->__('Attributes'))
-             ->_title(Mage::helper('{{module}}')->__('Manage Attributes'));
+        $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'))
+             ->_title(Mage::helper('{{namespace}}_{{module}}')->__('Attributes'))
+             ->_title(Mage::helper('{{namespace}}_{{module}}')->__('Manage Attributes'));
 
         $this->loadLayout()
         	->_setActiveMenu('{{selectedMenuPath}}_attributes')
-            ->_addBreadcrumb(Mage::helper('{{module}}')->__('{{EntityLabel}}'), Mage::helper('{{module}}')->__('{{EntityLabel}}'))
+            ->_addBreadcrumb(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'), Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'))
             ->_addBreadcrumb(
-                    Mage::helper('{{module}}')->__('Manage {{EntityLabel}} Attributes'),
-                    Mage::helper('{{module}}')->__('Manage {{EntityLabel}} Attributes'))
+                    Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntityLabel}} Attributes'),
+                    Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntityLabel}} Attributes'))
             ;
         return $this;
     }
@@ -67,20 +67,20 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
      */
     public function editAction(){
         $id = $this->getRequest()->getParam('attribute_id');
-        $model = Mage::getModel('{{module}}/resource_eav_attribute')
+        $model = Mage::getModel('{{namespace}}_{{module}}/resource_eav_attribute')
             ->setEntityTypeId($this->_entityTypeId);
         if ($id) {
             $model->load($id);
             if (! $model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('{{module}}')->__('This {{entityLabel}} attribute no longer exists'));
+                    Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} attribute no longer exists'));
                 $this->_redirect('*/*/');
                 return;
             }
             // entity type check
             if ($model->getEntityTypeId() != $this->_entityTypeId) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('{{module}}')->__('This {{entityLabel}} attribute cannot be edited.'));
+                    Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} attribute cannot be edited.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -92,9 +92,9 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
         }
         Mage::register('entity_attribute', $model);
         $this->_initAction();
-        $this->_title($id ? $model->getName() : Mage::helper('{{module}}')->__('New {{EntityLabel}} Attribute'));
-        $item = $id ? Mage::helper('{{module}}')->__('Edit {{EntityLabel}} Attribute')
-                    : Mage::helper('{{module}}')->__('New {{EntityLabel}} Attribute');
+        $this->_title($id ? $model->getName() : Mage::helper('{{namespace}}_{{module}}')->__('New {{EntityLabel}} Attribute'));
+        $item = $id ? Mage::helper('{{namespace}}_{{module}}')->__('Edit {{EntityLabel}} Attribute')
+                    : Mage::helper('{{namespace}}_{{module}}')->__('New {{EntityLabel}} Attribute');
         $this->_addBreadcrumb($item, $item);
         $this->renderLayout();
     }
@@ -110,11 +110,11 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
 
         $attributeCode  = $this->getRequest()->getParam('attribute_code');
         $attributeId    = $this->getRequest()->getParam('attribute_id');
-        $attribute = Mage::getModel('{{module}}/attribute')
+        $attribute = Mage::getModel('{{namespace}}_{{module}}/attribute')
             ->loadByCode($this->_entityTypeId, $attributeCode);
         if ($attribute->getId() && !$attributeId) {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('{{module}}')->__('Attribute with the same code already exists'));
+                Mage::helper('{{namespace}}_{{module}}')->__('Attribute with the same code already exists'));
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
@@ -131,7 +131,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
      */
     protected function _filterPostData($data){
         if ($data) {
-            $helper = Mage::helper('{{module}}');
+            $helper = Mage::helper('{{namespace}}_{{module}}');
             //labels
             foreach ($data['frontend_label'] as & $value) {
                 if ($value) {
@@ -170,15 +170,15 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
         if ($data) {
             $session = Mage::getSingleton('adminhtml/session');
             $redirectBack   = $this->getRequest()->getParam('back', false);
-            $model = Mage::getModel('{{module}}/resource_eav_attribute');
-            $helper = Mage::helper('{{module}}/{{entity}}');
+            $model = Mage::getModel('{{namespace}}_{{module}}/resource_eav_attribute');
+            $helper = Mage::helper('{{namespace}}_{{module}}/{{entity}}');
             $id = $this->getRequest()->getParam('attribute_id');
             //validate attribute_code
             if (isset($data['attribute_code'])) {
                 $validatorAttrCode = new Zend_Validate_Regex(array('pattern' => '/^[a-z_0-9]{1,255}$/'));
                 if (!$validatorAttrCode->isValid($data['attribute_code'])) {
                     $session->addError(
-                        Mage::helper('{{module}}')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.'));
+                        Mage::helper('{{namespace}}_{{module}}')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.'));
                     $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
                     return;
                 }
@@ -187,7 +187,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
                 $model->load($id);
                 if (!$model->getId()) {
                     $session->addError(
-                        Mage::helper('{{module}}')->__('This attribute no longer exists'));
+                        Mage::helper('{{namespace}}_{{module}}')->__('This attribute no longer exists'));
                     $this->_redirect('*/*/');
                     return;
                 }
@@ -195,7 +195,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
                 // entity type check
                 if ($model->getEntityTypeId() != $this->_entityTypeId) {
                     $session->addError(
-                        Mage::helper('{{module}}')->__('This attribute cannot be updated.'));
+                        Mage::helper('{{namespace}}_{{module}}')->__('This attribute cannot be updated.'));
                     $session->setAttributeData($data);
                     $this->_redirect('*/*/');
                     return;
@@ -227,7 +227,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
             try {
                 $model->save();
                 $session->addSuccess(
-                    Mage::helper('{{module}}')->__('The {{entityLabel}} attribute has been saved.'));
+                    Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} attribute has been saved.'));
 
                 /**
                  * Clear translation cache because attribute labels are stored in translation
@@ -257,20 +257,20 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
      */
     public function deleteAction(){
         if ($id = $this->getRequest()->getParam('attribute_id')) {
-            $model = Mage::getModel('{{module}}/resource_eav_attribute');
+            $model = Mage::getModel('{{namespace}}_{{module}}/resource_eav_attribute');
 
             // entity type check
             $model->load($id);
             if ($model->getEntityTypeId() != $this->_entityTypeId) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('{{module}}')->__('This attribute cannot be deleted.'));
+                    Mage::helper('{{namespace}}_{{module}}')->__('This attribute cannot be deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
             try {
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('{{module}}')->__('The {{entityLabel}} attribute has been deleted.'));
+                    Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} attribute has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -281,7 +281,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
             }
         }
         Mage::getSingleton('adminhtml/session')->addError(
-            Mage::helper('{{module}}')->__('Unable to find an attribute to delete.'));
+            Mage::helper('{{namespace}}_{{module}}')->__('Unable to find an attribute to delete.'));
         $this->_redirect('*/*/');
     }
     /**
@@ -291,6 +291,6 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}_AttributeControll
      * {{qwertyuiop}}
      */
     protected function _isAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('{{module}}/{{entity}}/attributes');
+        return Mage::getSingleton('admin/session')->isAllowed('{{selectedMenuPath}}_attributes');
     }
 }

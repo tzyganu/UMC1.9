@@ -17,8 +17,8 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}
      */
     public function __construct(){
         $this->_controller         = 'adminhtml_{{entity}}';
-        $this->_blockGroup         = '{{module}}';
+        $this->_blockGroup         = '{{namespace}}_{{module}}';
         parent::__construct();
-        $this->_headerText         = Mage::helper('{{module}}')->__('{{EntityLabel}}');
-        $this->_updateButton('add', 'label', Mage::helper('{{module}}')->__('Add {{EntityLabel}}'));
+        $this->_headerText         = Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}');
+        $this->_updateButton('add', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Add {{EntityLabel}}'));
 

@@ -21,7 +21,7 @@ class {{Namespace}}_{{Module}}_Model_Adminhtml_Search_{{Entity}}
             $this->setResults($arr);
             return $this;
         }
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
             ->{{filterMethod}}('{{nameAttributeCode}}', array('like' => $this->getQuery().'%'))
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())
@@ -29,7 +29,7 @@ class {{Namespace}}_{{Module}}_Model_Adminhtml_Search_{{Entity}}
         foreach ($collection->getItems() as ${{entity}}) {
             $arr[] = array(
                 'id'=> '{{entity}}/1/'.${{entity}}->getId(),
-                'type'  => Mage::helper('{{module}}')->__('{{EntityLabel}}'),
+                'type'  => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
                 'name'  => ${{entity}}->get{{EntityNameMagicCode}}(),
                 'description'   => ${{entity}}->get{{EntityNameMagicCode}}(),
                 'url' => Mage::helper('adminhtml')->getUrl('*/{{module}}_{{entity}}/edit', array('id'=>${{entity}}->getId())),

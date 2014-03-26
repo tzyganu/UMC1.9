@@ -13,12 +13,12 @@
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}AddEntity">
                 <xsd:sequence>
-{{entityWsiAttributes}}
+{{entityWsiAttributesForAdd}}
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}UpdateEntity">
                 <xsd:sequence>
-{{entityWsiAttributes}}
+{{entityWsiAttributesForAdd}}
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="{{module}}{{Entity}}InfoEntity">

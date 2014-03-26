@@ -22,7 +22,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
      */
     public function __construct() {
         $this->_storeIdSessionField = '{{entity}}_store_id';
-        $this->_entityTypeId = Mage::getModel('eav/entity')->setType('{{module}}_{{entity}}')->getTypeId();
+        $this->_entityTypeId = Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')->getTypeId();
     }
 
     /**
@@ -33,7 +33,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
      */
     public function items()
     {
-        $attributes = Mage::getResourceModel('{{module}}/{{entity}}_attribute_collection');
+        $attributes = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_attribute_collection');
         $result = array();
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute)) {
@@ -69,7 +69,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
     public function options($attributeId, $store = null)
     {
         $storeId = $this->_getStoreId($store);
-        $attribute = Mage::getModel('{{module}}/{{entity}}')
+        $attribute = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
                 ->setStoreId($storeId)
                 ->getResource()
                 ->getAttribute($attributeId);
@@ -104,11 +104,11 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
         $additionalTypes = array(
             array(
                 'value' => 'image',
-                'label' => Mage::helper('{{module}}')->__('Image')
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Image')
             ),
             array(
                 'value' => 'file',
-                'label' => Mage::helper('{{module}}')->__('File')
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('File')
             )
         );
         return array_merge($types, $additionalTypes);
@@ -122,8 +122,8 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
      * {{qwertyuiop}}
      */
     public function create($data) {
-        $model = Mage::getModel('{{module}}/resource_eav_attribute');
-        $helper = Mage::helper('{{module}}/{{entity}}');
+        $model = Mage::getModel('{{namespace}}_{{module}}/resource_eav_attribute');
+        $helper = Mage::helper('{{namespace}}_{{module}}/{{entity}}');
 
         if (empty($data['attribute_code']) || !is_array($data['frontend_label'])) {
             $this->_fault('invalid_parameters');
@@ -415,7 +415,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getAttribute($attribute) {
-        $model = Mage::getResourceModel('{{module}}/eav_attribute')
+        $model = Mage::getResourceModel('{{namespace}}_{{module}}/eav_attribute')
             ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {

@@ -19,7 +19,7 @@
             $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
         );
         Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{module}}_renderer_fieldset_element')
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{module}}_renderer_fieldset_element')
         );
     }
     /**
@@ -31,8 +31,8 @@
      */
     protected function _getAdditionalElementTypes(){
         return array(
-            'file'    => Mage::getConfig()->getBlockClassName('{{module}}/adminhtml_{{entity}}_helper_file'),
-            'image' => Mage::getConfig()->getBlockClassName('{{module}}/adminhtml_{{entity}}_helper_image'),
+            'file'    => Mage::getConfig()->getBlockClassName('{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_file'),
+            'image' => Mage::getConfig()->getBlockClassName('{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_image'),
             'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg')
         );
     }

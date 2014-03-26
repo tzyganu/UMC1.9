@@ -23,7 +23,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
     public function joinFields(){
         if (!$this->_joinedFields){
             $this->getSelect()->join(
-                array('related' => $this->getTable('{{module}}/{{entity}}_product')),
+                array('related' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_product')),
                 'related.product_id = e.entity_id',
                 array('position')
             );

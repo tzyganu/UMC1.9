@@ -8,7 +8,7 @@
      */
     public function assign{{Sibling}}(${{entity}}Id, ${{sibling}}Id){
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
-        ${{sibling}}   = Mage::getModel('{{module}}/{{sibling}}')->load(${{Sibling}}Id);
+        ${{sibling}}   = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}')->load(${{sibling}}Id);
         if (!${{sibling}}->getId()){
             $this->_fault('{{sibling}}_not_exists');
         }

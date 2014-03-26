@@ -3,6 +3,6 @@
             return;
         }
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}', '{{entity}}.{{sibling}}.grid')->toHtml()
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}', '{{entity}}.{{sibling}}.grid')->toHtml()
         );
     }

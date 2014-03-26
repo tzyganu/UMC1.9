@@ -17,9 +17,9 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
 	 */
 	protected function _initSelect() {
         $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()))
-            ->where('main_table.entity_type_id=?', Mage::getModel('eav/entity')->setType('{{module}}_{{entity}}')->getTypeId())
+            ->where('main_table.entity_type_id=?', Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')->getTypeId())
             ->join(
-                array('additional_table' => $this->getTable('{{module}}/eav_attribute')),
+                array('additional_table' => $this->getTable('{{namespace}}_{{module}}/eav_attribute')),
                 'additional_table.attribute_id=main_table.attribute_id'
             );
         return $this;

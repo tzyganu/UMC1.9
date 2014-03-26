@@ -42,7 +42,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Product
             $constraint = '{{table}}.{{entity}}_id=0';
         }
         $collection->joinField('position',
-            '{{module}}/{{entity}}_product',
+            '{{namespace}}_{{module}}/{{entity}}_product',
             'position',
             'product_id=entity_id',
             $constraint,

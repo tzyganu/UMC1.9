@@ -5,7 +5,7 @@
      * {{qwertyuiop}}
      */
     public function getTreeModel(){
-        return Mage::getResourceModel('{{module}}/{{entity}}_tree');
+        return Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree');
     }
     /**
      * get tree model instance
@@ -15,7 +15,7 @@
      */
     public function getTreeModelInstance(){
         if (is_null($this->_treeModel)) {
-            $this->_treeModel = Mage::getResourceSingleton('{{module}}/{{entity}}_tree');
+            $this->_treeModel = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree');
         }
         return $this->_treeModel;
     }
@@ -28,20 +28,20 @@
      * {{qwertyuiop}}
      */
     public function move($parentId, $after{{Entity}}Id){
-        $parent = Mage::getModel('{{module}}/{{entity}}')->load($parentId);
+        $parent = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($parentId);
         if (!$parent->getId()) {
             Mage::throwException(
-                Mage::helper('{{module}}')->__('{{EntityLabel}} move operation is not possible: the new parent {{entityLabel}} was not found.')
+                Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move operation is not possible: the new parent {{entityLabel}} was not found.')
             );
         }
         if (!$this->getId()) {
             Mage::throwException(
-                Mage::helper('{{module}}')->__('{{EntityLabel}} move operation is not possible: the current {{entityLabel}} was not found.')
+                Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move operation is not possible: the current {{entityLabel}} was not found.')
             );
         }
         elseif ($parent->getId() == $this->getId()) {
             Mage::throwException(
-                Mage::helper('{{module}}')->__('{{EntityLabel}} move operation is not possible: parent {{entityLabel}} is equal to child {{entityLabel}}.')
+                Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move operation is not possible: parent {{entityLabel}} is equal to child {{entityLabel}}.')
             );
         }
         $this->setMoved{{Entity}}Id($this->getId());
@@ -77,7 +77,7 @@
      */
     public function getParent{{Entity}}(){
         if (!$this->hasData('parent_{{entity}}')) {
-            $this->setData('parent_{{entity}}', Mage::getModel('{{module}}/{{entity}}')->load($this->getParentId()));
+            $this->setData('parent_{{entity}}', Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($this->getParentId()));
         }
         return $this->_getData('parent_{{entity}}');
     }
@@ -187,7 +187,7 @@
      */
     protected function _beforeDelete(){
         if ($this->getResource()->isForbiddenToDelete($this->getId())) {
-            Mage::throwException(Mage::helper('{{module}}')->__("Can't delete root {{entityLabel}}."));
+            Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__("Can't delete root {{entityLabel}}."));
         }
         return parent::_beforeDelete();
     }
@@ -230,7 +230,7 @@
      */
     public function getStatusPath(){
         $parents = $this->getParent{{Entities}}();
-        $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+        $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
         foreach ($parents as $parent){
             if ($parent->getId() == $rootId) {
                 continue;

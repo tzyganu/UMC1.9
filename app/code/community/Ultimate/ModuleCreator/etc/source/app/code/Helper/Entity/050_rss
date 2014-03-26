@@ -5,7 +5,7 @@
      * {{qwertyuiop}}
      */
     public function isRssEnabled(){
-        return  Mage::getStoreConfigFlag('rss/config/active') && Mage::getStoreConfigFlag('{{module}}/{{entity}}/rss');
+        return  Mage::getStoreConfigFlag('rss/config/active') && Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/rss');
     }
     /**
      * get the link to the {{entityLabel}} rss list
@@ -14,5 +14,5 @@
      * {{qwertyuiop}}
      */
     public function getRssUrl(){
-        return Mage::getUrl('{{module}}/{{entity}}/rss');
+        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/rss');
     }

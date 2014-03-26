@@ -25,7 +25,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('{{module}}_{{entity}}_rss');
+        $this->setCacheKey('{{namespace}}_{{module}}_{{entity}}_rss');
         $this->setCacheLifetime(600);
     }
     /**
@@ -35,8 +35,8 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss
      * {{qwertyuiop}}
      */
     protected function _toHtml(){
-        $url = Mage::helper('{{module}}/{{entity}}')->get{{Entities}}Url();
-        $title = Mage::helper('{{module}}')->__('{{EntitiesLabel}}');
+        $url = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url();
+        $title = Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}');
         $rssObj = Mage::getModel('rss/rss');
         $data = array(
             'title' => $title,
@@ -45,5 +45,5 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss
             'charset' => 'UTF-8',
         );
         $rssObj->_addHeader($data);
-        $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection()
+        $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection()
             ->addFieldToFilter('status', 1)

@@ -17,7 +17,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
      */
     protected function _init{{Entity}}(){
         ${{entity}}Id = (int) $this->getRequest()->getParam('id',false);
-        ${{entity}} = Mage::getModel('{{module}}/{{entity}}');
+        ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}');
         if (${{entity}}Id) {
             ${{entity}}->load(${{entity}}Id);
         }
@@ -103,15 +103,15 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
             return;
         }
         $this->loadLayout();
-        $this->_title(Mage::helper('{{module}}')->__('{{module_menu}}'))
-             ->_title(Mage::helper('{{module}}')->__('{{EntitiesLabel}}'));
+        $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
+             ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'));
         $this->_setActiveMenu('{{selectedMenuPath}}');
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true)
             ->setContainerCssClass('{{entity}}');
 
         $this->_addBreadcrumb(
-            Mage::helper('{{module}}')->__('Manage {{EntitiesLabel}}'),
-            Mage::helper('{{module}}')->__('Manage {{EntitiesLabel}}')
+            Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntitiesLabel}}'),
+            Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntitiesLabel}}')
         );
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
@@ -137,7 +137,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
                 return;
             }
             $this->getResponse()->setBody(
-                $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree')->getTreeJson(${{entity}})
+                $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_tree')->getTreeJson(${{entity}})
             );
         }
     }
@@ -147,7 +147,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
     public function moveAction(){
         ${{entity}} = $this->_init{{Entity}}();
         if (!${{entity}}) {
-            $this->getResponse()->setBody(Mage::helper('{{module}}')->__('{{EntityLabel}} move error'));
+            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'));
             return;
         }
         $parentNodeId   = $this->getRequest()->getPost('pid', false);
@@ -160,7 +160,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
             $this->getResponse()->setBody($e->getMessage());
         }
         catch (Exception $e){
-            $this->getResponse()->setBody(Mage::helper('{{module}}')->__('{{EntityLabel}} move error'));
+            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'));
             Mage::logException($e);
         }
     }
@@ -174,7 +174,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
     public function treeAction(){
         ${{entity}}Id = (int) $this->getRequest()->getParam('id');
         ${{entity}} = $this->_init{{Entity}}();
-        $block = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree');
+        $block = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_tree');
         $root  = $block->getRoot();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(
             array(
@@ -199,7 +199,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
      */
     public function refreshPathAction(){
         if ($id = (int) $this->getRequest()->getParam('id')) {
-            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
+            ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
             $this->getResponse()->setBody(
                 Mage::helper('core')->jsonEncode(array(
                    'id' => $id,
@@ -217,11 +217,11 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
     public function deleteAction(){
         if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
-                ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
+                ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
                 Mage::getSingleton('admin/session')->set{{Entity}}DeletedPath(${{entity}}->getPath());
 
                 ${{entity}}->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{module}}')->__('The {{entityLabel}} has been deleted.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been deleted.'));
             }
             catch (Mage_Core_Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -229,7 +229,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
                 return;
             }
             catch (Exception $e){
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 Mage::logException($e);
                 return;

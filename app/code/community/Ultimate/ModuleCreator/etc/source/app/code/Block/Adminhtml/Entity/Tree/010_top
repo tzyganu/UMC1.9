@@ -37,7 +37,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Tree
         $this->setChild('add_sub_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label' => Mage::helper('{{module}}')->__('Add Child {{EntityLabel}}'),
+                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Add Child {{EntityLabel}}'),
                     'onclick'   => "addNew('".$addUrl."', false)",
                     'class' => 'add',
                     'id'=> 'add_child_{{entity}}_button',
@@ -48,7 +48,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Tree
         $this->setChild('add_root_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label' => Mage::helper('{{module}}')->__('Add Root {{EntityLabel}}'),
+                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Add Root {{EntityLabel}}'),
                     'onclick'   => "addNew('".$addUrl."', true)",
                     'class' => 'add',
                     'id'=> 'add_root_{{entity}}_button'

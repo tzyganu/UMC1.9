@@ -22,13 +22,13 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
              ->_title($this->__('Manage {{EntitiesLabel}}'));
         ${{entity}}Id = (int) $this->getRequest()->getParam('id',false);
         $storeId    = (int) $this->getRequest()->getParam('store');
-        ${{entity}} = Mage::getModel('{{module}}/{{entity}}');
+        ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}');
         ${{entity}}->setStoreId($storeId);
 
         if (${{entity}}Id) {
             ${{entity}}->load(${{entity}}Id);
             if ($storeId) {
-                $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
                 if (!in_array($rootId, ${{entity}}->getPathIds())) {
                     // load root {{entityLabel}} instead wrong one
                     if ($getRootInstead) {
@@ -105,7 +105,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
 
         if ($storeId && !${{entity}}Id && !$parentId) {
             $store = Mage::app()->getStore($storeId);
-            $_prev{{Entity}}Id = (int)Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+            $_prev{{Entity}}Id = (int)Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
             $this->getRequest()->setParam('id', $_prev{{Entity}}Id);
         }
 
@@ -169,7 +169,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true)
             ->setContainerCssClass('{{entities}}');
 
-        $this->_addBreadcrumb(Mage::helper('{{module}}')->__('Manage {{EntitiesLabel}}'),
+        $this->_addBreadcrumb(Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntitiesLabel}}'),
              Mage::helper('catalog')->__('Manage {{EntitiesLabel}}s')
         );
 
@@ -218,7 +218,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
                 return;
             }
             $this->getResponse()->setBody(
-                $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree')
+                $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_tree')
                     ->getTreeJson(${{entity}})
             );
         }
@@ -241,9 +241,9 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
             if (!${{entity}}->getId()) {
                 $parentId = $this->getRequest()->getParam('parent');
                 if (!$parentId) {
-                    $parentId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                    $parentId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
                 }
-                $parent{{Entity}} = Mage::getModel('{{module}}/{{entity}}')->load($parentId);
+                $parent{{Entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($parentId);
                 ${{entity}}->setPath($parent{{Entity}}->getPath());
             }
 
@@ -258,7 +258,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller
 
             ${{entity}}->setAttributeSetId(${{entity}}->getDefaultAttributeSetId());
 
-            Mage::dispatchEvent('{{module}}_{{entity}}_prepare_save', array(
+            Mage::dispatchEvent('{{namespace}}_{{module}}_{{entity}}_prepare_save', array(
                 '{{entity}}' => ${{entity}},
                 'request' => $this->getRequest()
             ));

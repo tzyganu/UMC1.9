@@ -31,7 +31,7 @@
     protected function _renderFiltersBefore(){
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
-                array('store_table' => $this->getTable('{{module}}/{{entity}}_store')),
+                array('store_table' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_store')),
                 'main_table.entity_id = store_table.{{entity}}_id',
                 array()
             )->group('main_table.entity_id');

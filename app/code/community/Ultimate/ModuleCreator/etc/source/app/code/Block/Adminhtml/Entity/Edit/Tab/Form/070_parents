@@ -1,7 +1,7 @@
-        $values = Mage::getResourceModel('{{module}}/{{sibling}}_collection')->toOptionArray();
+        $values = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection')->toOptionArray();
         array_unshift($values, array('label'=>'', 'value'=>''));
         $fieldset->addField('{{sibling}}_id', 'select', array(
-            'label'     => Mage::helper('{{module}}')->__('{{SiblingLabel}}'),
+            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingLabel}}'),
             'name'      => '{{sibling}}_id',
             'required'  => false,
             'values'    => $values

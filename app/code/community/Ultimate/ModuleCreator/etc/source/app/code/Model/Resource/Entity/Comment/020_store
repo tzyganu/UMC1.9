@@ -8,7 +8,7 @@
     public function lookupStoreIds($commentId){
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
-            ->from($this->getTable('{{module}}/{{entity}}_comment_store'), 'store_id')
+            ->from($this->getTable('{{namespace}}_{{module}}/{{entity}}_comment_store'), 'store_id')
             ->where('comment_id = ?',(int)$commentId);
         return $adapter->fetchCol($select);
     }
@@ -40,7 +40,7 @@
         if ($object->getStoreId()) {
             $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());
             $select->join(
-                array('{{module}}_{{entity}}_comment_store' => $this->getTable('{{module}}/{{entity}}_comment_store')),
+                array('{{module}}_{{entity}}_comment_store' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_comment_store')),
                 $this->getMainTable() . '.comment_id = {{module}}_{{entity}}_comment_store.comment_id',
                 array()
             )
@@ -63,7 +63,7 @@
         if (empty($newStores)) {
             $newStores = (array)$object->getStoreId();
         }
-        $table  = $this->getTable('{{module}}/{{entity}}_comment_store');
+        $table  = $this->getTable('{{namespace}}_{{module}}/{{entity}}_comment_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
         if ($delete) {

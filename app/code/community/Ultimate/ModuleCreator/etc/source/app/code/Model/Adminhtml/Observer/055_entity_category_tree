@@ -8,11 +8,11 @@
     public function addCategory{{Entity}}Block($observer){
         $tabs = $observer->getEvent()->getTabs();
         $content = $tabs->getLayout()->createBlock(
-            '{{module}}/adminhtml_catalog_category_tab_{{entity}}',
+            '{{namespace}}_{{module}}/adminhtml_catalog_category_tab_{{entity}}',
             'category.{{entity}}.grid'
         )->toHtml();
         $tabs->addTab('{{entity}}', array(
-            'label'     => Mage::helper('{{module}}')->__('{{EntitiesLabel}}'),
+            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
             'content'   => $content,
         ));
         return $this;

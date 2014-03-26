@@ -1,5 +1,5 @@
 {{attributePreElementText}}
         $fieldset->addField('{{attributeCode}}', '{{attributeFormType}}', array(
-            'label' => Mage::helper('{{module}}')->__('{{attributeLabel}}'),
+            'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{attributeLabel}}'),
             'name'  => '{{attributeCode}}',
 {{attributeFormOptions}}        ));

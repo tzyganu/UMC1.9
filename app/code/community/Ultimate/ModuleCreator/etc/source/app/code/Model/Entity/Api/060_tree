@@ -14,7 +14,7 @@
             $afterId = array_pop(explode(',', $parentChildren));
         }
         if( strpos($parent_{{entity}}->getPath(), ${{entity}}->getPath()) === 0) {
-            $this->_fault('not_moved', Mage::helper('{{module}}')->__("Cannot move parent inside {{entityLabel}}"));
+            $this->_fault('not_moved', Mage::helper('{{namespace}}_{{module}}')->__("Cannot move parent inside {{entityLabel}}"));
         }
         try {
             ${{entity}}->move($parentId, $afterId);

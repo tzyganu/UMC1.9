@@ -1,14 +1,14 @@
         $this->addColumn('{{nameAttributeCode}}', array(
-            'header'    => Mage::helper('{{module}}')->__('{{nameAttributeLabel}}'),
+            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align'     => 'left',
             'index'     => '{{nameAttributeCode}}',
         ));{{nameAttributeGridEav}}
         $this->addColumn('status', array(
-            'header'    => Mage::helper('{{module}}')->__('Status'),
+            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
             'index'        => 'status',
             'type'        => 'options',
             'options'    => array(
-                '1' => Mage::helper('{{module}}')->__('Enabled'),
-                '0' => Mage::helper('{{module}}')->__('Disabled'),
+                '1' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
+                '0' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
             )
         ));

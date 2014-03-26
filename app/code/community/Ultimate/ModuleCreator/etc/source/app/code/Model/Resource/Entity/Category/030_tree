@@ -14,12 +14,13 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as $categoryId) {
-            if (!empty($categoryId)) {
-                $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+            if (!empty($categoryId)){
+                $insert = array(
                     '{{entity}}_id'      => ${{entity}}->getId(),
                     'category_id'     => $categoryId,
                     'position'      => 1
-                ));
+                );
+                $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $insert, array_keys($insert));
             }
         }
         return $this;
@@ -34,7 +35,7 @@
      */
     public function saveCategoryRelation($category, ${{entity}}Ids){
 
-        $old{{Entities}} = Mage::helper('{{module}}/category')->getSelected{{Entities}}($category);
+        $old{{Entities}} = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}($category);
         $old{{Entity}}Ids = array();
         foreach ($old{{Entities}} as ${{entity}}){
             $old{{Entity}}Ids[] = ${{entity}}->getId();

@@ -5,5 +5,5 @@
      * {{qwertyuiop}}
      */
     public function getUseBreadcrumbs(){
-        return Mage::getStoreConfigFlag('{{module}}/{{entity}}/breadcrumbs');
+        return Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/breadcrumbs');
     }

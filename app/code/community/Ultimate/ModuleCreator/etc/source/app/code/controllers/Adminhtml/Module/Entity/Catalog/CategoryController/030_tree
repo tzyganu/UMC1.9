@@ -7,7 +7,7 @@
     public function {{entities}}JsonAction(){
         $this->_initCategory();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_catalog_category_edit_{{entity}}')
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_catalog_category_edit_{{entity}}')
                 ->get{{Entity}}ChildrenJson($this->getRequest()->getParam('{{entity}}'))
         );
     }

@@ -119,7 +119,7 @@
          */
         public function getParent{{Entities}}(${{entity}}){
             $pathIds = array_reverse(explode('/', ${{entity}}->getPath()));
-            ${{entities}} = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+            ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
                 ->addFieldToFilter('entity_id', array('in' => $pathIds))
                 ->load()
                 ->getItems();

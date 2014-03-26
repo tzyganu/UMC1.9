@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -77,10 +77,11 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFrontendHtml() {
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $entityName = $this->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
-        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
-        return '<?php echo Mage::helper(\''.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>: <?php echo Mage::helper(\'core\')->formatDate($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\');?>'.$this->getEol();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>: <?php echo Mage::helper(\'core\')->formatDate($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\');?>'.$this->getEol();
     }
     /**
      * get options for admin form
@@ -103,8 +104,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        $attribute = $this->getAttribute();
-        $module = $attribute->getEntity()->getModule()->getLowerModuleName();
-        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.Mage::helper(\'core\')->formatDate($item->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\').\'</div>\';'.$this->getEol();
+        $attribute  = $this->getAttribute();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return $this->getPadding(3).'$'.'description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__(\''.$attribute->getLabel().'\').\': \'.Mage::helper(\'core\')->formatDate($item->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\').\'</div>\';'.$this->getEol();
     }
 }

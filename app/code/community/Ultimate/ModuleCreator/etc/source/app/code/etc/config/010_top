@@ -16,20 +16,20 @@
             </{{namespace}}_{{module}}_setup>
         </resources>
         <blocks>
-            <{{module}}>
+            <{{namespace}}_{{module}}>
                 <class>{{Namespace}}_{{Module}}_Block</class>
-            </{{module}}>
+            </{{namespace}}_{{module}}>
         </blocks>
         <helpers>
-            <{{module}}>
+            <{{namespace}}_{{module}}>
                 <class>{{Namespace}}_{{Module}}_Helper</class>
-            </{{module}}>
+            </{{namespace}}_{{module}}>
         </helpers>
         <models>
-            <{{module}}>
+            <{{namespace}}_{{module}}>
                 <class>{{Namespace}}_{{Module}}_Model</class>
-                <resourceModel>{{module}}_resource</resourceModel>
-            </{{module}}>
-            <{{module}}_resource>
+                <resourceModel>{{namespace}}_{{module}}_resource</resourceModel>
+            </{{namespace}}_{{module}}>
+            <{{namespace}}_{{module}}_resource>
                 <class>{{Namespace}}_{{Module}}_Model_Resource</class>
                 <entities>

@@ -17,5 +17,5 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Source
      */
     public function getAllOptions($withEmpty = false) {
         if (is_null($this->_options)) {
-            $this->_options = Mage::getResourceModel('{{module}}/{{entity}}_collection')
+            $this->_options = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
 

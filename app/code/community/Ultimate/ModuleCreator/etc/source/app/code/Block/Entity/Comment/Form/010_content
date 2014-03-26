@@ -27,7 +27,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
                 $data->setEmail($customer->getEmail());
             }
         }
-        $this->setAllowWriteCommentFlag($customerSession->isLoggedIn() || Mage::getStoreConfigFlag('{{module}}/{{entity}}/allow_guest_comment'));
+        $this->setAllowWriteCommentFlag($customerSession->isLoggedIn() || Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment'));
         if (!$this->getAllowWriteCommentFlag()) {
             $this->setLoginLink(
                 Mage::getUrl('customer/account/login/', array(
@@ -56,6 +56,6 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
      * {{qwertyuiop}}
      */
     public function getAction() {
-        return Mage::getUrl('{{module}}/{{entity}}/commentpost', array('id' => $this->get{{Entity}}()->getId()));
+        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/commentpost', array('id' => $this->get{{Entity}}()->getId()));
     }
 }

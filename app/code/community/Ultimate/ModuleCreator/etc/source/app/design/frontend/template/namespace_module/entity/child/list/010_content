@@ -11,7 +11,7 @@
 <?php $_{{siblings}} = $this->get{{Siblings}}(); ?>
 <?php if ($_{{siblings}}->getSize() > 0) :?>
 <div class="{{sibling}}-title">
-    <h2><?php echo Mage::helper('{{module}}')->__('{{SiblingsLabel}}') ?></h2>
+    <h2><?php echo Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingsLabel}}') ?></h2>
 </div>
 <div class="{{siblings}}-list-container">
     <?php foreach ($_{{siblings}} as $_{{sibling}}) : ?>

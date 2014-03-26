@@ -1,10 +1,10 @@
     <adminhtml_{{module}}_{{entity}}_edit>
         <update handle="editor"/>{{entityLayoutAdditional}}
         <reference name="left">
-            <block name="{{entity}}.tree" type="{{module}}/adminhtml_{{entity}}_tree" />
+            <block name="{{entity}}.tree" type="{{namespace}}_{{module}}/adminhtml_{{entity}}_tree" />
         </reference>
         <reference name="content">
-            <block name="{{entity}}.edit" type="{{module}}/adminhtml_{{entity}}_edit" template="{{namespace}}_{{module}}/{{entity}}/edit.phtml" />
+            <block name="{{entity}}.edit" type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit" template="{{namespace}}_{{module}}/{{entity}}/edit.phtml" />
         </reference>
         <reference name="js">
             <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />

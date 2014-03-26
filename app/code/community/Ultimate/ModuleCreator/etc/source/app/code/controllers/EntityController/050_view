@@ -6,7 +6,7 @@
      */
     protected function _init{{Entity}}(){
         ${{entity}}Id   = $this->getRequest()->getParam('id', 0);
-        ${{entity}}     = Mage::getModel('{{module}}/{{entity}}')
+        ${{entity}}     = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
                         ->setStoreId(Mage::app()->getStore()->getId())
                         ->load(${{entity}}Id);
         if (!${{entity}}->getId()){

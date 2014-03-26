@@ -23,7 +23,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_{{Sibling}}_Collection
     public function joinFields(){
         if (!$this->_joinedFields){
             $this->getSelect()->join(
-                array('related' => $this->getTable('{{module}}/{{entity}}_{{sibling}}')),
+                array('related' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_{{sibling}}')),
                 'related.{{sibling}}_id = {{siblingTableAlias}}.entity_id',
                 array('position')
             );

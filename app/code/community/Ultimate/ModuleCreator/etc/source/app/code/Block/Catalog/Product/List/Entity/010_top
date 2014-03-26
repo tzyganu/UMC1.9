@@ -18,4 +18,4 @@ class {{Namespace}}_{{Module}}_Block_Catalog_Product_List_{{Entity}}
     public function get{{Entity}}Collection(){
         if (!$this->hasData('{{entity}}_collection')){
             $product = Mage::registry('product');
-            $collection = Mage::getResourceSingleton('{{module}}/{{entity}}_collection')
+            $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')

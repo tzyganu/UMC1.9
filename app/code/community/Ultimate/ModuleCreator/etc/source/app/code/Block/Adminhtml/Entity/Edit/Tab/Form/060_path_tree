@@ -1,7 +1,7 @@
         if (!$this->get{{Entity}}()->getId()) {
             $parentId = $this->getRequest()->getParam('parent');
             if (!$parentId) {
-                $parentId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                $parentId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
             }
             $fieldset->addField('path', 'hidden', array(
                 'name'  => 'path',

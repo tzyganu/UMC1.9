@@ -17,5 +17,5 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_List
      public function __construct(){
          parent::__construct();
          ${{entity}} = $this->get{{Entity}}();
-         $comments = Mage::getResourceModel('{{module}}/{{entity}}_comment_collection')
+         $comments = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_collection')
              ->addFieldToFilter('{{entity}}_id', ${{entity}}->getId())

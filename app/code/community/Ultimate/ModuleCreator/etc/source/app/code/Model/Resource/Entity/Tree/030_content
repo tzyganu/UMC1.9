@@ -17,7 +17,7 @@
      * {{qwertyuiop}}
      */
     public function move(${{entity}}, $newParent, $prevNode = null){
-        Mage::getResourceSingleton('{{module}}/{{entity}}')->move(${{entity}}->getId(), $newParent->getId());
+        Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->move(${{entity}}->getId(), $newParent->getId());
         parent::move(${{entity}}, $newParent, $prevNode);
         $this->_afterMove(${{entity}}, $newParent, $prevNode);
     }

@@ -16,7 +16,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
     protected function _construct(){
-        $this->_init('{{module}}/{{entity}}_{{sibling}}');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}_{{sibling}}');
     }
     /**
      * Save data for {{entity}} - {{sibling}} relation
@@ -40,7 +40,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
     public function get{{Siblings}}Collection(${{entity}}){
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_{{sibling}}_collection')
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_{{sibling}}_collection')
             ->add{{Entity}}Filter(${{entity}});
         return $collection;
     }

@@ -1,5 +1,5 @@
 $table = $this->getConnection()
-    ->newTable($this->getTable('{{module}}/{{entity}}'))
+    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'nullable'  => false,

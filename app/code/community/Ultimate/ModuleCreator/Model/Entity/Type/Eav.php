@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -64,9 +64,9 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $result  = $eol;
         $result .= $this->getPadding(2).'$adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;'.$eol;
         $result .= $this->getPadding(2).'$store = $this->_getStore();'.$eol;
-        $result .= $this->getPadding(2).'$collection->joinAttribute(\''.$this->getEntity()->getNameAttributeCode().'\', \''.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'/'.$this->getEntity()->getNameAttributeCode().'\', \'entity_id\', null, \'inner\', $adminStore);'.$eol;
+        $result .= $this->getPadding(2).'$collection->joinAttribute(\''.$this->getEntity()->getNameAttributeCode().'\', \''.strtolower($this->getEntity()->getModule()->getNamespace()).'_'.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'/'.$this->getEntity()->getNameAttributeCode().'\', \'entity_id\', null, \'inner\', $adminStore);'.$eol;
         $result .= $this->getPadding(2).'if ($store->getId()) {'.$eol;
-        $result .= $this->getPadding(3).    '$collection->joinAttribute(\''.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\', \''.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'/'.$this->getEntity()->getNameAttributeCode().'\', \'entity_id\', null, \'inner\', $store->getId());'.$eol;
+        $result .= $this->getPadding(3).    '$collection->joinAttribute(\''.$this->getModule()->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\', \''.$this->getModule()->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'/'.$this->getEntity()->getNameAttributeCode().'\', \'entity_id\', null, \'inner\', $store->getId());'.$eol;
         $result .= $this->getPadding(2).'}'.$eol;
         return $result;
     }
@@ -91,10 +91,10 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $eol     = $this->getEol();
         $result  = $eol;
         $result .= $this->getPadding(2).'if ($this->_getStore()->getId()){'.$eol;
-        $result .= $this->getPadding(3).    '$this->addColumn(\''.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\', array('.$eol;
-        $result .= $this->getPadding(4).        '\'header\'    => Mage::helper(\''.$this->getEntity()->getModule()->getLowerModuleName().'\')->__(\''.$this->getEntity()->getNameAttributeLabel().' in %s\', $this->_getStore()->getName()),'.$eol;
+        $result .= $this->getPadding(3).    '$this->addColumn(\''.$this->getNamespace(true).'_'.$this->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\', array('.$eol;
+        $result .= $this->getPadding(4).        '\'header\'    => Mage::helper(\''.$this->getNamespace(true).'_'.$this->getLowerModuleName().'\')->__(\''.$this->getEntity()->getNameAttributeLabel().' in %s\', $this->_getStore()->getName()),'.$eol;
         $result .= $this->getPadding(4).        '\'align\'     => \'left\','.$eol;
-        $result .= $this->getPadding(4).        '\'index\'     => \''.$this->getEntity()->getModule()->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\','.$eol;
+        $result .= $this->getPadding(4).        '\'index\'     => \''.$this->getNamespace(true).'_'.$this->getLowerModuleName().'_'.$this->getEntity()->getNameSingular().'_'.$this->getEntity()->getNameAttributeCode().'\','.$eol;
         $result .= $this->getPadding(3).    '));'.$eol;
         $result .= $this->getPadding(2).'}'.$eol;
         return $result;
@@ -135,18 +135,18 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdditionalMenu($padding) {
-        $extension   = $this->getEntity()->getModule()->getExtensionName();
-        $module      = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity      = strtolower($this->getEntity()->getNameSingular());
+        $extension   = $this->getModule()->getExtensionName(true);
+        $module      = $this->getLowerModuleName();
+        $entity      = $this->getEntity()->getNameSingular(true);
         $entityTitle = $this->getEntity()->getLabelSingular();
         $action      = $module.'_'.$entity;
         $eol         = $this->getEol();
 
-        $text  = $this->getPadding($padding).'<'.$extension.'_'.$entity.'_attributes translate="title" module="'.$module.'">'.$eol;
+        $text  = $this->getPadding($padding).'<'.$entity.'_attributes translate="title" module="'.$extension.'">'.$eol;
         $text .= $this->getPadding($padding + 1).'<title>Manage '.$entityTitle.' Attributes</title>'.$eol;
         $text .= $this->getPadding($padding + 1).'<action>adminhtml/'.$action.'_attribute</action>'.$eol;
         $text .= $this->getPadding($padding + 1).'<sort_order>'.($this->getEntity()->getPosition() + 7).'</sort_order>'.$eol;
-        $text .= $this->getPadding($padding).'</'.$extension.'_'.$entity.'_attributes>'.$eol;
+        $text .= $this->getPadding($padding).'</'.$entity.'_attributes>'.$eol;
         return $text;
     }
 
@@ -158,17 +158,17 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdditionalMenuAcl($padding) {
-        $extension   = $this->getEntity()->getModule()->getExtensionName();
-        $module      = strtolower($this->getEntity()->getModule()->getModuleName());
-        $entity      = strtolower($this->getEntity()->getNameSingular());
+        $extension   = $this->getModule()->getExtensionName(true);
+        $module      = $this->getLowerModuleName();
+        $entity      = $this->getEntity()->getNameSingular(true);
         $entityTitle = $this->getEntity()->getLabelSingular();
         $action      = $module.'_'.$entity;
         $eol         = $this->getEol();
 
-        $text  = $this->getPadding($padding).'<'.$extension.'_attributes translate="title" module="'.$module.'">'.$eol;
+        $text  = $this->getPadding($padding).'<'.$entity.'_attributes translate="title" module="'.$extension.'">'.$eol;
         $text .= $this->getPadding($padding + 1).'<title>Manage '.$entityTitle.' attributes</title>'.$eol;
         $text .= $this->getPadding($padding + 1).'<sort_order>'.($this->getEntity()->getPosition() + 7).'</sort_order>'.$eol;
-        $text .= $this->getPadding($padding).'</'.$extension.'_attributes>'.$eol;
+        $text .= $this->getPadding($padding).'</'.$entity.'_attributes>'.$eol;
         return $text;
     }
     /**
@@ -193,13 +193,14 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
             $this->_parentAttributes = array();
             foreach ($parents as $parent) {
                 $module = $parent->getModule()->getLowerModuleName();
+                $namespace = $parent->getModule()->getNamespace(true);
                 $name   = $parent->getNameSingular();
                 $attr   = Mage::getModel('modulecreator/attribute');
                 $attr->setCode($name.'_id');
                 $attr->setLabel($parent->getLabelSingular());
                 $attr->setType('dropdown');
                 $attr->setOptionsSource('custom');
-                $attr->setForcedSource($module.'/'.$name.'_source');
+                $attr->setForcedSource($namespace.'_'.$module.'/'.$name.'_source');
                 $attr->setScope(Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL);
                 $attr->setEntity($this->getEntity());
                 $attr->setUseFilterIndex(true);
@@ -265,22 +266,23 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getResourceRelationsTables() {
-        $padding = $this->getPadding(2);
-        $content = '';
-        $eol     = $this->getEol();
-        $entity  = strtolower($this->getEntity()->getNameSingular());
-        $module  = $this->getEntity()->getModule()->getLowerModuleName();
+        $padding    = $this->getPadding(2);
+        $content    = '';
+        $eol        = $this->getEol();
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $module     = $this->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
         if ($this->getEntity()->getLinkProduct()){
-            $content .= $padding.'$'.'this->_'.$entity.'ProductTable = $'."this->getTable('".$module."/".$entity."_product');".$eol;
+            $content .= $padding.'$'.'this->_'.$entity.'ProductTable = $'."this->getTable('".$namespace.'_'.$module."/".$entity."_product');".$eol;
         }
         if ($this->getEntity()->getLinkCategory()){
-            $content .= $padding.'$'.'this->_'.$entity.'CategoryTable = $'."this->getTable('".$module."/".$entity."_category');".$eol;
+            $content .= $padding.'$'.'this->_'.$entity.'CategoryTable = $'."this->getTable('".$namespace.'_'.$module."/".$entity."_category');".$eol;
         }
         $related = $this->getEntity()->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
         foreach ($related as $_entity){
             $_entityUc      = ucfirst($_entity->getNameSingular());
-            $_entityLower   = strtolower($_entity->getNameSingular());
-            $content .= $padding.'$'.'this->_'.$entity.$_entityUc.'Table = $'."this->getTable('".$module."/".$entity."_".$_entityLower."');".$eol;
+            $_entityLower   = $_entity->getNameSingular(true);
+            $content .= $padding.'$'.'this->_'.$entity.$_entityUc.'Table = $'."this->getTable('".$namespace.'_'.$module."/".$entity."_".$_entityLower."');".$eol;
         }
         return $content;
     }
@@ -294,8 +296,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $padding = $this->getPadding();
         $content = '';
         $eol     = $this->getEol();
-        $entity  = strtolower($this->getEntity()->getNameSingular());
-        $module  = $this->getEntity()->getModule()->getLowerModuleName();
+        $entity  = $this->getEntity()->getNameSingular(true);
+        $module  = $this->getLowerModuleName();
         if ($this->getEntity()->getLinkProduct()) {
             $content .= $padding.'protected $'.'_'.$entity.'ProductTable = null;'.$eol;
         }
@@ -305,8 +307,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $related = $this->getEntity()->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
         foreach ($related as $_entity) {
             $_entityUc      = ucfirst($_entity->getNameSingular());
-            $_entityLower   = strtolower($_entity->getNameSingular());
-            $content .= $padding.'protected $'.'_'.$entity.$_entityUc.'Table = null;'.$eol;
+            $_entityLower   = $_entity->getNameSingular(true);
+            $content       .= $padding.'protected $'.'_'.$entity.$_entityUc.'Table = null;'.$eol;
         }
         return $content;
     }
@@ -317,14 +319,15 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdminIndexLayoutContent() {
-        $entity   = strtolower($this->getEntity()->getNameSingular());
-        $module   = $this->getEntity()->getModule()->getLowerModuleName();
-        $eol      = $this->getEol();
-        $content  = $this->getPadding(3).'<block type="'.$module.'/adminhtml_'.$entity.'" name="'.$entity.'">'.$eol;
-        $content .= $this->getPadding(4).'<block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">'.$eol;
-        $content .= $this->getPadding(5).'<action method="setUseConfirm"><params>0</params></action>'.$eol;
-        $content .= $this->getPadding(4).'</block>'.$eol;
-        $content .= $this->getPadding(3).'</block>'.$eol;
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $module     = $this->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        $eol        = $this->getEol();
+        $content    = $this->getPadding(3).'<block type="'.$namespace.'_'.$module.'/adminhtml_'.$entity.'" name="'.$entity.'">'.$eol;
+        $content   .= $this->getPadding(4).'<block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">'.$eol;
+        $content   .= $this->getPadding(5).'<action method="setUseConfirm"><params>0</params></action>'.$eol;
+        $content   .= $this->getPadding(4).'</block>'.$eol;
+        $content   .= $this->getPadding(3).'</block>'.$eol;
         return $content;
     }
     /**
@@ -396,9 +399,10 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getEntityAttributeSetId() {
-        $module = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity = strtolower($this->getEntity()->getNameSingular());
-        return $this->getEol().$this->getPadding()."->setAttributeSetId(Mage::getModel('".$module.'/'.$entity."')->getDefaultAttributeSetId())";
+        $namespace  = $this->getNamespace(true);
+        $module     = $this->getLowerModuleName();
+        $entity     = $this->getEntity()->getNameSingular(true);
+        return $this->getEol().$this->getPadding()."->setAttributeSetId(Mage::getModel('".$namespace.'_'.$module.'/'.$entity."')->getDefaultAttributeSetId())";
     }
     /**
      * filter method name
@@ -460,7 +464,7 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content .= $padding.'<currentStore>'.$eol;
         $content .= $padding.$tab.'<title>Set/Get current store view</title>'.$eol;
         $content .= $padding.'</currentStore>'.$eol;
-        $content .= $padding.'<listOfAdditionalAttributes translate="title" module="'.$this->getEntity()->getModule()->getLowerModuleName().'">'.$eol;
+        $content .= $padding.'<listOfAdditionalAttributes translate="title" module="'.$this->getNamespace(true).'_'.$this->getLowerModuleName().'">'.$eol;
         $content .= $padding.$tab.'<title>Get list of non-default attributes</title>'.$eol;
         $content .= $padding.$tab.'<method>getAdditionalAttributes</method>'.$eol;
         $content .= $padding.'</listOfAdditionalAttributes>'.$eol;
@@ -493,58 +497,59 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $padding  = $this->getPadding(3);
         $tab      = $this->getPadding();
-        $module   = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $module   = $this->getLowerModuleName();
+        $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
         $content .= $eol;
-        $content .= $padding.'<'.$module.'_'.$entity.'_attribute translate="title" module="'.$module.'">'.$eol;
+        $extension = $this->getModule()->getExtensionName(true);
+        $content .= $padding.'<'.$module.'_'.$entity.'_attribute translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.'<title>Product attributes API</title>'.$eol;
-        $content .= $padding.$tab.'<model>'.$module.'/'.$entity.'_attribute_api</model>'.$eol;
+        $content .= $padding.$tab.'<model>'.$extension.'/'.$entity.'_attribute_api</model>'.$eol;
         $content .= $padding.$tab.'<acl>'.$module.'/'.$entity.'</acl>'.$eol;
         $content .= $padding.$tab.'<methods>'.$eol;
-        $content .= $padding.$tab.$tab.'<currentStore translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<currentStore translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Set/Get current store view</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/write</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</currentStore>'.$eol;
-        $content .= $padding.$tab.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<list translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Retrieve attribute list</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<method>items</method>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/read</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</list>'.$eol;
-        $content .= $padding.$tab.$tab.'<options translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<options translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Retrieve attribute options</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/read</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</options>'.$eol;
-        $content .= $padding.$tab.$tab.'<types translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<types translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Get list of possible attribute types</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/types</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</types>'.$eol;
-        $content .= $padding.$tab.$tab.'<create translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<create translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Create new attribute</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/create</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</create>'.$eol;
-        $content .= $padding.$tab.$tab.'<update translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<update translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Update attribute</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/update</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</update>'.$eol;
-        $content .= $padding.$tab.$tab.'<remove translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<remove translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Delete attribute</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/remove</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</remove>'.$eol;
-        $content .= $padding.$tab.$tab.'<info translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<info translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Get full information about attribute with list of options</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/info</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</info>'.$eol;
-        $content .= $padding.$tab.$tab.'<addOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<addOption translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Add option</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/option/add</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</addOption>'.$eol;
-        $content .= $padding.$tab.$tab.'<removeOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.$tab.'<removeOption translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<title>Remove option</title>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<acl>'.$module.'/'.$entity.'_attribute/option/remove</acl>'.$eol;
         $content .= $padding.$tab.$tab.'</removeOption>'.$eol;
         $content .= $padding.$tab.'</methods>'.$eol;
-        $content .= $padding.$tab.'<faults module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<faults module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<store_not_exists>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<code>100</code>'.$eol;
         $content .= $padding.$tab.$tab.$tab.'<message>Requested store view not found.</message>'.$eol;
@@ -600,44 +605,44 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $padding  = $this->getPadding(5);
         $tab      = $this->getPadding();
-        $module   = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $module   = $this->getLowerModuleName();
+        $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
         $title    = $this->getEntity()->getLabelSingular().' Attributes';
-
+        $extension = $this->getModule()->getExtensionName(true);
         $content .= $eol;
 
-        $content .= $padding.'<'.$entity.'_attribute translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.'<'.$entity.'_attribute translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.'<title>'.$title.'</title>'.$eol;
         $content .= $padding.$tab.'<sort_order>'.($this->getEntity()->getPosition() + 6).'</sort_order>'.$eol;
-        $content .= $padding.$tab.'<currentStore translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<currentStore translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Set/Get current store view</title>'.$eol;
         $content .= $padding.$tab.'</currentStore>'.$eol;
-        $content .= $padding.$tab.'<list translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<list translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Retrieve attribute list</title>'.$eol;
         $content .= $padding.$tab.'</list>'.$eol;
-        $content .= $padding.$tab.'<options translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<options translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Retrieve attribute options</title>'.$eol;
         $content .= $padding.$tab.'</options>'.$eol;
-        $content .= $padding.$tab.'<types translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<types translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Get list of possible attribute types</title>'.$eol;
         $content .= $padding.$tab.'</types>'.$eol;
-        $content .= $padding.$tab.'<create translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<create translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Create new attribute</title>'.$eol;
         $content .= $padding.$tab.'</create>'.$eol;
-        $content .= $padding.$tab.'<update translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<update translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Update attribute</title>'.$eol;
         $content .= $padding.$tab.'</update>'.$eol;
-        $content .= $padding.$tab.'<remove translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<remove translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Remove attribute</title>'.$eol;
         $content .= $padding.$tab.'</remove>'.$eol;
-        $content .= $padding.$tab.'<info translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<info translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Get full information about attribute with list of options</title>'.$eol;
         $content .= $padding.$tab.'</info>'.$eol;
-        $content .= $padding.$tab.'<addOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<addOption translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Add option</title>'.$eol;
         $content .= $padding.$tab.'</addOption>'.$eol;
-        $content .= $padding.$tab.'<removeOption translate="title" module="'.$module.'">'.$eol;
+        $content .= $padding.$tab.'<removeOption translate="title" module="'.$extension.'">'.$eol;
         $content .= $padding.$tab.$tab.'<title>Remove option</title>'.$eol;
         $content .= $padding.$tab.'</removeOption>'.$eol;
         $content .= $padding.'</'.$entity.'_attribute>'.$eol;
@@ -653,8 +658,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $padding  = $this->getPadding(3);
         $tab      = $this->getPadding();
-        $module   = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $module   = $this->getLowerModuleName();
+        $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
         $content .= $eol;
         $content .= $padding.'<'.$entity.'_attribute>'.$module.'_'.$entity.'_attribute</'.$entity.'_attribute>';
@@ -670,8 +675,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $padding  = $this->getPadding(4);
         $tab      = $this->getPadding();
-        $module   = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity   = strtolower($this->getEntity()->getNameSingular());
+        $module   = $this->getLowerModuleName();
+        $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
         $content .= $eol;
         $content .= $padding.'<'.$entity.'_attribute>'.$module.ucfirst($entity).'Attribute</'.$entity.'_attribute>';
@@ -689,8 +694,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $padding    = str_repeat($tab, 5);
         $eol        = $this->getEol();
         $content    = '';
-        $module     = $this->getEntity()->getModule()->getLowerModuleName();
-        $entity     = ucfirst($this->getEntity()->getNameSingular());
+        $module     = $this->getLowerModuleName();
+        $entity     = ucfirst($this->getEntity()->getNameSingular(true));
         if (!$wsi) {
             $content   .= $padding.'<element name="additional_attributes" type="typens:'.$module.$entity.'AdditionalAttributesEntity" minOccurs="0"/>'.$eol;
         }
@@ -713,16 +718,16 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content  = $padding.'protected $_defaultAttributeList = array('.$eol;
         $parents  = $entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
         foreach ($parents as $parent){
-            $content .= $padding.$tab."'".$parent->getNameSingular().'_id'."', ".$eol;
+            $content .= $padding.$tab."'".$parent->getNameSingular(true).'_id'."', ".$eol;
         }
         foreach ($entity->getAttributes() as $attribute){
             $content .= $padding.$tab."'".$attribute->getCode()."'".', '.$eol;
         }
         $simulated = $entity->getSimulatedAttributes(null, false);
         foreach ($simulated as $attr){
-            if (!$attr->getIgnoreApi()){
+            //if (!$attr->getIgnoreApi()){
                 $content .= $padding.$tab."'".$attr->getCode()."'".', '.$eol;
-            }
+            //}
         }
         $content .= $padding.$tab."'created_at', ".$eol;
         $content .= $padding.$tab."'updated_at', ".$eol;

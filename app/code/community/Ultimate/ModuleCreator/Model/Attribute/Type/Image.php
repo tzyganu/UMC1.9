@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -70,13 +70,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
     public function getRssText() {
         $eol        = $this->getEol();
         $content    = '';
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $entityName = $this->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
-        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
         $content   .= $this->getPadding(3).'if ($item->get'.$this->getAttribute()->getMagicMethodCode().'()) {'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'<div>\';'.$eol;
-        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
-        $content   .= $this->getPadding(4).'$description .= \'<img src="\'.Mage::helper(\''.$module.'/'.$entityName.'_image\')->init($item, \''.$this->getAttribute()->getCode().'\')->resize(75).\'" alt="\'.$this->htmlEscape($item->get'.$this->getAttribute()->getEntity()->getNameAttributeMagicCode().'()).\'" />\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$namespace.'_'.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'<img src="\'.Mage::helper(\''.$namespace.'_'.$module.'/'.$entityName.'_image\')->init($item, \''.$this->getAttribute()->getCode().'\')->resize(75).\'" alt="\'.$this->htmlEscape($item->get'.$this->getEntity()->getNameAttributeMagicCode().'()).\'" />\';'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'</div>\';'.$eol;
         $content   .= $this->getPadding(3).'}'.$eol;
         return $content;
@@ -90,11 +91,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
     public function getFrontendHtml() {
         $eol        = $this->getEol();
         $content    = '';
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $entityName = $this->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
-        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
+        $module     = $this->getModule()->getModuleName(true);
+        $namespace  = $this->getNamespace(true);
         $content   .= '<?php if ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) :?>'.$eol;
-        $content   .= $this->getHelper()->getPadding().'<img src="<?php echo Mage::helper(\''.$module.'/'.$entityName.'_image\')->init($_'.$entityName.', \''.$this->getAttribute()->getCode().'\')->resize(75);?>" alt="<?php echo $this->htmlEscape($_'.$entityName.'->get'.$this->getAttribute()->getEntity()->getNameAttributeMagicCode().'());?>" />'.$eol;
+        $content   .= $this->getHelper()->getPadding().'<img src="<?php echo Mage::helper(\''.$namespace.'_'.$module.'/'.$entityName.'_image\')->init($_'.$entityName.', \''.$this->getAttribute()->getCode().'\')->resize(75);?>" alt="<?php echo $this->htmlEscape($_'.$entityName.'->get'.$this->getAttribute()->getEntity()->getNameAttributeMagicCode().'());?>" />'.$eol;
         $content   .= '<?php endif;?>'.$eol;
         return $content;
     }
@@ -108,6 +110,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
         $attribute  = $this->getAttribute();
         $entity     = $attribute->getEntity();
         $module     = $entity->getModule();
-        return $module->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'_attribute_backend_image';
+        return $this->getNamespace(true).'_'.$module->getLowerModuleName().'/'.$entity->getNameSingular(true).'_attribute_backend_image';
     }
 }

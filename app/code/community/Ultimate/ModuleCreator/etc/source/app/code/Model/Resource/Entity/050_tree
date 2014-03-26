@@ -6,7 +6,7 @@
      */
     protected function _getTree(){
         if (!$this->_tree) {
-            $this->_tree = Mage::getResourceModel('{{module}}/{{entity}}_tree')->load();
+            $this->_tree = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree')->load();
         }
         return $this->_tree;
     }

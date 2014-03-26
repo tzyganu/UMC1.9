@@ -16,7 +16,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
      * {{qwertyuiop}}
      */
     protected function _prepareCollection(){
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_attribute_collection')
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_attribute_collection')
             ->addVisibleFilter();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -31,14 +31,14 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
     protected function _prepareColumns() {
         parent::_prepareColumns();
         $this->addColumnAfter('is_global', array(
-            'header'=>Mage::helper('{{module}}')->__('Scope'),
+            'header'=>Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
             'sortable'=>true,
             'index'=>'is_global',
             'type' => 'options',
             'options' => array(
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>Mage::helper('{{module}}')->__('Store View'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('{{module}}')->__('Website'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>Mage::helper('{{module}}')->__('Global'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('{{namespace}}_{{module}}')->__('Website'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>Mage::helper('{{namespace}}_{{module}}')->__('Global'),
             ),
             'align' => 'center',
         ), 'is_user_defined');

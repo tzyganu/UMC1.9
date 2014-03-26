@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -71,11 +71,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
         $tab      = $this->getPadding();
         $eol      = $this->getEol();
         $module   = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $namespace = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getNamespace(true);
         if ($this->getTypeAttribute()->getAttribute()->getOptions()) {
             $content = $padding.'$options =  array('.$eol;
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
-                $content .= $padding.$tab.$tab."'label' => Mage::helper('".$module."')->__('".$option."'),".$eol;
+                $content .= $padding.$tab.$tab."'label' => Mage::helper('".$namespace.'_'.$module."')->__('".$option."'),".$eol;
                 $content .= $padding.$tab.$tab."'value' => ".($index+1).$eol;
                 $content .= $padding.$tab.'),'.$eol;
             }

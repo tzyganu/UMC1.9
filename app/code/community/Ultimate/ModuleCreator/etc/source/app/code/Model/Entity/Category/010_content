@@ -16,7 +16,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Category
      * {{qwertyuiop}}
      */
     protected function _construct(){
-        $this->_init('{{module}}/{{entity}}_category');
+        $this->_init('{{namespace}}_{{module}}/{{entity}}_category');
     }
     /**
      * Save data for {{entity}}-category relation
@@ -40,7 +40,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Category
      * {{qwertyuiop}}
      */
     public function getCategoryCollection(${{entity}}){
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_category_collection')
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_category_collection')
             ->add{{Entity}}Filter(${{entity}});
         return $collection;
     }

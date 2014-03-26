@@ -1,14 +1,14 @@
     <adminhtml_{{module}}_{{entity}}_attribute_index>
         <reference name="content">
-            <block type="{{module}}/adminhtml_{{entity}}_attribute" name="attribute_grid"></block>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute" name="attribute_grid"></block>
         </reference>
     </adminhtml_{{module}}_{{entity}}_attribute_index>
     <adminhtml_{{module}}_{{entity}}_attribute_edit>
         <reference name="left">
-            <block type="{{module}}/adminhtml_{{entity}}_attribute_edit_tabs" name="attribute_edit_tabs"></block>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit_tabs" name="attribute_edit_tabs"></block>
         </reference>
         <reference name="content">
-            <block type="{{module}}/adminhtml_{{entity}}_attribute_edit" name="attribute_edit_content"></block>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit" name="attribute_edit_content"></block>
         </reference>
         <reference name="js">
             <block type="adminhtml/template" name="attribute_edit_js" template="{{namespace}}_{{module}}/attribute/js.phtml">

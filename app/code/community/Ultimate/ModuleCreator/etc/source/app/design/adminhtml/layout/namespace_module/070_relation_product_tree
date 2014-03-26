@@ -1,5 +1,5 @@
     <adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="catalog.product.edit.tab.{{entities}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="catalog.product.edit.tab.{{entities}}"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}>

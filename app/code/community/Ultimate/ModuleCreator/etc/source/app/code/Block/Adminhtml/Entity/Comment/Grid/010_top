@@ -29,4 +29,4 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Grid
      * {{qwertyuiop}}
      */
     protected function _prepareCollection(){
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_comment_{{entity}}_collection');
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_{{entity}}_collection');

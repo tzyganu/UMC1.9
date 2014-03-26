@@ -30,7 +30,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
      */
     public function get{{Entity}}Ids() {
         if (is_null($this->_{{entity}}Ids)){
-            $selected{{Entities}} = Mage::helper('{{module}}/product')->getSelected{{Entities}}($this->getProduct());
+            $selected{{Entities}} = Mage::helper('{{namespace}}_{{module}}/product')->getSelected{{Entities}}($this->getProduct());
             $ids = array();
             foreach ($selected{{Entities}} as ${{entity}}) {
                 $ids[] = ${{entity}}->getId();
@@ -75,10 +75,10 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
         }
         $root = Mage::registry('{{entity}}_root');
         if (is_null($root)) {
-            $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+            $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
 
             $ids = $this->getSelected{{Entity}}PathIds($rootId);
-            $tree = Mage::getResourceSingleton('{{module}}/{{entity}}_tree')
+            $tree = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree')
                 ->loadByIds($ids, false, false);
             if ($this->get{{Entity}}()) {
                 $tree->loadEnsuredNodes($this->get{{Entity}}(), $tree->getNodeById($rootId));
@@ -160,7 +160,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
      * {{qwertyuiop}}
      */
     public function get{{Entity}}ChildrenJson(${{entity}}Id) {
-        ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load(${{entity}}Id);
+        ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
         $node = $this->getRoot(${{entity}}, 1)->getTree()->getNodeById(${{entity}}Id);
         if (!$node || !$node->hasChildren()) {
             return '[]';
@@ -197,7 +197,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
         if (empty(${{entity}}Ids)) {
             return array();
         }
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_collection');
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection');
 
         if ($rootId) {
             $collection->addFieldToFilter('parent_id', $rootId);

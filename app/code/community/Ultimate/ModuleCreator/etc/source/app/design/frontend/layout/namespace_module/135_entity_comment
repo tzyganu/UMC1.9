@@ -1,14 +1,14 @@
-    <{{module}}_{{entity}}_customer_comment_index translate="label" module="{{module}}">
+    <{{namespace}}_{{module}}_{{entity}}_customer_comment_index translate="label" module="{{namespace}}_{{module}}">
         <label>My {{EntitiesLabel}} comments</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="{{module}}/{{entity}}_customer_comment_list" name="customer_{{entity}}_comments" template="{{namespace}}_{{module}}/{{entity}}/customer/comment/list.phtml"/>
+            <block type="{{namespace}}_{{module}}/{{entity}}_customer_comment_list" name="customer_{{entity}}_comments" template="{{namespace}}_{{module}}/{{entity}}/customer/comment/list.phtml"/>
         </reference>
-    </{{module}}_{{entity}}_customer_comment_index>
-    <{{module}}_{{entity}}_customer_comment_view translate="label" module="{{module}}">
+    </{{namespace}}_{{module}}_{{entity}}_customer_comment_index>
+    <{{namespace}}_{{module}}_{{entity}}_customer_comment_view translate="label" module="{{namespace}}_{{module}}">
         <label>My {{EntitiesLabel}} comment view</label>
         <update handle="customer_account"/>
         <reference name="my.account.wrapper">
-            <block type="{{module}}/{{entity}}_customer_comment_view" name="customer_{{entity}}_comment" template="{{namespace}}_{{module}}/{{entity}}/customer/comment/view.phtml"/>
+            <block type="{{namespace}}_{{module}}/{{entity}}_customer_comment_view" name="customer_{{entity}}_comment" template="{{namespace}}_{{module}}/{{entity}}/customer/comment/view.phtml"/>
         </reference>
-    </{{module}}_{{entity}}_customer_comment_view>
+    </{{namespace}}_{{module}}_{{entity}}_customer_comment_view>

@@ -10,7 +10,7 @@
         $select = $this->_getReadAdapter()->select()
             ->from(array('e' => $this->getMainTable()))
             ->join(
-                array('es' => $this->getTable('{{module}}/{{entity}}_store')),
+                array('es' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_store')),
                 'e.entity_id = es.{{entity}}_id',
                 array())
             ->where('e.url_key = ?', $urlKey)

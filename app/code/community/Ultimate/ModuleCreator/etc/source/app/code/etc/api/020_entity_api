@@ -1,31 +1,31 @@
-            <{{module}}_{{entity}} translate="title" module="{{module}}">
+            <{{module}}_{{entity}} translate="title" module="{{namespace}}_{{module}}">
                 <title>{{EntityLabel}} API</title>
-                <model>{{module}}/{{entity}}_api</model>
+                <model>{{namespace}}_{{module}}/{{entity}}_api</model>
                 <acl>{{module}}/{{entity}}</acl>
                 <methods>
-                    <list translate="title" module="{{module}}">
+                    <list translate="title" module="{{namespace}}_{{module}}">
                         <title>Retrieve list of {{entitiesLabel}}</title>
                         <method>items</method>
                         <acl>{{module}}/{{entity}}/list</acl>
                     </list>
-                    <info translate="title" module="{{module}}">
+                    <info translate="title" module="{{namespace}}_{{module}}">
                         <title>Retrieve {{entityLabel}} info</title>
                         <acl>{{module}}/{{entity}}/info</acl>
                     </info>
-                    <add translate="title" module="{{module}}">
+                    <add translate="title" module="{{namespace}}_{{module}}">
                         <title>Add {{entityLabel}}</title>
                         <acl>{{module}}/{{entity}}/add</acl>
                     </add>
-                    <update translate="title" module="{{module}}">
+                    <update translate="title" module="{{namespace}}_{{module}}">
                         <title>Update {{entityLabel}}</title>
                         <acl>{{module}}/{{entity}}/update</acl>
                     </update>
-                    <remove translate="title" module="{{module}}">
+                    <remove translate="title" module="{{namespace}}_{{module}}">
                         <title>Remove {{entityLabel}}</title>
                         <acl>{{module}}/{{entity}}/remove</acl>
                     </remove>
 {{entityApiAdditional}}</methods>
-                <faults module="{{module}}">
+                <faults module="{{namespace}}_{{module}}">
                     <{{entity}}_not_exists>
                         <code>101</code>
                         <message>Requested {{entityLabel}} does not exist.</message>

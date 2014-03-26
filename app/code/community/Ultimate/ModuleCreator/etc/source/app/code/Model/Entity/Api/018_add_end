@@ -1,4 +1,4 @@
-            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')
+            ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
                 ->setData((array)$data)
                 ->save();
         }

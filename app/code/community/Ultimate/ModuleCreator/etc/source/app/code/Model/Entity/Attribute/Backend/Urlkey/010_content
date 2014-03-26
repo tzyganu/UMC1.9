@@ -25,7 +25,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
         $urlKey = $this->formatUrlKey($urlKey);
         $validKey = false;
         while (!$validKey) {
-            $entityId = Mage::getResourceModel('{{module}}/{{entity}}')->checkUrlKey($urlKey, $object->getStoreId(), false);
+            $entityId = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}')->checkUrlKey($urlKey, $object->getStoreId(), false);
             if ($entityId == $object->getId() || empty($entityId)) {
                 $validKey = true;
             }

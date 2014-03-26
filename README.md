@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9-dev7
+Ultimate Module Creator 1.9-dev8
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,15 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-dev8 - 2014-03-26** - Getting close to a stable version
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Improvement|Change module class aliases |Changed the class aliases from `module` to `namespace_module`. For example a model will be instantiated using `Mage::getModel('namespace_module/some_model')` to avoid extension conflicts. - the only things that does not use the namespace prefix are the SOAP API functions. It would look ugly with the namespace.|
+|Feature|Added configurable frontend routes|The route of the module can be configured. (<a href="https://github.com/tzyganu/UMC1.9/issues/4">#4</a>)|
+|Bug Fix|Fixed comment row URL|A click on any row on the comments grid ended up in a "Comment not found" error.|
+|Bug Fix|Fixed entities in category page|Links to entities related to categories had a wrong format in the category view page.|
 
 **Release Notes 1.9.0-dev7 - 2014-03-21**
 
@@ -109,14 +118,4 @@ The SOAP API for the generated modules is not fully tested.
 |Improvement|Module creator generate sql uninstall script|Along with the list of generated files now an sql uninstall script is generated for the created module.|
 |Bug fix|Fixed bug that appears when there is an uppercase letter in the module name.|In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.|  
 
-
-**Known Issues**
-
-* ~~The SOAP API does not work for EAV entities and is missing for the comments~~ (Disabled SOAP API option completely. This needs to be refactored)
-* ~~The Language file is missing for UMC~~
-* ~~Relations between EAV and Flat entities don't work correctly~~.
-* ~~Dropdown attributes don't work correctly for Flat entities~~.
-* ~~Admin comments grid for generated entities do not include the entity title.~~
-* ~~EAV Tree entities can be visible in frontend even if the parent is disabled.~~
-* ~~For EAV entities there the URL rewrite key does not have a unique constraint~~.
 

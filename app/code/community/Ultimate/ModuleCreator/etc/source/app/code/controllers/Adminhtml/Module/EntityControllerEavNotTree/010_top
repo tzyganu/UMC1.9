@@ -30,7 +30,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
              ->_title($this->__('Manage {{EntitiesLabel}}'));
 
         ${{entity}}Id  = (int) $this->getRequest()->getParam('id');
-        ${{entity}}    = Mage::getModel('{{module}}/{{entity}}')
+        ${{entity}}    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
             ->setStoreId($this->getRequest()->getParam('store', 0));
 
         if (${{entity}}Id) {
@@ -71,7 +71,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
 
         ${{entity}} = $this->_init{{Entity}}();
         if (${{entity}}Id && !${{entity}}->getId()) {
-            $this->_getSession()->addError(Mage::helper('{{module}}')->__('This {{entityLabel}} no longer exists.'));
+            $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
@@ -79,11 +79,11 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
             ${{entity}}->setData($data);
         }
         $this->_title(${{entity}}->get{{EntityNameMagicCode}}());
-        Mage::dispatchEvent('{{module}}_{{entity}}_edit_action', array('{{entity}}' => ${{entity}}));
+        Mage::dispatchEvent('{{namespace}}_{{module}}_{{entity}}_edit_action', array('{{entity}}' => ${{entity}}));
         $this->loadLayout();
         if (${{entity}}->getId()){
             if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
-                $switchBlock->setDefaultStoreName(Mage::helper('{{module}}')->__('Default Values'))
+                $switchBlock->setDefaultStoreName(Mage::helper('{{namespace}}_{{module}}')->__('Default Values'))
                     ->setWebsiteIds(${{entity}}->getWebsiteIds())
                     ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, 'active_tab'=>null, 'tab' => null, 'store'=>null)));
             }

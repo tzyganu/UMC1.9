@@ -104,13 +104,13 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
             return $html;
         }
         if ($this->isScopeGlobal($attribute)) {
-            $html.= Mage::helper('{{module}}')->__('[GLOBAL]');
+            $html.= Mage::helper('{{namespace}}_{{module}}')->__('[GLOBAL]');
         }
         elseif ($this->isScopeWebsite($attribute)) {
-            $html.= Mage::helper('{{module}}')->__('[WEBSITE]');
+            $html.= Mage::helper('{{namespace}}_{{module}}')->__('[WEBSITE]');
         }
         elseif ($this->isScopeStore($attribute)) {
-            $html.= Mage::helper('{{module}}')->__('[STORE VIEW]');
+            $html.= Mage::helper('{{namespace}}_{{module}}')->__('[STORE VIEW]');
         }
         return $html;
     }

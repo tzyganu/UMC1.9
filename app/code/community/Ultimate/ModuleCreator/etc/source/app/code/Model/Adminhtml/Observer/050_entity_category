@@ -8,7 +8,7 @@
     public function addCategory{{Entity}}Block($observer){
         $tabs = $observer->getEvent()->getTabs();
         $content = $tabs->getLayout()->createBlock(
-            '{{module}}/adminhtml_catalog_category_tab_{{entity}}',
+            '{{namespace}}_{{module}}/adminhtml_catalog_category_tab_{{entity}}',
             'category.{{entity}}.grid'
         )->toHtml();
         $serializer = $tabs->getLayout()->createBlock('adminhtml/widget_grid_serializer', 'category.{{entity}}.grid.serializer');
@@ -16,7 +16,7 @@
         $serializer->addColumnInputName('position');
         $content .= $serializer->toHtml();
         $tabs->addTab('{{entity}}', array(
-            'label'     => Mage::helper('{{module}}')->__('{{EntitiesLabel}}'),
+            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
             'content'   => $content,
         ));
         return $this;

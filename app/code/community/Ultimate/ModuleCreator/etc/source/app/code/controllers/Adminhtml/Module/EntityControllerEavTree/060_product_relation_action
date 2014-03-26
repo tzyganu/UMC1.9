@@ -9,6 +9,6 @@
             return;
         }
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_edit_tab_product', '{{entity}}.product.grid')->toHtml()
+            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_product', '{{entity}}.product.grid')->toHtml()
         );
     }

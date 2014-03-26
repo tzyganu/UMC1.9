@@ -7,16 +7,16 @@
     public function get{{Entity}}Url(){
         if ($this->getUrlKey()){
             $urlKey = '';
-            if ($prefix = Mage::getStoreConfig('{{module}}/{{entity}}/url_prefix')){
+            if ($prefix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix')){
                 $urlKey .= $prefix.'/';
             }
             $urlKey .= $this->getUrlKey();
-            if ($suffix = Mage::getStoreConfig('{{module}}/{{entity}}/url_suffix')){
+            if ($suffix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix')){
                 $urlKey .= '.'.$suffix;
             }
             return Mage::getUrl('', array('_direct'=>$urlKey));
         }
-        return Mage::getUrl('{{module}}/{{entity}}/view', array('id'=>$this->getId()));
+        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/view', array('id'=>$this->getId()));
     }
     /**
      * check URL key

@@ -11,7 +11,7 @@
         }
         if (!isset($this->_joinedFields['category'])){
             $this->getSelect()->join(
-                array('related_category' => $this->getTable('{{module}}/{{entity}}_category')),
+                array('related_category' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
                 'related_category.{{entity}}_id = {{entityTableAlias}}.entity_id',
                 array('position')
             );

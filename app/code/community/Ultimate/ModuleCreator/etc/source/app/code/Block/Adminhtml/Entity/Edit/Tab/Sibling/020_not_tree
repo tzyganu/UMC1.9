@@ -22,7 +22,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
      * {{qwertyuiop}}
      */
     protected function _prepareCollection() {
-        $collection = Mage::getResourceModel('{{module}}/{{sibling}}_collection'){{siblingAdditionalPrepareCollection}};
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection'){{siblingAdditionalPrepareCollection}};
         if ($this->get{{Entity}}()->getId()){
             $constraint = 'related.{{entity}}_id='.$this->get{{Entity}}()->getId();
         }
@@ -30,7 +30,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
             $constraint = 'related.{{entity}}_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related'=>$collection->getTable('{{module}}/{{entity}}_{{sibling}}')),
+            array('related'=>$collection->getTable('{{namespace}}_{{module}}/{{entity}}_{{sibling}}')),
             'related.{{sibling}}_id={{siblingTableAlias}}.entity_id AND '.$constraint,
             array('position'));
         $this->setCollection($collection);
@@ -62,12 +62,12 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
             'index' => 'entity_id'
         ));
         $this->addColumn('{{siblingNameAttribute}}', array(
-            'header'=> Mage::helper('{{module}}')->__('{{siblingNameAttributeLabel}}'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{siblingNameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{siblingNameAttribute}}',
         ));
         $this->addColumn('position', array(
-            'header'=> Mage::helper('{{module}}')->__('Position'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Position'),
             'name'  => 'position',
             'width' => 60,
             'type'  => 'number',

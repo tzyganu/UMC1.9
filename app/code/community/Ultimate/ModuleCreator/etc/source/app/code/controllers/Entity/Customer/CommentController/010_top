@@ -32,7 +32,7 @@ class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-            $navigationBlock->setActive('{{module}}/{{entity}}_customer_comment/');
+            $navigationBlock->setActive('{{namespace}}_{{module}}/{{entity}}_customer_comment/');
         }
         if ($block = $this->getLayout()->getBlock('{{entity}}_customer_comment_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
@@ -49,7 +49,7 @@ class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController
      */
     public function viewAction() {
         $commentId = $this->getRequest()->getParam('id');
-        $comment = Mage::getModel('{{module}}/{{entity}}_comment')->load($commentId);
+        $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->load($commentId);
         if (!$comment->getId() || $comment->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId() || $comment->getStatus() != {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED) {
             $this->_forward('no-route');
             return;

@@ -4,7 +4,7 @@
 <div class="categories-side-col">
     <div class="content-header">
         <h3 class="icon-head head-{{entities}}">
-            <?php echo Mage::helper('{{module}}')->__('{{EntitiesLabel}}') ?>
+            <?php echo Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}') ?>
         </h3>
         <?php if ($this->getRoot()): ?>
             <?php echo $this->getAddRootButtonHtml() ?><br />
@@ -15,11 +15,11 @@
     <div class="tree-actions">
         <?php if($this->getRoot()): ?>
             <a href="#" onclick="tree.collapseTree(); return false;">
-                <?php echo Mage::helper('{{module}}')->__('Collapse All'); ?>
+                <?php echo Mage::helper('{{namespace}}_{{module}}')->__('Collapse All'); ?>
             </a>
             <span class="separator">|</span>
             <a href="#" onclick="tree.expandTree(); return false;">
-                <?php echo Mage::helper('{{module}}')->__('Expand All'); ?>
+                <?php echo Mage::helper('{{namespace}}_{{module}}')->__('Expand All'); ?>
             </a>
         <?php endif; ?>
     </div>

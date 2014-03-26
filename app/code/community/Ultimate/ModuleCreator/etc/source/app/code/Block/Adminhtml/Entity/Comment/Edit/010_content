@@ -17,12 +17,12 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit
      */
     public function __construct(){
         parent::__construct();
-        $this->_blockGroup = '{{module}}';
+        $this->_blockGroup = '{{namespace}}_{{module}}';
         $this->_controller = 'adminhtml_{{entity}}_comment';
-        $this->_updateButton('save', 'label', Mage::helper('{{module}}')->__('Save {{EntityLabel}} comment'));
-        $this->_updateButton('delete', 'label', Mage::helper('{{module}}')->__('Delete {{EntityLabel}} comment'));
+        $this->_updateButton('save', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} comment'));
+        $this->_updateButton('delete', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} comment'));
         $this->_addButton('saveandcontinue', array(
-            'label'        => Mage::helper('{{module}}')->__('Save And Continue Edit'),
+            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Save And Continue Edit'),
             'onclick'    => 'saveAndContinueEdit()',
             'class'        => 'save',
         ), -100);
@@ -40,7 +40,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit
      */
     public function getHeaderText(){
         if( Mage::registry('comment_data') && Mage::registry('comment_data')->getId() ) {
-            return Mage::helper('{{module}}')->__("Edit {{EntityLabel}} comment '%s'", $this->htmlEscape(Mage::registry('comment_data')->getTitle()));
+            return Mage::helper('{{namespace}}_{{module}}')->__("Edit {{EntityLabel}} comment '%s'", $this->htmlEscape(Mage::registry('comment_data')->getTitle()));
         }
         return '';
     }

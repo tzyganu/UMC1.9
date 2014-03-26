@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -58,7 +58,34 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getEntity() {
         return $this->_entity;
     }
-
+    /**
+     * get the module object
+     * @access public
+     * @return Ultimate_ModuleCreator_Model_Module|null
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getModule(){
+        return $this->getEntity()->getModule();
+    }
+    /**
+     * get the namespace
+     * @access public
+     * @param bool $lower
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNamespace($lower = false) {
+        return $this->getModule()->getNamespace($lower);
+    }
+    /**
+     * get lower module name
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLowerModuleName() {
+        return $this->getModule()->getLowerModuleName();
+    }
     /**
      * get collection attributes
      * @access public
@@ -204,9 +231,10 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getAdminIndexLayoutContent(){
-        $entity = strtolower($this->getEntity()->getNameSingular());
-        $module = $this->getEntity()->getModule()->getLowerModuleName();
-        return $this->getPadding(3).'<block type="'.$module.'/adminhtml_'.$entity.'" name="'.$entity.'" />'.$this->getEol();
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $module     = $this->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        return $this->getPadding(3).'<block type="'.$namespace.'_'.$module.'/adminhtml_'.$entity.'" name="'.$entity.'" />'.$this->getEol();
     }
     /**
      * get the parent model class

@@ -17,7 +17,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_WidgetContr
      */
     public function chooserAction(){
         $uniqId = $this->getRequest()->getParam('uniq_id');
-        $grid = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_widget_chooser', '', array(
+        $grid = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_widget_chooser', '', array(
             'id' => $uniqId,
         ));
         $this->getResponse()->setBody($grid->toHtml());

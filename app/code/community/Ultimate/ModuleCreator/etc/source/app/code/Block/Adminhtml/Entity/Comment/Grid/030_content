@@ -1,12 +1,12 @@
         $this->addColumn('action',
             array(
-                'header'=>  Mage::helper('{{module}}')->__('Action'),
+                'header'=>  Mage::helper('{{namespace}}_{{module}}')->__('Action'),
                 'width' => '100',
                 'type'  => 'action',
                 'getter'=> 'getCtCommentId',
                 'actions'   => array(
                     array(
-                        'caption'   => Mage::helper('{{module}}')->__('Edit'),
+                        'caption'   => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
                         'url'   => array('base'=> '*/*/edit'),
                         'field' => 'id'
                     )
@@ -15,9 +15,9 @@
                 'is_system'    => true,
                 'sortable'  => false,
         ));
-        $this->addExportType('*/*/exportCsv', Mage::helper('{{module}}')->__('CSV'));
-        $this->addExportType('*/*/exportExcel', Mage::helper('{{module}}')->__('Excel'));
-        $this->addExportType('*/*/exportXml', Mage::helper('{{module}}')->__('XML'));
+        $this->addExportType('*/*/exportCsv', Mage::helper('{{namespace}}_{{module}}')->__('CSV'));
+        $this->addExportType('*/*/exportExcel', Mage::helper('{{namespace}}_{{module}}')->__('Excel'));
+        $this->addExportType('*/*/exportXml', Mage::helper('{{namespace}}_{{module}}')->__('XML'));
         return parent::_prepareColumns();
     }
     /**
@@ -32,23 +32,23 @@
         $this->setMassactionIdFieldOnlyIndexValue(true);
         $this->getMassactionBlock()->setFormFieldName('comment');
         $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('{{module}}')->__('Delete'),
+            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
             'url'  => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('{{module}}')->__('Are you sure?')
+            'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
         ));
         $this->getMassactionBlock()->addItem('status', array(
-            'label'=> Mage::helper('{{module}}')->__('Change status'),
+            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
             'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
             'additional' => array(
                 'status' => array(
                         'name' => 'status',
                         'type' => 'select',
                         'class' => 'required-entry',
-                        'label' => Mage::helper('{{module}}')->__('Status'),
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
                         'values' => array(
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{module}}')->__('Pending'),
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{module}}')->__('Approved'),
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{module}}')->__('Rejected'),
+                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
+                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
+                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
                         )
                 )
             )
@@ -63,7 +63,7 @@
      * {{qwertyuiop}}
      */
     public function getRowUrl($row){
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', array('id' => $row->getCtCommentId()));
     }
     /**
      * get the grid url

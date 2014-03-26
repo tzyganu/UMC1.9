@@ -1,6 +1,6 @@
     <adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="product.edit.tab.{{entity}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="product.edit.tab.{{entity}}"/>
             <block type="adminhtml/widget_grid_serializer" name="{{entity}}_grid_serializer">
                 <reference name="{{entity}}_grid_serializer">
                     <action method="initSerializerBlock">
@@ -18,12 +18,12 @@
     </adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}>
     <adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}grid>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="product.edit.tab.{{entity}}"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_catalog_product_edit_tab_{{entity}}" name="product.edit.tab.{{entity}}"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_catalog_product_{{entities}}grid>
     <adminhtml_{{module}}_{{entity}}_products>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_product" name="{{entity}}.edit.tab.product"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_product" name="{{entity}}.edit.tab.product"/>
             <block type="adminhtml/widget_grid_serializer" name="product_grid_serializer">
                 <reference name="product_grid_serializer">
                     <action method="initSerializerBlock">
@@ -41,6 +41,6 @@
     </adminhtml_{{module}}_{{entity}}_products>
     <adminhtml_{{module}}_{{entity}}_productsgrid>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="{{module}}/adminhtml_{{entity}}_edit_tab_product" name="{{entity}}.edit.tab.product"/>
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_product" name="{{entity}}.edit.tab.product"/>
         </block>
     </adminhtml_{{module}}_{{entity}}_productsgrid>

@@ -6,7 +6,7 @@
      */
     public function getProductInstance(){
         if (!$this->_productInstance) {
-            $this->_productInstance = Mage::getSingleton('{{module}}/{{entity}}_product');
+            $this->_productInstance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_product');
         }
         return $this->_productInstance;
     }

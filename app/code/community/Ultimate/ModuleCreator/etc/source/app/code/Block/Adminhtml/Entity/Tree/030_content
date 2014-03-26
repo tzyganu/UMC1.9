@@ -9,4 +9,4 @@
     public function get{{Entity}}Collection(){
         $collection = $this->getData('{{entity}}_collection');
         if (is_null($collection)) {
-            $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection();
+            $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection();

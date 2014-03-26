@@ -23,7 +23,7 @@
      * {{qwertyuiop}}
      */
     public function getSelected{{Entities}}Collection(Mage_Catalog_Model_Product $product){
-        $collection = Mage::getResourceSingleton('{{module}}/{{entity}}_collection')
+        $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')
             ->addProductFilter($product);
         return $collection;
     }

@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -69,7 +69,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     /**
      * add entity to module
      * @access public
-     * @param Ultimate_ModuleCreator_Model_Entity $entity
+     * @param  Ultimate_ModuleCreator_Model_Entity $entity
      * @return Ultimate_ModuleCreator_Model_Module
      * @throws Ultimate_ModuleCreator_Exception
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
@@ -328,6 +328,13 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $this->_addError(Mage::helper('modulecreator')->__('You cannot use the module name %s', $this->getModuleName()), 'settings_module_name');
             }
         }
+        //validate front key
+        foreach ((array)$routers as $router) {
+            if ((string)$router->args->frontName == $this->getFrontKey() && $router->args->module != $extension){
+                $this->_addError(Mage::helper('modulecreator')->__('You cannot use the front key %s. It is used by the module %s', $this->getFrontKey(), (string)$router->args->module), 'settings_front_key');
+                break;
+            }
+        }
         //validate entity count
         if (count($this->getEntities()) == 0){
             $this->_addError(Mage::helper('modulecreator')->__('Add at least an entity'));
@@ -335,7 +342,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         else {
             //validate entities
             foreach ($this->getEntities() as $entity){
-                $entityCode = strtolower($entity->getNameSingular());
+                $entityCode = $entity->getNameSingular(true);
                 if (in_array($entityCode, $this->getRestrictedEntityNames())){
                     $this->_addError(Mage::helper('modulecreator')->__('The entity code "%s" is restricted', $entityCode), 'entity_'.$entity->getIndex().'_name_singular');
                 }
@@ -462,12 +469,17 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
 
     /**
      * get the extension name
+     * @param bool $lower
      * @return string
      * @access public
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getExtensionName(){
-        return $this->getNamespace().'_'.$this->getModuleName();
+    public function getExtensionName($lower = false){
+        $name = $this->getNamespace().'_'.$this->getModuleName();
+        if ($lower) {
+            $name = strtolower($name);
+        }
+        return $name;
     }
 
     /**
@@ -560,7 +572,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $this->_writeFile($destinationFile, $file);
         }
         $this->_writeLog();
-        $this->_writeUnsintall();
+        $this->_writeUninstall();
         return $this;
     }
 
@@ -585,19 +597,19 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @return Ultimate_ModuleCreator_Model_Module
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _writeUnsintall(){
-        $lines = array();
-        $module = $this->getPlaceholder('{{module}}');
-        $namespace = $this->getPlaceholder('{{namespace}}');
+    protected function _writeUninstall(){
+        $lines      = array();
+        $module     = $this->getPlaceholder('{{module}}');
+        $namespace  = $this->getNamespace(true);
         $lines[] = '-- add table prefix if you haven one';
         foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
             $entities = $relation->getEntities();
-            $tableName = $module.'_'.$entities[0]->getPlaceholders('{{entity}}').'_'.$entities[1]->getPlaceholders('{{entity}}');
+            $tableName = $namespace.'_'.$module.'_'.$entities[0]->getPlaceholders('{{entity}}').'_'.$entities[1]->getPlaceholders('{{entity}}');
             $lines[] = 'DROP TABLE '.$tableName.';';
         }
         foreach ($this->getEntities() as $entity){
             if ($entity->getIsEav()){
-                $entityTypeCode = $this->getLowerModuleName().'_'.$entity->getPlaceholders('{{entity}}');
+                $entityTypeCode = $namespace.'_'.$this->getLowerModuleName().'_'.$entity->getPlaceholders('{{entity}}');
                 $lines[] = "DELETE FROM eav_attribute WHERE entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}');";
                 $lines[] = "DELETE FROM eav_entity_type WHERE entity_type_code = '{$entityTypeCode}';";
             }
@@ -608,38 +620,38 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $lines[] = "DELETE FROM eav_attribute WHERE attribute_code = '".$entity->getCategoryAttributeCode()."' AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_category');";
             }
             if ($entity->getAllowCommentByStore()){
-                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_comment_store';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment_store';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
             if ($entity->getAllowComment()){
-                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_comment';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
             if ($entity->getLinkProduct()){
-                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_product';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_product';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
             if ($entity->getLinkCategory()){
-                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_category';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_category';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
             if ($entity->getStore()){
-                $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_store';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_store';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
             if ($entity->getIsEav()){
                 foreach (array('int', 'decimal','datetime', 'varchar', 'text') as $type){
-                    $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
+                    $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
                     $lines[] = 'DROP TABLE '.$tableName.';';
                 }
-                $tableName = $module.'_eav_attribute';
+                $tableName = $namespace.'_'.$module.'_eav_attribute';
                 $lines[] = 'DROP TABLE '.$tableName.';';
             }
-            $tableName = $module.'_'.$entity->getPlaceholders('{{entity}}');
+            $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}');
             $lines[] = 'DROP TABLE '.$tableName.';';
         }
         $lines[] = "DELETE FROM core_resource WHERE code = '".$namespace.'_'.$module."_setup';";
-        $lines[] = "DELETE FROM core_config_data WHERE path like '".$module."/%';";
+        $lines[] = "DELETE FROM core_config_data WHERE path like '".$namespace.'_'.$module."/%';";
         $text = implode(Mage::helper('modulecreator')->getEol(), $lines);
         $this->_writeFile($this->getUninstallPath(),$text);
         return $this;
@@ -1159,32 +1171,6 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         return str_replace(array_keys($replace), array_values($replace), $string);
     }
-
-    /**
-     * get base placeholders
-     * @access public
-     * @return array
-     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-     */
-    public function getBasePlaceholders(){
-        if (count($this->_basePlaceholders) == 0){
-            $this->_basePlaceholders = array(
-                '{{DS}}'                => DS,
-                '{{namespace}}'         => strtolower($this->getNamespace()),
-                '{{sort_order}}'        => (int)$this->getSortOrder(),
-                '{{module}}'            => strtolower($this->getModuleName()),
-                '{{Namespace}}'         => $this->getNamespace(),
-                '{{Module}}'            => $this->getModuleName(),
-                '{{NAMESPACE}}'         => strtoupper($this->getNamespace()),
-                '{{MODULE}}'            => strtoupper($this->getModuleName()),
-                '{{qwertyuiop}}'        => $this->getQwertyuiop(),
-                '{{Y}}'                 => date('Y'),
-                '{{codepool}}'         => $this->getCodepool(),
-            );
-        }
-        return $this->_basePlaceholders;
-    }
-
     /**
      * add file to create list
      * @access protected
@@ -1252,7 +1238,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if (is_null($this->_placeholders)){
             $this->_placeholders = array(
                 '{{DS}}'                                => DS,
-                '{{namespace}}'                         => strtolower($this->getNamespace()),
+                '{{namespace}}'                         => $this->getNamespace(true),
                 '{{sort_order}}'                        => (int)$this->getSortOrder(),
                 '{{module}}'                            => strtolower($this->getModuleName()),
                 '{{Namespace}}'                         => $this->getNamespace(),
@@ -1275,7 +1261,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{categoryViewLayout}}'                => $this->getCategoryViewLayout(),
                 '{{defaultLayoutHandle}}'               => $this->getFrontendDefaultLayoutHandle(),
                 '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
-                '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks()
+                '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks(),
+                '{{frontKey}}'                          => $this->getFrontKey(),
             );
         }
         if (is_null($param)){
@@ -1389,6 +1376,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $xml        = '';
         $parts      = array();
         $padding    = 2;
+        $namespace  = $this->getNamespace(true);
         $eol        = $this->getEol();
         if ($this->getMenuParent()){
             $parts = explode('/', $this->getMenuParent());
@@ -1397,13 +1385,13 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $xml .= $this->getPadding($padding++).'<'.$part.'>'.$eol;
             $xml .= $this->getPadding($padding++).'<children>'.$eol;
         }
-        $xml .= $this->getPadding($padding++).'<'.$this->getLowerModuleName().' translate="title" module="'.$this->getLowerModuleName().'">'.$eol;
+        $xml .= $this->getPadding($padding++).'<'.$namespace.'_'.$this->getLowerModuleName().' translate="title" module="'.$namespace.'_'.$this->getLowerModuleName().'">'.$eol;
         $xml .= $this->getPadding($padding).'<title>'.$this->getMenuText().'</title>'.$eol;
         $xml .= $this->getPadding($padding).'<sort_order>'.$this->getSortOrder().'</sort_order>'.$eol;
         $xml .= $this->getPadding($padding++).'<children>'.$eol;
         $xml .= $this->getEntityMenu($padding);
         $xml .= $this->getPadding(--$padding).'</children>'.$eol;
-        $xml .= $this->getPadding(--$padding).'</'.$this->getLowerModuleName().'>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
 
         $parts = array_reverse($parts);
         foreach ($parts as $part){
@@ -1424,6 +1412,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $parts      = array();
         $padding    = 5;
         $eol        = $this->getEol();
+        $namespace  = $this->getNamespace(true);
         if ($this->getMenuParent()){
             $parts = explode('/', $this->getMenuParent());
         }
@@ -1431,12 +1420,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $xml .= $this->getPadding($padding++).'<'.$part.'>'.$eol;
             $xml .= $this->getPadding($padding++).'<children>'.$eol;
         }
-        $xml .= $this->getPadding($padding++).'<'.$this->getLowerModuleName().' translate="title" module="'.$this->getLowerModuleName().'">'.$eol;
+        $xml .= $this->getPadding($padding++).'<'.$namespace.'_'.$this->getLowerModuleName().' translate="title" module="'.$namespace.'_'.$this->getLowerModuleName().'">'.$eol;
         $xml .= $this->getPadding($padding++).'<title>'.$this->getMenuText().'</title>'.$eol;
         $xml .= $this->getPadding($padding++).'<children>'.$eol;
         $xml .= $this->getEntityMenuAcl($padding);
         $xml .= $this->getPadding(--$padding).'</children>'.$eol;
-        $xml .= $this->getPadding(--$padding).'</'.$this->getLowerModuleName().'>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
 
         $parts = array_reverse($parts);
         foreach ($parts as $part){
@@ -1537,16 +1526,16 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $padding = $this->getPadding(3);
         $eol     = $this->getEol();
         $tab     = $this->getPadding();
-        $ns      = strtolower($this->getNamespace());
+        $ns      = $this->getNamespace(true);
         $module  = $this->getLowerModuleName();
         foreach ($this->getEntities() as $entity) {
             $name  = strtolower($entity->getNameSingular());
             $names = strtolower($entity->getNamePlural());
             $label = $entity->getLabelPlural();
             if ($entity->getShowOnProduct()) {
-                $content .= $padding.'<block type="'.$module.'/catalog_product_list_'.$name.'" name="product.info.'.$names.'" as="product_'.$names.'" template="'.$ns.'_'.$module.'/catalog/product/list/'.$name.'.phtml">'.$eol;
+                $content .= $padding.'<block type="'.$ns.'_'.$module.'/catalog_product_list_'.$name.'" name="product.info.'.$names.'" as="product_'.$names.'" template="'.$ns.'_'.$module.'/catalog/product/list/'.$name.'.phtml">'.$eol;
                 $content .= $padding.$tab.'<action method="addToParentGroup"><group>detailed_info</group></action>'.$eol;
-                $content .= $padding.$tab.'<action method="setTitle" translate="value" module="'.$module.'"><value>'.$label.'</value></action>'.$eol;
+                $content .= $padding.$tab.'<action method="setTitle" translate="value" module="'.$ns.'_'.$module.'"><value>'.$label.'</value></action>'.$eol;
                 $content .= $padding.'</block>'.$eol;
             }
         }
@@ -1562,14 +1551,14 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $content = '';
         $padding = $this->getPadding(3);
         $eol     = $this->getEol();
-        $ns      = strtolower($this->getNamespace());
+        $ns      = $this->getNamespace(true);
         $module  = $this->getLowerModuleName();
         foreach ($this->getEntities() as $entity) {
-            $name  = strtolower($entity->getNameSingular());
-            $names = strtolower($entity->getNamePlural());
+            $name  = $entity->getNameSingular(true);
+            $names = $entity->getNamePlural(true);
             $label = $entity->getLabelPlural();
             if ($entity->getShowOnProduct()) {
-                $content .= $padding.'<block type="'.$module.'/catalog_category_list_'.$name.'" name="category.info.'.$names.'" as="category_'.$names.'" template="'.$ns.'_'.$module.'/catalog/category/list/'.$name.'.phtml" after="-" />'.$eol;
+                $content .= $padding.'<block type="'.$ns.'_'.$module.'/catalog_category_list_'.$name.'" name="category.info.'.$names.'" as="category_'.$names.'" template="'.$ns.'_'.$module.'/catalog/category/list/'.$name.'.phtml" after="-" />'.$eol;
             }
         }
         return $content;
@@ -1582,13 +1571,14 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getFrontendDefaultLayoutHandle() {
-        $padding = $this->getPadding(1);
-        $tab     = $this->getPadding();
-        $eol     = $this->getEol();
-        $top     = array();
-        $footer  = array();
-        $content = $eol.$padding;
-        $tree    = false;
+        $padding    = $this->getPadding(1);
+        $tab        = $this->getPadding();
+        $eol        = $this->getEol();
+        $top        = array();
+        $footer     = array();
+        $content    = $eol.$padding;
+        $namespace  = $this->getNamespace(true);
+        $tree       = false;
         if ($this->getCreateFrontend()) {
             foreach ($this->getEntities() as $entity) {
                 if ($entity->getCreateList()) {
@@ -1608,16 +1598,16 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $content .= '<default>'.$eol;
             if ($tree) {
                 $content .= $padding.'<reference name="head">'.$eol;
-                $content .= $padding.$tab.'<action method="addCss"><js>css/'.strtolower($this->getNamespace()).'_'.$this->getLowerModuleName().'/tree.css</js></action>'.$eol;
+                $content .= $padding.$tab.'<action method="addCss"><js>css/'.$this->getNamespace(true).'_'.$this->getLowerModuleName().'/tree.css</js></action>'.$eol;
                 $content .= $padding.'</reference>'.$eol;
             }
             if (count($top) > 0) {
                 $content .= $padding.$tab.'<reference name="top.links">'.$eol;
                 $position = 120;
                 foreach ($top as $entity) {
-                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$this->getLowerModuleName().'">'.$eol;
+                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$namespace.'_'.$this->getLowerModuleName().'">'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<label>'.$entity->getLabelPlural().'</label>'.$eol;
-                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$namespace.'_'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<title>'.$entity->getLabelPlural().'</title>'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<prepare />'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<urlParams/>'.$eol;
@@ -1631,9 +1621,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $content .= $padding.$tab.'<reference name="footer_links">'.$eol;
                 $position = 120;
                 foreach ($footer as $entity) {
-                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$this->getLowerModuleName().'">'.$eol;
+                    $content .= $padding.$tab.$tab.'<action method="addLink" translate="label title" module="'.$namespace.'_'.$this->getLowerModuleName().'">'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<label>'.$entity->getLabelPlural().'</label>'.$eol;
-                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
+                    $content .= $padding.$tab.$tab.$tab.'<url helper="'.$namespace.'_'.$this->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'/get'.ucfirst(strtolower($entity->getNamePlural())).'Url" />'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<title>'.$entity->getLabelPlural().'</title>'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<prepare />'.$eol;
                     $content .= $padding.$tab.$tab.$tab.'<urlParams/>'.$eol;
@@ -1656,6 +1646,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     public function getCategoryMenuEvent() {
         if ($this->getShowInCategoryMenu()) {
+            $namespace  = $this->getNamespace(true);
+
             $eol      = $this->getEol();
             $padding  = $this->getPadding(2);
             $tab      = $this->getPadding();
@@ -1663,10 +1655,10 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $content .= $padding.'<events>'.$eol;
             $content .= $padding.$tab.'<page_block_html_topmenu_gethtml_before>'.$eol;
             $content .= $padding.$tab.$tab.'<observers>'.$eol;
-            $content .= $padding.$tab.$tab.$tab.'<'.$this->getLowerModuleName().'>'.$eol;
-            $content .= $padding.$tab.$tab.$tab.$tab.'<class>'.$this->getLowerModuleName().'/observer</class>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'<'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.$tab.'<class>'.$namespace.'_'.$this->getLowerModuleName().'/observer</class>'.$eol;
             $content .= $padding.$tab.$tab.$tab.$tab.'<method>addItemsToTopmenuItems</method>'.$eol;
-            $content .= $padding.$tab.$tab.$tab.'</'.$this->getLowerModuleName().'>'.$eol;
+            $content .= $padding.$tab.$tab.$tab.'</'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
             $content .= $padding.$tab.$tab.'</observers>'.$eol;
             $content .= $padding.$tab.'</page_block_html_topmenu_gethtml_before>'.$eol;
             $content .= $padding.'</events>'.$eol;
@@ -1674,19 +1666,57 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         return '';
     }
-
+    /**
+     * get customer comment links
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
     public function getCustomerCommentLinks() {
-        $eol     = $this->getEol();
-        $padding = $this->getPadding(3);
-        $content = $eol;
-        $module  = $this->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+        $eol        = $this->getEol();
+        $padding    = $this->getPadding(3);
+        $content    = $eol;
+        $module     = $this->getLowerModuleName();
         foreach ($this->getEntities() as $entity) {
             if ($entity->getAllowComment()) {
-                $entityName = strtolower($entity->getNameSingular());
+                $entityName = $entity->getNameSingular(true);
                 $label      = $entity->getLabelPlural();
-                $content   .= $padding . '<action method="addLink" translate="label" module="'.$module.'"><name>'.$entityName.'_comments</name><path>'.$module.'/'.$entityName.'_customer_comment</path><label>'.$label.' Comments</label></action>'.$eol;
+                $content   .= $padding . '<action method="addLink" translate="label" module="'.$namespace.'_'.$module.'"><name>'.$entityName.'_comments</name><path>'.$namespace.'_'.$module.'/'.$entityName.'_customer_comment</path><label>'.$label.' Comments</label></action>'.$eol;
             }
         }
         return $content;
+    }
+
+    /**
+     * get the module namespace
+     * @access public
+     * @param bool $lower
+     * @return mixed|string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getNamespace($lower = false){
+        $namespace = $this->getData('namespace');
+        if ($lower){
+            $namespace = strtolower($namespace);
+        }
+        return $namespace;
+    }
+
+    /**
+     * get front key
+     * @access public
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFrontKey() {
+        if (!$this->getCreateFrontend()) {
+            return $this->getData('front_key');
+        }
+        if (!$this->getData('front_key')) {
+            $frontKey = $this->getNamespace(true).'_'.$this->getLowerModuleName();
+            $this->setData('front_key', $frontKey);
+        }
+        return $this->getData('front_key');
     }
 }

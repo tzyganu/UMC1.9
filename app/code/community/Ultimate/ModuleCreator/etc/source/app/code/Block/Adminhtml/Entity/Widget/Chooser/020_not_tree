@@ -23,7 +23,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element){
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
-        $sourceUrl = $this->getUrl('{{module}}/adminhtml_{{module}}_{{entity}}_widget/chooser', array('uniq_id' => $uniqId));
+        $sourceUrl = $this->getUrl('{{namespace}}_{{module}}/adminhtml_{{module}}_{{entity}}_widget/chooser', array('uniq_id' => $uniqId));
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
                 ->setElement($element)
                 ->setTranslationHelper($this->getTranslationHelper())
@@ -32,7 +32,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
                 ->setSourceUrl($sourceUrl)
                 ->setUniqId($uniqId);
         if ($element->getValue()) {
-            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($element->getValue());
+            ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($element->getValue());
             if (${{entity}}->getId()) {
                 $chooser->setLabel(${{entity}}->get{{EntityNameMagicCode}}());
             }
@@ -67,4 +67,4 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
      * {{qwertyuiop}}
      */
     protected function _prepareCollection(){
-        $collection = Mage::getModel('{{module}}/{{entity}}')->getCollection();
+        $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection();

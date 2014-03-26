@@ -13,7 +13,7 @@
                 ${{entity}}->unsetData('use_post_data_config');
 
                 ${{entity}}->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{module}}')->__('The {{entityLabel}} has been saved.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been saved.'));
                 $refreshTree = 'true';
             }
             catch (Exception $e){
@@ -36,7 +36,7 @@
     public function moveAction() {
         ${{entity}} = $this->_init{{Entity}}();
         if (!${{entity}}) {
-            $this->getResponse()->setBody(Mage::helper('{{module}}')->__('{{EntityLabel}} move error'));
+            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'));
             return;
         }
         $parentNodeId   = $this->getRequest()->getPost('pid', false);
@@ -50,7 +50,7 @@
             $this->getResponse()->setBody($e->getMessage());
         }
         catch (Exception $e){
-            $this->getResponse()->setBody(Mage::helper('{{module}}')->__('{{EntityLabel}} move error'.$e));
+            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'.$e));
             Mage::logException($e);
         }
 
@@ -64,13 +64,13 @@
     public function deleteAction() {
         if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
-                ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
-                Mage::dispatchEvent('{{module}}_controller_{{entity}}_delete', array('{{entity}}'=>${{entity}}));
+                ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
+                Mage::dispatchEvent('{{namespace}}_{{module}}_controller_{{entity}}_delete', array('{{entity}}'=>${{entity}}));
 
                 Mage::getSingleton('admin/session')->set{{Entity}}DeletedPath(${{entity}}->getPath());
 
                 ${{entity}}->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{module}}')->__('The {{entityLabel}} has been deleted.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been deleted.'));
             }
             catch (Mage_Core_Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -79,7 +79,7 @@
             }
             catch (Exception $e){
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 return;
             }
@@ -100,14 +100,14 @@
         if ($storeId) {
             if (!${{entity}}Id) {
                 $store = Mage::app()->getStore($storeId);
-                $rootId = Mage::helper('{{module}}/{{entity}}')->getRoot{{Entity}}Id();
+                $rootId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
                 $this->getRequest()->setParam('id', $rootId);
             }
         }
 
         ${{entity}} = $this->_init{{Entity}}();
 
-        $block = $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_tree');
+        $block = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_tree');
         $root  = $block->getRoot();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
             'data' => $block->getTree(),
@@ -130,7 +130,7 @@
     */
     public function refreshPathAction() {
         if ($id = (int) $this->getRequest()->getParam('id')) {
-            ${{entity}} = Mage::getModel('{{module}}/{{entity}}')->load($id);
+            ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
             $this->getResponse()->setBody(
                 Mage::helper('core')->jsonEncode(array(
                    'id' => $id,

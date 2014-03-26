@@ -4,7 +4,7 @@
 <div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend">
-            <?php echo Mage::helper('{{module}}')->__('{{EntitiesLabel}}') ?>
+            <?php echo Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}') ?>
         </h4>
     </div>
     <fieldset id="grop_fields">

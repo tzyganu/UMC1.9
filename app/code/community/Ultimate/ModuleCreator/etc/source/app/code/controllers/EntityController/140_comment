@@ -8,8 +8,8 @@
         $session    = Mage::getSingleton('core/session');
         if (${{entity}}) {
             if (${{entity}}->getAllowComments()) {
-                if ((Mage::getSingleton('customer/session')->isLoggedIn() || Mage::getStoreConfigFlag('{{module}}/{{entity}}/allow_guest_comment'))){
-                    $comment    = Mage::getModel('{{module}}/{{entity}}_comment')->setData($data);
+                if ((Mage::getSingleton('customer/session')->isLoggedIn() || Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment'))){
+                    $comment    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->setData($data);
                     $validate = $comment->validate();
                     if ($validate === true) {
                         try {

@@ -55,7 +55,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
             ${{entity}}Id = $value;
         }
         if (${{entity}}Id) {
-            $label = Mage::getSingleton('{{module}}/{{entity}}')->load(${{entity}}Id)->get{{EntityNameMagicCode}}();
+            $label = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)->get{{EntityNameMagicCode}}();
             $chooser->setLabel($label);
         }
         $element->setData('after_element_html', $chooser->toHtml());

@@ -11,7 +11,7 @@
  *
  * @category       Ultimate
  * @package        Ultimate_ModuleCreator
- * @copyright      Copyright (c) 2013
+ * @copyright      Copyright (c) 2014
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
@@ -69,14 +69,15 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
      */
     public function getRssText(){
         $content    = '';
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $entityName = $this->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
         $eol        = $this->getEol();
-        $module     = $this->getAttribute()->getEntity()->getModule()->getLowerModuleName();
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
         $content   .= $this->getPadding(3).'if ($item->get'.$this->getAttribute()->getMagicMethodCode().'()) {'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'<div>\';'.$eol;
-        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
-        $content   .= $this->getPadding(4).'$description .= \'    <a href="\'.Mage::helper(\''.$module.'/'.$entityName.'\')->getFileBaseUrl().$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'">\';'.$eol;
+        $content   .= $this->getPadding(4).'$description .= Mage::helper(\''.$namespace.'_'.$module.'\')->__(\''.$this->getAttribute()->getLabel().'\');'.$eol;
+        $content   .= $this->getPadding(4).'$description .= \'    <a href="\'.Mage::helper(\''.$namespace.'_'.$module.'/'.$entityName.'\')->getFileBaseUrl().$item->get'.$this->getAttribute()->getMagicMethodCode().'().\'">\';'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'        <span>\'. basename($item->get'.$this->getAttribute()->getMagicMethodCode().'()).\'</span>\';'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'    </a>\';'.$eol;
         $content   .= $this->getPadding(4).'$description .= \'</div>\';'.$eol;
@@ -94,11 +95,12 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
     public function getFrontendHtml() {
         $content    = '';
         $eol        = $this->getEol();
-        $entityName = strtolower($this->getAttribute()->getEntity()->getNameSingular());
+        $entityName = $this->getAttribute()->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
-        $module     = strtolower($this->getAttribute()->getEntity()->getModule()->getModuleName());
+        $module     = $this->getModule()->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
         $content   .= $this->getPadding().'<?php if ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) :?>'.$eol;
-        $content   .= $this->getPadding(2).'<a href="<?php echo Mage::helper(\''.$module.'/'.$entityName.'\')->getFileBaseUrl().$_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'();?>">'.$eol;
+        $content   .= $this->getPadding(2).'<a href="<?php echo Mage::helper(\''.$namespace.'_'.$module.'/'.$entityName.'\')->getFileBaseUrl().$_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'();?>">'.$eol;
         $content   .= $this->getPadding(3).'<span><?php echo basename($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'())?></span>'.$eol;
         $content   .= $this->getPadding(2).'</a>'.$eol;
         $content   .= $this->getPadding().'<?php endif;?>'.$eol;
@@ -113,8 +115,8 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
     public function getSetupBackend(){
         $attribute = $this->getAttribute();
         $entity = $attribute->getEntity();
-        $module = $entity->getModule();
-        return $module->getLowerModuleName().'/'.strtolower($entity->getNameSingular()).'_attribute_backend_file';
+        $module = $this->getModule();
+        return $this->getNamespace(true).'_'.$module->getLowerModuleName().'/'.$entity->getNameSingular(true).'_attribute_backend_file';
     }
 
 }

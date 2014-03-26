@@ -4,4 +4,4 @@
                 }
                 unset($data['additional_attributes']);
             }
-            $data['attribute_set_id'] = Mage::getModel('{{module}}/{{entity}}')->getDefaultAttributeSetId();
+            $data['attribute_set_id'] = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getDefaultAttributeSetId();

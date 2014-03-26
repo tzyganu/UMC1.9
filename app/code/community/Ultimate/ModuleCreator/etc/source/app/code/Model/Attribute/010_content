@@ -14,14 +14,14 @@ class {{Namespace}}_{{Module}}_Model_Attribute
     const SCOPE_WEBSITE                         = 2;
 
     const MODULE_NAME                           = '{{Namespace}}_{{Module}}';
-    const ENTITY                                = '{{module}}_eav_attribute';
+    const ENTITY                                = '{{namespace}}_{{module}}_eav_attribute';
 
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix                     = '{{module}}_entity_attribute';
+    protected $_eventPrefix                     = '{{namespace}}_{{module}}_entity_attribute';
     /**
      * Event object name
      *
@@ -43,7 +43,7 @@ class {{Namespace}}_{{Module}}_Model_Attribute
      * {{qwertyuiop}}
      */
     protected function _construct(){
-        $this->_init('{{module}}/attribute');
+        $this->_init('{{namespace}}_{{module}}/attribute');
     }
 
     /**

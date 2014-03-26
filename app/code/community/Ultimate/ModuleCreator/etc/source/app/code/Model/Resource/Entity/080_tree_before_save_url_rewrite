@@ -9,13 +9,13 @@
     protected function _beforeSave({{beforeSaveParam}} $object){
         {{multipleSelectConvert}}if (!$object->getInitialSetupFlag()){
             if (!$this->getIsUniqueUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{module}}')->__('URL key already exists.'));
+                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('URL key already exists.'));
             }
             if (!$this->isValidUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{module}}')->__('The URL key contains capital letters or disallowed symbols.'));
+                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('The URL key contains capital letters or disallowed symbols.'));
             }
             if ($this->isNumericUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{module}}')->__('The URL key cannot consist only of numbers.'));
+                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('The URL key cannot consist only of numbers.'));
             }
         }
         parent::_beforeSave($object);

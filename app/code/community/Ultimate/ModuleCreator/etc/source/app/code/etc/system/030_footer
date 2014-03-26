@@ -1,4 +1,4 @@
             </groups>
-        </{{module}}>
+        </{{namespace}}_{{module}}>
     </sections>
 </config>

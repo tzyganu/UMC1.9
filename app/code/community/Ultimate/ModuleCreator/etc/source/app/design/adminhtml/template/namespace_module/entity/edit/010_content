@@ -16,7 +16,7 @@
         }
     }
     function {{entity}}Delete(url, useAjax, {{entity}}Id) {
-        if (confirm('<?php echo Mage::helper('{{module}}')->__('Are you sure?') ?>')){
+        if (confirm('<?php echo Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?') ?>')){
             if (useAjax){
                 tree.nodeForDelete = {{entity}}Id;
                 updateContent(url, {}, true);

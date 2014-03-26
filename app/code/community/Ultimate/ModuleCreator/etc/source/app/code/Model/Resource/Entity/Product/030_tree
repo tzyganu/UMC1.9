@@ -32,7 +32,7 @@
      */
     public function saveProductRelation($product, ${{entity}}Ids){
 
-        $old{{Entities}} = Mage::helper('{{module}}/product')->getSelected{{Entities}}($product);
+        $old{{Entities}} = Mage::helper('{{namespace}}_{{module}}/product')->getSelected{{Entities}}($product);
         $old{{Entity}}Ids = array();
         foreach ($old{{Entities}} as ${{entity}}){
             $old{{Entity}}Ids[] = ${{entity}}->getId();

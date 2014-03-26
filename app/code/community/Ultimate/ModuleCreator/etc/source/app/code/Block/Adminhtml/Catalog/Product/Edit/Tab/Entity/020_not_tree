@@ -22,7 +22,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
      * {{qwertyuiop}}
      */
     protected function _prepareCollection() {
-        $collection = Mage::getResourceModel('{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
         if ($this->getProduct()->getId()){
             $constraint = 'related.product_id='.$this->getProduct()->getId();
             }
@@ -30,7 +30,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
                 $constraint = 'related.product_id=0';
             }
         $collection->getSelect()->joinLeft(
-            array('related'=>$collection->getTable('{{module}}/{{entity}}_product')),
+            array('related'=>$collection->getTable('{{namespace}}_{{module}}/{{entity}}_product')),
             'related.{{entity}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );
@@ -63,12 +63,12 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
             'index' => 'entity_id'
         ));
         $this->addColumn('{{nameAttributeCode}}', array(
-            'header'=> Mage::helper('{{module}}')->__('{{nameAttributeLabel}}'),
+            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{nameAttributeCode}}',
         ));
         $this->addColumn('position', array(
-            'header'        => Mage::helper('{{module}}')->__('Position'),
+            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
             'name'          => 'position',
             'width'         => 60,
             'type'        => 'number',
@@ -100,7 +100,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
     public function getSelected{{Entities}}() {
         ${{entities}} = array();
         //used helper here in order not to override the product model
-        $selected = Mage::helper('{{module}}/product')->getSelected{{Entities}}(Mage::registry('current_product'));
+        $selected = Mage::helper('{{namespace}}_{{module}}/product')->getSelected{{Entities}}(Mage::registry('current_product'));
         if (!is_array($selected)){
             $selected = array();
         }

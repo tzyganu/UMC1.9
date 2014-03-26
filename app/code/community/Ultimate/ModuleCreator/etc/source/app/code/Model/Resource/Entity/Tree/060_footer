@@ -138,7 +138,7 @@
      */
     protected function _getInactiveItemIds($collection){
         $filter = $collection->getAllIdsSql();
-        $table = Mage::getSingleton('core/resource')->getTable('{{module}}/{{entity}}');
+        $table = Mage::getSingleton('core/resource')->getTable('{{namespace}}_{{module}}/{{entity}}');
         $bind = array(
             'cond' => 0,
         );

@@ -1,7 +1,7 @@
         parent::__construct();
         $this->setId('{{entity}}_info_tabs');
         $this->setDestElementId('{{entity}}_tab_content');
-        $this->setTitle(Mage::helper('{{module}}')->__('{{EntityLabel}} Information'));
+        $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Information'));
         $this->setTemplate('widget/tabshoriz.phtml');
     }
     /**
@@ -12,6 +12,6 @@
      */
     protected function _prepareLayout(){
         ${{entity}} = $this->get{{Entity}}();
-        $entity = Mage::getModel('eav/entity_type')->load('{{module}}_{{entity}}', 'entity_type_code');
+        $entity = Mage::getModel('eav/entity_type')->load('{{namespace}}_{{module}}_{{entity}}', 'entity_type_code');
         $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
                 ->setEntityTypeFilter($entity->getEntityTypeId());

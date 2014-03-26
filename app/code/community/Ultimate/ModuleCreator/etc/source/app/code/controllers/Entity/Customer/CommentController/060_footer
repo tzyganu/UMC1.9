@@ -5,7 +5,7 @@
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-            $navigationBlock->setActive('{{module}}/{{entity}}_customer_comment/');
+            $navigationBlock->setActive('{{namespace}}_{{module}}/{{entity}}_customer_comment/');
         }
         if ($block = $this->getLayout()->getBlock('customer_{{entity}}_comment')) {
             $block->setRefererUrl($this->_getRefererUrl());

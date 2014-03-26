@@ -21,15 +21,15 @@ class {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault
     public function toOptionArray(){
         return array(
             array(
-                'label' => Mage::helper('{{module}}')->__('Use default config'),
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Use default config'),
                 'value' => self::USE_DEFAULT
             ),
             array(
-                'label' => Mage::helper('{{module}}')->__('Yes'),
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Yes'),
                 'value' => self::YES
             ),
             array(
-                'label' => Mage::helper('{{module}}')->__('No'),
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('No'),
                 'value' => self::NO
             )
         );

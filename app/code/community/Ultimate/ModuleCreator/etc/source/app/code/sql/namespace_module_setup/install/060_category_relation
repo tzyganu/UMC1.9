@@ -1,5 +1,5 @@
 $table = $this->getConnection()
-    ->newTable($this->getTable('{{module}}/{{entity}}_category'))
+    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}_category'))
     ->addColumn('rel_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'identity'  => true,
@@ -20,12 +20,12 @@ $table = $this->getConnection()
         'nullable'  => false,
         'default'   => '0',
     ), 'Position')
-    ->addIndex($this->getIdxName('{{module}}/{{entity}}_category', array('category_id')), array('category_id'))
-    ->addForeignKey($this->getFkName('{{module}}/{{entity}}_category', '{{entity}}_id', '{{module}}/{{entity}}', 'entity_id'), '{{entity}}_id', $this->getTable('{{module}}/{{entity}}'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($this->getFkName('{{module}}/{{entity}}_category', 'category_id', 'catalog/category', 'entity_id'),    'category_id', $this->getTable('catalog/category'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex($this->getIdxName('{{namespace}}_{{module}}/{{entity}}_category', array('category_id')), array('category_id'))
+    ->addForeignKey($this->getFkName('{{namespace}}_{{module}}/{{entity}}_category', '{{entity}}_id', '{{namespace}}_{{module}}/{{entity}}', 'entity_id'), '{{entity}}_id', $this->getTable('{{namespace}}_{{module}}/{{entity}}'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey($this->getFkName('{{namespace}}_{{module}}/{{entity}}_category', 'category_id', 'catalog/category', 'entity_id'),    'category_id', $this->getTable('catalog/category'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addIndex(
         $this->getIdxName(
-            '{{module}}/{{entity}}_category',
+            '{{namespace}}_{{module}}/{{entity}}_category',
             array('{{entity}}_id', 'category_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),

@@ -18,7 +18,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tabs
         parent::__construct();
         $this->setId('{{entity}}_comment_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTitle(Mage::helper('{{module}}')->__('{{EntityLabel}} Comment'));
+        $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Comment'));
     }
     /**
      * before render html
@@ -28,7 +28,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tabs
      */
     protected function _beforeToHtml(){
         $this->addTab('form_{{entity}}_comment', array(
-            'label'        => Mage::helper('{{module}}')->__('{{EntityLabel}} comment'),
-            'title'        => Mage::helper('{{module}}')->__('{{EntityLabel}} comment'),
-            'content'     => $this->getLayout()->createBlock('{{module}}/adminhtml_{{entity}}_comment_edit_tab_form')->toHtml(),
+            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} comment'),
+            'title'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} comment'),
+            'content'     => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_edit_tab_form')->toHtml(),
         ));

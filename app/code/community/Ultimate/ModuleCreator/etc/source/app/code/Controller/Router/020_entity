@@ -1,7 +1,7 @@
         $check['{{entity}}'] = new Varien_Object(array(
-            'prefix'        => Mage::getStoreConfig('{{module}}/{{entity}}/url_prefix'),
-            'suffix'        => Mage::getStoreConfig('{{module}}/{{entity}}/url_suffix'),
-            'model'         =>'{{module}}/{{entity}}',
+            'prefix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix'),
+            'suffix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix'),
+            'model'         =>'{{namespace}}_{{module}}/{{entity}}',
             'controller'    => '{{entity}}',
             'action'        => 'view',
             'param'         => 'id',

@@ -15,7 +15,7 @@
                 if ($settings->getCheckPath() && !$model->load($id)->getStatusPath()) {
                     continue;
                 }
-                $request->setModuleName('{{module}}')
+                $request->setModuleName('{{frontKey}}')
                     ->setControllerName($settings->getController())
                     ->setActionName($settings->getAction())
                     ->setParam($settings->getParam(), $id);

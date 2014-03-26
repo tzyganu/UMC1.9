@@ -23,7 +23,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category_Collection
     public function joinFields(){
         if (!$this->_joinedFields){
             $this->getSelect()->join(
-                array('related' => $this->getTable('{{module}}/{{entity}}_category')),
+                array('related' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
                 'related.category_id = e.entity_id',
                 array('position')
             );

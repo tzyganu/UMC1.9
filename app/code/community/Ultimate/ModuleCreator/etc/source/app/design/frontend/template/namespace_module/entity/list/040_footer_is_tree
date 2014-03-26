@@ -1,4 +1,4 @@
-    <h1><?php echo Mage::helper('{{module}}')->__('{{EntitiesLabel}}') ?></h1>
+    <h1><?php echo Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}') ?></h1>
 </div>
 <?php if ($_{{entities}}->getSize() > 0) :?>
     <?php if ($this->_getDisplayMode() == 0) : ?>
@@ -22,5 +22,5 @@
         </script>
     <?php endif;?>
 <?php else : ?>
-    <?php echo Mage::helper('{{module}}')->__('There are no {{entitiesLabel}} at this moment');?>
+    <?php echo Mage::helper('{{namespace}}_{{module}}')->__('There are no {{entitiesLabel}} at this moment');?>
 <?php endif;?>

@@ -1,7 +1,7 @@
-    <{{module}}_{{entity}}_index translate="label" module="{{module}}">
+    <{{namespace}}_{{module}}_{{entity}}_index translate="label" module="{{namespace}}_{{module}}">
         <label>{{EntitiesLabel}} list</label>
         <update handle="page_{{listLayout}}" />
 {{referenceHead}}<reference name="content">
-            <block type="{{module}}/{{entity}}_list" name="{{entity}}_list" template="{{namespace}}_{{module}}/{{entity}}/list.phtml" />
+            <block type="{{namespace}}_{{module}}/{{entity}}_list" name="{{entity}}_list" template="{{namespace}}_{{module}}/{{entity}}/list.phtml" />
         </reference>
-    </{{module}}_{{entity}}_index>
+    </{{namespace}}_{{module}}_{{entity}}_index>

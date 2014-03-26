@@ -17,25 +17,25 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit
     public function __construct() {
         $this->_objectId = 'attribute_id';
         $this->_controller = 'adminhtml_{{entity}}_attribute';
-        $this->_blockGroup = '{{module}}';
+        $this->_blockGroup = '{{namespace}}_{{module}}';
 
         parent::__construct();
         $this->_addButton(
             'save_and_edit_button',
             array(
-                'label'     => Mage::helper('{{module}}')->__('Save and Continue Edit'),
+                'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Save and Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit()',
                 'class'     => 'save'
             ),
             100
         );
-        $this->_updateButton('save', 'label', Mage::helper('{{module}}')->__('Save {{EntityLabel}} Attribute'));
+        $this->_updateButton('save', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} Attribute'));
         $this->_updateButton('save', 'onclick', 'saveAttribute()');
 
         if (!Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');
         } else {
-            $this->_updateButton('delete', 'label', Mage::helper('{{module}}')->__('Delete {{EntityLabel}} Attribute'));
+            $this->_updateButton('delete', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} Attribute'));
         }
     }
     /**
@@ -50,10 +50,10 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit
             if (is_array($frontendLabel)) {
                 $frontendLabel = $frontendLabel[0];
             }
-            return Mage::helper('{{module}}')->__('Edit {{EntityLabel}} Attribute "%s"', $this->htmlEscape($frontendLabel));
+            return Mage::helper('{{namespace}}_{{module}}')->__('Edit {{EntityLabel}} Attribute "%s"', $this->htmlEscape($frontendLabel));
         }
         else {
-            return Mage::helper('{{module}}')->__('New {{EntityLabel}} Attribute');
+            return Mage::helper('{{namespace}}_{{module}}')->__('New {{EntityLabel}} Attribute');
         }
     }
     /**

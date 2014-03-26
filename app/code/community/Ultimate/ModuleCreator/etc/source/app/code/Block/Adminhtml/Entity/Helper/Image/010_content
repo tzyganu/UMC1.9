@@ -18,7 +18,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Helper_Image
     protected function _getUrl(){
         $url = false;
         if ($this->getValue()) {
-            $url = Mage::helper('{{module}}/{{entity}}_image')->getImageBaseUrl().$this->getValue();
+            $url = Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseUrl().$this->getValue();
         }
         return $url;
     }

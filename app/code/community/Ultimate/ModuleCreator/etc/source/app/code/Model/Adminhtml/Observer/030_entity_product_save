@@ -10,7 +10,7 @@
         if ($post != '-1') {
             $post = Mage::helper('adminhtml/js')->decodeGridSerializedInput($post);
             $product = Mage::registry('product');
-            ${{entity}}Product = Mage::getResourceSingleton('{{module}}/{{entity}}_product')->saveProductRelation($product, $post);
+            ${{entity}}Product = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_product')->saveProductRelation($product, $post);
         }
         return $this;
     }

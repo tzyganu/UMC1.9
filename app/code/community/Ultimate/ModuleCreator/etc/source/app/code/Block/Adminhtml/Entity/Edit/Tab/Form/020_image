@@ -1,1 +1,1 @@
-        $fieldset->addType('image', Mage::getConfig()->getBlockClassName('{{module}}/adminhtml_{{entity}}_helper_image'));
+        $fieldset->addType('image', Mage::getConfig()->getBlockClassName('{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_image'));
