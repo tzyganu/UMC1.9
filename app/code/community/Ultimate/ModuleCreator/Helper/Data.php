@@ -135,7 +135,9 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
 
     /**
      * get the umc config
+     * @access public
      * @return Ultimate_ModuleCreator_Model_Config
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getConfig() {
         if (is_null($this->_config)) {
@@ -471,7 +473,7 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
         return $_pp;
     }
     /**
-     *
+     * get the list of people that helped on this extension
      * @access public
      * @return Varien_Simplexml_Element
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>

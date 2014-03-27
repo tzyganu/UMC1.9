@@ -127,6 +127,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
                 break;
             case 'text':
                 return "'64k'";
+                break;
             case 'datetime':
                 return "255";
                 break;

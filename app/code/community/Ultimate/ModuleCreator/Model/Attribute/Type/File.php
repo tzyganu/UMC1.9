@@ -118,5 +118,4 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
         $module = $this->getModule();
         return $this->getNamespace(true).'_'.$module->getLowerModuleName().'/'.$entity->getNameSingular(true).'_attribute_backend_file';
     }
-
 }

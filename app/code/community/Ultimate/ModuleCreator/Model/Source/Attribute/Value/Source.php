@@ -24,13 +24,6 @@
  */
 class Ultimate_ModuleCreator_Model_Source_Attribute_Value_Source {
     /**
-     * source constants
-     */
-//    const CUSTOM    = 'custom';
-//    const PRODUCT   = 'catalog_product';
-//    const CATEGORY  = 'catalog_category';
-//    const CUSTOMER  = 'customer';
-    /**
      * options
      * @var mixed
      */

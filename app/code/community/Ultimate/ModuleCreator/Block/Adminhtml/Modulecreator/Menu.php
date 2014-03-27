@@ -48,7 +48,7 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu
         $previousSortOrder = 0;
         foreach ($menu as $key=> $item) {
             $html .= '<li>';
-                $html .= '<span class="delete toggler collapsed"></span>';
+            $html .= '<span class="delete toggler collapsed"></span>';
             $html .= '<a href="#" onclick="return false">' . $this->escapeHtml($item['label']) . '</a>';
             if ($parentId) {
                 $nextParentId = $parentId.'/'.$key;

@@ -26,7 +26,6 @@ class Ultimate_ModuleCreator_Model_Module_Collection
     extends Varien_Data_Collection_Filesystem {
     /**
      * Files and folders regexsp
-     *
      * @var string
      */
     protected $_allowedDirsMask = '/^[a-z0-9\.\-]+$/i';

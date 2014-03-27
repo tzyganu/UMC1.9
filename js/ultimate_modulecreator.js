@@ -67,7 +67,7 @@ UMC.Module.prototype =  {
         $(that.config.entitiesContainer).insert({bottom:entityTemplate});
 
         var entity = new UMC.Entity($('entity_' + that.entityCount), {collapsed: that.config.collapsed});
-        Effect.Pulsate('entity_' + that.entityCount, { pulses: 2, duration: 2 });
+        Effect.Pulsate('entity_' + that.entityCount, { pulses: 1, duration: 1 });
         Effect.ScrollTo($('entity_' + that.entityCount), { duration:'1'});
         that.registerEntity(entity);
     },
@@ -301,7 +301,7 @@ UMC.Entity.prototype = {
         });
         var attribute = new UMC.Attribute($('attribute_' + that.index + '_' + that.attributeCount), {});
         Effect.ScrollTo($('attribute_' + that.index + '_' + that.attributeCount), { duration:1});
-        Effect.Pulsate('attribute_' + that.index + '_' + that.attributeCount, { pulses: 2, duration: 2 });
+        Effect.Pulsate('attribute_' + that.index + '_' + that.attributeCount, { pulses: 1, duration: 1 });
         that.registerAttribute(attribute);
         this.initAttributeSort();
     },

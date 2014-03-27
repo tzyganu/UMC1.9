@@ -521,7 +521,7 @@
                             <label>Category attribute group</label>
                             <type>text</type>
                             <position>60</position>
-                            <class>use-product-attribute</class>
+                            <class>use-category-attribute</class>
                             <system>1</system>
                             <tooltip>The name of the attribute group where the attribute will be added. If you leave it empty the attribute will not be added to the category attribute set. If the group does not exist it will be created.</tooltip>
                         </category_attribute_group>
@@ -980,9 +980,35 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_alpha1>
+            <version>1.9.0-alpha1</version>
+            <date>2014-03-27</date>
+            <data>
+                <sibling_relation translate="label type comment">
+                    <label>Fixed the sibling relation tab on admin.</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[For non tree entities related as siblings there was an error in the admin relation tab.]]></comment>
+                </sibling_relation>
+                <uninstall translate="label type comment">
+                    <label>Fixed generation of uninstall script</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[The uninstall script tried to remove the module_eav_attribute table once for each EAV entity.]]></comment>
+                </uninstall>
+                <image translate="label type comment">
+                    <label>Image field/attribute display on frontend</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[The image attributes/fields were displayed wrong on frontend for EAV entities.]]></comment>
+                </image>
+                <filename translate="label type comment">
+                    <label>A file for generating content had a wrong name</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a>]]></comment>
+                </filename>
+            </data>
+        </v1_9_0_alpha1>
         <v1_9_0_dev8>
             <version>1.9.0-dev8</version>
-            <date>2014-26-03</date>
+            <date>2014-03-26</date>
             <data>
                 <class_alias translate="label type comment">
                     <label>Change module class aliases</label>
@@ -1318,5 +1344,9 @@
             <to>@MagePsycho</to>
             <for>Thanks for the free testing and the good ideas.</for>
         </magepsycho>
+        <nadirs>
+            <to>@nadirs</to>
+            <for><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">For this fix.</a>.]]></for>
+        </nadirs>
     </thanks>
 </config>

@@ -41,6 +41,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Decimal
     protected $_sizeDdl     = "'12,4'";
     /**
      * eav setup type
+     * @var string
      */
     protected $_setupType   = 'decimal';
 }

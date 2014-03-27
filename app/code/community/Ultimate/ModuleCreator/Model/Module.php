@@ -644,10 +644,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
                     $lines[] = 'DROP TABLE '.$tableName.';';
                 }
-                $tableName = $namespace.'_'.$module.'_eav_attribute';
-                $lines[] = 'DROP TABLE '.$tableName.';';
             }
             $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}');
+            $lines[] = 'DROP TABLE '.$tableName.';';
+        }
+        if ($this->getHasEav()){
+            $tableName = $namespace.'_'.$module.'_eav_attribute';
             $lines[] = 'DROP TABLE '.$tableName.';';
         }
         $lines[] = "DELETE FROM core_resource WHERE code = '".$namespace.'_'.$module."_setup';";

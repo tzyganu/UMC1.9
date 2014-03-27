@@ -93,7 +93,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
         $content    = '';
         $entityName = $this->getEntity()->getNameSingular(true);
         $ucEntity   = ucfirst($entityName);
-        $module     = $this->getModule()->getModuleName(true);
+        $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         $content   .= '<?php if ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) :?>'.$eol;
         $content   .= $this->getHelper()->getPadding().'<img src="<?php echo Mage::helper(\''.$namespace.'_'.$module.'/'.$entityName.'_image\')->init($_'.$entityName.', \''.$this->getAttribute()->getCode().'\')->resize(75);?>" alt="<?php echo $this->htmlEscape($_'.$entityName.'->get'.$this->getAttribute()->getEntity()->getNameAttributeMagicCode().'());?>" />'.$eol;

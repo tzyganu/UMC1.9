@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9-dev8
+Ultimate Module Creator 1.9.0-alpha1
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,16 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-alpha1 - 2014-03-27**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug fix|Fixed the sibling relation tab on admin.|For non tree entities related as siblings there was an error in the admin relation tab.|
+|Bug fix|Fixed generation of uninstall script|The uninstall script tried to remove the module_eav_attribute table once for each EAV entity.|
+|Bug fix|Image field/attribute display on frontend|The image attributes/fields were displayed wrong on frontend for EAV entities.|
+|Bug fix|A file for generating content had a wrong name|<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a>|
+
 
 **Release Notes 1.9.0-dev8 - 2014-03-26** - Getting close to a stable version
 
