@@ -3190,7 +3190,7 @@
                     <sort_order>50</sort_order>
                 </porttype_top>
                 <porttype_entity>
-                    <name>060_porttype_entity.</name>
+                    <name>060_porttype_entity</name>
                     <scope>entity</scope>
                     <depend>
                         <api/>
