@@ -7,7 +7,7 @@
     public function mass{{AttributeMagicCode}}Action(){
         ${{entity}}Ids = (array)$this->getRequest()->getParam('{{entity}}');
         $storeId    = (int)$this->getRequest()->getParam('store', 0);
-        $flag     = (int)$this->getRequest()->getParam('flag');
+        $flag     = (int)$this->getRequest()->getParam('flag_{{attributeCode}}');
         if ($flag == 2){
             $flag = 0;
         }
