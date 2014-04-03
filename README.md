@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0-alpha1
+Ultimate Module Creator 1.9.0-alpha2
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -19,6 +19,7 @@ Also any good code is welcomed.
 For the rest of the document UMC = Ultimate Module Creator
 
 **Release Notes 1.9.0-alpha2 - 2014-04-03**
+
 |Type|Label|Comment|
 |----|-----|-------|
 |Feature|Attribute notes for EAV entities are now manageable from the backend.|Attribute notes for EAV entities can be changed from the backend, when editing the attribute.|
