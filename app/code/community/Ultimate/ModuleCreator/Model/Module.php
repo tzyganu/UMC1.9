@@ -1265,6 +1265,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
                 '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks(),
                 '{{frontKey}}'                          => $this->getFrontKey(),
+                '{{SystemTabName}}'                     => $this->getSystemTabName(),
+                '{{systemTabPosition}}'                 => $this->getSystemTabPosition()
             );
         }
         if (is_null($param)){
@@ -1720,5 +1722,27 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $this->setData('front_key', $frontKey);
         }
         return $this->getData('front_key');
+    }
+
+    /**
+     * system configuration tab name
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSystemTabName(){
+        if (!$this->getData('system_tab')){
+            $this->setData('system_tab', $this->getNamespace());
+        }
+        return $this->getData('system_tab');
+    }
+    /**
+     * system configuration tab position
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getSystemTabPosition(){
+        return (int)$this->getData('system_tab_position');
     }
 }

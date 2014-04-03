@@ -20,7 +20,7 @@
     <modules>
         <Ultimate_ModuleCreator>
             <version>1.9.0</version>
-            <build>alpha1</build>
+            <build>alpha2</build>
         </Ultimate_ModuleCreator>
     </modules>
     <global>
@@ -81,6 +81,7 @@
                 <codepool>local</codepool>
                 <install>0</install>
                 <version>1.0.0</version>
+                <system_tab_position>2000</system_tab_position>
                 <license><![CDATA[
 {{Namespace}}_{{Module}} extension
 

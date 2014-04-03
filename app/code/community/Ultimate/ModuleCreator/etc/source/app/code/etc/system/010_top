@@ -3,14 +3,14 @@
 <config>
     <tabs>
         <{{namespace}} translate="label" module="{{namespace}}_{{module}}">
-            <label>{{Namespace}}</label>
-            <sort_order>2000</sort_order>
+            <label>{{SystemTabName}}</label>
+            <sort_order>{{systemTabPosition}}</sort_order>
         </{{namespace}}>
     </tabs>
     <sections>
         <{{namespace}}_{{module}} translate="label" module="{{namespace}}_{{module}}">
             <class>separator-top</class>
-            <label>{{Module}}</label>
+            <label>{{module_menu}}</label>
             <tab>{{namespace}}</tab>
             <frontend_type>text</frontend_type>
             <sort_order>100</sort_order>

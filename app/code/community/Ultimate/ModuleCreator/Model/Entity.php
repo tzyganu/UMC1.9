@@ -1328,7 +1328,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</rss>'.$eol;
             $position += 10;
         }
-        if ($this->getIsTree() && $this->getFrontendList()){
+        if ($this->getIsTree() && $this->getCreateList()){
             $content .= $padding.'<tree translate="label">'.$eol;
             $content .= $padding.$tab.'<label>Display as tree</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>select</frontend_type>'.$eol;
@@ -1340,7 +1340,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</tree>'.$eol;
             $position += 10;
         }
-        if ($this->getIsTree() && $this->getWidget()){
+        if ($this->getIsTree() && ($this->getCreateList() || $this->getWidget())){
             $content .= $padding.'<recursion translate="label">'.$eol;
             $content .= $padding.$tab.'<label>Recursion level</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;

@@ -321,7 +321,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         $content .= $padding6."'default'        => '',".$eol;
         $content .= $padding6."'unique'         => false,".$eol;
         $content .= $padding6."'position'       => '".(int)$this->getPosition()."',".$eol;
-        $content .= $padding6."'note'           => '".(int)$this->getNote()."',".$eol;
+        $content .= $padding6."'note'           => '".$this->getNote()."',".$eol;
         $content .= $padding6."'visible'        => '".(int)$this->getVisible()."',".$eol;
         $content .= $padding6."'wysiwyg_enabled'=> '".(int)$this->getEditor()."',".$eol;
         $content .= $this->getAdditionalSetup();

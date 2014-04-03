@@ -97,6 +97,24 @@
                             <tooltip>This is the sort order in the menu.</tooltip>
                             <note><![CDATA[<a href="#">Select menu parent and position</a>]]></note>
                         </sort_order>
+                        <system_tab translate="label tooltip" module="modulecreator">
+                            <label>System -&gt; Configuration tab name</label>
+                            <type>text</type>
+                            <code>system_tab</code>
+                            <required>0</required>
+                            <position>70</position>
+                            <system>0</system>
+                            <tooltip><![CDATA[If at least one entity has frontend files then a section in System->Configuration will be created. Fill in the tab name here. Leave empty to use the namespace.]]></tooltip>
+                        </system_tab>
+                        <system_tab_position translate="label tooltip" module="modulecreator">
+                            <label>System -&gt; Configuration tab name</label>
+                            <type>text</type>
+                            <code>system_tab</code>
+                            <required>0</required>
+                            <position>70</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[If at least one entity has frontend files then a section in System->Configuration will be created. Fill in the tab position. The higher the number the lower it will appear in the list.]]></tooltip>
+                        </system_tab_position>
                         <license translate="label tooltip" module="modulecreator">
                             <label>License</label>
                             <type>textarea</type>
@@ -700,6 +718,8 @@
             <menu_parent />
             <sort_order />
             <front_key />
+            <system_tab />
+            <system_tab_position />
         </umc_module>
         <umc_entity>
             <label_singular />
@@ -980,6 +1000,37 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_alpha2>
+            <version>1.9.0-alpha2</version>
+            <date>2014-04-03</date>
+            <data>
+                <attribute_notes_admin translate="label type">
+                    <label>Attribute notes for EAV entities are now manageable from the backend.</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[Attribute notes for EAV entities can be changed from the backend, when editing the attribute.]]></comment>
+                </attribute_notes_admin>
+                <attribute_notes translate="label type">
+                    <label>Attribute notes do not appear in the EAV entity form</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/10" target="_blank">#10</a>]]></comment>
+                </attribute_notes>
+                <eav_flag translate="label type">
+                    <label>Wrong EAV mass action flag change</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a>]]></comment>
+                </eav_flag>
+                <system_config translate="label type">
+                    <label>The configuration panel for tree entities was incomplete</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[The display mode of tree entities was not manageable from the system configuration section.]]></comment>
+                </system_config>
+                <system_config_tab translate="label type">
+                    <label>Set the system configuration tab name and position.</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[You can set the configuration tab name and position when creating a module.]]></comment>
+                </system_config_tab>
+            </data>
+        </v1_9_0_alpha2>
         <v1_9_0_alpha1>
             <version>1.9.0-alpha1</version>
             <date>2014-03-27</date>
@@ -999,7 +1050,7 @@
                     <type>Bug fix</type>
                     <comment><![CDATA[The image attributes/fields were displayed wrong on frontend for EAV entities.]]></comment>
                 </image>
-                <filename translate="label type comment">
+                <filename translate="label type">
                     <label>A file for generating content had a wrong name</label>
                     <type>Bug fix</type>
                     <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a>]]></comment>
@@ -1018,7 +1069,7 @@
                 <routes translate="label type comment">
                     <label>Added configurable frontend routes</label>
                     <type>Feature</type>
-                    <comment><![CDATA[The route of the module can be configured. (<a href="https://github.com/tzyganu/UMC1.9/issues/4">#4</a>)]]></comment>
+                    <comment><![CDATA[The route of the module can be configured. (<a href="https://github.com/tzyganu/UMC1.9/issues/4" target="_blank">#4</a>)]]></comment>
                 </routes>
                 <comment_row translate="label type comment">
                     <label>Fixed comment row URL</label>
@@ -1049,12 +1100,12 @@
                 <layout_messages translate="label type comment">
                     <label>Added initLayoutMessages for frontend controllers</label>
                     <type>Bug Fix</type>
-                    <comment><![CDATA[Different types of session messages were not displayed in the entity actions (view/list) <a href="https://github.com/tzyganu/UMC1.9/issues/2">(#2)</a>]]></comment>
+                    <comment><![CDATA[Different types of session messages were not displayed in the entity actions (view/list) <a href="https://github.com/tzyganu/UMC1.9/issues/2" target="_blank">(#2)</a>]]></comment>
                 </layout_messages>
                 <relations translate="label type comment">
                     <label>Relations not saved when 3 or more entities exist</label>
                     <type>Bug Fix</type>
-                    <comment><![CDATA[The entities relations were not displayed correctly when the module contained 3 or more entities. <a href="https://github.com/tzyganu/UMC1.9/issues/5">(#5)</a>]]></comment>
+                    <comment><![CDATA[The entities relations were not displayed correctly when the module contained 3 or more entities. <a href="https://github.com/tzyganu/UMC1.9/issues/5" target="_blank">(#5)</a>]]></comment>
                 </relations>
                 <acl translate="label type comment">
                     <label>Fixed admin ACL for comments and EAV attributes</label>
@@ -1346,7 +1397,7 @@
         </magepsycho>
         <nadirs>
             <to>@nadirs</to>
-            <for><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">For this fix.</a>.]]></for>
+            <for><![CDATA[Thanks for these fixes.<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a> and <a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a>.]]></for>
         </nadirs>
     </thanks>
 </config>

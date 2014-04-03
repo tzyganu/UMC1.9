@@ -25,3 +25,5 @@
 "Default Values","Default Values"
 "Attribute ""%s"" is required.","Attribute ""%s"" is required."
 "This attribute is not deletable","This attribute is not deletable"
+"Text to appear below the input.","Text to appear below the input."
+"Note","Note"

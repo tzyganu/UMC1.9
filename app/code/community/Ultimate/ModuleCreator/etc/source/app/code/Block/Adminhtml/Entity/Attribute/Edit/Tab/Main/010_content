@@ -66,12 +66,18 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Mai
             'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Declare attribute value saving scope'),
             'values'=> $scopes
         ), 'attribute_code');
-         $fieldset->addField('position', 'text', array(
+        $fieldset->addField('position', 'text', array(
             'name'  => 'position',
             'label' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
             'title' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
             'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Position in the admin form'),
         ), 'is_global');
+        $fieldset->addField('note', 'textarea', array(
+            'name'  => 'note',
+            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
+            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
+            'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Text to appear below the input.'),
+        ), 'position');
 
 		$fieldset->removeField('default_value_text');
 		$fieldset->removeField('default_value_yesno');

@@ -18,6 +18,15 @@ Also any good code is welcomed.
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
 
+**Release Notes 1.9.0-alpha2 - 2014-04-03**
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Attribute notes for EAV entities are now manageable from the backend.|Attribute notes for EAV entities can be changed from the backend, when editing the attribute.|
+|Bug fix|Attribute notes do not appear in the EAV entity form|<a href="https://github.com/tzyganu/UMC1.9/issues/10" target="_blank">#10</a>|
+|Bug fix|Wrong EAV mass action flag change|<a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a>|
+|Bug fix|The configuration panel for tree entities was incomplete|The display mode of tree entities was not manageable from the system configuration section.|
+|Feature|Set the system configuration tab name and position.|You can set the configuration tab name and position when creating a module.|
+
 **Release Notes 1.9.0-alpha1 - 2014-03-27**
 
 |Type|Label|Comment|

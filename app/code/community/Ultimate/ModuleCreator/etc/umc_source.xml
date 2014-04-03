@@ -2884,7 +2884,7 @@
             <source>app/code/etc/system/</source>
             <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/etc/system.xml</destination>
             <depend>
-                <create_frontend/>
+                <create_frontend />
             </depend>
             <code>
                 <top>
