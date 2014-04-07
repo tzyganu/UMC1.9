@@ -142,7 +142,7 @@
     }
 
     /**
-     * export {{entities}} as MsExcel - action
+     * Export {{entities}} in Excel format
      * @access public
      * @return void
      * {{qwertyuiop}}
@@ -154,7 +154,7 @@
         $this->_prepareDownloadResponse($fileName, $content);
     }
     /**
-     * export {{entities}} as xml - action
+     * Export {{entities}} in XML format
      * @access public
      * @return void
      * {{qwertyuiop}}
