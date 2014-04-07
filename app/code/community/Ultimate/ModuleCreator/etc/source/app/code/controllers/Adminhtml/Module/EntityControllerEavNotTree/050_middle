@@ -142,15 +142,27 @@
     }
 
     /**
-     * Export {{entities}} in Excel XML format
+     * export as MsExcel - action
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function exportExcelAction(){
+        $fileName   = '{{entity}}.xls';
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
+            ->getExcelFile();
+        $this->_prepareDownloadResponse($fileName, $content);
+    }
+    /**
+     * export as xml - action
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
     public function exportXmlAction(){
-        $fileName   = '{{entities}}.xls';
+        $fileName   = '{{entity}}.xml';
         $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
-            ->getExcelFile();
+            ->getXml();
         $this->_prepareDownloadResponse($fileName, $content);
     }
     /**
