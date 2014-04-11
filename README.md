@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0-alpha2
+Ultimate Module Creator 1.9.0-beta
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,14 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-beta - 2014-04-11**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Improvement|Improved te created modules grid.|Added a verification for file existing for download in the created modules grid. Changed the names of the downloaded files - added module name to them.|
+|Bug Fix|Fixed typo|Fixed typo in the generated module for category relation.|
+|Bug Fix|Wrong export for EAV entities.|<a href="https://github.com/tzyganu/UMC1.9/pull/11" target="_blank">#11</a>|
 
 **Release Notes 1.9.0-alpha2 - 2014-04-03**
 

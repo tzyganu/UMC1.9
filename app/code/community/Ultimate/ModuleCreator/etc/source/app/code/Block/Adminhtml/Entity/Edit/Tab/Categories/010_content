@@ -87,7 +87,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         $root = Mage::registry('category_root');
         if (is_null($root)) {
             $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
-            $ids = $this->getSelectedCategotyPathIds($rootId);
+            $ids = $this->getSelectedCategoryPathIds($rootId);
             $tree = Mage::getResourceSingleton('catalog/category_tree')
                 ->loadByIds($ids, false, false);
             if ($this->getCategory()) {

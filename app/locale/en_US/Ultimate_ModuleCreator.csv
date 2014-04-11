@@ -185,6 +185,7 @@ Description,Description
 "Disallowed module names","Disallowed module names"
 "Disallowed namespace names","Disallowed namespace names"
 "Do not include in any menu","Do not include in any menu"
+Download,Download
 "Download List of Files","Download List of Files"
 "Download Module","Download Module"
 "Download Uninstall DB Script","Download Uninstall DB Script"
@@ -287,6 +288,7 @@ Field,Field
 "Field/Attribute management.","Field/Attribute management."
 "Fields / Attributes","Fields / Attributes"
 File,File
+"File does not exist or is not readable","File does not exist or is not readable"
 "File needed for API V2 integration","File needed for API V2 integration"
 "File needed for API integration","File needed for API integration"
 "File save backend model","File save backend model"
@@ -310,6 +312,8 @@ File,File
 "Fixed the sibling relation tab on admin.","Fixed the sibling relation tab on admin."
 "Fixed tree entities display","Fixed tree entities display"
 "Fixed tree widget chooser","Fixed tree widget chooser"
+"Fixed typo","Fixed typo"
+"Fixed typo in the generated module for category relation.","Fixed typo in the generated module for category relation."
 Flat,Flat
 "Flat entities with url rewrites and no stores could not be saved.","Flat entities with url rewrites and no stores could not be saved."
 "Flat entity admin controller (tree).","Flat entity admin controller (tree)."
@@ -450,6 +454,7 @@ Image,Image
 "Image placeholder","Image placeholder"
 "Image save backend model","Image save backend model"
 "Improved speed of the module creator","Improved speed of the module creator"
+"Improved te created modules grid.","Improved te created modules grid."
 Improvement,Improvement
 "In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.","In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version."
 "Include in admin global search","Include in admin global search"
@@ -811,6 +816,7 @@ Website,Website
 "Widget xml","Widget xml"
 Widgets,Widgets
 "Wrong EAV mass action flag change","Wrong EAV mass action flag change"
+"Wrong export for EAV entities.","Wrong export for EAV entities."
 "Yeah...like someone is going to extend it","Yeah...like someone is going to extend it"
 Yes,Yes
 "Yes / No","Yes / No"

@@ -1000,6 +1000,27 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_beta>
+            <version>1.9.0-beta</version>
+            <date>2014-04-11</date>
+            <data>
+                <grid translate="label type">
+                    <label>Improved te created modules grid.</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[Added a verification for file existing for download in the created modules grid. Changed the names of the downloaded files - added module name to them.]]></comment>
+                </grid>
+                <typo translate="label type comment">
+                    <label>Fixed typo</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Fixed typo in the generated module for category relation.]]></comment>
+                </typo>
+                <eav_export translate="label type">
+                    <label>Wrong export for EAV entities.</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/11" target="_blank">#11</a>]]></comment>
+                </eav_export>
+            </data>
+        </v1_9_0_beta>
         <v1_9_0_alpha2>
             <version>1.9.0-alpha2</version>
             <date>2014-04-03</date>
@@ -1397,7 +1418,7 @@
         </magepsycho>
         <nadirs>
             <to>@nadirs</to>
-            <for><![CDATA[Thanks for these fixes.<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a> and <a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a>.]]></for>
+            <for><![CDATA[Thanks for these fixes.<a href="https://github.com/tzyganu/UMC1.9/pull/6" target="_blank">#6</a> and <a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a> and this <a href="https://github.com/tzyganu/UMC1.9/pull/11" target="_blank">#11</a>]]></for>
         </nadirs>
     </thanks>
 </config>

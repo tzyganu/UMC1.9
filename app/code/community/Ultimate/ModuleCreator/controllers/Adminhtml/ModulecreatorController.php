@@ -207,12 +207,15 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         $what = $this->getRequest()->getParam('type');
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
         $path = Mage::helper('modulecreator')->getLocalModulesDir();
+        $namePrefix = '';
         switch ($what) {
             case 'list':
                 $file = $path.'package'.DS.$packageName . DS. 'files.log';
+                $namePrefix = $packageName.'_';
                 break;
             case 'uninstall' :
                 $file = $path.'package'.DS.$packageName . DS. 'uninstall.sql';
+                $namePrefix = $packageName.'_';
                 break;
             default:
                 $file = $path . $packageName . '.tgz';
@@ -220,7 +223,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         }
         if (file_exists($file) && is_readable($file)) {
             $content = file_get_contents($file);
-            $this->_prepareDownloadResponse(basename($file), $content);
+            $this->_prepareDownloadResponse($namePrefix.basename($file), $content);
         }
         else{
             $this->_getSession()->addError(Mage::helper('modulecreator')->__('Your extension archive was not created or is not readable'));
