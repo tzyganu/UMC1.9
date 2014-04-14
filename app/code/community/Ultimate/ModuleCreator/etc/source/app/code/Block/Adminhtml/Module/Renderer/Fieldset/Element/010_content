@@ -28,9 +28,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     }
 
     /**
-     * Retireve associated with element attribute object
+     * Retrieve associated with element attribute object
      * @access public
-     * @return {{Namespace}}_{{Module}}_Model_Resource_Eav_Mysql4_Attribute
+     * @return {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
      * {{qwertyuiop}}
      */
     public function getAttribute() {
@@ -64,8 +64,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
         }
         return false;
     }
-    
-        
+
     /**
      * Check default value usage fact
      * @access public
@@ -137,6 +136,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     /**
      * check if an attribute is global
      * @access public
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */
@@ -146,6 +146,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     /**
      * check if an attribute has website scope
      * @access public
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */
@@ -155,6 +156,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     /**
      * check if an attribute has store view scope
      * @access public
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */

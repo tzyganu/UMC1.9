@@ -109,6 +109,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
     /**
      * get row url
      * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Sibling}}
      * @return string
      * {{qwertyuiop}}
      */

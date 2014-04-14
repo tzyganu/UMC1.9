@@ -135,6 +135,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Product
     /**
      * get row url
      * @access public
+     * @param {{Namespace}}_{{Module}}_Model_Product
      * @return string
      * {{qwertyuiop}}
      */

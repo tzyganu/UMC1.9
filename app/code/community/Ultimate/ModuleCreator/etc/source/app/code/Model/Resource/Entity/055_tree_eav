@@ -179,7 +179,7 @@
             'active_flag'  => $isActiveFlag,
             'c_path'   => ${{entity}}->getPath() . '/%'
         );
-        $select = $adapter->select()
+        $select = $this->_getReadAdapter()->select()
             ->from(array('m' => $this->getMainTable()), array('COUNT(m.entity_id)'))
             ->where('m.path LIKE :c_path')
             ->where('status' . ' = :active_flag');

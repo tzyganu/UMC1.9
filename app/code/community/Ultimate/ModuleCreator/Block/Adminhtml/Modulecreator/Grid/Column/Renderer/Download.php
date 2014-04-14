@@ -37,6 +37,9 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid_Column_Renderer_
         $packageName = base64_decode(strtr($id, '-_,', '+/='));
         $path = Mage::helper('modulecreator')->getLocalModulesDir();
         switch ($what) {
+            case 'config':
+                $file = $path.'package'.DS.$packageName . '.xml';
+                break;
             case 'list':
                 $file = $path.'package'.DS.$packageName . DS. 'files.log';
                 break;

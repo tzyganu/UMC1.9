@@ -24,6 +24,11 @@
 class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid
     extends Mage_Adminhtml_Block_Widget_Grid {
     /**
+     * no filters
+     * @var bool
+     */
+    protected $_filterVisibility = false;
+    /**
      * Initialize Grid block
      * @access public
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
@@ -68,8 +73,39 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid
         $this->addColumn('filename_id', array(
             'header' => Mage::helper('modulecreator')->__('Module'),
             'index'  => 'filename_id',
+            'filter' => false,
         ));
         $actionColumnRenderer = 'modulecreator/adminhtml_modulecreator_grid_column_renderer_download';
+        $this->addColumn('action_edit',
+            array(
+                'header'=>  Mage::helper('modulecreator')->__('Edit'),
+                'width' => '100',
+                'type'  => 'action',
+                'getter'=> 'getSafeId',
+                'actions'   => array(
+                    array(
+                        'caption'   => Mage::helper('modulecreator')->__('Edit'),
+                        'url'   => array('base'=> '*/*/edit'),
+                        'field' => 'id'
+                    )
+                ),
+                'filter'    => false,
+                'is_system' => true,
+                'sortable'  => false,
+            )
+        );
+        $this->addColumn('action_config',
+            array(
+                'header'    =>  Mage::helper('modulecreator')->__('Download Config File'),
+                'label'     => Mage::helper('modulecreator')->__('Download Config File'),
+                'width'     => '150',
+                'renderer'  => $actionColumnRenderer,
+                'filter'    => false,
+                'is_system' => true,
+                'sortable'  => false,
+                'what'      => 'config'
+            )
+        );
         $this->addColumn('action',
             array(
                 'header'    =>  Mage::helper('modulecreator')->__('Download Module'),

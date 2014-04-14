@@ -48,7 +48,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
     /**
      * format url key
      * @access public
-     * @param string $object
+     * @param string $str
      * @return string
      * {{qwertyuiop}}
      */

@@ -40,11 +40,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
     public function get{{Entities}}Ids(){
         if (is_null($this->_{{entities}}Ids)){
             ${{entities}} = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}($this->getCategory());
-                $ids = array();
-                foreach (${{entities}} as ${{entity}}){
-                    $ids[] = ${{entity}}->getId();
-                }
-                $this->_{{entity}}Ids = $ids;
+            $ids = array();
+            foreach (${{entities}} as ${{entity}}){
+                $ids[] = ${{entity}}->getId();
+            }
+            $this->_{{entity}}Ids = $ids;
         }
         return $this->_{{entity}}Ids;
     }
@@ -141,9 +141,10 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
         return $result;
     }
     /**
-     * Returns array with nodes those are selected (contain current category)
-     *
+     * Returns array with nodes those are selected (contain current {{entityLabel}})
+     * @access protected
      * @return array
+     * {{qwertyuiop}}
      */
     protected function _getSelectedNodes(){
         if ($this->_selectedNodes === null) {

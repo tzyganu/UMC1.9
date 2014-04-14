@@ -107,7 +107,7 @@
                             <tooltip><![CDATA[If at least one entity has frontend files then a section in System->Configuration will be created. Fill in the tab name here. Leave empty to use the namespace.]]></tooltip>
                         </system_tab>
                         <system_tab_position translate="label tooltip" module="modulecreator">
-                            <label>System -&gt; Configuration tab name</label>
+                            <label>System -&gt; Configuration tab position</label>
                             <type>text</type>
                             <code>system_tab</code>
                             <required>0</required>
@@ -1000,11 +1000,37 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_rc>
+            <version>1.9.0-rc</version>
+            <date>2014-04-14</date>
+            <data>
+                <typo translate="label type comment">
+                    <label>Fixed typos in the UI</label>
+                    <type>Fix</type>
+                    <comment><![CDATA[Fixed some typos in the UMC UI.]]></comment>
+                </typo>
+                <url_rewrite translate="label type comment">
+                    <label>Auto-generate url rewrites</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[URL rewrites for flat entities can be left blank and they will be auto-generated]]></comment>
+                </url_rewrite>
+                <doc translate="label type comment">
+                    <label>Fixed php doc on some methods</label>
+                    <type>Fix</type>
+                    <comment><![CDATA[Fixed documentation on some generated methods.]]></comment>
+                </doc>
+                <tree translate="label type comment">
+                    <label>Fixed 'undefined variable' for tree entities</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Fixed 'undefined variable' error for tree entities.]]></comment>
+                </tree>
+            </data>
+        </v1_9_0_rc>
         <v1_9_0_beta>
             <version>1.9.0-beta</version>
             <date>2014-04-11</date>
             <data>
-                <grid translate="label type">
+                <grid translate="label type comment">
                     <label>Improved te created modules grid.</label>
                     <type>Improvement</type>
                     <comment><![CDATA[Added a verification for file existing for download in the created modules grid. Changed the names of the downloaded files - added module name to them.]]></comment>
@@ -1025,7 +1051,7 @@
             <version>1.9.0-alpha2</version>
             <date>2014-04-03</date>
             <data>
-                <attribute_notes_admin translate="label type">
+                <attribute_notes_admin translate="label type comment">
                     <label>Attribute notes for EAV entities are now manageable from the backend.</label>
                     <type>Feature</type>
                     <comment><![CDATA[Attribute notes for EAV entities can be changed from the backend, when editing the attribute.]]></comment>
@@ -1040,12 +1066,12 @@
                     <type>Bug fix</type>
                     <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/pull/8" target="_blank">#8</a>]]></comment>
                 </eav_flag>
-                <system_config translate="label type">
+                <system_config translate="label type comment">
                     <label>The configuration panel for tree entities was incomplete</label>
                     <type>Bug fix</type>
                     <comment><![CDATA[The display mode of tree entities was not manageable from the system configuration section.]]></comment>
                 </system_config>
-                <system_config_tab translate="label type">
+                <system_config_tab translate="label type comment">
                     <label>Set the system configuration tab name and position.</label>
                     <type>Feature</type>
                     <comment><![CDATA[You can set the configuration tab name and position when creating a module.]]></comment>

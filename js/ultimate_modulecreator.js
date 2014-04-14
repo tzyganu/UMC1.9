@@ -8,22 +8,30 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
  *
- * @category   	Ultimate
- * @package		Ultimate_ModuleCreator
- * @copyright  	Copyright (c) 2014
- * @license		http://opensource.org/licenses/mit-license.php MIT License
+ * @category   Ultimate
+ * @package    Ultimate_ModuleCreator
+ * @copyright  Copyright (c) 2014
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 /**
  * js for module creation UI
- * @category	Ultimate
- * @package		Ultimate_ModuleCreator
- * @author 		Marius Strajeru <marius.strajeru@gmail.com>
+ * @category    Ultimate
+ * @package     Ultimate_ModuleCreator
+ * @author      Marius Strajeru <marius.strajeru@gmail.com>
  */
 if(typeof UMC=='undefined') {
     var UMC = {};
 }
+/**
+ * module class
+ * @type UMC.Module
+ */
 UMC.Module = Class.create();
 UMC.Module.prototype =  {
+    /**
+     * initialize module
+     * @param config
+     */
     initialize: function (config){
         this.config = Object.extend({
             addEntityTrigger    : ".add-entity",
@@ -53,12 +61,12 @@ UMC.Module.prototype =  {
                 nameAttribute: that.config.nameAttributes[that.entityCount],
                 collapsed: that.config.collapsed
             });
-
             that.registerEntity(entity);
         });
-
-
     },
+    /**
+     * add entity to module
+     */
     addEntity: function(){
         var that = this;
         fireEvent($(that.config.entityTab), 'click');
@@ -71,6 +79,11 @@ UMC.Module.prototype =  {
         Effect.ScrollTo($('entity_' + that.entityCount), { duration:'1'});
         that.registerEntity(entity);
     },
+    /**
+     * remove entity from module
+     * @param index
+     * @returns UMC.Module
+     */
     removeEntity: function(index){
         for (var i = 0; i<this.entities.length; i++) {
             if (this.entities[i].index == index) {
@@ -86,6 +99,10 @@ UMC.Module.prototype =  {
         }
         return this;
     },
+    /**
+     * register entity
+     * @param entity
+     */
     registerEntity: function(entity){
         entity.setModule(this);
         entity.setIndex(this.entityCount);
@@ -93,6 +110,9 @@ UMC.Module.prototype =  {
         this.entityCount++;
         this.rebuildRelations();
     },
+    /**
+     * rebuild relations tab
+     */
     rebuildRelations: function(){
         var entities = this.entities;
         if (entities.length < 2){
@@ -125,6 +145,10 @@ UMC.Module.prototype =  {
             }
         }
     },
+    /**
+     * select menu item
+     * @param e
+     */
     selectMenu: function(e){
         var that = this;
         var menuSelector = $('umc-nav');
@@ -139,6 +163,10 @@ UMC.Module.prototype =  {
         this.makeTree('umc-nav');
         Event.stop(e);
     },
+    /**
+     * transform menu into tree
+     * @param treeId
+     */
     makeTree: function(treeId){
         var that = this;
         var tree = $(treeId);
@@ -197,13 +225,19 @@ UMC.Module.prototype =  {
                 });
             })
         };
-
     }
-
 }
-
+/**
+ * Entity class
+ * @type UMC.Entity
+ */
 UMC.Entity = Class.create();
 UMC.Entity.prototype = {
+    /**
+     * initialize entity
+     * @param element
+     * @param config
+     */
     initialize: function(element, config){
         var that = this;
         this.element = element;
@@ -265,13 +299,24 @@ UMC.Entity.prototype = {
 
         this.reloadFrontend();
     },
+    /**
+     * set module
+     * @param module
+     */
     setModule: function(module){
         this.module = module;
     },
+    /**
+     * set index
+     * @param index
+     */
     setIndex: function(index){
         this.index = index;
         this.initAttributeSort()
     },
+    /**
+     * remove entity
+     */
     remove: function(){
         var that = this;
         var index = this.index;
@@ -285,6 +330,9 @@ UMC.Entity.prototype = {
             }
         });
     },
+    /**
+     * add attribute to entity
+     */
     addAttribute: function(){
         var that = this;
         var template = new Template(that.module.attributeTemplate, that.module.templateSyntax);
@@ -305,6 +353,10 @@ UMC.Entity.prototype = {
         that.registerAttribute(attribute);
         this.initAttributeSort();
     },
+    /**
+     * register attribute
+     * @param attribute
+     */
     registerAttribute: function(attribute){
         attribute.setEntity(this);
         attribute.setIndex(this.attributeCount);
@@ -313,6 +365,10 @@ UMC.Entity.prototype = {
         attribute.reloadSettings(false);
         this.attributeCount++;
     },
+    /**
+     * remove attribute
+     * @param index
+     */
     removeAttribute: function(index){
         for (var i = 0; i<this.attributes.length; i++) {
             if (this.attributes[i].index == index) {
@@ -321,6 +377,10 @@ UMC.Entity.prototype = {
             }
         }
     },
+    /**
+     * get elements that reload the settings
+     * @returns {Array}
+     */
     getReloaders: function(){
         var classes = ['type', 'is_tree', 'create-frontend', 'create-list', 'create-view', 'link-product', 'link-category', 'product-attribute', 'category-attribute', 'allow-comment', 'rss', 'widget', 'url-rewrite'];
         var reloaders = [];
@@ -329,6 +389,9 @@ UMC.Entity.prototype = {
         }
         return reloaders;
     },
+    /**
+     * reload settings for fronend
+     */
     reloadFrontend: function(){
         var that = this;
         $(this.element).select('input, textarea, select').each(function(el){
@@ -338,6 +401,11 @@ UMC.Entity.prototype = {
             this.attributes[i].reloadSettings(false);
         }
     },
+    /**
+     * check if element should be disabled or not
+     * @param item
+     * @returns UMC.Entity
+     */
     evaluateElement: function(item){
         if (this.canEnableElement(item)){
             this.enableItem(item);
@@ -347,6 +415,11 @@ UMC.Entity.prototype = {
         }
         return this;
     },
+    /**
+     * check if element can be disabled
+     * @param item
+     * @returns {boolean}
+     */
     canEnableElement: function(item){
         item = $(item);
         var canEnable = true;
@@ -398,24 +471,46 @@ UMC.Entity.prototype = {
         }
         return canEnable;
     },
-
+    /**
+     * get element by class name
+     * @param className
+     * @returns {*}
+     */
     getElementByClass: function(className){
         if (!this.cacheElements[className]){
             this.cacheElements[className] = $(this.element).select('.' + className)[0];
         }
         return this.cacheElements[className];
     },
+    /**
+     * get value by class name
+     * @param className
+     * @returns {*}
+     */
     getValueByClass: function(className){
         return this.getElementByClass(className).value;
     },
+    /**
+     * disable element
+     * @param item
+     * @returns {*}
+     */
     disableItem: function(item){
         $(item).setAttribute('disabled', 'disabled');
         return this;
     },
+    /**
+     * enable element
+     * @param item
+     * @returns {*}
+     */
     enableItem: function(item){
         $(item).removeAttribute('disabled');
         return this;
     },
+    /**
+     * initialize attribute sorting
+     */
     initAttributeSort: function() {
         var that = this;
         Sortable.create('entity_' + this.index +'_attributes', {
@@ -426,6 +521,9 @@ UMC.Entity.prototype = {
         });
         this.reloadAttributePositions();
     },
+    /**
+     * set attribute positions
+     */
     reloadAttributePositions: function() {
         var position = 10;
         $(this.element).select('input.position').each(function(element){
@@ -434,9 +532,17 @@ UMC.Entity.prototype = {
         });
     }
 }
-
+/**
+ * Attribute class
+ * @type UMC.Attribute
+ */
 UMC.Attribute = Class.create();
 UMC.Attribute.prototype = {
+    /**
+     * initialize attribute class
+     * @param element
+     * @param config
+     */
     initialize: function(element, config){
         var that = this;
         this.element = element;
@@ -491,6 +597,10 @@ UMC.Attribute.prototype = {
             $(that.element).select('h4')[0].update('New Attribute');
         }
     },
+    /**
+     * attach to entity
+     * @param entity
+     */
     setEntity: function(entity){
         this.entity = entity;
         var nameElem = (this.element).select('input.is_name')[0];
@@ -500,6 +610,10 @@ UMC.Attribute.prototype = {
         nameElem.name = newName;
 
     },
+    /**
+     * set attribute index
+     * @param index
+     */
     setIndex: function(index){
         this.index = index;
         $(this.element).select('input.is_name')[0].value = index;
@@ -507,6 +621,9 @@ UMC.Attribute.prototype = {
             $(this.element).select('input.is_name')[0].setAttribute('checked', 'checked');
         }
     },
+    /**
+     * remove attribute
+     */
     remove: function(){
         var that = this;
         var index = this.index;
@@ -521,6 +638,10 @@ UMC.Attribute.prototype = {
             }
         });
     },
+    /**
+     * reload attribute settings
+     * @param withEntity
+     */
     reloadSettings: function(withEntity){
         var that = this;
         if(withEntity){
@@ -548,22 +669,45 @@ UMC.Attribute.prototype = {
             }
         });
     },
+    /**
+     * get attrbute type dom element
+     * @returns {*}
+     */
     getTypeElement: function(){
         return $(this.element).select('.attribute-type')[0];
     },
+    /**
+     * get attribute type
+     * @returns {*}
+     */
     getType: function(){
         return this.getTypeElement().value;
     },
+    /**
+     * get source type DOM element
+     * @returns {*}
+     */
     getSourceTypeElement: function(){
         return $(this.element).select('.is-source')[0];
     },
+    /**
+     * get source type
+     * @returns {*}
+     */
     getSourceType: function(){
         return this.getSourceTypeElement().value;
     }
 }
-
+/**
+ * Help class
+ * @type UMC.Help
+ */
 UMC.Help = Class.create();
 UMC.Help.prototype = {
+    /**
+     * initialize help class
+     * @param element
+     */
     initialize: function(element){
         var that = this;
         this.element = element;

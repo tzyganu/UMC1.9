@@ -8,15 +8,31 @@
      */
     protected function _beforeSave({{beforeSaveParam}} $object){
         {{multipleSelectConvert}}if (!$object->getInitialSetupFlag()){
-            if (!$this->getIsUniqueUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('URL key already exists.'));
+            $urlKey = $object->getData('url_key');
+            if ($urlKey == '') {
+                $urlKey = $object->get{{EntityNameMagicCode}}();
             }
-            if (!$this->isValidUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('The URL key contains capital letters or disallowed symbols.'));
+            $urlKey = $this->formatUrlKey($urlKey);
+            $validKey = false;
+            while (!$validKey) {
+                $entityId = $this->checkUrlKey($urlKey, $object->getStoreId(), false);
+                if ($entityId == $object->getId() || empty($entityId)) {
+                    $validKey = true;
+                }
+                else {
+                    $parts = explode('-', $urlKey);
+                    $last = $parts[count($parts) - 1];
+                    if (!is_numeric($last)){
+                        $urlKey = $urlKey.'-1';
+                    }
+                    else {
+                        $suffix = '-'.($last + 1);
+                        unset($parts[count($parts) - 1]);
+                        $urlKey = implode('-', $parts).$suffix;
+                    }
+                }
             }
-            if ($this->isNumericUrlKey($object)) {
-                Mage::throwException(Mage::helper('{{namespace}}_{{module}}')->__('The URL key cannot consist only of numbers.'));
-            }
+            $object->setData('url_key', $urlKey);
         }
         parent::_beforeSave($object);
         if (!$object->getChildrenCount()) {

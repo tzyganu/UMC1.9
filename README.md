@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0-beta
+Ultimate Module Creator 1.9.0-Release candidate
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,15 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-rc - 2014-04-14**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Fix|Fixed typos in the UI|Fixed some typos in the UMC UI.|
+|Improvement|Auto-generate url rewrites|URL rewrites for flat entities can be left blank and they will be auto-generated|
+|Fix|Fixed php doc on some methods|Fixed documentation on some generated methods.|
+|Bug Fix|Fixed 'undefined variable' for tree entities|Fixed 'undefined variable' error for tree entities.|
 
 **Release Notes 1.9.0-beta - 2014-04-11**
 

@@ -124,6 +124,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
     /**
      * get row url
      * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}}
      * @return string
      * {{qwertyuiop}}
      */

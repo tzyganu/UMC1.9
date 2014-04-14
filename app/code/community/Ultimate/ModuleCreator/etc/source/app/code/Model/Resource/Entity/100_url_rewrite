@@ -2,6 +2,7 @@
      * check url key
      * @access public
      * @param string $urlKey
+     * @param int $storeId
      * @param bool $active
      * @return mixed
      * {{qwertyuiop}}
@@ -9,7 +10,7 @@
     public function checkUrlKey($urlKey, $storeId, $active = true){
         $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID, $storeId);
         $select = $this->_initCheckUrlKeySelect($urlKey, $stores);
-        if (!is_null($active)) {
+        if ($active) {
             $select->where('e.status = ?', $active);
         }
         $select->reset(Zend_Db_Select::COLUMNS)
@@ -61,4 +62,17 @@
      */
     protected function isValidUrlKey(Mage_Core_Model_Abstract $object){
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('url_key'));
+    }
+    /**
+     * format string as url key
+     * @access public
+     * @param string $str
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function formatUrlKey($str) {
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+        $urlKey = strtolower($urlKey);
+        $urlKey = trim($urlKey, '-');
+        return $urlKey;
     }

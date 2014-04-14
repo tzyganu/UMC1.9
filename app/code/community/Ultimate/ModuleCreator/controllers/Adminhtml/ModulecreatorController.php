@@ -31,9 +31,27 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
      */
     public function indexAction() {
         $this->_title(Mage::helper('modulecreator')->__('Ultimate module creator'));
+        $this->_getSession()->addNotice(Mage::helper('modulecreator')->__(
+            'To delete a module from this list go to "<strong>%s</strong>" and remove the files "<strong>%s</strong>" and "<strong>%s</strong>" and folder "<strong>%s</strong>" if they exist. Replace <strong>Namespace_Module</strong> with the appropriate value for each module. There is no delete link in here for security reasons.',
+            Mage::getBaseDir('var').DS.'modulecreator',
+            'Namespace_Module.tgz',
+            'package/Namespace_Module.xml',
+            'package/Namespace_Module/'
+
+        ));
         $this->loadLayout();
         $this->renderLayout();
     }
+
+    /**
+     * grid action
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function gridAction() {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
     /**
      * new action
      * @access public
@@ -209,6 +227,9 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         $path = Mage::helper('modulecreator')->getLocalModulesDir();
         $namePrefix = '';
         switch ($what) {
+            case 'config' :
+                $file = $path.'package'.DS.$packageName . '.xml';
+                break;
             case 'list':
                 $file = $path.'package'.DS.$packageName . DS. 'files.log';
                 $namePrefix = $packageName.'_';

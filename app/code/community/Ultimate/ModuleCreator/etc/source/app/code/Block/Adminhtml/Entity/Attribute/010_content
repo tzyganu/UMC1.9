@@ -12,7 +12,6 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute
     /**
      * constructor
      * @access public
-     * @return void
      * {{qwertyuiop}}
      */
     public function __construct(){

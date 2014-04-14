@@ -764,28 +764,6 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </not_tree>
-                <!--<top>-->
-                    <!--<name>010_top</name>-->
-                    <!--<sort_order>10</sort_order>-->
-                <!--</top>-->
-                <!--<tree>-->
-                    <!--<name>020_tree</name>-->
-                    <!--<depend>-->
-                        <!--<is_tree/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>20</sort_order>-->
-                <!--</tree>-->
-                <!--<not_tree>-->
-                    <!--<name>030_not_tree</name>-->
-                    <!--<depend>-->
-                        <!--<not_is_tree/>-->
-                    <!--</depend>-->
-                    <!--<sort_order>30</sort_order>-->
-                <!--</not_tree>-->
-                <!--<footer>-->
-                    <!--<name>040_footer</name>-->
-                    <!--<sort_order>40</sort_order>-->
-                <!--</footer>-->
             </code>
         </category_entity_tab>
 
