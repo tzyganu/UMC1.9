@@ -20,7 +20,7 @@
     <modules>
         <Ultimate_ModuleCreator>
             <version>1.9.0</version>
-            <build>rc</build>
+            <build>rc2</build>
         </Ultimate_ModuleCreator>
     </modules>
     <global>

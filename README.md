@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0-Release candidate
+Ultimate Module Creator 1.9.0-Release candidate 2
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,12 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0-rc2 - 2014-04-16**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug Fix|Fixed date fields save|The date fields were saved as 1970-01-01 for some locale settings (French for example)|
 
 **Release Notes 1.9.0-rc - 2014-04-14**
 

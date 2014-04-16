@@ -1000,6 +1000,17 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_rc2>
+            <version>1.9.0-rc2</version>
+            <date>2014-04-16</date>
+            <data>
+                <date translate="label type comment">
+                    <label>Fixed date fields save</label>
+                    <type>Bug Fix</type>
+                    <comment>The date fields were saved as 1970-01-01 for some locale settings (French for example)</comment>
+                </date>
+            </data>
+        </v1_9_0_rc2>
         <v1_9_0_rc>
             <version>1.9.0-rc</version>
             <date>2014-04-14</date>

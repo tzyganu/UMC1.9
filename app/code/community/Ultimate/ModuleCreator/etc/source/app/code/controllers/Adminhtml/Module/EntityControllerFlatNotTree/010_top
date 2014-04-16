@@ -94,6 +94,6 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
      */
     public function saveAction() {
         if ($data = $this->getRequest()->getPost('{{entity}}')) {
-            try {
+            try {{{filterEntityDates}}
                 ${{entity}} = $this->_init{{Entity}}();
                 ${{entity}}->addData($data);

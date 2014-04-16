@@ -601,7 +601,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $lines      = array();
         $module     = $this->getPlaceholder('{{module}}');
         $namespace  = $this->getNamespace(true);
-        $lines[] = '-- add table prefix if you haven one';
+        $lines[] = '-- add table prefix if you have one';
         foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
             $entities = $relation->getEntities();
             $tableName = $namespace.'_'.$module.'_'.$entities[0]->getPlaceholders('{{entity}}').'_'.$entities[1]->getPlaceholders('{{entity}}');

@@ -630,6 +630,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{entityApiResourcesAlias}}']     = $this->getApiResourcesAlias();
             $this->_placeholders['{{entityApiResourcesAliasV2}}']   = $this->getApiResourcesAliasV2();
             $this->_placeholders['{{defaultApiAttributes}}']        = $this->getDefaultApiAttributes();
+            $this->_placeholders['{{filterEntityDates}}']           = $this->getFilterDates();
+            $this->_placeholders['{{filterEntityDates3}}']          = $this->getFilterDates(3);
 
             $eventObject = new Varien_Object(
                 array(
@@ -2728,5 +2730,25 @@ class Ultimate_ModuleCreator_Model_Entity
             $name = strtolower($name);
         }
         return $name;
+    }
+
+    /**
+     * get code that filters dates
+     * @access public
+     * @param int $padding
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getFilterDates($padding = 4) {
+        $dateAttributes = array();
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp) {
+                $dateAttributes[] = $attribute->getCode();
+            }
+        }
+        if (count($dateAttributes) == 0) {
+            return '';
+        }
+        return $this->getEol().$this->getPadding($padding).'$data = $this->_filterDates($data, array(\''.implode("' ,", $dateAttributes).'\'));';
     }
 }

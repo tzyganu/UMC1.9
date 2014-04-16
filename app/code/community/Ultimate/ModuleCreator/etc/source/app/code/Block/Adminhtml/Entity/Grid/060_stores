@@ -1,4 +1,4 @@
-        if (!Mage::app()->isSingleStoreMode()) {
+        if (!Mage::app()->isSingleStoreMode() && !$this->_isExport) {
             $this->addColumn('store_id', array(
                 'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
                 'index' => 'store_id',

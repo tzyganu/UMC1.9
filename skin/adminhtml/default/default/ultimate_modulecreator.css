@@ -1,6 +1,3 @@
-.adminhtml-modulecreator-edit #nav li.active {
-    z-index: 0;
-}
 .adminhtml-modulecreator-edit a.modulecreator-toggle {
     width:18px;
 }
