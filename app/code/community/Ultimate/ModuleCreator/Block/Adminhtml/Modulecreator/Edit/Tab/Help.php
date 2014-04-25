@@ -78,8 +78,8 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getVersion(){
-        $version    = Mage::app()->getConfig()->getNode('modules/Ultimate_ModuleCreator/version');
-        $build      = Mage::app()->getConfig()->getNode('modules/Ultimate_ModuleCreator/build');
+        $version    = (string)Mage::app()->getConfig()->getNode('modules/Ultimate_ModuleCreator/version');
+        $build      = (string)Mage::app()->getConfig()->getNode('modules/Ultimate_ModuleCreator/build');
         if ($build){
             $version .= ' - '.$build;
         }

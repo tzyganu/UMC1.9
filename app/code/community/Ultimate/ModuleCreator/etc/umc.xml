@@ -455,7 +455,8 @@
                             <label>Product attribute code</label>
                             <type>text</type>
                             <position>50</position>
-                            <class>use-product-attribute</class>
+                            <required>1</required>
+                            <class>use-product-attribute validate-code</class>
                             <tooltip>Fill in the dropdown attribute code.</tooltip>
                         </product_attribute_code>
                         <product_attribute_scope translate="label tooltip" module="modulecreator">
@@ -522,8 +523,9 @@
                         <category_attribute_code translate="label" module="modulecreator">
                             <label>Category attribute code</label>
                             <type>text</type>
+                            <required>1</required>
                             <position>50</position>
-                            <class>use-category-attribute</class>
+                            <class>use-category-attribute validate-code</class>
                             <tooltip>Fill in the dropdown attribute code.</tooltip>
                         </category_attribute_code>
                         <category_attribute_scope translate="label" module="modulecreator">
@@ -1000,6 +1002,17 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_0_0>
+            <version>1.9.0.0</version>
+            <date>2014-04-25</date>
+            <data>
+                <attribute_code translate="label type comment">
+                    <label>Product/category attribute code made required</label>
+                    <type>Bug Fix</type>
+                    <comment>When selecting to make an entity a product/category attribute, the attribute code was not required and resulted in errors.</comment>
+                </attribute_code>
+            </data>
+        </v1_9_0_0>
         <v1_9_0_rc2>
             <version>1.9.0-rc2</version>
             <date>2014-04-16</date>

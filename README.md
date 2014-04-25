@@ -1,10 +1,10 @@
-Ultimate Module Creator 1.9.0-Release candidate 2
+Ultimate Module Creator 1.9.0.0
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
 -------------
 
-This is the new version of <a href="https://github.com/tzyganu/moduleCreator">Ultimate Module Creator</a>. It is still under development so **DON'T USE IN PRODUCTION.**.  
+This is the new version of <a href="https://github.com/tzyganu/moduleCreator">Ultimate Module Creator</a>.
 
 
 This should be the version 2.0 of the Magento extension but I'm keeping this version for the Module Creator for Magento 2.0.  
@@ -17,6 +17,12 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0.0 - 2014-04-25**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug Fix|Product/category attribute code made required|When selecting to make an entity a product/category attribute, the attribute code was not required and resulted in errors.|
 
 **Release Notes 1.9.0-rc2 - 2014-04-16**
 

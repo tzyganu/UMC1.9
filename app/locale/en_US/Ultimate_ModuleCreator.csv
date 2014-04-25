@@ -602,6 +602,7 @@ Path,Path
 "Product list on entity page template","Product list on entity page template"
 "Product relation collection resource model","Product relation collection resource model"
 "Product relation resource model","Product relation resource model"
+"Product/category attribute code made required","Product/category attribute code made required"
 Products,Products
 Refactor,Refactor
 Refactored,Refactored
@@ -829,6 +830,7 @@ Version,Version
 "WSI file","WSI file"
 Website,Website
 "When creating an entity you can drag and drop attributes to sort them in the list","When creating an entity you can drag and drop attributes to sort them in the list"
+"When selecting to make an entity a product/category attribute, the attribute code was not required and resulted in errors.","When selecting to make an entity a product/category attribute, the attribute code was not required and resulted in errors."
 "When setting specific permissions for an admin the comments & EAV attributes grid got ""Access denied"".","When setting specific permissions for an admin the comments & EAV attributes grid got ""Access denied""."
 "Widget xml","Widget xml"
 Widgets,Widgets
