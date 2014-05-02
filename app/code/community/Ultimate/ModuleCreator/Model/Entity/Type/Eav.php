@@ -23,7 +23,7 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCollectionAttributes(){
+        public function getCollectionAttributes(){
         $result = '';
         $eol = $this->getEol();
         $padding = $this->getPadding(3);
@@ -733,5 +733,23 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content .= $padding.$tab."'updated_at', ".$eol;
         $content .= $padding.');'.$eol;
         return $content;
+    }
+    /**
+     * get add all attributes to collection
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAllAttributesToCollection() {
+        return '->addAttributeToSelect(\'*\')';
+    }
+    /**
+     * get load store id statement
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLoadStoreId() {
+        return '->setStoreId(Mage::app()->getStore()->getId())';
     }
 }

@@ -431,4 +431,22 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getDefaultApiAttributes(){
         return '';
     }
+    /**
+     * get add all attributes to collection
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAllAttributesToCollection() {
+        return '';
+    }
+    /**
+     * get load store id statement
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLoadStoreId() {
+        return '';
+    }
 }

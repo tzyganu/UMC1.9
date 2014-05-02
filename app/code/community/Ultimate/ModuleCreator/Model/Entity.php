@@ -632,6 +632,9 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{defaultApiAttributes}}']        = $this->getDefaultApiAttributes();
             $this->_placeholders['{{filterEntityDates}}']           = $this->getFilterDates();
             $this->_placeholders['{{filterEntityDates3}}']          = $this->getFilterDates(3);
+            $this->_placeholders['{{allAttributesToCollection}}']   = $this->getAllAttributesToCollection();
+            $this->_placeholders['{{loadStoreId}}']                 = $this->getLoadStoreId();
+
 
             $eventObject = new Varien_Object(
                 array(
@@ -684,6 +687,9 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholdersAsSibling['{{siblingNameAttribute}}']           = $this->getNameAttributeCode();
             $this->_placeholdersAsSibling['{{siblingAdditionalPrepareCollection}}'] = $this->getAdditionalPrepareCollection();
             $this->_placeholdersAsSibling['{{siblingTableAlias}}']              = $this->getEntityTableAlias();
+            $this->_placeholdersAsSibling['{{siblingFilterMethod}}']            = $this->getFilterMethod();
+            $this->_placeholdersAsSibling['{{siblingAllAttributesToCollection}}'] = $this->getAllAttributesToCollection();
+            $this->_placeholdersAsSibling['{{siblingLoadStoreId}}']              = $this->getLoadStoreId();
 
             $eventObject = new Varien_Object(
                 array(
@@ -2749,6 +2755,27 @@ class Ultimate_ModuleCreator_Model_Entity
         if (count($dateAttributes) == 0) {
             return '';
         }
-        return $this->getEol().$this->getPadding($padding).'$data = $this->_filterDates($data, array(\''.implode("' ,", $dateAttributes).'\'));';
+        return $this->getEol().$this->getPadding($padding).'$data = $this->_filterDates($data, array(\''.implode("' ,'", $dateAttributes).'\'));';
     }
+
+    /**
+     * get add all attributes to collection
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getAllAttributesToCollection() {
+        return $this->getTypeInstance()->getAllAttributesToCollection();
+    }
+
+    /**
+     * get load store id statement
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getLoadStoreId() {
+        return $this->getTypeInstance()->getLoadStoreId();
+    }
+
 }

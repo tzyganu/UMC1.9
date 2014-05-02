@@ -3658,6 +3658,18 @@
                     <scope>siblings</scope>
                     <sort_order>160</sort_order>
                 </sibling_relation>
+
+                <children_relation>
+                    <name>163_children_relation</name>
+                    <scope>children</scope>
+                    <sort_order>163</sort_order>
+                </children_relation>
+                <parent_relation>
+                    <name>165_parent_relation</name>
+                    <scope>parents</scope>
+                    <sort_order>165</sort_order>
+                </parent_relation>
+
                 <tree>
                     <name>170_tree</name>
                     <depend>
@@ -6059,8 +6071,23 @@
                         <has_eav />
                         <api />
                     </depend>
-                    <sort_order>250</sort_order>
+                    <sort_order>260</sort_order>
                 </eav_api>
+                <frontend>
+                    <name>270_frontend</name>
+                    <depend>
+                        <create_frontend />
+                    </depend>
+                    <sort_order>270</sort_order>
+                </frontend>
+                <entity_seo>
+                    <name>280_entity_seo</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <add_seo />
+                    </depend>
+                    <sort_order>280</sort_order>
+                </entity_seo>
             </code>
         </locale>
 

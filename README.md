@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0.0
+Ultimate Module Creator 1.9.0.1
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,16 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.0.1 - 2014-05-02**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Improvement|Parent / child entities have a method of retrieving the associated entities (children / parent)|<a href="https://github.com/tzyganu/UMC1.9/issues/13" target="_blank">#13</a>|
+|Bug Fix|Fixed some typos in the locale file|Some texts from the locale files still displayed placeholders after generation.|
+|Inconsistency|Fixed some typos text messages|<a href="https://github.com/tzyganu/UMC1.9/issues/16" target="_blank">#16</a>|
+|Bug Fix|Fixed missing single quotation mark in _filterDates()|<a href="https://github.com/tzyganu/UMC1.9/issues/17" target="_blank">#17</a>|
+|Inconsistency|Missing translation for some system.xml labels|<a href="https://github.com/tzyganu/UMC1.9/issues/18" target="_blank">#18</a>|
 
 **Release Notes 1.9.0.0 - 2014-04-25**
 

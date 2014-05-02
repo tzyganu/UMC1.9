@@ -17,4 +17,4 @@
 "{{EntityLabel}} move operation is not possible: the current {{entityLabel}} was not found.","{{EntityLabel}} move operation is not possible: the current {{entityLabel}} was not found."
 "{{EntityLabel}} move operation is not possible: parent {{entityLabel}} is equal to child {{entityLabel}}.","{{EntityLabel}} move operation is not possible: parent {{entityLabel}} is equal to child {{entityLabel}}."
 "Can't delete root {{entityLabel}}.","Can't delete root {{entityLabel}}."
-"An error occurred while trying to delete the {{enityLabel}}.","An error occurred while trying to delete the {{enityLabel}}."
+"An error occurred while trying to delete the {{entityLabel}}.","An error occurred while trying to delete the {{entityLabel}}."

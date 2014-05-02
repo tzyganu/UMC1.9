@@ -27,7 +27,7 @@
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
             }
             catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleteing {{entityLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleting {{entityLabel}}.'));
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 Mage::logException($e);
                 return;

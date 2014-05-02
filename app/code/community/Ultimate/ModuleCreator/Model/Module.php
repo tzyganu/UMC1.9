@@ -1006,6 +1006,14 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                         $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
                     }
                 }
+                elseif($scope == 'children'){
+                    foreach ($entity->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT) as $related){
+                        $placeholders   = $entity->getPlaceholders();
+                        $replaceSibling = $related->getPlaceholdersAsSibling();
+                        $replace        = array_merge($placeholders, $replaceSibling);
+                        $content       .= $this->_filterString($sourceContent, $filetype, $replace, true);
+                    }
+                }
                 elseif ($depend){
                     if ($this->_validateDepend($entity, $depend)){
                         $content .= $this->_filterString($sourceContent, $filetype, $entity->getPlaceholders(), true);
