@@ -1,7 +1,5 @@
 <?php
-/**
  {{License}}
- */
 /**
  * {{Entity}} admin edit tab attributes block
  * @category    {{Namespace}}
