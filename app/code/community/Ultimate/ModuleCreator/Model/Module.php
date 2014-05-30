@@ -1403,7 +1403,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $xml .= $this->getPadding($padding++).'<children>'.$eol;
         $xml .= $this->getEntityMenu($padding);
         $xml .= $this->getPadding(--$padding).'</children>'.$eol;
-        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>';
 
         $parts = array_reverse($parts);
         foreach ($parts as $part){
@@ -1433,11 +1433,11 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $xml .= $this->getPadding($padding++).'<children>'.$eol;
         }
         $xml .= $this->getPadding($padding++).'<'.$namespace.'_'.$this->getLowerModuleName().' translate="title" module="'.$namespace.'_'.$this->getLowerModuleName().'">'.$eol;
-        $xml .= $this->getPadding($padding++).'<title>'.$this->getMenuText().'</title>'.$eol;
+        $xml .= $this->getPadding($padding).'<title>'.$this->getMenuText().'</title>'.$eol;
         $xml .= $this->getPadding($padding++).'<children>'.$eol;
         $xml .= $this->getEntityMenuAcl($padding);
         $xml .= $this->getPadding(--$padding).'</children>'.$eol;
-        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>'.$eol;
+        $xml .= $this->getPadding(--$padding).'</'.$namespace.'_'.$this->getLowerModuleName().'>';
 
         $parts = array_reverse($parts);
         foreach ($parts as $part){
