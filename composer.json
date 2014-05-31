@@ -1,0 +1,54 @@
+{
+  "name": "ultimate/modulecreator",
+  "description": "New Ultimate Module Creator for Magento 1.7 +",
+  "type": "magento-module",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Marius Tzyganu",
+      "email": "tzyganu@example.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://packages.firegento.com"
+    }
+  ],
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "extra": {
+    "map": [
+      [
+        "app/etc/modules/Ultimate_ModuleCreator.xml",
+        "app/etc/modules/Ultimate_ModuleCreator.xml"
+      ],
+      [
+        "app/code/community/Ultimate/ModuleCreator",
+        "app/code/community/Ultimate/ModuleCreator"
+      ],
+      [
+        "app/locale/en_US/Ultimate_ModuleCreator.csv",
+        "app/locale/en_US/Ultimate_ModuleCreator.csv"
+      ],
+      [
+        "app/design/adminhtml/default/default/layout/ultimate_modulecreator.xml",
+        "app/design/adminhtml/default/default/layout/ultimate_modulecreator.xml"
+      ],
+      [
+        "app/design/adminhtml/default/default/template/ultimate_modulecreator",
+        "app/design/adminhtml/default/default/template/ultimate_modulecreator"
+      ],
+      [
+        "skin/adminhtml/default/default/ultimate_modulecreator.css",
+        "skin/adminhtml/default/default/ultimate_modulecreator.css"
+      ],
+      [
+        "js/ultimate_modulecreator.js",
+        "js/ultimate_modulecreator.js"
+      ]
+    ]
+  }
+}
