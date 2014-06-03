@@ -1026,7 +1026,7 @@
                     <name>120_category_relation_tree</name>
                     <depend>
                         <is_tree/>
-                        <link_product/>
+                        <link_category/>
                     </depend>
                     <sort_order>120</sort_order>
                 </category_relation_tree>
@@ -6173,7 +6173,7 @@
             <condition>Generated if there is at least an entity that behaves as tree and has frontend list enabled</condition>
             <filetype>png</filetype>
             <depend>
-                <has_tree/>
+                <has_tree />
                 <create_frontend/>
             </depend>
             <source>skin/images/namespace_module/collapsedpng/</source>
@@ -6181,6 +6181,7 @@
             <code>
                 <content>
                     <name>010_content.png</name>
+                    <sort_order>10</sort_order>
                 </content>
             </code>
         </image_collapsed_png>

@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.0.1
+Ultimate Module Creator 1.9.1.0
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,14 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes1.9.1.0 - 2014-06-03**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug Fix|Tree entity list images not generated|Images for the tree entities were not generated for Magento 1.8+|
+|Bug Fix|Category relation bug|Category relation tab appears for tree entities even if not set to yes.|
+|Bug Fix|Entities link top menu does not get selected.|Entities link top menu does not get selected.|
 
 **Release Notes 1.9.0.1 - 2014-05-02**
 

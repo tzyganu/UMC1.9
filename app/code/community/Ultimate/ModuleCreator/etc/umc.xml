@@ -1002,6 +1002,27 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_1_0>
+            <version>1.9.1.0</version>
+            <date>2014-06-03</date>
+            <data>
+                <missing_images translate="label type comment">
+                    <label>Tree entity list images not generated</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Images for the tree entities were not generated for Magento 1.8+]]></comment>
+                </missing_images>
+                <category_relation translate="label type comment">
+                    <label>Category relation bug</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Category relation tab appears for tree entities even if not set to yes.]]></comment>
+                </category_relation>
+                <top_menu translate="label type comment">
+                    <label>Entities link top menu does not get selected.</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[Entities link top menu does not get selected.]]></comment>
+                </top_menu>
+            </data>
+        </v1_9_1_0>
         <v1_9_0_1>
             <version>1.9.0.1</version>
             <date>2014-05-02</date>

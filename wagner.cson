@@ -9,10 +9,8 @@
 
     'minimum-stability': 'dev'
     authors: [
-        name: 'Marius Tzyganu'
-
-        # Change this, wasn't listed
-        email: 'tzyganu@example.com'
+        name: 'Marius Strajeru'
+        email: 'ultimate.module.creator@gmai.com'
     ]
     repositories: [
         type: 'composer'
