@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.1.0
+Ultimate Module Creator 1.9.1.1
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,12 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes1.9.1.1 - 2014-06-11**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug Fix|Wrong resource model parent|For modules with entities that are marked as being product or category attributes the resource model parent class is set to `Mage_Core_Model_Resource_Setup` and it should be `Mage_Catalog_Model_Resource_Setup`|
 
 **Release Notes1.9.1.0 - 2014-06-03**
 

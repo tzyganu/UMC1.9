@@ -1002,6 +1002,17 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_1_1>
+            <version>1.9.1.1</version>
+            <date>2014-06-11</date>
+            <data>
+                <resource_model translate="label type comment">
+                    <label>Wrong resource model parent</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[For modules with entities that are marked as being product or category attributes the resource model parent class is set to `Mage_Core_Model_Resource_Setup` and it should be `Mage_Catalog_Model_Resource_Setup`]]></comment>
+                </resource_model>
+            </data>
+        </v1_9_1_1>
         <v1_9_1_0>
             <version>1.9.1.0</version>
             <date>2014-06-03</date>

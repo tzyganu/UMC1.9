@@ -165,6 +165,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getSearch()) {
             $this->setSearch(true);
         }
+        if ($entity->getProductAttribute() ||$entity->getCategoryAttribute()) {
+            $this->setHasCatalogAttribute(true);
+        }
         Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
         return $this;
     }
@@ -1464,7 +1467,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getResourceSetupModel(){
-        if ($this->getHasCatalogRelation() || $this->getHasEav()){
+        if ($this->getHasCatalogRelation() || $this->getHasEav() || $this->getHasCatalogAttribute()){
             return 'Mage_Catalog_Model_Resource_Setup';
         }
         return 'Mage_Core_Model_Resource_Setup';
