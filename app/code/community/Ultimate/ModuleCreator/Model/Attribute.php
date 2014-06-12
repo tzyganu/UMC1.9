@@ -19,7 +19,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
     /**
      * custom option separator
      */
-    const OPTION_SEPARATOR      = '|';
+    const OPTION_SEPARATOR      = "\n";
     /**
      * entity object
      * @var mixed(null|Ultimate_ModuleCreator_Model_Entity)
@@ -307,12 +307,13 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         $padding5   = $this->getPadding(5);
         $padding6   = $this->getPadding(6);
         $eol        = $this->getEol();
+        $coreHelper = Mage::helper('core');
         $content .= $padding5."'".$this->getCode()."' => array(".$eol;
         $content .= $padding6."'group'          => 'General',".$eol;
         $content .= $padding6."'type'           => '".$this->getSetupType()."',".$eol;
         $content .= $padding6."'backend'        => '".$this->getSetupBackend()."',".$eol;
         $content .= $padding6."'frontend'       => '',".$eol;
-        $content .= $padding6."'label'          => '".$this->getLabel()."',".$eol;
+        $content .= $padding6."'label'          => '".$coreHelper->jsQuoteEscape($this->getLabel())."',".$eol;
         $content .= $padding6."'input'          => '".$this->getSetupInput()."',".$eol;
         $content .= $padding6."'source'         => '".$this->getSetupSource()."',".$eol;
         $content .= $padding6."'global'         => ".$this->getSetupIsGlobal().",".$eol;
@@ -321,7 +322,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         $content .= $padding6."'default'        => '',".$eol;
         $content .= $padding6."'unique'         => false,".$eol;
         $content .= $padding6."'position'       => '".(int)$this->getPosition()."',".$eol;
-        $content .= $padding6."'note'           => '".$this->getNote()."',".$eol;
+        $content .= $padding6."'note'           => '".$coreHelper->jsQuoteEscape($this->getNote())."',".$eol;
         $content .= $padding6."'visible'        => '".(int)$this->getVisible()."',".$eol;
         $content .= $padding6."'wysiwyg_enabled'=> '".(int)$this->getEditor()."',".$eol;
         $content .= $this->getAdditionalSetup();

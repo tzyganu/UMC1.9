@@ -700,7 +700,7 @@
                             <required>1</required>
                             <position>170</position>
                             <depend_class>type-dropdown type-multiselect custom-source</depend_class>
-                            <note>Separate by | (pipe)</note>
+                            <note>One option on each row</note>
                             <tooltip>If you choose to enter the values for the dropdown or multiselect manually, input them here. Separate the options with | (pipe). If you want an empty option at the begining start with a | (pipe) symbol.</tooltip>
                         </options>
                     </fields>
@@ -1002,6 +1002,22 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_1_2>
+            <version>1.9.1.2</version>
+            <date>2014-06-12</date>
+            <data>
+                <separator translate="label type comment">
+                    <label>Changed dropdown options separator to new line instead of pipe (|)</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/29" target="_blank">#29</a>]]></comment>
+                </separator>
+                <escape translate="label type comment">
+                    <label>Escaped attribute labels and notes.</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/28" target="_blank">#28</a>]]></comment>
+                </escape>
+            </data>
+        </v1_9_1_2>
         <v1_9_1_1>
             <version>1.9.1.1</version>
             <date>2014-06-11</date>
@@ -1537,5 +1553,9 @@
             <to>@access3000</to>
             <for>Thanks for the free testing and the submitted issues. I would have never found them.</for>
         </access3000>
+        <greenwellness>
+            <to>@greenwellness</to>
+            <for>Thanks for the free testing and good ideas.</for>
+        </greenwellness>
     </thanks>
 </config>

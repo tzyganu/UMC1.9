@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.1.1
+Ultimate Module Creator 1.9.1.2
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,14 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes1.9.1.2 - 2014-06-12**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Improvement|Changed dropdown options separator to new line instead of pipe |<a href="https://github.com/tzyganu/UMC1.9/issues/29" target="_blank">#29</a>|
+|Bug fix|Escaped attribute labels and notes.|<a href="https://github.com/tzyganu/UMC1.9/issues/28" target="_blank">#28</a>|
+
 
 **Release Notes1.9.1.1 - 2014-06-11**
 
