@@ -752,4 +752,20 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getLoadStoreId() {
         return '->setStoreId(Mage::app()->getStore()->getId())';
     }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionCleanup() {
+        return '';
+    }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionStoreId() {
+        return $this->getEol().$this->getPadding(2).'$collection->setStoreId($this->_getStore()->getId());';
+    }
 }

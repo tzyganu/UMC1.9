@@ -6088,6 +6088,21 @@
                     </depend>
                     <sort_order>280</sort_order>
                 </entity_seo>
+                <rest>
+                    <name>290_rest</name>
+                    <depend>
+                        <rest />
+                    </depend>
+                    <sort_order>290</sort_order>
+                </rest>
+                <rest_entity>
+                    <name>300_rest_entity</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <rest />
+                    </depend>
+                    <sort_order>290</sort_order>
+                </rest_entity>
             </code>
         </locale>
 
@@ -6383,5 +6398,185 @@
                 </content>
             </code>
         </entity_model_attribute_api_v2>
+        <api2 translate="title description condition" module="modulecreator">
+            <title>api2.xml - REST config file</title>
+            <description>The configuration for the REST API</description>
+            <condition>Generated if there is at least one entity that should have the REST API</condition>
+            <filetype>xml</filetype>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/etc/api2/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/etc/api2.xml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </api2>
+        <api2_model translate="title description condition" module="modulecreator">
+            <title>REST API entity model</title>
+            <description>The main model for the entity REST API</description>
+            <condition>Generated if there the entity should have the REST API</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/Model/Api2/Entity/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Api2/{{Entity}}.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <eav>
+                    <name>020_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </eav>
+                <footer>
+                    <name>030_footer</name>
+                    <sort_order>30</sort_order>
+                </footer>
+            </code>
+        </api2_model>
+        <api2_model_rest translate="title description condition" module="modulecreator">
+            <title>REST API entity model - rest handler</title>
+            <description>The main handler model for the entity REST API</description>
+            <condition>Generated if there the entity should have the REST API</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/Model/Api2/Entity/Rest/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Api2/{{Entity}}/Rest.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <tree_filter>
+                    <name>015_tree_filter</name>
+                    <sort_order>15</sort_order>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                </tree_filter>
+                <sore_collection>
+                    <name>020_store_collection</name>
+                    <sort_order>20</sort_order>
+                    <depend>
+                        <store />
+                    </depend>
+                </sore_collection>
+                <collection_center>
+                    <name>030_collection_center</name>
+                    <sort_order>30</sort_order>
+                </collection_center>
+                <url>
+                    <name>040_url</name>
+                    <sort_order>40</sort_order>
+                    <depend>
+                        <create_view />
+                    </depend>
+                </url>
+                <center>
+                    <name>050_center</name>
+                    <sort_order>50</sort_order>
+                </center>
+                <eav>
+                    <name>060_eav</name>
+                    <sort_order>60</sort_order>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                </eav>
+                <load>
+                    <name>070_load</name>
+                    <sort_order>70</sort_order>
+                </load>
+                <store>
+                    <name>080_store</name>
+                    <sort_order>80</sort_order>
+                    <depend>
+                        <store />
+                    </depend>
+                </store>
+                <footer>
+                    <name>090_footer</name>
+                    <sort_order>90</sort_order>
+                </footer>
+            </code>
+        </api2_model_rest>
+        <api2_model_rest_guest translate="title description condition" module="modulecreator">
+            <title>REST API entity model - guest handler</title>
+            <description>The guest handler model for the entity REST API</description>
+            <condition>Generated if there the entity should have the REST API</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/Model/Api2/Entity/Rest/Guest/V1/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Api2/{{Entity}}/Rest/Guest/V1.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </api2_model_rest_guest>
+        <api2_model_rest_customer translate="title description condition" module="modulecreator">
+            <title>REST API entity model - customer handler</title>
+            <description>The customer handler model for the entity REST API</description>
+            <condition>Generated if there the entity should have the REST API</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/Model/Api2/Entity/Rest/Customer/V1/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Api2/{{Entity}}/Rest/Customer/V1.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </api2_model_rest_customer>
+        <api2_model_rest_admin translate="title description condition" module="modulecreator">
+            <title>REST API entity model - admin handler</title>
+            <description>The admin handler model for the entity REST API</description>
+            <condition>Generated if there the entity should have the REST API</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <rest />
+            </depend>
+            <source>app/code/Model/Api2/Entity/Rest/Admin/V1/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Api2/{{Entity}}/Rest/Admin/V1.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <tree_filter>
+                    <name>020_tree_filter</name>
+                    <sort_order>20</sort_order>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                </tree_filter>
+                <footer>
+                    <name>030_footer</name>
+                    <sort_order>30</sort_order>
+                </footer>
+            </code>
+        </api2_model_rest_admin>
     </files>
 </config>

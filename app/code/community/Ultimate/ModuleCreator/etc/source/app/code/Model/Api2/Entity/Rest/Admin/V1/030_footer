@@ -1,0 +1,80 @@
+        $entityOnlyAttributes = $this->getEntityOnlyAttributes($this->getUserType(),
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
+        $availableAttributes = array_keys($this->getAvailableAttributes($this->getUserType(),
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ));
+        $this->_applyCollectionModifiers($collection);
+        ${{entities}} = $collection->load();
+
+        foreach (${{entities}} as ${{entity}}) {
+            $this->_set{{Entity}}(${{entity}});
+            $this->_prepare{{Entity}}ForResponse(${{entity}});
+        }
+        ${{entities}}Array = ${{entities}}->toArray();{{restCollectionCleanup}}
+        return ${{entities}}Array;
+    }
+    /**
+     * Delete {{entityLabel}} by its ID
+     * @access protected
+     * @throws Mage_Api2_Exception
+     * {{qwertyuiop}}
+     */
+    protected function _delete() {
+        ${{entity}} = $this->_get{{Entity}}();
+        try {
+            ${{entity}}->delete();
+        } catch (Mage_Core_Exception $e) {
+            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $e) {
+            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+        }
+    }
+
+    /**
+     * Create {{entityLabel}}
+     * @access protected
+     * @param array $data
+     * @return string
+     * {{qwertyuiop}}
+     */
+    protected function _create(array $data) {
+        ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->setData($data);
+        try {
+            ${{entity}}->save();
+        }
+        catch (Mage_Core_Exception $e) {
+            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $e) {
+            $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
+        }
+        return $this->_getLocation(${{entity}}->getId());
+    }
+
+    /**
+     * Update {{entityLabel}} by its ID
+     * @access protected
+     * @param array $data
+     * {{qwertyuiop}}
+     */
+    protected function _update(array $data) {
+        ${{entity}} = $this->_get{{Entity}}();
+        ${{entity}}->addData($data);
+        try {
+            ${{entity}}->save();
+        } catch (Mage_Core_Exception $e) {
+            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $e) {
+            $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
+        }
+    }
+
+    /**
+     * Set additional data before {{entityLabel}} save
+     * @access protected
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} $entity
+     * @param array ${{entity}}Data
+     * {{qwertyuiop}}
+     */
+    protected function _prepareDataForSave($product, $productData) {
+        //add your data processing algorithm here if needed
+    }
+}

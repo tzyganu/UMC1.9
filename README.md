@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.1.2
+Ultimate Module Creator 1.9.2.0
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,12 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.2.0 - 2014-07-21**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Added REST API functionality|You can not generate the files needed for the REST API of you entities.|
 
 **Release Notes1.9.1.2 - 2014-06-12**
 

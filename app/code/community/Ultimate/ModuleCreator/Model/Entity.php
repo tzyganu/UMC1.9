@@ -634,6 +634,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{filterEntityDates3}}']          = $this->getFilterDates(3);
             $this->_placeholders['{{allAttributesToCollection}}']   = $this->getAllAttributesToCollection();
             $this->_placeholders['{{loadStoreId}}']                 = $this->getLoadStoreId();
+            $this->_placeholders['{{restCollectionCleanup}}']       = $this->getRestCollectionCleanup();
+            $this->_placeholders['{{restCollectionStoreId}}']       = $this->getRestCollectionStoreId();
 
 
             $eventObject = new Varien_Object(
@@ -2776,6 +2778,136 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getLoadStoreId() {
         return $this->getTypeInstance()->getLoadStoreId();
+    }
+
+    /**
+     * get rest resource group
+     * @param $padding
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestResourceGroup($padding) {
+        $content = '';
+        $eol = $this->getEol();
+        if ($this->getRest()) {
+            $ns       = $this->getNamespace(true);
+            $md       = $this->getModule()->getLowerModuleName();
+            $entity   = $this->getNameSingular(true);
+            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
+            $content .= $this->getPadding($padding + 1).'<title>'.$this->getLabelSingular().'</title>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
+            $content .= $this->getPadding($padding).'</'.$ns.'_'.$md.'_'.$entity.'>'.$eol;
+        }
+        return $content;
+    }
+
+    /**
+     * get rest resource
+     * @param $padding
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestResource($padding) {
+        $content = '';
+        $eol = $this->getEol();
+        if ($this->getRest()) {
+            $ns       = $this->getNamespace(true);
+            $md       = $this->getModule()->getLowerModuleName();
+            $entity   = $this->getNameSingular(true);
+            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
+            $content .= $this->getPadding($padding + 1).'<group>'.$ns.'_'.$md.'_'.$entity.'</group>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<model>'.$ns.'_'.$md.'/api2_'.$entity.'</model>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<working_model>'.$ns.'_'.$md.'/'.$entity.'</working_model>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<title>'.$this->getLabelSingular().'</title>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<privileges>'.$eol;
+            $content .= $this->getPadding($padding + 2).'<admin>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<create>1</create>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<retrieve>1</retrieve>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<update>1</update>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<delete>1</delete>'.$eol;
+            $content .= $this->getPadding($padding + 2).'</admin>'.$eol;
+            $content .= $this->getPadding($padding + 2).'<customer>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<retrieve>1</retrieve>'.$eol;
+            $content .= $this->getPadding($padding + 2).'</customer>'.$eol;
+            $content .= $this->getPadding($padding + 2).'<guest>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<retrieve>1</retrieve>'.$eol;
+            $content .= $this->getPadding($padding + 2).'</guest>'.$eol;
+            $content .= $this->getPadding($padding + 1).'</privileges>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<attributes translate="'.$this->getRestAttributes(true, true).'" module="'.$ns.'_'.$md.'">'.$eol;
+            foreach ($this->getRestAttributes(false, false) as $code=>$label) {
+                $content .= $this->getPadding($padding + 2).'<'.$code.'>'.$label.'</'.$code.'>'.$eol;
+            }
+            $content .= $this->getPadding($padding + 1).'</attributes>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<routes>'.$eol;
+            $content .= $this->getPadding($padding + 2).'<route_entity>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/:id</route>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<action_type>entity</action_type>'.$eol;
+            $content .= $this->getPadding($padding + 2).'</route_entity>'.$eol;
+            if ($this->getIsEav() || $this->getStore()) {
+                $content .= $this->getPadding($padding + 2).'<route_entity_with_store>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/:id/store/:store</route>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<action_type>entity</action_type>'.$eol;
+                $content .= $this->getPadding($padding + 2).'</route_entity_with_store>'.$eol;
+            }
+            $content .= $this->getPadding($padding + 2).'<route_collection>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'</route>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<action_type>collection</action_type>'.$eol;
+            $content .= $this->getPadding($padding + 2).'</route_collection>'.$eol;
+            if ($this->getIsEav() || $this->getStore()) {
+                $content .= $this->getPadding($padding + 2).'<route_collection_with_store>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/store/:store</route>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<action_type>collection</action_type>'.$eol;
+                $content .= $this->getPadding($padding + 2).'</route_collection_with_store>'.$eol;
+            }
+            $content .= $this->getPadding($padding + 1).'</routes>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<versions>1</versions>'.$eol;
+            $content .= $this->getPadding($padding).'</'.$ns.'_'.$md.'_'.$entity.'>'.$eol;
+        }
+        return $content;
+    }
+
+    /**
+     * get rest attributes
+     * @param bool $codeOnly
+     * @param bool $asString
+     * @return array|string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestAttributes($codeOnly = false, $asString = false) {
+        $attributes = array(
+            'entity_id' => 'Id',
+        );
+        foreach ($this->getAttributes() as $attribute) {
+            $attributes[$attribute->getCode()] = $attribute->getLabel();
+        }
+        foreach ($this->getSimulatedAttributes() as $attribute) {
+            $attributes[$attribute->getCode()] = $attribute->getLabel();
+        }
+        if ($codeOnly) {
+            if ($asString) {
+                return implode(' ', array_keys($attributes));
+            }
+            return array_keys($attributes);
+        }
+        return $attributes;
+    }
+
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionCleanup() {
+        return $this->getTypeInstance()->getRestCollectionCleanup();
+    }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionStoreId() {
+        return $this->getTypeInstance()->getRestCollectionStoreId();
     }
 
 }

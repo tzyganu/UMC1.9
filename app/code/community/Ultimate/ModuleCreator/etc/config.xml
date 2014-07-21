@@ -19,7 +19,7 @@
 <config>
     <modules>
         <Ultimate_ModuleCreator>
-            <version>1.9.1.2</version>
+            <version>1.9.2.0</version>
             <build></build>
         </Ultimate_ModuleCreator>
     </modules>
@@ -106,6 +106,7 @@ http://opensource.org/licenses/mit-license.php
                 <add_updated_to_grid>1</add_updated_to_grid>
                 <search>1</search>
                 <api>0</api>
+                <rest>0</rest>
                 <create_frontend>1</create_frontend>
                 <create_list>1</create_list>
                 <list_template>two_columns_left</list_template>

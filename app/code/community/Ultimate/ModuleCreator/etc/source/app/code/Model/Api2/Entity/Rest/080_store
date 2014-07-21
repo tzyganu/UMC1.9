@@ -1,0 +1,6 @@
+            if ($this->_getStore()->getId()) {
+                $isValidStore = count(array_intersect(array(0, $this->_getStore()->getId()), ${{entity}}->getStoreId()));
+                if (!$isValidStore) {
+                    $this->_critical(self::RESOURCE_NOT_FOUND);
+                }
+            }

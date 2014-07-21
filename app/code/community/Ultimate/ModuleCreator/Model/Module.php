@@ -168,6 +168,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getProductAttribute() ||$entity->getCategoryAttribute()) {
             $this->setHasCatalogAttribute(true);
         }
+        if ($entity->getRest()) {
+            $this->setRest(true);
+        }
         Mage::dispatchEvent('umc_module_add_entity_after', array('entity'=>$entity, 'module'=>$this));
         return $this;
     }
@@ -1287,7 +1290,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks(),
                 '{{frontKey}}'                          => $this->getFrontKey(),
                 '{{SystemTabName}}'                     => $this->getSystemTabName(),
-                '{{systemTabPosition}}'                 => $this->getSystemTabPosition()
+                '{{systemTabPosition}}'                 => $this->getSystemTabPosition(),
+                '{{RestResourceGroupsChildren}}'        => $this->getRestResourceGroupsChildren(),
+                '{{RestResources}}'                     => $this->getRestResources()
             );
         }
         if (is_null($param)){
@@ -1765,5 +1770,32 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     public function getSystemTabPosition(){
         return (int)$this->getData('system_tab_position');
+    }
+
+    /**
+     * get xml for api2.xml resource groups children
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestResourceGroupsChildren(){
+        $content = '';
+        foreach ($this->getEntities() as $entity){
+            $content .= $entity->getRestResourceGroup(5);
+        }
+        return $content;
+    }
+    /**
+     * get xml for api2.xml resources
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestResources() {
+        $content = '';
+        foreach ($this->getEntities() as $entity){
+            $content .= $entity->getRestResource(3);
+        }
+        return $content;
     }
 }

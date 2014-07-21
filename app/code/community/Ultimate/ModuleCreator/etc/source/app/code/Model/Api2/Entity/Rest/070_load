@@ -1,0 +1,4 @@
+            ${{entity}}->load(${{entity}}Id);
+            if (!(${{entity}}->getId())) {
+                $this->_critical(self::RESOURCE_NOT_FOUND);
+            }

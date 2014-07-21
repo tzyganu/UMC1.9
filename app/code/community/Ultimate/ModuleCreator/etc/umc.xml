@@ -256,6 +256,15 @@
                             <system>1</system>
                             <tooltip><![CDATA[Magento offers a SOAP API for managing products, categories, orders and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the SOAP API.<br />It generates the classes and xml files needed for API V1, API V2 and API V2 with WSI compliance.]]></tooltip>
                         </api>
+                        <rest translate="label tooltip" module="modulecreator">
+                            <label>Create REST API</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <required>1</required>
+                            <position>60</position>
+                            <system>1</system>
+                            <tooltip><![CDATA[Magento offers a REST API for managing products, categories and other entities.<br />If this is set to 'Yes', then your entity will also be available for managing through the REST API.<br />It generates the classes and xml files needed.]]></tooltip>
+                        </rest>
                     </fields>
                 </backend>
 
@@ -761,6 +770,7 @@
             <manage_comment />
             <search />
             <api />
+            <rest />
             <product_attribute_group />
             <category_attribute_group />
         </umc_entity>
@@ -1002,6 +1012,17 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_2_0>
+            <version>1.9.2.0</version>
+            <date>2014-07-21</date>
+            <data>
+                <rest translate="label type comment">
+                    <label>Added REST API functionality</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[You can not generate the files needed for the REST API of you entities.]]></comment>
+                </rest>
+            </data>
+        </v1_9_2_0>
         <v1_9_1_2>
             <version>1.9.1.2</version>
             <date>2014-06-12</date>

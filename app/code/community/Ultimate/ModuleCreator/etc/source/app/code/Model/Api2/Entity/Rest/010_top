@@ -1,0 +1,43 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} abstract REST API handler model
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+abstract class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest
+    extends {{Namespace}}_{{Module}}_Model_Api2_{{Entity}} {
+    /**
+     * current {{entityLabel}}
+     */
+    protected $_{{entity}};
+    /**
+     * retrieve entity
+     * @access protected
+     * @return array|mixed
+     * {{qwertyuiop}}
+     */
+    protected function _retrieve() {
+        ${{entity}} = $this->_get{{Entity}}();
+        $this->_prepare{{Entity}}ForResponse(${{entity}});
+        return ${{entity}}->getData();
+    }
+    /**
+     * get collection
+     * @access protected
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _retrieveCollection() {
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{allAttributesToCollection}};{{restCollectionStoreId}}
+        $entityOnlyAttributes = $this->getEntityOnlyAttributes(
+            $this->getUserType(),
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ
+        );
+        $availableAttributes = array_keys($this->getAvailableAttributes(
+            $this->getUserType(),
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)
+        );
+        $collection->{{filterMethod}}('status', array('eq' => 1));

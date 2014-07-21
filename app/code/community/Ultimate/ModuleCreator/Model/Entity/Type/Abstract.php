@@ -449,4 +449,20 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getLoadStoreId() {
         return '';
     }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionCleanup() {
+        return $this->getEol().$this->getPadding(2).'$'.$this->getEntity()->getNamePlural(true).'Array = $'.$this->getEntity()->getNamePlural(true).'Array[\'items\'];'.$this->getEol();
+    }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getRestCollectionStoreId() {
+        return '';
+    }
 }

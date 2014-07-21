@@ -1,0 +1,33 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} REST API customer handler
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest_Customer_V1
+    extends {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest {
+    /**
+     * current customer
+     * @var Mage_Customer_Model_Customer
+     */
+    protected $_customer;
+    /**
+     * get the current customer
+     * @access protected
+     * @return Mage_Customer_Model_Customer
+     * {{qwertyuiop}}
+     */
+    protected function _getCustomer() {
+        if (is_null($this->_customer)) {
+            $customer = Mage::getModel('customer/customer')->load($this->getApiUser()->getUserId());
+            if (!$customer->getId()) {
+                $this->_critical('Customer not found.', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            }
+            $this->_customer = $customer;
+        }
+        return $this->_customer;
+    }
+}

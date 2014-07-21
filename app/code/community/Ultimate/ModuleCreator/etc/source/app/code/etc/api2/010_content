@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+{{License}}
+<config>
+    <api2>
+        <resource_groups>
+            <{{namespace}}_{{module}} translate="title" module="{{namespace}}_{{module}}">
+                <title>{{Module}}</title>
+                <sort_order>120</sort_order>
+                <children>
+{{RestResourceGroupsChildren}}
+                </children>
+            </{{namespace}}_{{module}}>
+        </resource_groups>
+        <resources>
+{{RestResources}}
+        </resources>
+    </api2>
+</config>

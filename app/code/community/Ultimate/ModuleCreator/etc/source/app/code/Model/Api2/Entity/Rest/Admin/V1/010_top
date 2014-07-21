@@ -1,0 +1,47 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} REST API admin handler
+ *
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest_Admin_V1
+    extends {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest {
+
+    /**
+     * Remove specified keys from associative or indexed array
+     * @access protected
+     * @param array $array
+     * @param array $keys
+     * @param bool $dropOrigKeys if true - return array as indexed array
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _filterOutArrayKeys(array $array, array $keys, $dropOrigKeys = false) {
+        $isIndexedArray = is_array(reset($array));
+        if ($isIndexedArray) {
+            foreach ($array as &$value) {
+                if (is_array($value)) {
+                    $value = array_diff_key($value, array_flip($keys));
+                }
+            }
+            if ($dropOrigKeys) {
+                $array = array_values($array);
+            }
+            unset($value);
+        } else {
+            $array = array_diff_key($array, array_flip($keys));
+        }
+        return $array;
+    }
+
+    /**
+     * Retrieve list of {{entitiesLabel}}
+     * @access protected
+     * @return array
+     * {{qwertyuiop}}
+     */
+    protected function _retrieveCollection() {
+        $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{allAttributesToCollection}};{{restCollectionStoreId}}

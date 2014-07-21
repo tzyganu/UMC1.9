@@ -1,0 +1,2 @@
+        $store = $this->_getStore();
+        $collection->addStoreFilter($store->getId());
