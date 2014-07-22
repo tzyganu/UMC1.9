@@ -50,7 +50,7 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    var moduleForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+    var moduleForm = new UMC.Form('edit_form', '<?php echo $this->getValidationUrl() ?>');
     moduleForm._processValidationResult = function(transport) {
         try{
             var response = transport.responseText.evalJSON();
@@ -60,17 +60,25 @@
             if (response.error){
                 var errors = response.errors;
                 var attributes = response.attributes;
-                console.log(attributes);
                 var globalErrors = '';
                 if (response.message){
                     globalErrors = response.message;
                 }
+                //console.log(attributes);
                 if (attributes){
                     for (var i in attributes){
                         if (attributes.hasOwnProperty(i)){
                             if ($(i)){
                                 $(i).setHasError(true, moduleForm);
                                 Validation.ajaxError($(i), attributes[i]);
+                                //open all fieldsets
+                                var field = $(i);
+                                while ($(field) && $(field).up('.fieldset') != 'undefined') {
+                                    field = $(field).up('.fieldset');
+                                    if ($(field)) {
+                                        $(field).show();
+                                    }
+                                }
                                 if (!Prototype.Browser.IE){
                                     $(i).focus();
                                 }

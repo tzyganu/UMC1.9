@@ -3709,6 +3709,13 @@
                     </depend>
                     <sort_order>210</sort_order>
                 </default_values_comment>
+                <default_attribute_values>
+                    <name>215_default_attribute_values</name>
+                    <depend>
+                        <is_flat/>
+                    </depend>
+                    <sort_order>215</sort_order>
+                </default_attribute_values>
                 <footer>
                     <name>220_footer</name>
                     <sort_order>220</sort_order>
@@ -4849,6 +4856,13 @@
                     </depend>
                     <sort_order>120</sort_order>
                 </category_attribute>
+                <eav_options_default>
+                    <name>125_eav_options_default</name>
+                    <sort_order>125</sort_order>
+                    <depend>
+                        <has_eav />
+                    </depend>
+                </eav_options_default>
                 <footer>
                     <name>130_footer</name>
                     <sort_order>130</sort_order>

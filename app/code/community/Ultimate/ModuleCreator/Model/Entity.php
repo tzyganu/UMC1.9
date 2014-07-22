@@ -636,6 +636,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{loadStoreId}}']                 = $this->getLoadStoreId();
             $this->_placeholders['{{restCollectionCleanup}}']       = $this->getRestCollectionCleanup();
             $this->_placeholders['{{restCollectionStoreId}}']       = $this->getRestCollectionStoreId();
+            $this->_placeholders['{{defaultAttributeValues}}']      = $this->getDefaultAttributeValues();
 
 
             $eventObject = new Varien_Object(
@@ -1026,6 +1027,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 $attr->setCode('status');
                 $attr->setLabel('Enabled');
                 $attr->setType('yesno');
+                $attr->setDefaultValue('1');
                 $attributes[] = $attr;
                 break;
             case 'url_rewrite':
@@ -1083,6 +1085,7 @@ class Ultimate_ModuleCreator_Model_Entity
                     $attr->setCode('in_rss');
                     $attr->setLabel('In RSS');
                     $attr->setType('yesno');
+                    $attr->setDefaultValue('1');
                     $attributes[] = $attr;
                 }
                 break;
@@ -1116,6 +1119,8 @@ class Ultimate_ModuleCreator_Model_Entity
                     $attr->setOptionsSource('custom');
                     $attr->setOptions(false);
                     $attr->setEntity($this);
+                    $attr->setDefaultValue('2');
+                    $attr->setForcedDefaultValue('2');
                     $attr->setForcedSource($namespace.'_'.$this->getModule()->getLowerModuleName().'/adminhtml_source_yesnodefault');
                     $attributes[] = $attr;
                 }
@@ -2910,4 +2915,12 @@ class Ultimate_ModuleCreator_Model_Entity
         return $this->getTypeInstance()->getRestCollectionStoreId();
     }
 
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultAttributeValues(){
+        return $this->getTypeInstance()->getDefaultAttributeValues();
+    }
 }

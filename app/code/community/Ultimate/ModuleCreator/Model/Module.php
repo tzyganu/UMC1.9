@@ -435,9 +435,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $io = $this->getIo();
             $io->mkdir(dirname($destinationFile));
             /**
-             * Varien_Io_File has changed in 1.8 A LOT
+             * Varien_Io_File has changed in 1.8.1 A LOT
              */
-            if (version_compare(Mage::getVersion(), '1.8', '<')) {
+            if (version_compare(Mage::getVersion(), '1.8.1', '<')) {
                 $io->write($destinationFile, $contents, 0777);
             }
             else {
@@ -1292,7 +1292,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{SystemTabName}}'                     => $this->getSystemTabName(),
                 '{{systemTabPosition}}'                 => $this->getSystemTabPosition(),
                 '{{RestResourceGroupsChildren}}'        => $this->getRestResourceGroupsChildren(),
-                '{{RestResources}}'                     => $this->getRestResources()
+                '{{RestResources}}'                     => $this->getRestResources(),
+                '{{eavOptionsDefaults}}'                => $this->getEavOptionsDefaults()
             );
         }
         if (is_null($param)){
@@ -1795,6 +1796,19 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $content = '';
         foreach ($this->getEntities() as $entity){
             $content .= $entity->getRestResource(3);
+        }
+        return $content;
+    }
+
+    public function getEavOptionsDefaults() {
+        $content = '';
+        $eol = $this->getEol();
+        foreach ($this->getEntities() as $entity) {
+            if ($entity->getIsEav()) {
+                foreach ($entity->getAttributes() as $attribute) {
+                    $content .= $attribute->getDefaultValueSetup();
+                }
+            }
         }
         return $content;
     }

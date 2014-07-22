@@ -69,4 +69,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract
     public function getAdditionalSetup(){
         return '';
     }
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        return '';
+    }
 }

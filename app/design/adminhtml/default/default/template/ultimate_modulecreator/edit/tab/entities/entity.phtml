@@ -60,7 +60,7 @@
                     </button>
                 </div>
             </div>
-            <div class="box" id="entity_<?php echo $this->getIncrement();?>_attributes" class="attributes-container">
+            <div class="box fieldset" id="entity_<?php echo $this->getIncrement();?>_attributes" class="attributes-container">
                 <?php $_index = 0; foreach ($_entity->getAttributes() as $_key=>$_attribute) : ?>
                     <?php
                     echo $this->getLayout()

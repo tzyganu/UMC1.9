@@ -51,7 +51,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
                 $content .= $padding.$tab.$tab."'values' =>".$eol;
                 $content .= $padding.$tab.$tab.$tab."array (".$eol;
                 foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $option) {
-                    $content .= $padding.$tab.$tab.$tab.$tab."'".$option."',".$eol;
+                    $content .= $padding.$tab.$tab.$tab.$tab."'".Mage::helper('core')->jsQuoteEscape($option)."',".$eol;
                 }
                 $content .= $padding.$tab.$tab.$tab."),".$eol;
                 $content .= $padding.$tab.$tab."),".$eol;
@@ -76,7 +76,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
             $content = $padding.'$options =  array('.$eol;
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
-                $content .= $padding.$tab.$tab."'label' => Mage::helper('".$namespace.'_'.$module."')->__('".$option."'),".$eol;
+                $content .= $padding.$tab.$tab."'label' => Mage::helper('".$namespace.'_'.$module."')->__('".Mage::helper('core')->jsQuoteEscape($option)."'),".$eol;
                 $content .= $padding.$tab.$tab."'value' => ".($index+1).$eol;
                 $content .= $padding.$tab.'),'.$eol;
             }
@@ -90,5 +90,35 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
             $content  = $padding.'return array();';
         }
         return $content;
+    }
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        if ($this->getTypeAttribute()->getAttribute()->getForcedDefaultValue()) {
+            return $this->getTypeAttribute()->getAttribute()->getForcedDefaultValue();
+        }
+        if ($this->getTypeAttribute()->getAttribute()->getEntity()->getIsFlat()) {
+            $options = $this->getTypeAttribute()->getAttribute()->getOptions(true);
+            $defaultValue = trim($this->getTypeAttribute()->getAttribute()->getDefaultValue());
+            $defaultValue = explode(Ultimate_ModuleCreator_Model_Attribute::OPTION_SEPARATOR, $defaultValue);
+            $multiselectValues = array();
+            foreach ($options as $index=>$option) {
+                if (in_array($option, $defaultValue)) {
+                    if ($this->getTypeAttribute() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect) {
+                        $multiselectValues[] = $index + 1;
+                    }
+                    else {
+                        return ($index + 1);
+                    }
+                }
+            }
+            return implode(',', $multiselectValues);
+        }
+        //EAV default values are handled in the install script. there is no way of doing it through the definition.
+        return '';
     }
 }

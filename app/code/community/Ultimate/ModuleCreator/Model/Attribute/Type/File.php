@@ -118,4 +118,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
         $module = $this->getModule();
         return $this->getNamespace(true).'_'.$module->getLowerModuleName().'/'.$entity->getNameSingular(true).'_attribute_backend_file';
     }
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        return '';
+    }
 }

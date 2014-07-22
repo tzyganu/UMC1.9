@@ -23,6 +23,41 @@ if(typeof UMC=='undefined') {
     var UMC = {};
 }
 /**
+ * override the varienForm to show fieldsets with errors
+ * @type UMC.Form
+ */
+UMC.Form = Class.create(varienForm);
+UMC.Form.prototype.submit = function(url){
+    if (typeof varienGlobalEvents != undefined) {
+        varienGlobalEvents.fireEvent('formSubmit', this.formId);
+    }
+    this.errorSections = $H({});
+    this.canShowError = true;
+    this.submitUrl = url;
+    if(this.validator && this.validator.validate()){
+        if(this.validationUrl){
+            this._validate();
+        }
+        else{
+            this._submit();
+        }
+        return true;
+    }
+    else {
+        var errors = $$('.validation-advice');
+        for (var i =0; i < errors.length; i++){
+            var field = $(errors[i]);
+            while ($(field) && $(field).up('.fieldset') != 'undefined') {
+                field = $(field).up('.fieldset');
+                if ($(field)) {
+                    $(field).show();
+                }
+            }
+        }
+    }
+    return false;
+}
+/**
  * module class
  * @type UMC.Module
  */
@@ -656,6 +691,9 @@ UMC.Attribute.prototype = {
                 }
                 if ($(el).hasClassName('not-custom-source')){
                     shouldDisable = shouldDisable || (that.getSourceType() == 'custom' || !that.getSourceType());
+                }
+                if ($(el).hasClassName('dropdown-custom-source')) {
+                    shouldDisable = shouldDisable || ((that.getType() == 'dropdown' || that.getType() == 'multiselect') && that.getSourceType() != 'custom');
                 }
             }
             else{

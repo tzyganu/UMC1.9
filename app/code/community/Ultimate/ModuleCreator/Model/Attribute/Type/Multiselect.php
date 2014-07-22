@@ -115,4 +115,30 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect
     public function getMassActionValues() {
         return '';
     }
+    /**
+     * get attribute default value setup content
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueSetup() {
+        $content = '';
+        if ($this->getSubTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
+            && $this->getAttribute()->getDefaultValue()
+    ) {
+            $eol      = $this->getEol();
+            $entity   = $this->getEntity();
+            $attribute= $this->getAttribute();
+            $content .= '$attribute = Mage::getSingleton(\'eav/config\')->getAttribute(\''.$this->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$entity->getNameSingular().'\', \''.$attribute->getCode().'\');'.$eol;
+            $content .= '$options = $attribute->getSource()->getAllOptions(false);'.$eol;
+            $content .= '$defaultOptions = array();'.$eol;
+            $content .= 'foreach ($options as $option) {'.$eol;
+            $content .= $this->getPadding().'if (in_array($option[\'label\'], array(\''.implode("','", explode(Ultimate_ModuleCreator_Model_Attribute::OPTION_SEPARATOR, Mage::helper('core')->jsQuoteEscape($attribute->getDefaultValue()))).'\'))) {'.$eol;
+            $content .= $this->getPadding(2).'$defaultOptions[] = $option[\'value\'];'.$eol;
+            $content .= $this->getPadding().'}'.$eol;
+            $content .= '}'.$eol;
+            $content .= '$this->updateAttribute(\''.$this->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$entity->getNameSingular().'\', \''.$attribute->getCode().'\', \'default_value\', implode(\',\', $defaultOptions));'.$eol;
+        }
+        return $content;
+    }
 }

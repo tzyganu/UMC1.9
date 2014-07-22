@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.2.0
+Ultimate Module Creator 1.9.3.0
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
@@ -17,6 +17,16 @@ Also any good code is welcomed.
 
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
+
+**Release Notes 1.9.3.0 - 2014-07-22**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Bug Fix|Writing generated files does not work on CE-1.8.0.0 |The generated files could not pe written to disk because of the changes in Varien_Io_File in this version.|
+|Bug Fix|Attribute options are not escaped|For attributes that have options, the options were not escaped in the install script.|
+|Improvement|Set default values for EAV entities|<a href="https://github.com/tzyganu/UMC1.9/issues/14" target="_blank">#14</a>|
+|Improvement|In the UMC UI, when submitting a form that has errors all the fieldsets that contain fields with errors will be automatically opened to get a better wiew on the error.|<a href="https://github.com/tzyganu/UMC1.9/issues/30" target="_blank">#30</a>|
+|Feature|Set default values when creating a module|You can now set default values for most of the attribute types (file and image don't support it) when creating your entity attributes.|
 
 **Release Notes 1.9.2.0 - 2014-07-21**
 

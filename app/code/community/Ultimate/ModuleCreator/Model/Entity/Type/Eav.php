@@ -220,6 +220,7 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $position = 0;
         //all parent attributes
+        /** @var Ultimate_ModuleCreator_Model_Attribute $attribute */
         foreach ($this->_getParentAttributes() as $attribute) {
             $content .= $attribute->getSetupContent();
         }
@@ -767,5 +768,13 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      */
     public function getRestCollectionStoreId() {
         return $this->getEol().$this->getPadding(2).'$collection->setStoreId($this->_getStore()->getId());';
+    }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultAttributeValues(){
+        return '';
     }
 }

@@ -135,7 +135,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
     /**
      * get subtype instance
      * @access public
-     * @return Ultimate_ModuleCreator_Model_Attribute_Dropdown_Abstract
+     * @return Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract
      * @throws Ultimate_ModuleCreator_Exception
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
@@ -275,6 +275,40 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         else {
             return "Mage::getModel('".$namespace.'_'.$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         }
+    }
+
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        return $this->getSubTypeInstance()->getDefaultValueProcessed();
+    }
+    /**
+     * get attribute default value setup content
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueSetup() {
+        $content = '';
+        if ($this->getSubTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
+            && $this->getAttribute()->getDefaultValue()
+        ) {
+            $eol      = $this->getEol();
+            $entity   = $this->getEntity();
+            $attribute= $this->getAttribute();
+            $content .= '$attribute = Mage::getSingleton(\'eav/config\')->getAttribute(\''.$this->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$entity->getNameSingular().'\', \''.$attribute->getCode().'\');'.$eol;
+            $content .= '$options = $attribute->getSource()->getAllOptions(false);'.$eol;
+            $content .= 'foreach ($options as $option) {'.$eol;
+            $content .= $this->getPadding().'if ($option[\'label\'] == \''.Mage::helper('core')->jsQuoteEscape($attribute->getDefaultValue()).'\') {'.$eol;
+            $content .= $this->getPadding(2).'$this->updateAttribute(\''.$this->getNamespace(true).'_'.$this->getModule()->getLowerModuleName().'_'.$entity->getNameSingular().'\', \''.$attribute->getCode().'\', \'default_value\', $option[\'value\']);'.$eol;
+            $content .= $this->getPadding().'}'.$eol;
+            $content .= '}'.$eol;
+        }
+        return $content;
     }
 
 }

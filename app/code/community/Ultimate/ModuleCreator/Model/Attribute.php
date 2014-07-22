@@ -319,7 +319,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         $content .= $padding6."'global'         => ".$this->getSetupIsGlobal().",".$eol;
         $content .= $padding6."'required'       => '".$this->getRequired()."',".$eol;
         $content .= $padding6."'user_defined'   => ".$this->getIsUserDefined().",".$eol;
-        $content .= $padding6."'default'        => '',".$eol;
+        $content .= $padding6."'default'        => '".$coreHelper->jsQuoteEscape($this->getDefaultValueProcessed())."',".$eol;
         $content .= $padding6."'unique'         => false,".$eol;
         $content .= $padding6."'position'       => '".(int)$this->getPosition()."',".$eol;
         $content .= $padding6."'note'           => '".$coreHelper->jsQuoteEscape($this->getNote())."',".$eol;
@@ -559,5 +559,24 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      */
     public function getNamespace($lower = false){
         return $this->getModule()->getNamespace($lower);
+    }
+
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        return $this->getTypeInstance()->getDefaultValueProcessed();
+    }
+    /**
+     * get attribute default value setup content
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueSetup() {
+        return $this->getTypeInstance()->getDefaultValueSetup();
     }
 }

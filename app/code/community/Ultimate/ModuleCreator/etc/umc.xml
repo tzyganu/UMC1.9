@@ -712,6 +712,14 @@
                             <note>One option on each row</note>
                             <tooltip>If you choose to enter the values for the dropdown or multiselect manually, input them here. Separate the options with | (pipe). If you want an empty option at the begining start with a | (pipe) symbol.</tooltip>
                         </options>
+                        <default_value translate="label tooltip" module="modulecreator">
+                            <label>Default value</label>
+                            <type>textarea</type>
+                            <required>0</required>
+                            <position>180</position>
+                            <depend_class>type-text type-textarea type-timestamp type-dropdown type-multiselect type-decimal type-int type-yesno type-country dropdown-custom-source</depend_class>
+                            <tooltip>Fill in a default value for the attribute. Leave empty for no value. For dropdown and multiselect attributes the value, must be a valid value. not valid ones will be removed. For the multiselect attributes add one default value on each line. For Yes/No attribtues enter 1 for Yes, 0 for No. For country attributes fill in the country ISO2 code. You cannot set a default value for dropdown and multiselect attributes that use a source model and on image and file attributes.</tooltip>
+                        </default_value>
                     </fields>
                 </fieldset>
             </fieldsets>
@@ -1012,6 +1020,37 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_3_0>
+            <version>1.9.3.0</version>
+            <date>2014-07-22</date>
+            <data>
+                <version_fix translate="label type comment">
+                    <label>Writing generated files does not work on CE-1.8.0.0</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[The generated files could not pe written to disk because of the changes in Varien_Io_File in this version.]]></comment>
+                </version_fix>
+                <escape_options translate="label type comment">
+                    <label>Attribute options are not escaped</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[For attributes that have options, the options were not escaped in the install script.]]></comment>
+                </escape_options>
+                <eav_default_values translate="label type">
+                    <label>Set default values for EAV entities</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/14" target="_blank">14</a>]]></comment>
+                </eav_default_values>
+                <ui_error_report translate="label type">
+                    <label>In the UMC UI, when submitting a form that has errors all the fieldsets that contain fields with errors will be automatically opened to get a better wiew on the error.</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/30" target="_blank">30</a>]]></comment>
+                </ui_error_report>
+                <default_values translate="label type">
+                    <label>Set default values when creating a module</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[You can now set default values for most of the attribute types (file and image don't support it) when creating your entity attributes.]]></comment>
+                </default_values>
+            </data>
+        </v1_9_3_0>
         <v1_9_2_0>
             <version>1.9.2.0</version>
             <date>2014-07-21</date>

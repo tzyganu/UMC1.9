@@ -79,10 +79,6 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Mai
             'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Text to appear below the input.'),
         ), 'position');
 
-		$fieldset->removeField('default_value_text');
-		$fieldset->removeField('default_value_yesno');
-		$fieldset->removeField('default_value_date');
-		$fieldset->removeField('default_value_textarea');
 		$fieldset->removeField('is_unique');
         // frontend properties fieldset
         $fieldset = $form->addFieldset('front_fieldset', array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Frontend Properties')));

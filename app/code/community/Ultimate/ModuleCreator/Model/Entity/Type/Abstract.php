@@ -465,4 +465,22 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
     public function getRestCollectionStoreId() {
         return '';
     }
+    /**
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultAttributeValues(){
+        $content = '';
+        foreach ($this->getEntity()->getAttributes() as $attribute) {
+            $defaultValue = $attribute->getDefaultValueProcessed();
+            if (!empty($defaultValue)) {
+                $content .= $this->getPadding(2). '$values[\''.$attribute->getCode().'\'] = \''.$defaultValue.'\';'.$this->getEol();
+            }
+        }
+        if ($content) {
+            $content .= $this->getEol();
+        }
+        return $content;
+    }
 }

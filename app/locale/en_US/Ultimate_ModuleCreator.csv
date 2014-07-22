@@ -112,6 +112,7 @@ Action,Action
 "Attribute notes do not appear in the EAV entity form","Attribute notes do not appear in the EAV entity form"
 "Attribute notes for EAV entities are now manageable from the backend.","Attribute notes for EAV entities are now manageable from the backend."
 "Attribute notes for EAV entities can be changed from the backend, when editing the attribute.","Attribute notes for EAV entities can be changed from the backend, when editing the attribute."
+"Attribute options are not escaped","Attribute options are not escaped"
 "Attributes grid.","Attributes grid."
 "Auto-generate url rewrites","Auto-generate url rewrites"
 Back,Back
@@ -188,6 +189,7 @@ Decimal,Decimal
 "Default attribute settings","Default attribute settings"
 "Default entity settings","Default entity settings"
 "Default module settings","Default module settings"
+"Default value","Default value"
 Description,Description
 "Different types of session messages were not displayed in the entity actions (view/list) <a href=""https://github.com/tzyganu/UMC1.9/issues/2"" target=""_blank"">(#2)</a>","Different types of session messages were not displayed in the entity actions (view/list) <a href=""https://github.com/tzyganu/UMC1.9/issues/2"" target=""_blank"">(#2)</a>"
 "Disallowed entity names","Disallowed entity names"
@@ -307,6 +309,7 @@ File,File
 "File needed for API integration","File needed for API integration"
 "File save backend model","File save backend model"
 "File used for translation with all the texts in the module","File used for translation with all the texts in the module"
+"Fill in a default value for the attribute. Leave empty for no value. For dropdown and multiselect attributes the value, must be a valid value. not valid ones will be removed. For the multiselect attributes add one default value on each line. For Yes/No attribtues enter 1 for Yes, 0 for No. For country attributes fill in the country ISO2 code. You cannot set a default value for dropdown and multiselect attributes that use a source model and on image and file attributes.","Fill in a default value for the attribute. Leave empty for no value. For dropdown and multiselect attributes the value, must be a valid value. not valid ones will be removed. For the multiselect attributes add one default value on each line. For Yes/No attribtues enter 1 for Yes, 0 for No. For country attributes fill in the country ISO2 code. You cannot set a default value for dropdown and multiselect attributes that use a source model and on image and file attributes."
 "Fill in the dropdown attribute code.","Fill in the dropdown attribute code."
 Fix,Fix
 "Fix url rewrite save","Fix url rewrite save"
@@ -342,6 +345,7 @@ Fix,Fix
 Flat,Flat
 "Flat entities with url rewrites and no stores could not be saved.","Flat entities with url rewrites and no stores could not be saved."
 "Flat entity admin controller (tree).","Flat entity admin controller (tree)."
+"For attributes that have options, the options were not escaped in the install script.","For attributes that have options, the options were not escaped in the install script."
 "For dropdown and multiselect attributes you can set the values manually or use the values from a product attribute, a category attribute or a customer attribute.","For dropdown and multiselect attributes you can set the values manually or use the values from a product attribute, a category attribute or a customer attribute."
 "For entities that support comments","For entities that support comments"
 "For entities that support comments by store","For entities that support comments by store"
@@ -486,6 +490,7 @@ Image,Image
 "Improved te created modules grid.","Improved te created modules grid."
 Improvement,Improvement
 "In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version.","In previous version 'ModuleName' was not working on UNIX servers. Only 'Modulename'. This is fixed in this version."
+"In the UMC UI, when submitting a form that has errors all the fieldsets that contain fields with errors will be automatically opened to get a better wiew on the error.","In the UMC UI, when submitting a form that has errors all the fieldsets that contain fields with errors will be automatically opened to get a better wiew on the error."
 "Include in admin global search","Include in admin global search"
 "Include in category menu","Include in category menu"
 "Include in footer links","Include in footer links"
@@ -664,6 +669,8 @@ Save,Save
 "Select the menu where you want to add the link to your entities. It may not work on very custom themes.","Select the menu where you want to add the link to your entities. It may not work on very custom themes."
 "Select the product attribute scope.","Select the product attribute scope."
 "Selecting to include entities in admin search had no effect.","Selecting to include entities in admin search had no effect."
+"Set default values for EAV entities","Set default values for EAV entities"
+"Set default values when creating a module","Set default values when creating a module"
 "Set the system configuration tab name and position.","Set the system configuration tab name and position."
 "Settings regarding the entity name and code","Settings regarding the entity name and code"
 "Setup script with table structure","Setup script with table structure"
@@ -737,6 +744,7 @@ Thanks,Thanks
 "The first entity acts as a parent for the second one <br />. A field will be added to the second entity table as a reference to the first entity.","The first entity acts as a parent for the second one <br />. A field will be added to the second entity table as a reference to the first entity."
 "The following files already exist. They were NOT overwritten. The extension was not installed. You can download it from the list of extensions and install it manually: %s","The following files already exist. They were NOT overwritten. The extension was not installed. You can download it from the list of extensions and install it manually: %s"
 "The generated extensions can contain files used for the SOAP API.","The generated extensions can contain files used for the SOAP API."
+"The generated files could not pe written to disk because of the changes in Varien_Io_File in this version.","The generated files could not pe written to disk because of the changes in Varien_Io_File in this version."
 "The guest handler model for the entity REST API","The guest handler model for the entity REST API"
 "The image attributes/fields were displayed wrong on frontend for EAV entities.","The image attributes/fields were displayed wrong on frontend for EAV entities."
 "The main handler model for the entity REST API","The main handler model for the entity REST API"
@@ -867,6 +875,7 @@ Website,Website
 "When setting specific permissions for an admin the comments & EAV attributes grid got ""Access denied"".","When setting specific permissions for an admin the comments & EAV attributes grid got ""Access denied""."
 "Widget xml","Widget xml"
 Widgets,Widgets
+"Writing generated files does not work on CE-1.8.0.0","Writing generated files does not work on CE-1.8.0.0"
 "Wrong EAV mass action flag change","Wrong EAV mass action flag change"
 "Wrong export for EAV entities.","Wrong export for EAV entities."
 "Wrong resource model parent","Wrong resource model parent"

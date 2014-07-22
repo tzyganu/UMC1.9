@@ -88,7 +88,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
     /**
      * get module
      * @access public
-     * @return Ultimate_ModuleCreator_Model_Module
+     * @return Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getEntity(){
@@ -362,6 +362,24 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getMassActionValues() {
+        return '';
+    }
+    /**
+     * get attribute default value
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueProcessed() {
+        return $this->getAttribute()->getData('default_value');
+    }
+    /**
+     * get attribute default value setup content
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultValueSetup() {
         return '';
     }
 }
