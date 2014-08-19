@@ -1020,6 +1020,27 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_4_0>
+            <version>1.9.4.0</version>
+            <date>2014-08-19</date>
+            <data>
+                <relations translate="label type">
+                    <label>Link to related entities in grids and add/edit forms</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/35" target="_blank">#35</a>]]></comment>
+                </relations>
+                <relation_fix translate="label type comment">
+                    <label>Fixed related entities grid columns</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[For the EAV entities that have child entities, the grid column did not display values.]]></comment>
+                </relation_fix>
+                <category_fix translate="label type comment">
+                    <label>The related entities tab did not show only selected entities on category edit mode.</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[On the category edit page, in the tabs with flat related entities, all the entities were shown instead of only the selected ones.]]></comment>
+                </category_fix>
+            </data>
+        </v1_9_4_0>
         <v1_9_3_0>
             <version>1.9.3.0</version>
             <date>2014-07-22</date>
@@ -1617,5 +1638,9 @@
             <to>@greenwellness</to>
             <for>Thanks for the free testing and good ideas.</for>
         </greenwellness>
+        <dmanners>
+            <to>@mannersd</to>
+            <for><![CDATA[<a target="_blank" href="http://magento.stackexchange.com/a/32718/146">Showing me how to create correct links to category edit pages</a>]]></for>
+        </dmanners>
     </thanks>
 </config>

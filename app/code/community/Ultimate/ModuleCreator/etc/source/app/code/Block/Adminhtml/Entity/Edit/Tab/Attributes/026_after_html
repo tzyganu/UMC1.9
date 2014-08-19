@@ -1,0 +1,21 @@
+        if ($element->getName() == '{{sibling}}_id') {
+            $html = '<a href="{#url}" id="{{sibling}}_id_link" target="_blank"></a>';
+            $html .= '<script type="text/javascript">
+            function change{{Sibling}}IdLink(){
+                if ($(\'{{sibling}}_id\').value == \'\') {
+                    $(\'{{sibling}}_id_link\').hide();
+                }
+                else {
+                    $(\'{{sibling}}_id_link\').show();
+                    var url = \''.$this->getUrl('adminhtml/{{module}}_{{sibling}}/edit', array('id'=>'{#id}', 'clear'=>1)).'\';
+                    var text = \''.Mage::helper('core')->escapeHtml($this->__('View {#name}')).'\';
+                    var realUrl = url.replace(\'{#id}\', $(\'{{sibling}}_id\').value);
+                    $(\'{{sibling}}_id_link\').href = realUrl;
+                    $(\'{{sibling}}_id_link\').innerHTML = text.replace(\'{#name}\', $(\'{{sibling}}_id\').options[$(\'{{sibling}}_id\').selectedIndex].innerHTML);
+                }
+            }
+            $(\'{{sibling}}_id\').observe(\'change\', change{{Sibling}}IdLink);
+            change{{Sibling}}IdLink();
+            </script>';
+            return $html;
+        }

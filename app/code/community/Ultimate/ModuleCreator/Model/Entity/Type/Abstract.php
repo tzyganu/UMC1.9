@@ -483,4 +483,13 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract
         }
         return $content;
     }
+    /**
+     * get additional to option array select
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionArraySelect() {
+        return '';
+    }
 }

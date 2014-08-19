@@ -637,6 +637,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholders['{{restCollectionCleanup}}']       = $this->getRestCollectionCleanup();
             $this->_placeholders['{{restCollectionStoreId}}']       = $this->getRestCollectionStoreId();
             $this->_placeholders['{{defaultAttributeValues}}']      = $this->getDefaultAttributeValues();
+            $this->_placeholders['{{toOptionArraySelect}}']         = $this->getToOptionArraySelect();
+            $this->_placeholders['{{parentStaticParams}}']          = $this->getParentStaticParams();
 
 
             $eventObject = new Varien_Object(
@@ -693,6 +695,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholdersAsSibling['{{siblingFilterMethod}}']            = $this->getFilterMethod();
             $this->_placeholdersAsSibling['{{siblingAllAttributesToCollection}}'] = $this->getAllAttributesToCollection();
             $this->_placeholdersAsSibling['{{siblingLoadStoreId}}']              = $this->getLoadStoreId();
+            $this->_placeholdersAsSibling['{{siblingToOptionArraySelect}}']     = $this->getToOptionArraySelect();
+            $this->_placeholdersAsSibling['{{siblingParentStaticParams}}']      = $this->getParentStaticParams();
 
             $eventObject = new Varien_Object(
                 array(
@@ -2922,5 +2926,44 @@ class Ultimate_ModuleCreator_Model_Entity
      */
     public function getDefaultAttributeValues(){
         return $this->getTypeInstance()->getDefaultAttributeValues();
+    }
+
+    /**
+     * check if entity has parent entities
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getHasParentRelation() {
+        return count($this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD)) > 0;
+    }
+    /**
+     * get additional to option array select
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionArraySelect() {
+        return $this->getTypeInstance()->getToOptionArraySelect();
+    }
+
+    /**
+     * get parent grid column static params
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getParentStaticParams() {
+        if ($this->getNotIsTree()) {
+            return '';
+        }
+        $eol      = $this->getEol();
+        $padding  = $this->getPadding(3);
+        $tab      = $this->getPadding();
+        $content  = $eol;
+        $content .= $padding."'static' => array(".$eol;
+        $content .= $padding.$tab."'clear' => 1".$eol;
+        $content .= $padding."),";
+        return $content;
     }
 }

@@ -12,7 +12,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form
     /**
      * prepare the form
      * @access protected
-     * @return {{Module}}_{{Entity}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form
+     * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form
      * {{qwertyuiop}}
      */
     protected function _prepareForm(){

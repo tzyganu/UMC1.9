@@ -182,7 +182,7 @@
      * {{qwertyuiop}}
      */
     public function buildNodeName($node){
-        $result = $this->htmlEscape($node->get{{EntityNameMagicCode}}());
+        $result = $this->escapeHtml($node->get{{EntityNameMagicCode}}());
         return $result;
     }
     /**

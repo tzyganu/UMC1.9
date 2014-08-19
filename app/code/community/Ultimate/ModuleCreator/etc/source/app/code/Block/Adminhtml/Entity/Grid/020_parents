@@ -2,5 +2,10 @@
             'header'    => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingLabel}}'),
             'index'     => '{{sibling}}_id',
             'type'      => 'options',
-            'options'   => Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection')->toOptionHash(),
+            'options'   => Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection'){{siblingToOptionArraySelect}}->toOptionHash(),
+            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_parent',
+            'params' => array(
+                'id'=>'get{{Sibling}}Id'
+            ),{{siblingParentStaticParams}}
+            'base_link' => 'adminhtml/{{module}}_{{sibling}}/edit'
         ));

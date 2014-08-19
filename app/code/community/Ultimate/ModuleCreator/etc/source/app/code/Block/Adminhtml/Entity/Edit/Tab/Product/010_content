@@ -79,6 +79,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Product
             'header'=> Mage::helper('catalog')->__('Name'),
             'align' => 'left',
             'index' => 'product_name',
+            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
+            'params' => array(
+                'id'=>'getId'
+            ),
+            'base_link' => 'adminhtml/catalog_product/edit',
         ));
         $this->addColumn('sku', array(
             'header'=> Mage::helper('catalog')->__('SKU'),

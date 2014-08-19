@@ -222,4 +222,16 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return $ids;
     }
+    /**
+     * Get node label
+     * @access public
+     * @param Varien_Object $node
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function buildNodeName($node){
+        $result = parent::buildNodeName($node);
+        $result .= '<a target="_blank" href="'.$this->getUrl('adminhtml/catalog_category/index', array('id'=>$node->getId(), 'clear'=>1)).'"><em>'.$this->__(' - Edit').'</em></a>';
+        return $result;
+    }
 }

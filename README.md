@@ -18,6 +18,14 @@ Also any good code is welcomed.
 **Note**
 For the rest of the document UMC = Ultimate Module Creator
 
+**Release Notes 1.9.4.0 - 2014-08-19**
+
+|Type|Label|Comment|
+|----|-----|-------|
+|Feature|Link to related entities in grids and add/edit forms|<a href="https://github.com/tzyganu/UMC1.9/issues/35" target="_blank">#35</a>|
+|Bug Fix|Fixed related entities grid columns|For the EAV entities that have child entities, the grid column did not display values.|
+|Bug Fix|The related entities tab did not show only selected entities on category edit mode.|On the category edit page, in the tabs with flat related entities, all the entities were shown instead of only the selected ones.|
+
 **Release Notes 1.9.3.0 - 2014-07-22**
 
 |Type|Label|Comment|

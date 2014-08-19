@@ -777,4 +777,13 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getDefaultAttributeValues(){
         return '';
     }
+    /**
+     * get additional to option array select
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getToOptionArraySelect() {
+        return '->addAttributeToSelect(\''.$this->getEntity()->getNameAttributeCode().'\')';
+    }
 }

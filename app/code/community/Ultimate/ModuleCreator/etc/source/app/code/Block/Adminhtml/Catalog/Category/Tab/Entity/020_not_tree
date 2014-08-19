@@ -19,6 +19,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
         $this->setId('catalog_category_{{entity}}');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
+        if ($this->getCategory()->getId()) {
+            $this->setDefaultFilter(array('in_{{entities}}'=>1));
+        }
     }
     /**
      * get current category
@@ -77,6 +80,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
             'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{nameAttributeCode}}',
+            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
+            'params' => array(
+                'id'=>'getId'
+            ),
+            'base_link' => 'adminhtml/{{module}}_{{entity}}/edit',
         ));
         $this->addColumn('position', array(
             'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Position'),

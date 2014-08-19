@@ -65,6 +65,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}}
             'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{siblingNameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{siblingNameAttribute}}',
+            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
+            'params' => array(
+                'id'=>'getId'
+            ),
+            'base_link' => 'adminhtml/{{module}}_{{sibling}}/edit',
         ));
         $this->addColumn('position', array(
             'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Position'),

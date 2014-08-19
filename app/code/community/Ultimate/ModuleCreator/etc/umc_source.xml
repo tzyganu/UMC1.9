@@ -1309,9 +1309,32 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </tree>
+                <layout>
+                    <name>023_layout</name>
+                    <sort_order>23</sort_order>
+                </layout>
+                <after_html_top>
+                    <name>025_after_html_top</name>
+                    <sort_order>25</sort_order>
+                    <depend>
+                        <has_parent_relation />
+                    </depend>
+                </after_html_top>
+                <after_html>
+                    <name>026_after_html</name>
+                    <sort_order>26</sort_order>
+                    <scope>parents</scope>
+                </after_html>
+                <after_html_footer>
+                    <name>027_after_html_footer</name>
+                    <sort_order>27</sort_order>
+                    <depend>
+                        <has_parent_relation />
+                    </depend>
+                </after_html_footer>
                 <footer>
                     <name>030_footer</name>
-                    <sort_order>20</sort_order>
+                    <sort_order>30</sort_order>
                 </footer>
             </code>
         </entity_admin_attributes_block>
@@ -6115,8 +6138,15 @@
                     <depend>
                         <rest />
                     </depend>
-                    <sort_order>290</sort_order>
+                    <sort_order>300</sort_order>
                 </rest_entity>
+                <parent_relation>
+                    <name>310_parent</name>
+                    <depend>
+                        <has_parent_relation />
+                    </depend>
+                    <sort_order>310</sort_order>
+                </parent_relation>
             </code>
         </locale>
 
@@ -6592,5 +6622,39 @@
                 </footer>
             </code>
         </api2_model_rest_admin>
+        <relation_column_renderer translate="title description condition" module="modulecreator">
+            <title>Admin column renderer for linked entities</title>
+            <description>Block for rendering columns of related entities</description>
+            <condition>Generated if are entities related or at least one entity is in a "many to many" relation with the products or categories.</condition>
+            <filetype>php</filetype>
+            <depend>
+                <has_relation_column_renderer />
+            </depend>
+            <source>app/code/Block/Adminhtml/Helper/Column/Renderer/Relation/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Adminhtml/Helper/Column/Renderer/Relation.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </relation_column_renderer>
+        <parent_column_renderer translate="title description condition" module="modulecreator">
+            <title>Admin column renderer for parent entities entities</title>
+            <description>Block for rendering columns of parent entities entities</description>
+            <condition>Generated if there is at least one parent-child relation between entities.</condition>
+            <filetype>php</filetype>
+            <depend>
+                <has_parent_relation />
+            </depend>
+            <source>app/code/Block/Adminhtml/Helper/Column/Renderer/Parent/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Adminhtml/Helper/Column/Renderer/Parent.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </parent_column_renderer>
     </files>
 </config>

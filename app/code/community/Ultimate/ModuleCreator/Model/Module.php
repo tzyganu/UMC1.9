@@ -274,6 +274,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         $relations = array();
         foreach ($this->_relations as $relation){
+            /** @var Ultimate_ModuleCreator_Model_Relation $relation */
             if ($relation->getType() == $type){
                 $relations[] = $relation;
             }
@@ -1800,6 +1801,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         return $content;
     }
 
+    /**
+     * get eav default values
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
     public function getEavOptionsDefaults() {
         $content = '';
         $eol = $this->getEol();
@@ -1811,5 +1818,40 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             }
         }
         return $content;
+    }
+
+    /**
+     * check if there are sibling relations
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getHasRelationColumnRenderer() {
+        if (count($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING)) > 0) {
+            return true;
+        }
+        foreach ($this->getEntities() as $_entity) {
+            if ($_entity->getLinkCore()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * check if there are parent-child relations
+     * @access public
+     * @return bool
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getHasParentRelation() {
+        $parentRelations = $this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT);
+        if (count($parentRelations)) {
+            return true;
+        }
+        $childRelations = $this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+        if (count($childRelations)) {
+            return true;
+        }
+        return false;
     }
 }

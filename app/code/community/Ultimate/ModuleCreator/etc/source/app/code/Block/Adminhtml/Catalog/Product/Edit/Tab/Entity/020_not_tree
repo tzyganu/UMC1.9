@@ -66,6 +66,11 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
             'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
             'align' => 'left',
             'index' => '{{nameAttributeCode}}',
+            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
+            'params' => array(
+                'id'=>'getId'
+            ),
+            'base_link' => 'adminhtml/{{module}}_{{entity}}/edit',
         ));
         $this->addColumn('position', array(
             'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
