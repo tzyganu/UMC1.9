@@ -66,63 +66,69 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _prepareLayout() {
-        $this->setChild('back_button',
-            $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('modulecreator')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
-                    'class' => 'back'
-                ))
-        );
-        $this->setChild('reset_button',
-            $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('modulecreator')->__('Reset'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', array('_current'=>true)).'\')'
-                ))
-        );
-        $this->setChild('save_button',
-            $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('modulecreator')->__('Save'),
-                    'onclick'   => 'moduleForm.submit()',
-                    'class' => 'save'
-                ))
-        );
-        $this->setChild('save_and_edit_button',
-            $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('modulecreator')->__('Save and Continue Edit'),
-                    'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
-                    'class' => 'save'
-                ))
-        );
-        $this->setChild('add-entity',
-            $this->getLayout()
-                ->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('modulecreator')->__('Add entity'),
-                    'class' => 'add add-entity'
-                ))
-        );
+        /** @var Mage_Adminhtml_Block_Widget_Button $backButton */
+        $backButton = $this->getLayout()
+            ->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label' => Mage::helper('modulecreator')->__('Back'),
+                'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
+                'class' => 'back'
+            ));
+        $this->setChild('back_button', $backButton);
 
+        /** @var Mage_Adminhtml_Block_Widget_Button $resetButton */
+        $resetButton = $this->getLayout()
+            ->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label' => Mage::helper('modulecreator')->__('Reset'),
+                'onclick'   => 'setLocation(\''.$this->getUrl('*/*/*', array('_current'=>true)).'\')'
+            ));
+        $this->setChild('reset_button', $resetButton);
+
+        /** @var Mage_Adminhtml_Block_Widget_Button $saveButton */
+        $saveButton = $this->getLayout()
+            ->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label' => Mage::helper('modulecreator')->__('Save'),
+                'onclick'   => 'moduleForm.submit()',
+                'class' => 'save'
+            ));
+        $this->setChild('save_button', $saveButton);
+
+        /** @var Mage_Adminhtml_Block_Widget_Button $saveEditButton */
+        $saveEditButton = $this->getLayout()
+            ->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label' => Mage::helper('modulecreator')->__('Save and Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
+                'class' => 'save'
+            ));
+        $this->setChild('save_and_edit_button', $saveEditButton);
+
+        /** @var Mage_Adminhtml_Block_Widget_Button $addEntityButton */
+        $addEntityButton = $this->getLayout()
+            ->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label' => Mage::helper('modulecreator')->__('Add entity'),
+                'class' => 'add add-entity'
+            ));
+        $this->setChild('add-entity', $addEntityButton);
+
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Entity $block */
         $block = Mage::app()->getLayout()
-            ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity')
-            ->setTemplate('ultimate_modulecreator/edit/tab/entities/entity.phtml')
-            ->setDefaultEntity()
-            ->setIncrement('{{entity_id}}');
+            ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity');
+        $block->setTemplate('ultimate_modulecreator/edit/tab/entities/entity.phtml');
+        $block->setDefaultEntity();
+        $block->setIncrement('{{entity_id}}');
         $this->setChild('entity-template', $block);
 
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Entity_Attribute $block */
         $block = Mage::app()->getLayout()
-            ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity_attribute')
-            ->setTemplate('ultimate_modulecreator/edit/tab/entities/entity/attribute.phtml')
-            ->setDefaultAttributeInstance()
-            ->setIncrement('{{attribute_id}}')
-            ->setEntityId('{{entity_id}}');
+            ->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_entities_entity_attribute');
+        $block->setTemplate('ultimate_modulecreator/edit/tab/entities/entity/attribute.phtml');
+        $block->setDefaultAttributeInstance();
+        $block->setIncrement('{{attribute_id}}');
+        $block->setEntityId('{{entity_id}}');
         $this->setChild('attribute-template', $block);
 
         $this->setChild('menu-selector', Mage::app()->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_menu'));
@@ -231,7 +237,9 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRelationSelectTemplate() {
-        $types = Mage::helper('modulecreator')->getRelationTypes();
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $types  = $helper->getRelationTypes();
         $template = '<select class="relation-select" name="relation[#{e1}][#{e2}]" id="relation_#{e1}_#{e2}">';
         foreach ($types as $type=>$values){
             $template .= '<option value="'.$type.'">'.(string)$values->label.'</option>';

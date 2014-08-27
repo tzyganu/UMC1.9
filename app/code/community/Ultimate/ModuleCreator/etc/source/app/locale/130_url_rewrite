@@ -7,3 +7,5 @@
 "Leave empty for no prefix","Leave empty for no prefix"
 "What goes after the dot. Leave empty for no suffix.","What goes after the dot. Leave empty for no suffix."
 "URL suffix","URL suffix"
+"URL key for list page","URL key for list page"
+"Leave empty to use default URL module/controller/action","Leave empty to use default URL module/controller/action"

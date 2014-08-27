@@ -37,7 +37,9 @@ class Ultimate_ModuleCreator_Model_Source_Entity_Type {
      */
     public function toArray($withEmpty = false) {
         if (is_null($this->_options)){
-            $types = Mage::helper('modulecreator')->getEntityTypes();
+            /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+            $helper = Mage::helper('modulecreator');
+            $types  = $helper->getEntityTypes();
             foreach ($types as $type=>$values){
                 $this->_options[$type] = Mage::helper('modulecreator')->__((string)$values->label);
             }

@@ -22,6 +22,12 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Entity setEntity()
+ * @method Varien_Object getEntity()
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Entity setIncrement()
+ * @method int getIncrement()
+ */
 class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Entity
     extends Mage_Adminhtml_Block_Widget_Form {
     /**
@@ -31,7 +37,9 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Ent
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _prepareForm() {
-        $form = Mage::helper('modulecreator')->getXmlForm('entity');
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $form = $helper->getXmlForm('entity');
         $form->setHtmlIdPrefix('entity_'.$this->getIncrement().'_');
         $form->addFieldNameSuffix('entity['.$this->getIncrement().']');
         $this->setForm($form);
@@ -46,6 +54,7 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Entities_Ent
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function setDefaultEntity() {
+        /** @var Ultimate_ModuleCreator_Model_Entity  $entity */
         $entity    = Mage::getModel('modulecreator/entity');
         $settings  = Mage::getStoreConfig(Ultimate_ModuleCreator_Helper_Data::XML_ENTITY_CONFIG_PATH);
         $entity->addData($settings);

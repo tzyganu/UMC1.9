@@ -15,6 +15,7 @@
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */  
-class Ultimate_ModuleCreator_Exception extends Mage_Core_Exception {
+class Ultimate_ModuleCreator_Exception
+    extends Mage_Core_Exception {
 
 }

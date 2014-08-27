@@ -22,6 +22,12 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method string getAttributeOptions
+ * @method string getSetupType()
+ * @method string getTypeDdl()
+ * @method string getSizeDdl()
+ */
 class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract
     extends Ultimate_ModuleCreator_Model_Abstract {
     /**

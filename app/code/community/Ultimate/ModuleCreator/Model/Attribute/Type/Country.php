@@ -69,8 +69,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'()) ? Mage::getModel(\'directory/country\')->load($item->get'.$this->getAttribute()->getMagicMethodCode().'())->getName():Mage::helper(\''.$namespace.'_'.$module.'\')->__(\'None\')).\'</div>\';'.$this->getEol();
@@ -83,7 +81,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      */
     public function getFrontendHtml() {
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         if ($this->getEntity()->getIsEav()){
@@ -110,7 +107,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Country
      */
     public function getFormOptions(){
         $options = parent::getFormOptions();
-        $module = $this->getModule()->getLowerModuleName();
         $options .= $this->getPadding(3)."'values'=> Mage::getResourceModel('directory/country_collection')->toOptionArray(),".$this->getEol();
         return $options;
     }

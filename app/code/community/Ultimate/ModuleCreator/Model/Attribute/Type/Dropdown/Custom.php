@@ -73,7 +73,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
         $module   = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $namespace = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getNamespace(true);
         if ($this->getTypeAttribute()->getAttribute()->getOptions()) {
-            $content = $padding.'$options =  array('.$eol;
+            $content .= $padding.'$options =  array('.$eol;
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
                 $content .= $padding.$tab.$tab."'label' => Mage::helper('".$namespace.'_'.$module."')->__('".Mage::helper('core')->jsQuoteEscape($option)."'),".$eol;

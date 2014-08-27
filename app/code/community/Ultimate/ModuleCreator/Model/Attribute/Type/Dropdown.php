@@ -110,10 +110,8 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      */
     public function getRssText(){
         $entityName     = $this->getEntity()->getNameSingular(true);
-        $ucEntity       = ucfirst($entityName);
         $module         = $this->getModule()->getLowerModuleName();
         $namespace      = $this->getNamespace(true);
-        $content        = '';
         if ($this->getAttribute()->getEntity()->getIsEav()){
             return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\': \'.$item->getAttributeText(\''.$this->getAttribute()->getCode().'\').\'</div>\';'.$this->getEol();
         }
@@ -143,9 +141,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
         if (!$this->_subTypeInstance){
             $type = $this->getAttribute()->getOptionsSource();
             try{
-                $types = Mage::helper('modulecreator')->getDropdownSubtypes(false);
+                /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+                $helper = Mage::helper('modulecreator');
+                $types  = $helper->getDropdownSubtypes(false);
                 $instanceModel = (string)$types->$type->type_model;
-                $this->_subTypeInstance = Mage::getModel($instanceModel);
+                /** @var Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract $subtypeInstance */
+                $subtypeInstance = Mage::getModel($instanceModel);
+                $this->_subTypeInstance = $subtypeInstance;
                 $this->_subTypeInstance->setTypeAttribute($this);
             }
             catch (Exception $e){
@@ -171,7 +173,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
      */
     public function getFrontendHtml() {
         $entityName     = $this->getEntity()->getNameSingular(true);
-        $ucEntity       = ucfirst($entityName);
         $module         = $this->getModule()->getLowerModuleName();
         $namespace      = $this->getNamespace(true);
         if ($this->getAttribute()->getEntity()->getIsEav()){
@@ -201,12 +202,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown
     public function getFormOptions(){
         $options    = parent::getFormOptions();
         $padding    = $this->getPadding(3);
-        $tab        = $this->getPadding();
-        $eol        = $this->getEol();
         $module     = $this->getModule()->getLowerModuleName();
         $entity     = $this->getEntity()->getNameSingular(true);
         $namespace  = $this->getNamespace(true);
-        $flag       = $this->getOptionsFlag();
         $options   .= $padding."'values'=> Mage::getModel('".$namespace.'_'.$module.'/'.$entity."_attribute_source_".$this->getAttribute()->getCodeForFileName(false)."')->getAllOptions(".$this->getOptionsFlag()."),".$this->getEol();
         return $options;
     }

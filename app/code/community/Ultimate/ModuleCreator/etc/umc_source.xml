@@ -1309,6 +1309,17 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </tree>
+                <default_values>
+                    <name>021_default_values</name>
+                    <sort_order>21</sort_order>
+                </default_values>
+                <default_values_tree>
+                    <name>022_default_values_tree</name>
+                    <sort_order>22</sort_order>
+                    <depend>
+                        <is_tree />
+                    </depend>
+                </default_values_tree>
                 <layout>
                     <name>023_layout</name>
                     <sort_order>23</sort_order>

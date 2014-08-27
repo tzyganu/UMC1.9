@@ -91,12 +91,14 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
         if ($packageName) {
             try {
-                $path = Mage::helper('modulecreator')->getLocalPackagesPath();
+                /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+                $helper      = Mage::helper('modulecreator');
+                $path        = $helper->getLocalPackagesPath();
                 $packageName = basename($packageName);
                 $xmlFile = $path . $packageName . '.xml';
                 if (file_exists($xmlFile) && is_readable($xmlFile)) {
                     $xml = simplexml_load_file($xmlFile, 'Varien_Simplexml_Element');
-                    $module = Mage::helper('modulecreator')->loadModule($xml);
+                    $module = $helper->loadModule($xml);
                     Mage::register('current_module', $module);
                     return $module;
                 }
@@ -118,6 +120,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
      */
     protected function _initModuleFromData($data) {
         $entitiesByIndex = array();
+        /** @var Ultimate_ModuleCreator_Model_Module $module */
         $module = Mage::getModel('modulecreator/module');
         if (isset($data['settings'])) {
             $module->addData($data['settings']);
@@ -126,6 +129,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
             $entities = $data['entity'];
             if (is_array($entities)) {
                 foreach ($entities as $key=>$entityData) {
+                    /** @var Ultimate_ModuleCreator_Model_Entity $entity */
                     $entity = Mage::getModel('modulecreator/entity');
                     $entity->addData($entityData);
                     $entity->setIndex($key);
@@ -138,6 +142,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
                             }
                         }
                         foreach ($entityData['attributes'] as $aKey=>$attributeData) {
+                            /** @var Ultimate_ModuleCreator_Model_Attribute $attribute */
                             $attribute = Mage::getModel('modulecreator/attribute');
                             $attribute->addData($attributeData);
                             $attribute->setIndex($aKey);
@@ -152,6 +157,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
                 foreach($data['relation'] as $index=>$values){
                     foreach ($values as $jndex=>$type){
                         if (isset($entitiesByIndex[$index]) && isset($entitiesByIndex[$jndex])) {
+                            /** @var Ultimate_ModuleCreator_Model_Relation $relation */
                             $relation = Mage::getModel('modulecreator/relation');
                             $relation->setEntities($entitiesByIndex[$index], $entitiesByIndex[$jndex], $type);
                             $module->addRelation($relation);
@@ -224,7 +230,9 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
     public function downloadAction(){
         $what = $this->getRequest()->getParam('type');
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
-        $path = Mage::helper('modulecreator')->getLocalModulesDir();
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $path   = $helper->getLocalModulesDir();
         $namePrefix = '';
         switch ($what) {
             case 'config' :

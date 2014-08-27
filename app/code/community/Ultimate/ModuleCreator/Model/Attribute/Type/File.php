@@ -70,7 +70,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
     public function getRssText(){
         $content    = '';
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $eol        = $this->getEol();
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
@@ -96,7 +95,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_File
         $content    = '';
         $eol        = $this->getEol();
         $entityName = $this->getAttribute()->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         $content   .= $this->getPadding().'<?php if ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) :?>'.$eol;

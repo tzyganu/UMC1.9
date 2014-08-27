@@ -37,7 +37,9 @@ class Ultimate_ModuleCreator_Model_Source_Entity_Layout {
      */
     public function toArray($withEmpty = false){
         if (is_null($this->_options)){
-            $_options = Mage::getSingleton('page/source_layout')->toOptionArray();
+            /** @var Mage_Page_Model_Source_Layout $layoutModel */
+            $layoutModel = Mage::getSingleton('page/source_layout');
+            $_options    = $layoutModel->toOptionArray();
             foreach ($_options as $option){
                 $this->_options[$option['value']] = $option['label'];
             }

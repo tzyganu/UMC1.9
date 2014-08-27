@@ -38,7 +38,9 @@ class Ultimate_ModuleCreator_Model_Source_Attribute_Value_Source {
      */
     public function toArray($withEmpty = false) {
         if (is_null($this->_options)) {
-            $options = Mage::helper('modulecreator')->getDropdownSubtypes(true);
+            /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+            $helper = Mage::helper('modulecreator');
+            $options = $helper->getDropdownSubtypes(true);
             $this->_options = array();
             foreach ($options as $key=>$option){
                 $this->_options[$key] = $option->label;

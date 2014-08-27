@@ -15,7 +15,56 @@
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method string getFilenameId()
+ * @method string getMenuParent()
+ * @method Ultimate_ModuleCreator_Model_Module setRss()
+ * @method Ultimate_ModuleCreator_Model_Module setHasFile()
+ * @method Ultimate_ModuleCreator_Model_Module setHasImage()
+ * @method Ultimate_ModuleCreator_Model_Module setAddSeo()
+ * @method Ultimate_ModuleCreator_Model_Module setWidget()
+ * @method Ultimate_ModuleCreator_Model_Module setCreateFrontend()
+ * @method Ultimate_ModuleCreator_Model_Module setCanCreateRouter()
+ * @method Ultimate_ModuleCreator_Model_Module setCreateList()
+ * @method Ultimate_ModuleCreator_Model_Module setHasTree()
+ * @method Ultimate_ModuleCreator_Model_Module setEditor()
+ * @method Ultimate_ModuleCreator_Model_Module setHasConfigDefaults()
+ * @method Ultimate_ModuleCreator_Model_Module setLinkProduct()
+ * @method Ultimate_ModuleCreator_Model_Module setHasObserver()
+ * @method Ultimate_ModuleCreator_Model_Module setLinkCategory()
+ * @method Ultimate_ModuleCreator_Model_Module setLinkCore()
+ * @method Ultimate_ModuleCreator_Model_Module setUrlRewrite()
+ * @method Ultimate_ModuleCreator_Model_Module setHasEav()
+ * @method Ultimate_ModuleCreator_Model_Module setHasFlat()
+ * @method Ultimate_ModuleCreator_Model_Module setApi()
+ * @method Ultimate_ModuleCreator_Model_Module setAllowComment()
+ * @method Ultimate_ModuleCreator_Model_Module setAllowCommentByStore()
+ * @method Ultimate_ModuleCreator_Model_Module setHasCountry()
+ * @method Ultimate_ModuleCreator_Model_Module setHasSeo()
+ * @method Ultimate_ModuleCreator_Model_Module setShowOnProduct()
+ * @method Ultimate_ModuleCreator_Model_Module setShowOnCategory()
+ * @method Ultimate_ModuleCreator_Model_Module setShowInCategoryMenu()
+ * @method Ultimate_ModuleCreator_Model_Module setSearch()
+ * @method Ultimate_ModuleCreator_Model_Module setHasCatalogAttribute()
+ * @method Ultimate_ModuleCreator_Model_Module setRest()
+ * @method string getModuleName()
+ * @method int getInstall()
+ * @method Ultimate_ModuleCreator_Model_Module setInstall()
+ * @method bool getHasEav()
+ * @method int getSortOrder()
+ * @method string getMenuText()
+ * @method string getCodepool()
+ * @method string getVersion()
+ * @method bool getCreateFrontend()
+ * @method bool getLinkProduct()
+ * @method bool getLinkCategory()
+ * @method bool getHasCatalogAttribute()
+ * @method bool getLinkCore()
+ * @method bool getShowInCategoryMenu()
+ */
 class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_Abstract{
+    const EFFIN_VERSION_ENTERPRISE = '1.13.1';
+    const EFFIN_VERSION_COMMUNITY  = '1.8.1';
     /**
      * entity code
      * @var string
@@ -206,12 +255,6 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if (!empty($rootName)) {
             $xml.= '<'.$rootName.'>'.$eol;
         }
-        $start = '';
-        $end = '';
-        if ($addCdata){
-            $start = '<![CDATA[';
-            $end = ']]>';
-        }
         $xml .= parent::toXml($this->getXmlAttributes(), '', false, $addCdata);
         $xml .= '<entities>'.$eol;
         foreach ($this->getEntities() as $entity){
@@ -265,7 +308,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * get module relations
      * @access public
      * @param mixed $type
-     * @return array()
+     * @return Ultimate_ModuleCreator_Model_Relation[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRelations($type = null){
@@ -288,7 +331,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getXmlPath(){
-        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getNamespace()."_".$this->getModuleName().'.xml';
+        return $this->getHelper()->getLocalPackagesPath().$this->getNamespace()."_".$this->getModuleName().'.xml';
     }
     /**
      * save the module as xml
@@ -310,10 +353,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function validate(){
-        $errors     = array();
-        $config     = Mage::helper('modulecreator')->getConfig();
+        $config     = $this->getHelper()->getConfig();
         $settings   = $config->getNode('forms/settings/fieldsets');
-        foreach ($settings->fieldset as $k => $set){
+        foreach ($settings->fieldset as $set){
             foreach ($set->fields->children() as $key => $values){
                 $v = $this->getData($key);
                 if ((string)$values->required == 1 && (!$this->hasData($key) || $v === "")) {
@@ -363,7 +405,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     }
                     $restrictedAttributes = $this->getRestrictedAttributeCodes();
                     //validate attributes
-                    foreach ($entity->getAttributes() as $key=>$attribute){
+                    foreach ($entity->getAttributes() as $attribute){
                         $code = $attribute->getCode();
                         if (isset($restrictedAttributes[$code])){
                             //presume "not guilty"
@@ -416,7 +458,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $this->_errors[$attribute] = '';
             }
             else{
-                $this->_errors[$attribute] .= '<br />';
+                $this->_errors[$attribute] .= $separator;
             }
             $this->_errors[$attribute] .= $message;
         }
@@ -436,9 +478,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $io = $this->getIo();
             $io->mkdir(dirname($destinationFile));
             /**
-             * Varien_Io_File has changed in 1.8.1 A LOT
+             * Varien_Io_File has changed in CE 1.8.1 / EE 1.13.1 A LOT
              */
-            if (version_compare(Mage::getVersion(), '1.8.1', '<')) {
+            if (version_compare(Mage::getVersion(), $this->getEffinVersion(), '<')) {
                 $io->write($destinationFile, $contents, 0777);
             }
             else {
@@ -452,6 +494,19 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             }
         }
         return $this;
+    }
+
+    /**
+     * get the version for which the io writer has changed
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getEffinVersion() {
+        if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {
+            return self::EFFIN_VERSION_ENTERPRISE;
+        }
+        return self::EFFIN_VERSION_COMMUNITY;
     }
     /**
      * get the IO - class
@@ -505,7 +560,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRestrictedEntityNames(){
-        return $this->getDataSetDefault('restricted_entity_names', array_keys((array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/entity')));
+        return $this->getDataSetDefault('restricted_entity_names', array_keys((array)$this->getHelper()->getConfig()->getNode('restricted/entity')));
     }
     /**
      * get the restricted attribute codes
@@ -514,7 +569,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRestrictedAttributeCodes(){
-        return $this->getDataSetDefault('restricted_attribute_codes', (array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/attribute'));
+        return $this->getDataSetDefault('restricted_attribute_codes', (array)$this->getHelper()->getConfig()->getNode('restricted/attribute'));
     }
     /**
      * get the restricted attribute codes because of the method names
@@ -548,7 +603,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $config     = $this->getConfig();
         $files      = $config->getNode('files');
         $messages   = array();
-        foreach ((array)$files as $key=>$file){
+        foreach ((array)$files as $file){
             if ($file->scope == 'disabled'){
                 continue;
             }
@@ -567,6 +622,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             foreach ($this->_files as $filename=>$file){
                 $contents[] = $this->getRelativeBasePath().$filename;
             }
+            /** @var Ultimate_ModuleCreator_Model_Writer $_writer */
             $_writer = Mage::getModel('modulecreator/writer', $contents);
             $_writer->setNamePackage(Mage::getBaseDir('var').DS.'modulecreator'.DS.$this->getExtensionName());
             $_writer->composePackage()->archivePackage();
@@ -670,7 +726,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         $lines[] = "DELETE FROM core_resource WHERE code = '".$namespace.'_'.$module."_setup';";
         $lines[] = "DELETE FROM core_config_data WHERE path like '".$namespace.'_'.$module."/%';";
-        $text = implode(Mage::helper('modulecreator')->getEol(), $lines);
+        $text = implode($this->getEol(), $lines);
         $this->_writeFile($this->getUninstallPath(),$text);
         return $this;
     }
@@ -699,7 +755,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getLogPath(){
-        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getExtensionName().'/files.log';
+        return $this->getHelper()->getLocalPackagesPath().$this->getExtensionName().'/files.log';
     }
     /**
      * get path for uninstall sql file
@@ -708,7 +764,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getUninstallPath(){
-        return Mage::helper('modulecreator')->getLocalPackagesPath().$this->getExtensionName().'/uninstall.sql';
+        return $this->getHelper()->getLocalPackagesPath().$this->getExtensionName().'/uninstall.sql';
     }
 
     /**
@@ -738,7 +794,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     /**
      * get the module config
      * @access public
-     * @return Varien_Simplexml_Element
+     * @return Varien_Simplexml_Config
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getConfig(){
@@ -790,12 +846,13 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     /**
      * validate xml condition
      * @access protected
-     * @param $entity
-     * @param $conditions
+     * @param Ultimate_ModuleCreator_Model_Abstract $entity
+     * @param Mage_Core_Model_Config_Element $conditions
+     * @param mixed $params
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _validateDepend($entity, $conditions, $params = null){
+    protected function _validateDepend(Ultimate_ModuleCreator_Model_Abstract $entity, Mage_Core_Model_Config_Element $conditions, $params = null){
         if (!$conditions){
             return true;
         }
@@ -831,11 +888,10 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         else{
             $code = $this->_sortCodeFiles((array)$config->code);
-            foreach ($code as $key => $file){
+            foreach ($code as $file){
                 $sourceContent = $this->getFileContents($sourceFolder.(string)$file->name);
                 $scope = (string)$file->scope;
                 $depend = $file->depend;
-                $scope = $file->scope;
                 if ($scope == 'entity'){
                     foreach ($this->getEntities() as $entity){
                         if ($this->_validateDepend($entity, $depend)){
@@ -846,6 +902,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 }
                 elseif($scope == 'attribute'){
                     $depend = $file->depend;
+                    /** @var Mage_Core_Model_Config_Element $dependType */
                     $dependType = $file->depend_type;
                     foreach ($this->getEntities() as $entity){
                         foreach ($entity->getAttributes() as $attribute){
@@ -959,10 +1016,11 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 continue;
             }
             $code = $this->_sortCodeFiles((array)$config->code);
-            foreach ($code as $key=>$file){
+            foreach ($code as $file){
                 $sourceContent  = $this->getFileContents($sourceFolder.(string)$file->name);
                 $scope          = (string)$file->scope;
                 $depend         = $file->depend;
+                /** @var Mage_Core_Model_Config_Element $dependType */
                 $dependType     = $file->depend_type;
                 if ($scope == 'attribute'){
                     foreach ($entity->getAttributes() as $attribute){
@@ -1067,7 +1125,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $placeholders, true);
                 $content            = '';
                 $code               = $this->_sortCodeFiles((array)$config->code);
-                foreach ($code as $key=>$file){
+                foreach ($code as $file){
                     $depend = $file->depend;
                     if (!$this->_validateDepend($relation, $depend, $index)){
                         continue;
@@ -1111,7 +1169,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     $destinationFile    = $this->_filterString((string)$config->destination, $filetype, $placeholders, true);
                     $content            = '';
                     $code               = $this->_sortCodeFiles((array)$config->code);
-                    foreach ($code as $key=>$file){
+                    foreach ($code as $file){
                         $depend = $file->depend;
                         if (!$this->_validateDepend($relation, $depend)){
                             continue;
@@ -1146,8 +1204,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     continue;
                 }
                 $code = $this->_sortCodeFiles((array)$config->code);
-                foreach ($code as $key=>$file){
-                    $depend             = $file->depend;
+                foreach ($code as $file){
+                    $depend = $file->depend;
                     if (!$this->_validateDepend($attribute, $depend)){
                         continue;
                     }
@@ -1375,12 +1433,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     protected function _sortCodeFiles($files, $sortField = 'sort_order'){
         $sorted = array();
-        foreach ($files as $key=> $values){
+        foreach ($files as $values){
             $sorted[(int)$values->$sortField][] = $values;
         }
         ksort($sorted);
         $return = array();
-        foreach ($sorted as $sort_order=>$values){
+        foreach ($sorted as $values){
             foreach ($values as $file){
                 $return[] = $file;
             }
@@ -1588,7 +1646,6 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         foreach ($this->getEntities() as $entity) {
             $name  = $entity->getNameSingular(true);
             $names = $entity->getNamePlural(true);
-            $label = $entity->getLabelPlural();
             if ($entity->getShowOnProduct()) {
                 $content .= $padding.'<block type="'.$ns.'_'.$module.'/catalog_category_list_'.$name.'" name="category.info.'.$names.'" as="category_'.$names.'" template="'.$ns.'_'.$module.'/catalog/category/list/'.$name.'.phtml" after="-" />'.$eol;
             }
@@ -1606,7 +1663,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         $padding    = $this->getPadding(1);
         $tab        = $this->getPadding();
         $eol        = $this->getEol();
+        /** @var Ultimate_ModuleCreator_Model_Entity[] $top */
         $top        = array();
+        /** @var Ultimate_ModuleCreator_Model_Entity[] $footer */
         $footer     = array();
         $content    = $eol.$padding;
         $namespace  = $this->getNamespace(true);
@@ -1809,7 +1868,6 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     public function getEavOptionsDefaults() {
         $content = '';
-        $eol = $this->getEol();
         foreach ($this->getEntities() as $entity) {
             if ($entity->getIsEav()) {
                 foreach ($entity->getAttributes() as $attribute) {

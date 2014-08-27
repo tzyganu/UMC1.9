@@ -30,7 +30,11 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Form
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _prepareForm() {
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getUrl('*/modulecreator/save', array('id' => $this->getRequest()->getParam('id'))), 'method' => 'post'));
+        $form = new Varien_Data_Form(array(
+            'id'     => 'edit_form',
+            'action' => $this->getUrl('*/modulecreator/save', array('id' => $this->getRequest()->getParam('id'))),
+            'method' => 'post'
+        ));
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();

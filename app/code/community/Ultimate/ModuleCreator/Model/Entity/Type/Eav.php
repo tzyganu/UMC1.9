@@ -159,10 +159,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
      */
     public function getAdditionalMenuAcl($padding) {
         $extension   = $this->getModule()->getExtensionName(true);
-        $module      = $this->getLowerModuleName();
         $entity      = $this->getEntity()->getNameSingular(true);
         $entityTitle = $this->getEntity()->getLabelSingular();
-        $action      = $module.'_'.$entity;
         $eol         = $this->getEol();
 
         $text  = $this->getPadding($padding).'<'.$entity.'_attributes translate="title" module="'.$extension.'">'.$eol;
@@ -184,7 +182,7 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     /**
      * get parent attributes
      * @access protected
-     * @return array
+     * @return Ultimate_ModuleCreator_Model_Attribute[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _getParentAttributes(){
@@ -195,6 +193,7 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
                 $module = $parent->getModule()->getLowerModuleName();
                 $namespace = $parent->getModule()->getNamespace(true);
                 $name   = $parent->getNameSingular();
+                /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                 $attr   = Mage::getModel('modulecreator/attribute');
                 $attr->setCode($name.'_id');
                 $attr->setLabel($parent->getLabelSingular());
@@ -298,7 +297,6 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $eol     = $this->getEol();
         $entity  = $this->getEntity()->getNameSingular(true);
-        $module  = $this->getLowerModuleName();
         if ($this->getEntity()->getLinkProduct()) {
             $content .= $padding.'protected $'.'_'.$entity.'ProductTable = null;'.$eol;
         }
@@ -308,7 +306,6 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $related = $this->getEntity()->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
         foreach ($related as $_entity) {
             $_entityUc      = ucfirst($_entity->getNameSingular());
-            $_entityLower   = $_entity->getNameSingular(true);
             $content       .= $padding.'protected $'.'_'.$entity.$_entityUc.'Table = null;'.$eol;
         }
         return $content;
@@ -606,7 +603,6 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         $content = '';
         $padding  = $this->getPadding(5);
         $tab      = $this->getPadding();
-        $module   = $this->getLowerModuleName();
         $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
         $title    = $this->getEntity()->getLabelSingular().' Attributes';
@@ -658,7 +654,6 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getApiResourcesAlias() {
         $content = '';
         $padding  = $this->getPadding(3);
-        $tab      = $this->getPadding();
         $module   = $this->getLowerModuleName();
         $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();
@@ -675,7 +670,6 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
     public function getApiResourcesAliasV2() {
         $content = '';
         $padding  = $this->getPadding(4);
-        $tab      = $this->getPadding();
         $module   = $this->getLowerModuleName();
         $entity   = $this->getEntity()->getNameSingular(true);
         $eol      = $this->getEol();

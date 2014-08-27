@@ -22,6 +22,9 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tabs setTitle
+ */
 class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tabs
     extends Mage_Adminhtml_Block_Widget_Tabs {
     /**

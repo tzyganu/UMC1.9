@@ -81,7 +81,7 @@ class Ultimate_ModuleCreator_Model_Relation extends Ultimate_ModuleCreator_Model
     /**
      * get relation entities
      * @access public
-     * @return array
+     * @return Ultimate_ModuleCreator_Model_Entity[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getEntities(){

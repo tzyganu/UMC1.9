@@ -71,7 +71,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
         $eol        = $this->getEol();
         $content    = '';
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         $content   .= $this->getPadding(3).'if ($item->get'.$this->getAttribute()->getMagicMethodCode().'()) {'.$eol;
@@ -92,7 +91,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Image
         $eol        = $this->getEol();
         $content    = '';
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         $content   .= '<?php if ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'()) :?>'.$eol;

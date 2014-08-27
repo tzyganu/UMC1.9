@@ -5,5 +5,8 @@
      * {{qwertyuiop}}
      */
     public function get{{Entities}}Url(){
+        if ($listKey = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_rewrite_list')) {
+            return Mage::getUrl('', array('_direct'=>$listKey));
+        }
         return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/index');
     }

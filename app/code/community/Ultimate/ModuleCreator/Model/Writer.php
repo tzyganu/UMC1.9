@@ -21,7 +21,8 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */   
-class Ultimate_ModuleCreator_Model_Writer extends Mage_Connect_Package_Writer {
+class Ultimate_ModuleCreator_Model_Writer
+    extends Mage_Connect_Package_Writer {
     /**
      * prefix for path
      * @var string

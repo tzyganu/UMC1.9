@@ -32,10 +32,14 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid_Column_Renderer_
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function render(Varien_Object $row) {
+        /** @var string $what */
         $what = $this->getColumn()->getWhat();
+        /** @var string $id */
         $id =  $row->getSafeId();
         $packageName = base64_decode(strtr($id, '-_,', '+/='));
-        $path = Mage::helper('modulecreator')->getLocalModulesDir();
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $path = $helper->getLocalModulesDir();
         switch ($what) {
             case 'config':
                 $file = $path.'package'.DS.$packageName . '.xml';

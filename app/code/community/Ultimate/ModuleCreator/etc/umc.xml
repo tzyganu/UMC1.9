@@ -356,6 +356,15 @@
                             <tooltip><![CDATA[If you set this to 'Yes', a new field will be added to your entity called 'url_key'.<br />This will allow you to use SEF url's for your entity view pages. Example: http://mysite.com/some-key-here.html]]></tooltip>
                             <additional><![CDATA[If is set to 'No' your entity view page will be accessed in the default way http://mysite.com/module/controller/action/id/7<br /><span class="label label-warning">warning</span>This field is available only if 'Create entity view page' is set to 'Yes'.]]></additional>
                         </url_rewrite>
+                        <url_rewrite_list translate="label tooltip" module="modulecreator">
+                            <label>List page url rewrite</label>
+                            <type>text</type>
+                            <required>0</required>
+                            <position>71</position>
+                            <class>use-frontend use-create-list use-url-rewrite</class>
+                            <system>0</system>
+                            <tooltip><![CDATA[Fill in here the url for the list page. Leave empty to use 'module/entity/index'. It can later be changed from the config section.]]></tooltip>
+                        </url_rewrite_list>
                         <url_prefix translate="label tooltip" module="modulecreator">
                             <label>URL prefix</label>
                             <type>text</type>
@@ -758,6 +767,7 @@
             <view_template />
             <add_seo />
             <url_rewrite />
+            <url_rewrite_list />
             <url_prefix />
             <url_suffix />
             <rss />
@@ -1020,6 +1030,27 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_4_1>
+            <version>1.9.4.1</version>
+            <date>TBD</date>
+            <data>
+                <tree_eav translate="label type comment">
+                    <label>EAV tree entities admin tree not refreshing on save</label>
+                    <type>Bug Fix</type>
+                    <comment>The left side tree on the admin add/edit form for EAV tree entities does not refresh when a new entity instance is added.</comment>
+                </tree_eav>
+                <list_url translate="label type comment">
+                    <label>Support for url rewrites for entity list pages</label>
+                    <type>Feature</type>
+                    <comment>You can now set a SEF url for the entity list page on frontend instead of 'module/controller/action'. The value can be changed later.</comment>
+                </list_url>
+                <cleanup translate="label type comment">
+                    <label>Cleaned a bit the code</label>
+                    <type>Improvement</type>
+                    <comment>Removed some unused variables, added some type hints. I hope I didn't break anything.</comment>
+                </cleanup>
+            </data>
+        </v1_9_4_1>
         <v1_9_4_0>
             <version>1.9.4.0</version>
             <date>2014-08-19</date>

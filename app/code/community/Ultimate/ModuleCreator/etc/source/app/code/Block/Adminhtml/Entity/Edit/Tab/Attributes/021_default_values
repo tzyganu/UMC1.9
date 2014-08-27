@@ -1,0 +1,9 @@
+        $this->_setFieldset($attributes, $fieldset, array());
+        $formValues = Mage::registry('current_{{entity}}')->getData();
+        if (!Mage::registry('current_{{entity}}')->getId()) {
+            foreach ($attributes as $attribute) {
+                if (!isset($formValues[$attribute->getAttributeCode()])) {
+                    $formValues[$attribute->getAttributeCode()] = $attribute->getDefaultValue();
+                }
+            }
+        }

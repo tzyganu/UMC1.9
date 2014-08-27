@@ -65,11 +65,13 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Settings
     /**
      * prepare the form
      * @access public
-     * @return Ultimate_ModuleCreator_Block_Adminhtml_Edit_Tab_Settings
+     * @return Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Settings
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _prepareForm() {
-        $form = Mage::helper('modulecreator')->getXmlForm('settings');
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $form = $helper->getXmlForm('settings');
         $form->setHtmlIdPrefix('settings_');
         $module = Mage::registry('current_module');
         $values = array();

@@ -1,4 +1,16 @@
         foreach ($check as $key=>$settings) {
+            if ($settings->getListKey()) {
+                if ($urlKey == $settings->getListKey()) {
+                    $request->setModuleName('{{frontKey}}')
+                        ->setControllerName($settings->getController())
+                        ->setActionName($settings->getListAction());
+                    $request->setAlias(
+                        Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+                        $urlKey
+                    );
+                    return true;
+                }
+            }
             if ($settings['prefix']){
                 $parts = explode('/', $urlKey);
                 if ($parts[0] != $settings['prefix'] || count($parts) != 2){

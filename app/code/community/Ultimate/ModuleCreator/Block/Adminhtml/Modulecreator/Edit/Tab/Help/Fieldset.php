@@ -22,6 +22,11 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help_Fieldset setFieldsets()
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help_Fieldset setColumns()
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help_Fieldset setDescription()
+ */
 class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help_Fieldset
     extends Mage_Adminhtml_Block_Template {
     /**

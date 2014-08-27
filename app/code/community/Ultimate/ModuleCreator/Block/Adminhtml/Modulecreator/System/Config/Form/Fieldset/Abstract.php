@@ -53,10 +53,12 @@ abstract class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Confi
      */
     public function render(Varien_Data_Form_Element_Abstract $element) {
         $html = $this->_getHeaderHtml($element);
-        $config = Mage::helper('modulecreator')->getConfig();
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        $config = $helper->getConfig();
         $formName = $this->getFormName();
         if (!$config->getNode('forms/'.$formName)) {
-            return $form;
+            return '';
         }
         $fieldsets = $config->getNode('forms/'.$formName.'/fieldsets');
         $index = 0;
@@ -102,7 +104,7 @@ abstract class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Confi
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _getFieldHtml($fieldset, $key, $field){
-        $configData = $this->getConfigData();
+        //$configData = $this->getConfigData();
         $formName = $this->getFormName();
         $path = 'modulecreator/'.$formName.'/' . $key;
         $data = Mage::getStoreConfig($path, 0);

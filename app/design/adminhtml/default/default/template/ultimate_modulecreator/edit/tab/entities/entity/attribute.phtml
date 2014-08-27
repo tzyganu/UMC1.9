@@ -26,6 +26,7 @@
 <?php $_attribute = $this->getAttributeInstance();?>
 <div class="entry-edit modulecreator-attribute" id="attribute_<?php echo $_id?>">
     <?php echo $this->getFormHtml()?>
+    <?php /** @var Ultimate_ModuleCreator_Model_Attribute $_attribute */?>
     <?php if ($_attribute->getIsName()) : ?>
         <script type="text/javascript">
             document.observe("dom:loaded", function() {

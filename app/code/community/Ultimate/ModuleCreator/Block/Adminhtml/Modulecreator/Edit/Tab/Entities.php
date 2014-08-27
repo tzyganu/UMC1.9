@@ -80,6 +80,7 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Entities
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getEntities() {
+        /** @var null|Ultimate_ModuleCreator_Model_Module $module */
         $module = Mage::registry('current_module');
         if ($module) {
             return $module->getEntities();

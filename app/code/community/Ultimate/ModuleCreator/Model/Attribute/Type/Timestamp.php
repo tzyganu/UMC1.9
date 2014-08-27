@@ -78,7 +78,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp
      */
     public function getFrontendHtml() {
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>: <?php echo Mage::helper(\'core\')->formatDate($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'(), \'full\');?>'.$this->getEol();

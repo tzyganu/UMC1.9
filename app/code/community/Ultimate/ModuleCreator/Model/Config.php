@@ -47,7 +47,7 @@ class Ultimate_ModuleCreator_Model_Config extends Varien_Simplexml_Config {
     /**
      * translate node
      * @access protected
-     * @param $node
+     * @param Varien_Simplexml_Element $node
      * @return Ultimate_ModuleCreator_Model_Config
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */

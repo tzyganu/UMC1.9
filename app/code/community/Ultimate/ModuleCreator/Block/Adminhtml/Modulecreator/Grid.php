@@ -20,7 +20,10 @@
  * @category    Ultimate
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
- */ 
+ */
+/**
+ * @method Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid setUseAjax()
+ */
 class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid
     extends Mage_Adminhtml_Block_Widget_Grid {
     /**
@@ -161,7 +164,7 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid
     /**
      * Row URL getter
      * @access public
-     * @param Ultimate_ModuleCreator_Model_Module
+     * @param Ultimate_ModuleCreator_Model_Module $row
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */

@@ -15,6 +15,50 @@
  * @license        http://opensource.org/licenses/mit-license.php MIT License
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method Ultimate_ModuleCreator_Model_Attribute setIndex()
+ * @method string getForcedDefaultValue()
+ * @method string getDefaultValue()
+ * @method string getOptionsSourceAttribute()
+ * @method string getLabel()
+ * @method string getNote()
+ * @method int getPosition()
+ * @method string getCode()
+ * @method bool getIsName()
+ * @method Ultimate_ModuleCreator_Model_Attribute setUserDefined
+ * @method Ultimate_ModuleCreator_Model_Attribute setEditor
+ * @method string getType()
+ * @method Ultimate_ModuleCreator_Model_Attribute setCode()
+ * @method Ultimate_ModuleCreator_Model_Attribute setType()
+ * @method Ultimate_ModuleCreator_Model_Attribute setLabel()
+ * @method string getOptionsSource()
+ * @method Ultimate_ModuleCreator_Model_Attribute setOptionsSource()
+ * @method Ultimate_ModuleCreator_Model_Attribute setForcedSource()
+ * @method Ultimate_ModuleCreator_Model_Attribute setScope()
+ * @method Ultimate_ModuleCreator_Model_Attribute setUseFilterIndex()
+ * @method Ultimate_ModuleCreator_Model_Attribute setPosition()
+ * @method Ultimate_ModuleCreator_Model_Attribute setForcedSetupType()
+ * @method Ultimate_ModuleCreator_Model_Attribute setForcedVisible()
+ * @method string getPreElementText()
+ * @method bool getUseFilterIndex()
+ * @method bool hasForcedSetupType()
+ * @method string getForcedSetupType()
+ * @method string getForcedSetupBackend()
+ * @method string getForcedSource()
+ * @method int getScope()
+ * @method bool hasForcedVisible()
+ * @method string getForcedVisible()
+ * @method Ultimate_ModuleCreator_Model_Attribute setDefaultValue()
+ * @method Ultimate_ModuleCreator_Model_Attribute setForcedSetupBackend()
+ * @method Ultimate_ModuleCreator_Model_Attribute setIgnoreApi()
+ * @method Ultimate_ModuleCreator_Model_Attribute setOptions()
+ * @method Ultimate_ModuleCreator_Model_Attribute setForcedDefaultValue()
+ * @method bool getWidget()
+ * @method bool getFrontend()
+ * @method bool getIgnoreApi()
+ * @method int getIndex()
+ *
+ */
 class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Model_Abstract{
     /**
      * custom option separator
@@ -83,9 +127,11 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
         if (!$this->_typeInstance){
             $type = $this->getType();
             try{
-                $types = Mage::helper('modulecreator')->getAttributeTypes(false);
+                $types = $this->getHelper()->getAttributeTypes(false);
                 $instanceModel = $types->$type->type_model;
-                $this->_typeInstance = Mage::getModel($instanceModel);
+                /** @var Ultimate_ModuleCreator_Model_Attribute_Type_Abstract $typeInstance */
+                $typeInstance = Mage::getModel($instanceModel);
+                $this->_typeInstance = $typeInstance;
                 $this->_typeInstance->setAttribute($this);
             }
             catch (Exception $e){
@@ -243,7 +289,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getDdlSqlColumn(){
-        $helper = Mage::helper('modulecreator');
+        $helper = $this->getHelper();
         $ddl = '';
         $ddl .= "->addColumn('{$this->getCode()}', Varien_Db_Ddl_Table::".$this->getTypeDdl().", ".$this->getSizeDdl().", array(".$this->getEol();
         if ($this->getRequired()){

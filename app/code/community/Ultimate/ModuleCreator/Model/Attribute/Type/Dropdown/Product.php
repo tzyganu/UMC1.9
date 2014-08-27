@@ -43,9 +43,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
     public function getAttributeOptions(){
         $content = '';
         $padding  = $this->getPadding(2);
-        $tab      = $this->getPadding();
         $eol      = $this->getEol();
-        $module   = $this->getTypeAttribute()->getAttribute()->getEntity()->getModule()->getLowerModuleName();
         $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
         $content .= $padding.'$'."source  = Mage::getModel('eav/config')->getAttribute('".$this->getEntityCode()."', '".$attrCode."');".$eol;
         $content .= $padding.'return $source->getSource()->getAllOptions($withEmpty, $defaultValues);';
@@ -69,9 +67,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
      */
     public function getSetupType(){
         $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
-        $productAttribute = Mage::getModel('eav/config')->getAttribute($this->getEntityCode(), $attrCode);
-        Mage::log($attrCode);
-        Mage::log($productAttribute);
+        /** @var Mage_Eav_Model_Config $config */
+        $config = Mage::getModel('eav/config');
+        $productAttribute = $config->getAttribute($this->getEntityCode(), $attrCode);
         if ($productAttribute->getId()){
             $type = $productAttribute->getBackendType();
             if ($type == 'static'){
@@ -143,13 +141,15 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
     /**
      * get the source model attribute
      * @access public
-     * @return null|string
+     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _getEntityAttribute(){
         if (is_null($this->_entityAttribute)){
             $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
-            $productAttribute = Mage::getModel('eav/config')->getAttribute($this->getEntityCode(), $attrCode);
+            /** @var Mage_Eav_Model_Config $config */
+            $config = Mage::getModel('eav/config');
+            $productAttribute = $config->getAttribute($this->getEntityCode(), $attrCode);
             $this->_entityAttribute = $productAttribute;
         }
         return $this->_entityAttribute;

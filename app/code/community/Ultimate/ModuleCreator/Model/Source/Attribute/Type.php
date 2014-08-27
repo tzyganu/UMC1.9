@@ -37,8 +37,10 @@ class Ultimate_ModuleCreator_Model_Source_Attribute_Type {
      */
     public function toArray($withEmpty = false) {
         if (is_null($this->_options)){
-            $types  = Mage::helper('modulecreator')->getAttributeTypes();
-            $groups = Mage::helper('modulecreator')->getAttributeTypeGroups();
+            /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+            $helper = Mage::helper('modulecreator');
+            $types  = $helper->getAttributeTypes();
+            $groups = $helper->getAttributeTypeGroups();
             foreach ($groups as $key=>$group) {
                 $this->_options[$key] = array('label'=>(string)$group->label, 'value'=>array());
             }

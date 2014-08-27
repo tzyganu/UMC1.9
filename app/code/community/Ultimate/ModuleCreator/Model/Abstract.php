@@ -61,15 +61,15 @@ class Ultimate_ModuleCreator_Model_Abstract extends Varien_Object{
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getXmlAttributes(){
-        $dom = Mage::helper('modulecreator')->getConfig();
-        $code = $this->_entityCode;
+        $dom    = $this->getHelper()->getConfig();
+        $code   = $this->_entityCode;
         return array_keys((array)$dom->getNode('xml_attributes/'.$code));
     }
 
     /**
      * getter for helper member
      * @access public
-     * @return Mage_Core_Helper_Abstract|mixed
+     * @return Ultimate_ModuleCreator_Helper_Data|mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getHelper(){
@@ -88,7 +88,7 @@ class Ultimate_ModuleCreator_Model_Abstract extends Varien_Object{
      */
     public function getPadding($length = 1){
         if (is_null($this->_padding)){
-            $this->_padding = Mage::helper('modulecreator')->getPadding();
+            $this->_padding = $this->getHelper()->getPadding();
         }
         return str_repeat($this->_padding, $length);
     }
@@ -101,7 +101,7 @@ class Ultimate_ModuleCreator_Model_Abstract extends Varien_Object{
      */
     public function getEol(){
         if (is_null($this->_eol)){
-            $this->_eol = Mage::helper('modulecreator')->getEol();
+            $this->_eol = $this->getHelper()->getEol();
         }
         return $this->_eol;
     }

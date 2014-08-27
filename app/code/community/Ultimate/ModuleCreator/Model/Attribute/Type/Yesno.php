@@ -85,8 +85,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getRssText() {
-        $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         return $this->getPadding(3).'$description .= \'<div>\'.Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'").\':\'.(($item->get'.$this->getAttribute()->getMagicMethodCode().'() == 1) ? Mage::helper(\''.$namespace.'_'.$module.'\')->__(\'Yes\') : Mage::helper(\''.$namespace.'_'.$module.'\')->__(\'No\')).\'</div>\';'.$this->getEol();
@@ -99,7 +97,6 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Yesno
      */
     public function getFrontendHtml() {
         $entityName = $this->getEntity()->getNameSingular(true);
-        $ucEntity   = ucfirst($entityName);
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
         return '<?php echo Mage::helper(\''.$namespace.'_'.$module.'\')->__("'.$this->getAttribute()->getLabel().'");?>:<?php echo ($_'.$entityName.'->get'.$this->getAttribute()->getMagicMethodCode().'() == 1)?Mage::helper(\''.$module.'\')->__(\'Yes\'):Mage::helper(\''.$module.'\')->__(\'No\') ?>'.$this->getEol();

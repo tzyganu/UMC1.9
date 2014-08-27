@@ -17,7 +17,7 @@
  * js for module creation UI
  * @category    Ultimate
  * @package     Ultimate_ModuleCreator
- * @author      Marius Strajeru <marius.strajeru@gmail.com>
+ * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
 if(typeof UMC=='undefined') {
     var UMC = {};

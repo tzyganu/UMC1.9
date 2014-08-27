@@ -150,11 +150,10 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
      * get a form
      * @access public
      * @param $formName
-     * @param $useFieldset
      * @return Varien_Data_Form
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getXmlForm($formName, $useFieldset = true) {
+    public function getXmlForm($formName) {
         $xmlForms = $this->getConfig();
         $form = new Varien_Data_Form();
         if (!$xmlForms->getNode('forms/'.$formName)){
@@ -246,7 +245,7 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
             foreach ($positions as $fields) {
                 $sorted = array_merge($sorted, $fields);
             }
-            foreach($sorted as $id=>$field) {
+            foreach($sorted as $field) {
                 $data[$key]['fields'][] = $field;
             }
             $index++;
@@ -339,17 +338,20 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
     /**
      * load a module
      * $access public
-     * @param $xml
-     * @return false|Ultimate_ModuleCreator_Model_Module
+     * @param Varien_Simplexml_Element $xml
+     * @return bool|Ultimate_ModuleCreator_Model_Module
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function loadModule($xml) {
+        /** @var Ultimate_ModuleCreator_Model_Module $module */
         $module = Mage::getModel('modulecreator/module');
         $moduleFields = $module->getXmlAttributes();
+        $data = array();
         foreach ($moduleFields as $field) {
             $data[$field] = (string)$xml->$field;
         }
         $module->setData($data);
+        /** @var Ultimate_ModuleCreator_Model_Entity $entity */
         $entity = Mage::getModel('modulecreator/entity');
         $entityFields = $entity->getXmlAttributes();
         foreach ($xml->entities->entity as $entityNode) {
@@ -378,6 +380,7 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract {
                     $e1 = $module->getEntity($parts[0]);
                     $e2 = $module->getEntity($parts[1]);
                     if ($e1 && $e2) {
+                        /** @var Ultimate_ModuleCreator_Model_Relation $relation */
                         $relation = Mage::getModel('modulecreator/relation');
                         $relation->setEntities($e1 , $e2, (string)$type);
                         $module->addRelation($relation);

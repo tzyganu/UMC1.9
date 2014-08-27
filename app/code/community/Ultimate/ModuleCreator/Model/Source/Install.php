@@ -56,7 +56,7 @@ class Ultimate_ModuleCreator_Model_Source_Install {
      */
     public function getAllOptions($withEmpty = true) {
         $options = array();
-        foreach ($this->toOptionArray($withEmpty) as $key=>$option) {
+        foreach ($this->toOptionArray($withEmpty) as $option) {
             $options[$option['value']] = $option['label'];
         }
         return $options;

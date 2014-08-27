@@ -21,6 +21,9 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method array getRelations()
+ */
 class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Relation
     extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface {

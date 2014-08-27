@@ -22,6 +22,9 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+/**
+ * @method bool getIsMultipleSelect()
+ */
 class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
     extends Ultimate_ModuleCreator_Model_Abstract {
     /**
@@ -325,7 +328,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
      * getter config for attribute
      * @access public
      * @param $path
-     * @return mixed
+     * @return Varien_Simplexml_Element
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     public function getConfig($path = null) {
@@ -335,7 +338,9 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
         else {
             $path = $this->getTypeConfigPath();
         }
-        return Mage::helper('modulecreator')->getConfig()->getNode($path);
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+        return $helper->getConfig()->getNode($path);
     }
     /**
      * check if attribute can behave as name

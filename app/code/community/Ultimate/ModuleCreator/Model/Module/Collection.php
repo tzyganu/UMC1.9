@@ -47,7 +47,8 @@ class Ultimate_ModuleCreator_Model_Module_Collection
     public function __construct() {
         $this->_baseDir = Mage::getBaseDir('var') . DS . 'modulecreator'.DS.'package';
         $io = new Varien_Io_File();
-        $io->setAllowCreateFolders(true)->createDestinationDir($this->_baseDir);
+        $io->setAllowCreateFolders(true);
+        $io->createDestinationDir($this->_baseDir);
         $this->addTargetDir($this->_baseDir);
     }
 

@@ -91,6 +91,9 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
     protected function _prepareLayout() {
+        /** @var Ultimate_ModuleCreator_Helper_Data $helper */
+        $helper = Mage::helper('modulecreator');
+
         $columns = array(
             'label'     => array(
                 'header'=>Mage::helper('modulecreator')->__('Field'),
@@ -115,28 +118,33 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
                 'key'   =>'tooltip'
             ),
         );
-        $settingsTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets(Mage::helper('modulecreator')->getFieldsetXmlData('settings'))
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $settingsTabHelp */
+        $settingsTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $settingsTabHelp->setFieldsets($helper->getFieldsetXmlData('settings'))
             ->setColumns($columns)
             ->setDescription(Mage::helper('modulecreator')->__('General settings tab.'));
 
-        $entityTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets(Mage::helper('modulecreator')->getFieldsetXmlData('entity'))
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $entityTabHelp */
+        $entityTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $entityTabHelp->setFieldsets($helper->getFieldsetXmlData('entity'))
             ->setColumns($columns)
             ->setDescription(Mage::helper('modulecreator')->__('Entity management.'));
 
-        $attributeTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets(Mage::helper('modulecreator')->getFieldsetXmlData('attribute'))
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $attributeTabHelp */
+        $attributeTabHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $attributeTabHelp->setFieldsets($helper->getFieldsetXmlData('attribute'))
             ->setColumns($columns)
             ->setDescription(Mage::helper('modulecreator')->__('Field/Attribute management.'));
 
         $fieldTypes = array(
             'field_types'=> array(
-                'label'=>Mage::helper('modulecreator')->__('Supported field / attribute types'),
-                'fields' => Mage::helper('modulecreator')->getAttributeTypes())
+                'label'  => Mage::helper('modulecreator')->__('Supported field / attribute types'),
+                'fields' => $helper->getAttributeTypes())
         );
-        $fieldTypesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets($fieldTypes)
+
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $fieldTypesHelp */
+        $fieldTypesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $fieldTypesHelp->setFieldsets($fieldTypes)
             ->setColumns(array(
                 'label'     => array(
                     'header'=>Mage::helper('modulecreator')->__('Field'),
@@ -149,14 +157,15 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
                 ),
             ))
             ->setDescription(Mage::helper('modulecreator')->__('Supported field / attribute types'));
-
         $relationTypes = array(
             'field_types'=> array(
-                'label'=>Mage::helper('modulecreator')->__('Relation types'),
-                'fields' => Mage::helper('modulecreator')->getRelationTypes()
+                'label'=> Mage::helper('modulecreator')->__('Relation types'),
+                'fields' => $helper->getRelationTypes()
         ));
-        $relationsTypesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets($relationTypes)
+
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $relationsTypesHelp */
+        $relationsTypesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $relationsTypesHelp->setFieldsets($relationTypes)
             ->setColumns(array(
                 'label'     => array(
                     'header'=>Mage::helper('modulecreator')->__('Relation'),
@@ -178,23 +187,24 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
         $objM->restricted = implode(', ',array_keys($routers));
         $objM->label = Mage::helper('modulecreator')->__('Disallowed module names');
 
-        $entityRestrictedNames = implode(', ',array_keys((array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/entity')));
+        $entityRestrictedNames = implode(', ',array_keys((array)$helper->getConfig()->getNode('restricted/entity')));
         $objE = new stdClass();
         $objE->restricted = $entityRestrictedNames;
         $objE->label = Mage::helper('modulecreator')->__('Disallowed entity names');
 
-        $attributeRestrictedNames = implode(', ',array_keys((array)Mage::helper('modulecreator')->getConfig()->getNode('restricted/attribute')));
+        $attributeRestrictedNames = implode(', ',array_keys((array)$helper->getConfig()->getNode('restricted/attribute')));
         $objA = new stdClass();
         $objA->restricted = $attributeRestrictedNames;
         $objA->label = Mage::helper('modulecreator')->__('Disallowed field/attribute names');
         $restrictions = array(
             'field_types'=> array(
-                'label'=>Mage::helper('modulecreator')->__('Naming restrictions'),
+                'label'  => Mage::helper('modulecreator')->__('Naming restrictions'),
                 'fields' => array($objN, $objM, $objE, $objA))
         );
 
-        $restrictionsHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets($restrictions)
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $restrictionsHelp */
+        $restrictionsHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $restrictionsHelp->setFieldsets($restrictions)
             ->setColumns(array(
                 'label'     => array(
                     'header'=>Mage::helper('modulecreator')->__('Entity'),
@@ -206,21 +216,24 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
                 ),
             ))
             ->setDescription(Mage::helper('modulecreator')->__('Naming restrictions'));
+        /** @var null|Ultimate_ModuleCreator_Model_Module $currentModule */
         $currentModule = Mage::registry('current_module');
         if (!$currentModule){
+            /** @var Ultimate_ModuleCreator_Model_Module $currentModule */
             $currentModule = Mage::getModel('modulecreator/module');
         }
         $files = $currentModule->getConfig()->getNode('files');
         $allowedFiles = array();
-        foreach ((array)$files as $key=>$file){
+        foreach ((array)$files as $file){
             if ($file->scope == 'disabled'){
                 continue;
             }
             $allowedFiles[] = $file;
         }
 
-        $filesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets(array(
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $filesHelp */
+        $filesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $filesHelp->setFieldsets(array(
                 'files'=> array(
                     'label'=>Mage::helper('modulecreator')->__('Generated files'),
                     'fields' => $allowedFiles)
@@ -253,9 +266,11 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
         $this->setChild('restrictions_help', $restrictionsHelp);
         $this->setChild('files_help', $filesHelp);
 
-        $releaseNotes = (array)Mage::helper('modulecreator')->getReleaseNotes();
-        $releaseNotesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets($releaseNotes)
+        $releaseNotes = (array)$helper->getReleaseNotes();
+
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $releaseNotesHelp */
+        $releaseNotesHelp = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $releaseNotesHelp->setFieldsets($releaseNotes)
             ->setColumns(array(
                 'type'     => array(
                     'header'=>Mage::helper('modulecreator')->__('Type'),
@@ -274,11 +289,12 @@ class Ultimate_ModuleCreator_Block_Adminhtml_ModuleCreator_Edit_Tab_Help
         ;
         $this->setChild('release_notes', $releaseNotesHelp);
 
-        $thanks = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset')
-            ->setFieldsets(array(
+        /** @var Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tab_Help_Fieldset $thanks */
+        $thanks = $this->getLayout()->createBlock('modulecreator/adminhtml_modulecreator_edit_tab_help_fieldset');
+        $thanks->setFieldsets(array(
                 'files'=> array(
-                    'label'=>Mage::helper('modulecreator')->__('Thanks'),
-                    'fields' => (array)Mage::helper('modulecreator')->getThanks())
+                    'label'  =>Mage::helper('modulecreator')->__('Thanks'),
+                    'fields' => (array)$helper->getThanks())
             ))
             ->setColumns(array(
                     'type'     => array(
