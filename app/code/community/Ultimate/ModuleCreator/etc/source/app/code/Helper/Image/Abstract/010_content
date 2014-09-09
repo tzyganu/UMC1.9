@@ -125,7 +125,7 @@ abstract class {{Namespace}}_{{Module}}_Helper_Image_Abstract
         if(!$this->_image) {
             $this->_image = '/'.$this->_placeholder;
         }
-        $this->_widht = null;
+        $this->_width = null;
         $this->_height = null;
         $this->_scheduledResize = false;
         $this->_resized = false;
