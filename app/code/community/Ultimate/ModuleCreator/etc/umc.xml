@@ -1030,9 +1030,20 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_4_2>
+        <version>1.9.4.2</version>
+        <date>2014-10-28</date>
+            <data>
+                <category_relation translate="label type">
+                    <label>Many to many relation with categories don't always work.</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/51" target="_blank">#51</a>]]></comment>
+                </category_relation>
+            </data>
+        </v1_9_4_2>
         <v1_9_4_1>
             <version>1.9.4.1</version>
-            <date>TBD</date>
+            <date>2014-08-27</date>
             <data>
                 <tree_eav translate="label type comment">
                     <label>EAV tree entities admin tree not refreshing on save</label>

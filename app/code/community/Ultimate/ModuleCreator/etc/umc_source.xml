@@ -1116,7 +1116,7 @@
             <scope>entity</scope>
             <filetype>php</filetype>
             <depend>
-                <link_product/>
+                <link_category/>
             </depend>
             <source>app/code/Block/Adminhtml/Entity/Edit/Tab/Categories/</source>
             <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Adminhtml/{{Entity}}/Edit/Tab/Categories.php</destination>
@@ -4305,7 +4305,7 @@
                 <category_relation>
                     <name>080_category_relation</name>
                     <depend>
-                        <link_product/>
+                        <link_category/>
                     </depend>
                     <sort_order>80</sort_order>
                 </category_relation>

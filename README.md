@@ -1,4 +1,4 @@
-Ultimate Module Creator 1.9.3.0
+Ultimate Module Creator 1.9.4.2
 ======
 
 New Ultimate Module Creator for Magento 1.7 +
