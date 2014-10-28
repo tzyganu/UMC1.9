@@ -1030,9 +1030,20 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_4_3>
+            <version>1.9.4.3</version>
+            <date>2014-10-28</date>
+            <data>
+                <category_relation translate="label type">
+                    <label>Many to many relation with categories - missing controller</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/52" target="_blank">#52</a>]]></comment>
+                </category_relation>
+            </data>
+        </v1_9_4_3>
         <v1_9_4_2>
-        <version>1.9.4.2</version>
-        <date>2014-10-28</date>
+            <version>1.9.4.2</version>
+            <date>2014-10-28</date>
             <data>
                 <category_relation translate="label type">
                     <label>Many to many relation with categories don't always work.</label>
@@ -1684,5 +1695,9 @@
             <to>@mannersd</to>
             <for><![CDATA[<a target="_blank" href="http://magento.stackexchange.com/a/32718/146">Showing me how to create correct links to category edit pages</a>]]></for>
         </dmanners>
+        <ahmed90>
+            <to>@ahmed90</to>
+            <for><![CDATA[Thanks the help with the category relation for entities.]]></for>
+        </ahmed90>
     </thanks>
 </config>

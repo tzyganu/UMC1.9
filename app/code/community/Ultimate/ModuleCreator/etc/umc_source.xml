@@ -2066,7 +2066,7 @@
             <filetype>php</filetype>
             <scope>entity</scope>
             <depend>
-                <link_product/>
+                <link_category />
             </depend>
             <source>app/code/controllers/Adminhtml/Module/Entity/Catalog/CategoryController/</source>
             <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/{{Entity}}/Catalog/CategoryController.php</destination>
