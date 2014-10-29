@@ -1030,6 +1030,17 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_4_4>
+            <version>1.9.4.4</version>
+            <date>2014-10-29</date>
+            <data>
+                <category_relation translate="label type">
+                    <label>Layout file not generated correctly for links with category</label>
+                    <type>Bug Fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/53" target="_blank">#53</a>]]></comment>
+                </category_relation>
+            </data>
+        </v1_9_4_4>
         <v1_9_4_3>
             <version>1.9.4.3</version>
             <date>2014-10-28</date>

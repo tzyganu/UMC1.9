@@ -554,6 +554,7 @@ Label,Label
 "Label singular","Label singular"
 "Layout XML file used for frontend","Layout XML file used for frontend"
 "Layout file for the admin section of the module","Layout file for the admin section of the module"
+"Layout file not generated correctly for links with category","Layout file not generated correctly for links with category"
 License,License
 "Link ""many to many"" with category","Link ""many to many"" with category"
 "Link ""many to many"" with products","Link ""many to many"" with products"

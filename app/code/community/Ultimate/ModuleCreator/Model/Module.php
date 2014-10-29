@@ -1646,7 +1646,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         foreach ($this->getEntities() as $entity) {
             $name  = $entity->getNameSingular(true);
             $names = $entity->getNamePlural(true);
-            if ($entity->getShowOnProduct()) {
+            if ($entity->getShowOnCategory()) {
                 $content .= $padding.'<block type="'.$ns.'_'.$module.'/catalog_category_list_'.$name.'" name="category.info.'.$names.'" as="category_'.$names.'" template="'.$ns.'_'.$module.'/catalog/category/list/'.$name.'.phtml" after="-" />'.$eol;
             }
         }
