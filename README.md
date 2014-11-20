@@ -19,7 +19,7 @@ Also any good code is welcomed.
 For the rest of the document UMC = Ultimate Module Creator
 
 Documentation can be found on the [wiki pages](https://github.com/tzyganu/UMC1.9/wiki/).  
-The codumentation includes a list of [features](https://github.com/tzyganu/UMC1.9/wiki/features) and [release notes](https://github.com/tzyganu/UMC1.9/wiki/release-notes)  
+The documentation includes a list of [features](https://github.com/tzyganu/UMC1.9/wiki/features) and [release notes](https://github.com/tzyganu/UMC1.9/wiki/release-notes)  
 
 
 
