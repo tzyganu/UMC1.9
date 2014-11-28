@@ -5,4 +5,5 @@ app/locale/en_US/Ultimate_ModuleCreator.csv	app/locale/en_US/Ultimate_ModuleCrea
 app/design/adminhtml/default/default/layout/ultimate_modulecreator.xml	app/design/adminhtml/default/default/layout/ultimate_modulecreator.xml
 app/design/adminhtml/default/default/template/ultimate_modulecreator	app/design/adminhtml/default/default/template/ultimate_modulecreator
 skin/adminhtml/default/default/ultimate_modulecreator.css  skin/adminhtml/default/default/ultimate_modulecreator.css
+skin/adminhtml/default/default/images/ultimate_modulecreator skin/adminhtml/default/default/images/ultimate_modulecreator
 js/ultimate_modulecreator.js	js/ultimate_modulecreator.js
