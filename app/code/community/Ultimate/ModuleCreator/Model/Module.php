@@ -677,7 +677,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation){
             $entities = $relation->getEntities();
             $tableName = $namespace.'_'.$module.'_'.$entities[0]->getPlaceholders('{{entity}}').'_'.$entities[1]->getPlaceholders('{{entity}}');
-            $lines[] = 'DROP TABLE '.$tableName.';';
+            $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
         }
         foreach ($this->getEntities() as $entity){
             if ($entity->getIsEav()){
@@ -693,36 +693,36 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             }
             if ($entity->getAllowCommentByStore()){
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment_store';
-                $lines[] = 'DROP TABLE '.$tableName.';';
+                $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getAllowComment()){
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment';
-                $lines[] = 'DROP TABLE '.$tableName.';';
+                $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getLinkProduct()){
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_product';
-                $lines[] = 'DROP TABLE '.$tableName.';';
+                $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getLinkCategory()){
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_category';
-                $lines[] = 'DROP TABLE '.$tableName.';';
+                $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getStore()){
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_store';
-                $lines[] = 'DROP TABLE '.$tableName.';';
+                $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getIsEav()){
                 foreach (array('int', 'decimal','datetime', 'varchar', 'text') as $type){
                     $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
-                    $lines[] = 'DROP TABLE '.$tableName.';';
+                    $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
                 }
             }
             $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}');
-            $lines[] = 'DROP TABLE '.$tableName.';';
+            $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
         }
         if ($this->getHasEav()){
             $tableName = $namespace.'_'.$module.'_eav_attribute';
-            $lines[] = 'DROP TABLE '.$tableName.';';
+            $lines[] = 'DROP TABLE IF EXISTS '.$tableName.';';
         }
         $lines[] = "DELETE FROM core_resource WHERE code = '".$namespace.'_'.$module."_setup';";
         $lines[] = "DELETE FROM core_config_data WHERE path like '".$namespace.'_'.$module."/%';";
