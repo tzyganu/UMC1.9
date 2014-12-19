@@ -1,33 +1,79 @@
 $table = $this->getConnection()
     ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}_comment'))
-    ->addColumn('comment_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn(
+        'comment_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
             'identity'  => true,
             'nullable'  => false,
             'primary'   => true,
-        ), '{{EntityLabel}} Comment ID')
-    ->addColumn('{{entity}}_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'nullable'  => false,
-        ), '{{EntityLabel}} ID')
-    ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-            'nullable'  => false,
-        ), 'Comment Title')
-    ->addColumn('comment', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
-            'nullable'  => false,
-        ), 'Comment')
-    ->addColumn('status', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-            'nullable'  => false,
-        ), 'Comment status')
-    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'nullable'  => true,
-        ), 'Customer id')
-    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-            'nullable'  => false,
-        ), 'Customer name')
-    ->addColumn('email', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-            'nullable'  => false,
-        ), 'Customer email')
-    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(), '{{EntityLabel}} Comment Modification Time')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(), '{{EntityLabel}} Comment Creation Time')
+        ),
+        '{{EntityLabel}} Comment ID'
+    )
+    ->addColumn(
+        '{{entity}}_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array('nullable' => false),
+        '{{EntityLabel}} ID'
+    )
+    ->addColumn(
+        'title',
+        Varien_Db_Ddl_Table::TYPE_TEXT,
+        255,
+        array('nullable' => false),
+        'Comment Title'
+    )
+    ->addColumn(
+        'comment',
+        Varien_Db_Ddl_Table::TYPE_TEXT,
+        '64k',
+        array('nullable' => false),
+        'Comment'
+    )
+    ->addColumn(
+        'status',
+        Varien_Db_Ddl_Table::TYPE_SMALLINT,
+        null,
+        array('nullable' => false),
+        'Comment status'
+    )
+    ->addColumn(
+        'customer_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array('nullable' => true),
+        'Customer id'
+    )
+    ->addColumn(
+        'name',
+        Varien_Db_Ddl_Table::TYPE_TEXT,
+        255,
+        array('nullable' => false),
+        'Customer name'
+    )
+    ->addColumn(
+        'email',
+        Varien_Db_Ddl_Table::TYPE_TEXT,
+        255,
+        array('nullable' => false),
+        'Customer email'
+    )
+    ->addColumn(
+        'updated_at',
+        Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+        null,
+        array(),
+        '{{EntityLabel}} Comment Modification Time'
+    )
+    ->addColumn(
+        'created_at',
+        Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+        null,
+        array(),
+        '{{EntityLabel}} Comment Creation Time'
+    )
     ->addForeignKey(
         $this->getFkName(
             '{{namespace}}_{{module}}/{{entity}}_comment',
@@ -35,8 +81,12 @@ $table = $this->getConnection()
             '{{namespace}}_{{module}}/{{entity}}',
             'entity_id'
         ),
-        '{{entity}}_id', $this->getTable('{{namespace}}_{{module}}/{{entity}}'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        '{{entity}}_id',
+        $this->getTable('{{namespace}}_{{module}}/{{entity}}'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->addForeignKey(
         $this->getFkName(
             '{{namespace}}_{{module}}/{{entity}}_comment',
@@ -44,7 +94,11 @@ $table = $this->getConnection()
             'customer/entity',
             'entity_id'
         ),
-        'customer_id', $this->getTable('customer/entity'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        'customer_id',
+        $this->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('{{EntityLabel}} Comments Table');
 $this->getConnection()->createTable($table);

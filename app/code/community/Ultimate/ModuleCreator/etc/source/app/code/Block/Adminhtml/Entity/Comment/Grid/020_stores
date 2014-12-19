@@ -1,11 +1,14 @@
         if (!Mage::app()->isSingleStoreMode() && !$this->_isExport) {
-            $this->addColumn('stores', array(
-                'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
-                'index' => 'stores',
-                'type'  => 'store',
-                'store_all' => true,
-                'store_view'=> true,
-                'sortable'  => false,
-                'filter_condition_callback'=> array($this, '_filterStoreCondition'),
-            ));
+            $this->addColumn(
+                'stores',
+                array(
+                    'header'     => Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
+                    'index'      => 'stores',
+                    'type'       => 'store',
+                    'store_all'  => true,
+                    'store_view' => true,
+                    'sortable'   => false,
+                    'filter_condition_callback' => array($this, '_filterStoreCondition'),
+                )
+            );
         }

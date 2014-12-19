@@ -1,5 +1,15 @@
-        $this->setChild('store_switcher',
+        $this->setChild(
+            'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
-                ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, '_query'=>false, 'store'=>null)))
+                ->setSwitchUrl(
+                    $this->getUrl(
+                        '*/*/*',
+                        array(
+                            '_current' =>true,
+                            '_query'=>false,
+                            'store'=>null
+                        )
+                    )
+                )
                 ->setTemplate('store/switcher/enhanced.phtml')
         );

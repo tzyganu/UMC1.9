@@ -1,6 +1,7 @@
-    public function __construct(){
+    public function __construct()
+    {
         $this->_objectId    = 'entity_id';
-        $this->_blockGroup    = '{{namespace}}_{{module}}';
+        $this->_blockGroup  = '{{namespace}}_{{module}}';
         $this->_controller  = 'adminhtml_{{entity}}';
         $this->_mode        = 'edit';
         parent::__construct();

@@ -1,68 +1,83 @@
     }
+
     /**
      * init select
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    protected function _initSelect() {
+    protected function _initSelect()
+    {
         parent::_initSelect();
         $this->_joinFields();
         return $this;
     }
+
     /**
      * Add customer filter
+     *
      * @access public
      * @param int $customerId
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function addCustomerFilter($customerId) {
+    public function addCustomerFilter($customerId)
+    {
         $this->getSelect()->where('ct.customer_id = ?', $customerId);
         return $this;
     }
 
     /**
      * Add entity filter
+     *
      * @access public
      * @param int $entityId
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function addEntityFilter($entityId) {
+    public function addEntityFilter($entityId)
+    {
         $this->getSelect()->where('ct.{{entity}}_id = ?', $entityId);
         return $this;
     }
 
     /**
      * Add status filter
+     *
      * @access public
      * @param mixed $status
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function addStatusFilter($status = 1) {
+    public function addStatusFilter($status = 1)
+    {
         $this->getSelect()->where('ct.status = ?', $status);
         return $this;
     }
 
     /**
      * Set date order
+     *
      * @access public
      * @param string $dir
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function setDateOrder($dir = 'DESC') {
+    public function setDateOrder($dir = 'DESC')
+    {
         $this->setOrder('ct.created_at', $dir);
         return $this;
     }
 
     /**
      * join fields to entity
-     * @accessprotected
+     *
+     * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    protected function _joinFields() {
-        $commentTable = Mage::getSingleton('core/resource')->getTableName('{{namespace}}_{{module}}/{{entity}}_comment');
+    protected function _joinFields()
+    {
+        $commentTable = Mage::getSingleton('core/resource')
+            ->getTableName('{{namespace}}_{{module}}/{{entity}}_comment');

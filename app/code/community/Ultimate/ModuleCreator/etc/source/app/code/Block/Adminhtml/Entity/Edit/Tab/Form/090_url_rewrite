@@ -1,5 +1,9 @@
-        $fieldset->addField('url_key', 'text', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Url key'),
-            'name'  => 'url_key',
-            'note'    => Mage::helper('{{namespace}}_{{module}}')->__('Relative to Website Base URL')
-        ));
+        $fieldset->addField(
+            'url_key',
+            'text',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Url key'),
+                'name'  => 'url_key',
+                'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Relative to Website Base URL')
+            )
+        );

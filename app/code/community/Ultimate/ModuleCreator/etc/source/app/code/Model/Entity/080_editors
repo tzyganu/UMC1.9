@@ -1,10 +1,13 @@
+
     /**
-     * get the {{entity}} {{attributeLabel}}
+     * get the {{entityLabel}} {{attributeLabel}}
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function get{{AttributeMagicCode}}(){
+    public function get{{AttributeMagicCode}}()
+    {
         ${{attributeCode}} = $this->getData('{{attributeCode}}');
         $helper = Mage::helper('cms');
         $processor = $helper->getBlockTemplateProcessor();

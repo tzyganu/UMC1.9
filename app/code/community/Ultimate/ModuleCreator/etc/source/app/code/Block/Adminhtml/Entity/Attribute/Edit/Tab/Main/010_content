@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Main
-    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+{
     /**
      * Adding product form elements for editing attribute
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Main
      * {{qwertyuiop}}
      */
-    protected function _prepareForm(){
+    protected function _prepareForm()
+    {
         parent::_prepareForm();
         $attributeObject = $this->getAttributeObject();
         $form = $this->getForm();
@@ -54,46 +56,74 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tab_Mai
         $yesnoSource = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
         $scopes = array(
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('{{namespace}}_{{module}}')->__('Website'),
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('{{namespace}}_{{module}}')->__('Global'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>
+                Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>
+                Mage::helper('{{namespace}}_{{module}}')->__('Website'),
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>
+                Mage::helper('{{namespace}}_{{module}}')->__('Global'),
         );
 
-        $fieldset->addField('is_global', 'select', array(
-            'name'  => 'is_global',
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
-            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
-            'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Declare attribute value saving scope'),
-            'values'=> $scopes
-        ), 'attribute_code');
-        $fieldset->addField('position', 'text', array(
-            'name'  => 'position',
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
-            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
-            'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Position in the admin form'),
-        ), 'is_global');
-        $fieldset->addField('note', 'textarea', array(
-            'name'  => 'note',
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
-            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
-            'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Text to appear below the input.'),
-        ), 'position');
+        $fieldset->addField(
+            'is_global',
+            'select',
+            array(
+                'name'  => 'is_global',
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
+                'title' => Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
+                'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Declare attribute value saving scope'),
+                'values'=> $scopes
+            ),
+            'attribute_code'
+        );
+        $fieldset->addField(
+            'position',
+            'text',
+            array(
+                'name'  => 'position',
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
+                'title' => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
+                'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Position in the admin form'),
+            ),
+            'is_global'
+        );
+        $fieldset->addField(
+            'note',
+            'textarea',
+            array(
+                'name'  => 'note',
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
+                'title' => Mage::helper('{{namespace}}_{{module}}')->__('Note'),
+                'note'  => Mage::helper('{{namespace}}_{{module}}')->__('Text to appear below the input.'),
+            ),
+            'position'
+        );
 
-		$fieldset->removeField('is_unique');
+        $fieldset->removeField('is_unique');
         // frontend properties fieldset
-        $fieldset = $form->addFieldset('front_fieldset', array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Frontend Properties')));
-
-
-        $fieldset->addField('is_wysiwyg_enabled', 'select', array(
-            'name' => 'is_wysiwyg_enabled',
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Enable WYSIWYG'),
-            'title' => Mage::helper('{{namespace}}_{{module}}')->__('Enable WYSIWYG'),
-            'values' => $yesnoSource,
-        ));
-        Mage::dispatchEvent('{{namespace}}_{{module}}_adminhtml_{{entity}}_attribute_edit_prepare_form', array(
-            'form'      => $form,
-            'attribute' => $attributeObject
-        ));
+        $fieldset = $form->addFieldset(
+            'front_fieldset',
+            array(
+                'legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Frontend Properties')
+            )
+        );
+        $fieldset->addField(
+            'is_wysiwyg_enabled',
+            'select',
+            array(
+                'name' => 'is_wysiwyg_enabled',
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Enable WYSIWYG'),
+                'title' => Mage::helper('{{namespace}}_{{module}}')->__('Enable WYSIWYG'),
+                'values' => $yesnoSource,
+            )
+        );
+        Mage::dispatchEvent(
+            '{{namespace}}_{{module}}_adminhtml_{{entity}}_attribute_edit_prepare_form',
+            array(
+                'form'      => $form,
+                'attribute' => $attributeObject
+            )
+        );
         return $this;
     }
 }

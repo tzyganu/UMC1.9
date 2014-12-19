@@ -1,8 +1,21 @@
-    public function {{siblings}}gridAction(){
+
+    /**
+     * get child {{siblingsLabel}} action
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function {{siblings}}gridAction()
+    {
         if (!${{entity}} = $this->_init{{Entity}}()) {
             return;
         }
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}', '{{entity}}.{{sibling}}.grid')->toHtml()
+            $this->getLayout()->createBlock(
+                '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}',
+                '{{entity}}.{{sibling}}.grid'
+            )
+            ->toHtml()
         );
     }

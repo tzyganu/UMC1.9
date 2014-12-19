@@ -1,25 +1,31 @@
+
     /**
      * Retrieve {{entityLabel}} tree object
+     *
      * @access protected
      * @return Varien_Data_Tree_Db
      * {{qwertyuiop}}
      */
-    protected function _getTree(){
+    protected function _getTree()
+    {
         if (!$this->_tree) {
             $this->_tree = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree')->load();
         }
         return $this->_tree;
     }
+
     /**
      * Process {{entityLabel}} data before delete
      * update children count for parent {{entityLabel}}
      * delete child {{entitiesLabel}}
+     *
      * @access protected
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _beforeDelete({{beforeSaveParam}} $object){
+    protected function _beforeDelete({{beforeSaveParam}} $object)
+    {
         parent::_beforeDelete($object);
         /**
          * Update children count for all parent {{entitiesLabel}}
@@ -29,19 +35,22 @@
             $childDecrease = $object->getChildrenCount() + 1; // +1 is itself
             $data = array('children_count' => new Zend_Db_Expr('children_count - ' . $childDecrease));
             $where = array('entity_id IN(?)' => $parentIds);
-            $this->_getWriteAdapter()->update( $this->getMainTable(), $data, $where);
+            $this->_getWriteAdapter()->update($this->getMainTable(), $data, $where);
         }
         $this->deleteChildren($object);
         return $this;
     }
+
     /**
      * Delete children {{entitiesLabel}} of specific {{entityLabel}}
+     *
      * @access public
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function deleteChildren(Varien_Object $object){
+    public function deleteChildren(Varien_Object $object)
+    {
         $adapter = $this->_getWriteAdapter();
         $pathField = $adapter->quoteIdentifier('path');
         $select = $adapter->select()
@@ -61,14 +70,17 @@
         $object->setDeletedChildrenIds($childrenIds);
         return $this;
     }
+
     /**
      * Process {{entityLabel}} data after save {{entityLabel}} object
+     *
      * @access protected
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _afterSave({{beforeSaveParam}} $object){
+    protected function _afterSave({{beforeSaveParam}} $object)
+    {
         if (substr($object->getPath(), -1) == '/') {
             $object->setPath($object->getPath() . $object->getId());
             $this->_savePath($object);

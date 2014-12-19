@@ -1,13 +1,16 @@
+
     /**
      * Add filter by store
+     *
      * @access public
      * @param int|Mage_Core_Model_Store $store
      * @param bool $withAdmin
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function addStoreFilter($store, $withAdmin = true){
-        if (!isset($this->_joinedFields['store'])){
+    public function addStoreFilter($store, $withAdmin = true)
+    {
+        if (!isset($this->_joinedFields['store'])) {
             if ($store instanceof Mage_Core_Model_Store) {
                 $store = array($store->getId());
             }
@@ -22,19 +25,23 @@
         }
         return $this;
     }
+
     /**
      * Join store relation table if there is store filter
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    protected function _renderFiltersBefore(){
+    protected function _renderFiltersBefore()
+    {
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
                 array('store_table' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_store')),
                 'main_table.entity_id = store_table.{{entity}}_id',
                 array()
-            )->group('main_table.entity_id');
+            )
+            ->group('main_table.entity_id');
             /*
              * Allow analytic functions usage because of one field grouping
              */

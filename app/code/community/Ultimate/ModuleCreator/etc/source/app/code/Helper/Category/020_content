@@ -1,11 +1,14 @@
+
     /**
-     * get the selected {{entities}} for a category
+     * get the selected {{entitiesLabel}} for a category
+     *
      * @access public
      * @param Mage_Catalog_Model_Category $category
      * @return array()
      * {{qwertyuiop}}
      */
-    public function getSelected{{Entities}}(Mage_Catalog_Model_Category $category){
+    public function getSelected{{Entities}}(Mage_Catalog_Model_Category $category)
+    {
         if (!$category->hasSelected{{Entities}}()) {
             ${{entities}} = array();
             foreach ($this->getSelected{{Entities}}Collection($category) as ${{entity}}) {
@@ -15,14 +18,17 @@
         }
         return $category->getData('selected_{{entities}}');
     }
+
     /**
-     * get {{entity}} collection for a category
+     * get {{entityLabel}} collection for a category
+     *
      * @access public
      * @param Mage_Catalog_Model_Category $category
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function getSelected{{Entities}}Collection(Mage_Catalog_Model_Category $category){
+    public function getSelected{{Entities}}Collection(Mage_Catalog_Model_Category $category)
+    {
         $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')
             ->addCategoryFilter($category);
         return $collection;

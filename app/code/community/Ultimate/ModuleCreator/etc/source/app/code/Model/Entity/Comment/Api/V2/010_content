@@ -7,7 +7,7 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api_V2
-    extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api_V2 extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
+{
 
 }

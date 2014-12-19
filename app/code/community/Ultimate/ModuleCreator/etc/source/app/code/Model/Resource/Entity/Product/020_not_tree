@@ -1,12 +1,14 @@
     /**
-     * Save {{entity}} - product relations
+     * Save {{entityLabel}} - product relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, $data){
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -14,23 +16,29 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as $productId => $info) {
-            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                '{{entity}}_id'      => ${{entity}}->getId(),
-                'product_id'     => $productId,
-                'position'      => @$info['position']
-            ));
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}->getId(),
+                    'product_id'    => $productId,
+                    'position'      => @$info['position']
+                )
+            );
         }
         return $this;
     }
+
     /**
-     * Save  product - {{entity}} relations
+     * Save  product - {{entityLabel}} relations
+     *
      * @access public
      * @param Mage_Catalog_Model_Product $prooduct
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product
      * @{{qwertyuiop}}
      */
-    public function saveProductRelation($product, $data){
+    public function saveProductRelation($product, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -38,11 +46,14 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as ${{entity}}Id => $info) {
-            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                '{{entity}}_id' => ${{entity}}Id,
-                'product_id' => $product->getId(),
-                'position'   => @$info['position']
-            ));
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}Id,
+                    'product_id'    => $product->getId(),
+                    'position'      => @$info['position']
+                )
+            );
         }
         return $this;
     }

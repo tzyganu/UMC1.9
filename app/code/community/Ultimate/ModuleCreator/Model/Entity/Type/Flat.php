@@ -22,7 +22,7 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Entity_Type_Flat
-    extends Ultimate_ModuleCreator_Model_Entity_Type_Abstract {
+class Ultimate_ModuleCreator_Model_Entity_Type_Flat extends Ultimate_ModuleCreator_Model_Entity_Type_Abstract
+{
 
 }

@@ -7,11 +7,11 @@
 //<![CDATA[
 var tree<?php echo $this->getId() ?>;
 var useMassaction = <?php echo $this->getUseMassaction()?1:0; ?>;
-Ext.tree.TreePanel.Enhanced = function(el, config){
+Ext.tree.TreePanel.Enhanced = function(el, config) {
     Ext.tree.TreePanel.Enhanced.superclass.constructor.call(this, el, config);
 };
 Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
-    loadTree : function(config, firstLoad){
+    loadTree : function(config, firstLoad) {
         var parameters = config['parameters'];
         var data = config['data'];
         if ((typeof parameters['root_visible']) != 'undefined') {
@@ -31,17 +31,17 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
     }
 });
 
-Ext.onReady(function(){
+Ext.onReady(function() {
     var emptyNodeAdded = <?php echo ($this->getWithEmptyNode() ? 'false' : 'true') ?>;
     var {{entity}}Loader = new Ext.tree.TreeLoader({
        dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
     });
 
-    {{entity}}Loader.build{{Entity}}Tree = function(parent, config){
+    {{entity}}Loader.build{{Entity}}Tree = function(parent, config) {
         if (!config) {
             return null;
         }
-        if (parent && config && config.length){
+        if (parent && config && config.length) {
             for (var i = 0; i < config.length; i++) {
                 var node;
                 if (useMassaction) {
@@ -49,7 +49,7 @@ Ext.onReady(function(){
                 }
                 var _node = Object.clone(config[i]);
 
-                if(!emptyNodeAdded) {
+                if (!emptyNodeAdded) {
                     var empty = Object.clone(_node);
                     empty.text = '<?php echo $this->__('None') ?>';
                     empty.children = [];
@@ -63,8 +63,7 @@ Ext.onReady(function(){
                 if (_node.children && !_node.children.length) {
                     delete(_node.children);
                     node = new Ext.tree.AsyncTreeNode(_node);
-                }
-                else {
+                } else {
                     node = new Ext.tree.TreeNode(config[i]);
                 }
                 parent.appendChild(node);
@@ -86,14 +85,13 @@ Ext.onReady(function(){
         if (config.children && !config.children.length) {
             delete(config.children);
             node = new Ext.tree.AsyncTreeNode(config);
-        }
-        else {
+        } else {
             node = new Ext.tree.TreeNode(config);
         }
         return node;
     };
 
-    {{entity}}Loader.buildHash = function(node){
+    {{entity}}Loader.buildHash = function(node) {
         var hash = {};
 
         hash = this.toArray(node.attributes);

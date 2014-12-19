@@ -21,14 +21,16 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */ 
-class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator
-    extends Mage_Adminhtml_Block_Widget_Grid_Container {
+class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
     /**
      * constructor
+     *
      * @access public
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_controller = 'adminhtml_modulecreator';
         $this->_blockGroup = 'modulecreator';
         $this->_headerText = Mage::helper('modulecreator')->__('Manage modules');

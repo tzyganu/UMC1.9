@@ -1,12 +1,15 @@
+
     /**
      * Get available attributes of API resource
+     *
      * @access public
      * @param string $userType
      * @param string $operation
      * @return array
      * {{qwertyuiop}}
      */
-    public function getAvailableAttributes($userType, $operation) {
+    public function getAvailableAttributes($userType, $operation)
+    {
         $attributes = $this->getAvailableAttributesFromConfig();
         $entityType = Mage::getModel('eav/entity_type')->loadByCode('{{namespace}}_{{module}}_{{entity}}');
         $entityOnlyAttrs = $this->getEntityOnlyAttributes($userType, $operation);

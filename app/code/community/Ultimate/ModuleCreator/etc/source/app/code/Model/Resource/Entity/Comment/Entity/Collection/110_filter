@@ -1,5 +1,7 @@
+
     /**
      * Add attribute to filter
+     *
      * @access public
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @param array $condition
@@ -7,7 +9,8 @@
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function {{filterMethod}}($attribute, $condition = null, $joinType = 'inner') {
+    public function {{filterMethod}}($attribute, $condition = null, $joinType = 'inner')
+    {
         switch($attribute) {
             case 'ct.comment_id':
             case 'ct.created_at':

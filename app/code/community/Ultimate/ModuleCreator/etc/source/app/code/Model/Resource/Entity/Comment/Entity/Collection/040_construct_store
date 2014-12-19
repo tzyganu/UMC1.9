@@ -1,1 +1,2 @@
-        $this->_commentStoreTable = Mage::getSingleton('core/resource')->getTableName('{{namespace}}_{{module}}/{{entity}}_comment_store');
+        $this->_commentStoreTable = Mage::getSingleton('core/resource')
+            ->getTableName('{{namespace}}_{{module}}/{{entity}}_comment_store');

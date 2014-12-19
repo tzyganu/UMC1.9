@@ -1,9 +1,7 @@
-        $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
-            if (${{entity}}->getMetaTitle()){
+            if (${{entity}}->getMetaTitle()) {
                 $headBlock->setTitle(${{entity}}->getMetaTitle());
-            }
-            else{
+            } else {
                 $headBlock->setTitle(${{entity}}->get{{EntityNameMagicCode}}());
             }
             $headBlock->setKeywords(${{entity}}->getMetaKeywords());

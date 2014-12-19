@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiop}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
-    extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form extends Mage_Core_Block_Template
+{
     /**
      * initialize
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         $customerSession = Mage::getSingleton('customer/session');
         parent::__construct();
         $data =  Mage::getSingleton('customer/session')->get{{Entity}}CommentFormData(true);
@@ -27,35 +29,50 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_Form
                 $data->setEmail($customer->getEmail());
             }
         }
-        $this->setAllowWriteCommentFlag($customerSession->isLoggedIn() || Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment'));
+        $this->setAllowWriteCommentFlag(
+            $customerSession->isLoggedIn() ||
+            Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment')
+        );
         if (!$this->getAllowWriteCommentFlag()) {
             $this->setLoginLink(
-                Mage::getUrl('customer/account/login/', array(
-                    Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
-                        Mage::getUrl('*/*/*', array('_current' => true)) .
-                        '#comment-form')
+                Mage::getUrl(
+                    'customer/account/login/',
+                    array(
+                        Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
+                            Mage::getUrl('*/*/*', array('_current' => true)) .
+                            '#comment-form'
+                        )
                     )
                 )
             );
         }
         $this->setCommentData($data);
     }
+
     /**
-     * get current {{EntityLabel}}
+     * get current {{entityLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}() {
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
+
     /**
      * get form action
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getAction() {
-        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/commentpost', array('id' => $this->get{{Entity}}()->getId()));
+    public function getAction()
+    {
+        return Mage::getUrl(
+            '{{namespace}}_{{module}}/{{entity}}/commentpost',
+            array('id' => $this->get{{Entity}}()->getId())
+        );
     }
 }

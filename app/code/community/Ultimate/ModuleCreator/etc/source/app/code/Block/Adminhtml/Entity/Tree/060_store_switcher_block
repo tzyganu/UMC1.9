@@ -1,29 +1,47 @@
+
     /**
      * get store switcher html
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getStoreSwitcherHtml() {
+    public function getStoreSwitcherHtml()
+    {
         return $this->getChildHtml('store_switcher');
     }
+
     /**
      * get current store
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getStore() {
+    public function getStore()
+    {
         $storeId = (int) $this->getRequest()->getParam('store');
         return Mage::app()->getStore($storeId);
     }
+
     /**
      * get switch url
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getSwitchTreeUrl() {
-        return $this->getUrl("*/{{module}}_{{entity}}/tree", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
+    public function getSwitchTreeUrl()
+    {
+        return $this->getUrl(
+            "*/{{module}}_{{entity}}/tree",
+            array(
+                '_current'=>true,
+                'store'=>null,
+                '_query'=>false,
+                'id'=>null,
+                'parent'=>null
+            )
+        );
     }
 

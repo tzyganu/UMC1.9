@@ -7,8 +7,8 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
-    extends Mage_Core_Model_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment extends Mage_Core_Model_Abstract
+{
     const STATUS_PENDING  = 0;
     const STATUS_APPROVED = 1;
     const STATUS_REJECTED = 2;
@@ -29,38 +29,47 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * @var string
      */
     protected $_eventObject = 'comment';
+
     /**
      * constructor
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function _construct(){
+    public function _construct()
+    {
         parent::_construct();
         $this->_init('{{namespace}}_{{module}}/{{entity}}_comment');
     }
+
     /**
      * before save {{entityLabel}} comment
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    protected function _beforeSave(){
+    protected function _beforeSave()
+    {
         parent::_beforeSave();
         $now = Mage::getSingleton('core/date')->gmtDate();
-        if ($this->isObjectNew()){
+        if ($this->isObjectNew()) {
             $this->setCreatedAt($now);
         }
         $this->setUpdatedAt($now);
         return $this;
     }
+
     /**
      * validate comment
+     *
      * @access public
      * @return array|bool
      * {{qwertyuiop}}
      */
-    public function validate() {
+    public function validate()
+    {
         $errors = array();
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {

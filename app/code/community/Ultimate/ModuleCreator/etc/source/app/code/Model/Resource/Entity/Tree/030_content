@@ -1,48 +1,56 @@
         if ($sorted) {
             if (is_string($sorted)) {
                 $collection->setOrder($sorted);
-            }
-            else {
+            } else {
                 $collection->setOrder('{{nameAttributeCode}}');
             }
         }
         return $collection;
     }
+
     /**
      * Executing parents move method and cleaning cache after it
+     *
      * @access public
      * @param unknown_type ${{entity}}
      * @param unknown_type $newParent
      * @param unknown_type $prevNode
      * {{qwertyuiop}}
      */
-    public function move(${{entity}}, $newParent, $prevNode = null){
-        Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->move(${{entity}}->getId(), $newParent->getId());
+    public function move(${{entity}}, $newParent, $prevNode = null)
+    {
+        Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')
+            ->move(${{entity}}->getId(), $newParent->getId());
         parent::move(${{entity}}, $newParent, $prevNode);
         $this->_afterMove(${{entity}}, $newParent, $prevNode);
     }
 
     /**
      * Move tree after
+     *
      * @access protected
      * @param unknown_type ${{entity}}
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      */
-    protected function _afterMove(${{entity}}, $newParent, $prevNode){
+    protected function _afterMove(${{entity}}, $newParent, $prevNode)
+    {
         Mage::app()->cleanCache(array({{Namespace}}_{{Module}}_Model_{{Entity}}::CACHE_TAG));
         return $this;
     }
+
     /**
      * Load whole {{entityLabel}} tree, that will include specified {{entitiesLabel}} ids.
+     *
      * @access public
      * @param array $ids
      * @param bool $addCollectionData
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      * {{qwertyuiop}}
      */
-    public function loadByIds($ids, $addCollectionData = true){
+    public function loadByIds($ids, $addCollectionData = true)
+    {
         $levelField = $this->_conn->quoteIdentifier('level');
         $pathField  = $this->_conn->quoteIdentifier('path');
         // load first two levels, if no ids specified
@@ -50,7 +58,7 @@
             $select = $this->_conn->select()
                 ->from($this->_table, 'entity_id')
                 ->where($levelField . ' <= 2');
-                $ids = $this->_conn->fetchCol($select);
+            $ids = $this->_conn->fetchCol($select);
         }
         if (!is_array($ids)) {
             $ids = array($ids);
@@ -80,8 +88,7 @@
         // get all required records
         if ($addCollectionData) {
             $select = $this->_createCollectionDataSelect();
-        }
-        else {
+        } else {
             $select = clone $this->_select;
             $select->order($this->_orderField . ' ' . Varien_Db_Select::SQL_ASC);
         }
@@ -102,8 +109,10 @@
         $this->addChildNodes($childrenItems, '', null);
         return $this;
     }
+
     /**
      * Load array of {{entityLabel}} parents
+     *
      * @access public
      * @param string $path
      * @param bool $addCollectionData
@@ -111,7 +120,8 @@
      * @return array
      * {{qwertyuiop}}
      */
-    public function loadBreadcrumbsArray($path, $addCollectionData = true, $withRootNode = false){
+    public function loadBreadcrumbsArray($path, $addCollectionData = true, $withRootNode = false)
+    {
         $pathIds = explode('/', $path);
         if (!$withRootNode) {
             array_shift($pathIds);
@@ -120,8 +130,7 @@
         if (!empty($pathIds)) {
             if ($addCollectionData) {
                 $select = $this->_createCollectionDataSelect(false);
-            }
-            else {
+            } else {
                 $select = clone $this->_select;
             }
             $select

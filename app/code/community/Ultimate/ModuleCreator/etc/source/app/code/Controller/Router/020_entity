@@ -1,11 +1,13 @@
-        $check['{{entity}}'] = new Varien_Object(array(
-            'prefix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix'),
-            'suffix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix'),
-            'list_key'       => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_rewrite_list'),
-            'list_action'   => 'index',
-            'model'         =>'{{namespace}}_{{module}}/{{entity}}',
-            'controller'    => '{{entity}}',
-            'action'        => 'view',
-            'param'         => 'id',
-            'check_path'    => {{isTree}}
-        ));
+        $check['{{entity}}'] = new Varien_Object(
+            array(
+                'prefix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix'),
+                'suffix'        => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix'),
+                'list_key'      => Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_rewrite_list'),
+                'list_action'   => 'index',
+                'model'         =>'{{namespace}}_{{module}}/{{entity}}',
+                'controller'    => '{{entity}}',
+                'action'        => 'view',
+                'param'         => 'id',
+                'check_path'    => {{isTree}}
+            )
+        );

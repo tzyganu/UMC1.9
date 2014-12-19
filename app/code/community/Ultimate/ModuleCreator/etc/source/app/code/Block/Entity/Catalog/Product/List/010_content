@@ -7,14 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Catalog_Product_List extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Catalog_Product_List extends Mage_Core_Block_Template
+{
     /**
      * get the list of products
+     *
      * @access public
      * @return Mage_Catalog_Model_Resource_Product_Collection
      * {{qwertyuiop}}
      */
-    public function getProductCollection() {
+    public function getProductCollection()
+    {
         $collection = $this->get{{Entity}}()->getSelectedProductsCollection();
         $collection->addAttributeToSelect('name');
         $collection->addUrlRewrite();
@@ -23,13 +26,16 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Catalog_Product_List extends Mag
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
         return $collection;
     }
+
     /**
-     * get current {{entity}}
+     * get current {{entityLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}() {
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
 }

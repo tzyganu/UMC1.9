@@ -1,4 +1,3 @@
-
         ${{entity}}NodeId = '{{entity}}';
         $data = array(
             'name' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),

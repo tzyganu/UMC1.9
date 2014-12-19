@@ -21,44 +21,56 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */ 
-class Ultimate_ModuleCreator_Model_Source_Codepool {
+class Ultimate_ModuleCreator_Model_Source_Codepool
+{
     /**
      * get the list of available code pools
+     *
      * @access public
      * @param bool $withEmpty
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toOptionArray($withEmpty = false){
+    public function toOptionArray($withEmpty = false)
+    {
         $options = array();
-        if ($withEmpty){
-            $options[] = array('value'=>'', 'label'=>Mage::helper('modulecreator')->__('Select a codepool'));
+        if ($withEmpty) {
+            $options[] = array(
+                'value'=>'',
+                'label'=>Mage::helper('modulecreator')->__('Select a codepool')
+            );
         }
         $options[] = array('value' => 'local',         'label'=>'local');
         $options[] = array('value' => 'community',     'label'=>'community');
         return $options;
     }
+
     /**
      * get options as an array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAllOptions($withEmpty = true){
+    public function getAllOptions($withEmpty = true)
+    {
         $options = array();
-        foreach ($this->toOptionArray($withEmpty) as $option){
+        foreach ($this->toOptionArray($withEmpty) as $option) {
             $options[$option['value']] = $option['label'];
         }
         return $options;
     }
+
     /**
-    * get options as an array - wrapper
-    * @param bool $withEmpty
-    * @return array
-    * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-    */
-    public function toArray($withEmpty = true){
+     * get options as an array - wrapper
+     *
+     * @param bool $withEmpty
+     * @return array
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function toArray($withEmpty = true)
+    {
         return $this->getAllOptions($withEmpty);
     }
 }

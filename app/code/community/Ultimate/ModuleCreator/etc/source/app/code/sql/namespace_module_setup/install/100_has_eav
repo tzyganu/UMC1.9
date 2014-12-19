@@ -1,14 +1,44 @@
 $table = $this->getConnection()
     ->newTable($this->getTable('{{namespace}}_{{module}}/eav_attribute'))
-    ->addColumn('attribute_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'identity'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-        ), 'Attribute ID')
-    ->addColumn('is_global', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(), 'Attribute scope')
-    ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(), 'Attribute position')
-    ->addColumn('is_wysiwyg_enabled', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(), 'Attribute uses WYSIWYG')
-    ->addColumn('is_visible', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(), 'Attribute is visible')
+    ->addColumn(
+        'attribute_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'identity'  => true,
+            'nullable'  => false,
+            'primary'   => true,
+        ),
+        'Attribute ID'
+    )
+    ->addColumn(
+        'is_global',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(),
+        'Attribute scope'
+    )
+    ->addColumn(
+        'position',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(),
+        'Attribute position'
+    )
+    ->addColumn(
+        'is_wysiwyg_enabled',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(),
+        'Attribute uses WYSIWYG'
+    )
+    ->addColumn(
+        'is_visible',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(),
+        'Attribute is visible'
+    )
     ->setComment('{{Module}} attribute table');
 $this->getConnection()->createTable($table);
 

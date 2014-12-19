@@ -1,6 +1,6 @@
         ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
-                ->load($comment->get{{Entity}}Id());
-        if (!${{entity}}->getId() || ${{entity}}->getStatus() != 1){
+            ->load($comment->get{{Entity}}Id());
+        if (!${{entity}}->getId() || ${{entity}}->getStatus() != 1) {
             $this->_forward('no-route');
             return;
         }

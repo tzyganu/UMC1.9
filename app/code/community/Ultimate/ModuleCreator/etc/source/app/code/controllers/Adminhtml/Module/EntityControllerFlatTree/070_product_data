@@ -3,7 +3,7 @@
                     $productData = array();
                     parse_str($products, $productData);
                     $products = array();
-                    foreach ($productData as $id=>$position){
+                    foreach ($productData as $id => $position) {
                         $products[$id]['position'] = $position;
                     }
                     ${{entity}}->setProductsData($productData);

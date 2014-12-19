@@ -1,5 +1,7 @@
-                $breadcrumbBlock->addCrumb('{{entities}}', array(
-                            'label'    => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
-                            'link'    => Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url(),
+                $breadcrumbBlock->addCrumb(
+                    '{{entities}}',
+                    array(
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
+                        'link'  => Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url(),
                     )
                 );

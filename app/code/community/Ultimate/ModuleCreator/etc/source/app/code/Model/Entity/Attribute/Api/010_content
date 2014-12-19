@@ -7,26 +7,31 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
-    extends Mage_Catalog_Model_Api_Resource {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api extends Mage_Catalog_Model_Api_Resource
+{
     /**
      * {{EntityLabel}} entity type id
+     *
      * @var int
      */
     protected $_entityTypeId;
 
     /**
      * Constructor. Initializes default values.
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_storeIdSessionField = '{{entity}}_store_id';
-        $this->_entityTypeId = Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')->getTypeId();
+        $this->_entityTypeId = Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')
+            ->getTypeId();
     }
 
     /**
      * Retrieve attributes
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
@@ -47,19 +52,19 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
                 $result[] = array(
                     'attribute_id' => $attribute->getId(),
-                    'code' => $attribute->getAttributeCode(),
-                    'type' => $attribute->getFrontendInput(),
-                    'required' => $attribute->getIsRequired(),
-                    'scope' => $scope
+                    'code'         => $attribute->getAttributeCode(),
+                    'type'         => $attribute->getFrontendInput(),
+                    'required'     => $attribute->getIsRequired(),
+                    'scope'        => $scope
                 );
             }
         }
-
         return $result;
     }
 
     /**
      * Retrieve attribute options
+     *
      * @access public
      * @param int $attributeId
      * @param string|int $store
@@ -70,9 +75,9 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
     {
         $storeId = $this->_getStoreId($store);
         $attribute = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
-                ->setStoreId($storeId)
-                ->getResource()
-                ->getAttribute($attributeId);
+            ->setStoreId($storeId)
+            ->getResource()
+            ->getAttribute($attributeId);
         if (!$attribute) {
             $this->_fault('not_exists');
         }
@@ -89,17 +94,18 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
                 }
             }
         }
-
         return $options;
     }
 
     /**
      * Retrieve list of possible attribute types
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function types() {
+    public function types()
+    {
         $types = Mage::getModel('eav/adminhtml_system_config_source_inputtype')->toOptionArray();
         $additionalTypes = array(
             array(
@@ -116,12 +122,14 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Create new product attribute
+     *
      * @access public
      * @param array $data input data
      * @return integer
      * {{qwertyuiop}}
      */
-    public function create($data) {
+    public function create($data)
+    {
         $model = Mage::getModel('{{namespace}}_{{module}}/resource_eav_attribute');
         $helper = Mage::helper('{{namespace}}_{{module}}/{{entity}}');
 
@@ -169,13 +177,15 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Update product attribute
+     *
      * @access public
      * @param string|integer $attribute attribute code or ID
      * @param array $data
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function update($attribute, $data) {
+    public function update($attribute, $data)
+    {
         $model = $this->_getAttribute($attribute);
         if ($model->getEntityTypeId() != $this->_entityTypeId) {
             $this->_fault('can_not_edit');
@@ -199,12 +209,14 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Remove attribute
+     *
      * @access public
      * @param integer|string $attribute attribute ID or code
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function remove($attribute) {
+    public function remove($attribute)
+    {
         $model = $this->_getAttribute($attribute);
         if ($model->getEntityTypeId() != $this->_entityTypeId) {
             $this->_fault('can_not_delete');
@@ -219,12 +231,14 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Get full information about attribute with list of options
+     *
      * @access pubic
      * @param integer|string $attribute attribute ID or code
      * @return array
      * {{qwertyuiop}}
      */
-    public function info($attribute) {
+    public function info($attribute)
+    {
         $model = $this->_getAttribute($attribute);
         if ($model->isScopeGlobal()) {
             $scope = 'global';
@@ -236,40 +250,40 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
         $frontendLabels = array(
             array(
                 'store_id' => 0,
-                'label' => $model->getFrontendLabel()
+                'label'    => $model->getFrontendLabel()
             )
         );
-        foreach ($model->getStoreLabels() as $store_id => $label) {
+        foreach ($model->getStoreLabels() as $storeId => $label) {
             $frontendLabels[] = array(
-                'store_id' => $store_id,
-                'label' => $label
+                'store_id' => $storeId,
+                'label'    => $label
             );
         }
         $result = array(
-            'attribute_id' => $model->getId(),
+            'attribute_id'   => $model->getId(),
             'attribute_code' => $model->getAttributeCode(),
             'frontend_input' => $model->getFrontendInput(),
-            'default_value' => $model->getDefaultValue(),
-            'is_unique' => $model->getIsUnique(),
-            'is_required' => $model->getIsRequired(),
+            'default_value'  => $model->getDefaultValue(),
+            'is_unique'      => $model->getIsUnique(),
+            'is_required'    => $model->getIsRequired(),
             'frontend_label' => $frontendLabels
         );
         // set additional fields to different types
         switch ($model->getFrontendInput()) {
             case 'text':
-                    $result['additional_fields'] = array(
-                        'frontend_class' => $model->getFrontendClass(),
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'frontend_class' => $model->getFrontendClass(),
+                );
+                break;
             case 'textarea':
-                    $result['additional_fields'] = array(
-                        'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                    );
-                    break;
+                $result['additional_fields'] = array(
+                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                );
+                break;
             case 'date':
             default:
-                    $result['additional_fields'] = array();
-                    break;
+                $result['additional_fields'] = array();
+                break;
         }
 
         // set options
@@ -288,13 +302,15 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Add option to select or multiselect attribute
+     *
      * @access public
      * @param  integer|string $attribute attribute ID or code
      * @param  array $data
      * @return bool
      * {{qwertyuiop}}
      */
-    public function addOption($attribute, $data) {
+    public function addOption($attribute, $data)
+    {
         $model = $this->_getAttribute($attribute);
         if (!$model->usesSource()) {
             $this->_fault('invalid_frontend_input');
@@ -337,13 +353,15 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Remove option from select or multiselect attribute
+     *
      * @access public
      * @param  integer|string $attribute attribute ID or code
      * @param  integer $optionId option to remove ID
      * @return bool
      * {{qwertyuiop}}
      */
-    public function removeOption($attribute, $optionId) {
+    public function removeOption($attribute, $optionId)
+    {
         $model = $this->_getAttribute($attribute);
         if (!$model->usesSource()) {
             $this->_fault('invalid_frontend_input');
@@ -370,6 +388,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
 
     /**
      * Prepare request input data for saving
+     *
      * @access protected
      * @param array $data input data
      * @return void
@@ -413,8 +432,10 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
      *
      * @param integer|string $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * {{qwertyuiop}}
      */
-    protected function _getAttribute($attribute) {
+    protected function _getAttribute($attribute)
+    {
         $model = Mage::getResourceModel('{{namespace}}_{{module}}/eav_attribute')
             ->setEntityTypeId($this->_entityTypeId);
 

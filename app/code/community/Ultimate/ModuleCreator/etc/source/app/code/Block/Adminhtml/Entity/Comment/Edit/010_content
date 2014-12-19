@@ -7,40 +7,60 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit
-    extends Mage_Adminhtml_Block_Widget_Form_Container {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+{
     /**
      * constructor
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_blockGroup = '{{namespace}}_{{module}}';
         $this->_controller = 'adminhtml_{{entity}}_comment';
-        $this->_updateButton('save', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} comment'));
-        $this->_updateButton('delete', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} comment'));
-        $this->_addButton('saveandcontinue', array(
-            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Save And Continue Edit'),
-            'onclick'    => 'saveAndContinueEdit()',
-            'class'        => 'save',
-        ), -100);
+        $this->_updateButton(
+            'save',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} comment')
+        );
+        $this->_updateButton(
+            'delete',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} comment')
+        );
+        $this->_addButton(
+            'saveandcontinue',
+            array(
+                'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Save And Continue Edit'),
+                'onclick'    => 'saveAndContinueEdit()',
+                'class'        => 'save',
+            ),
+            -100
+        );
         $this->_formScripts[] = "
-            function saveAndContinueEdit(){
+            function saveAndContinueEdit() {
                 editForm.submit($('edit_form').action+'back/edit/');
             }
         ";
     }
+
     /**
      * get the edit form header
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getHeaderText(){
-        if( Mage::registry('comment_data') && Mage::registry('comment_data')->getId() ) {
-            return Mage::helper('{{namespace}}_{{module}}')->__("Edit {{EntityLabel}} comment '%s'", $this->htmlEscape(Mage::registry('comment_data')->getTitle()));
+    public function getHeaderText()
+    {
+        if (Mage::registry('comment_data') && Mage::registry('comment_data')->getId()) {
+            return Mage::helper('{{namespace}}_{{module}}')->__(
+                "Edit {{EntityLabel}} comment '%s'",
+                $this->escapeHtml(Mage::registry('comment_data')->getTitle())
+            );
         }
         return '';
     }

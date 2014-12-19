@@ -1,12 +1,22 @@
         $seoAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
-                ->setEntityTypeFilter($entity->getEntityTypeId())
-                ->addFieldToFilter('attribute_code', array('in'=>array('meta_title', 'meta_description', 'meta_keywords')));
+            ->setEntityTypeFilter($entity->getEntityTypeId())
+            ->addFieldToFilter(
+                'attribute_code',
+                array(
+                    'in' => array('meta_title', 'meta_description', 'meta_keywords')
+                )
+            );
         $seoAttributes->getSelect()->order('additional_table.position', 'ASC');
 
-        $this->addTab('meta', array(
-            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
-            'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_attributes')
-                            ->setAttributes($seoAttributes)
-                            ->toHtml(),
-        ));
+        $this->addTab(
+            'meta',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+                'title'   => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_attributes'
+                )
+                ->setAttributes($seoAttributes)
+                ->toHtml(),
+            )
+        );

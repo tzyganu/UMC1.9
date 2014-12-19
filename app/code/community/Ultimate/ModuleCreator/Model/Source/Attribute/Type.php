@@ -22,21 +22,25 @@
  * @package        Ultimate_ModuleCreator
  * @author         Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Source_Attribute_Type {
+class Ultimate_ModuleCreator_Model_Source_Attribute_Type
+{
     /**
      * options
+     *
      * @var mixed
      */
     protected $_options = null;
     /**
      * get options array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array|null
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toArray($withEmpty = false) {
-        if (is_null($this->_options)){
+    public function toArray($withEmpty = false)
+    {
+        if (is_null($this->_options)) {
             /** @var Ultimate_ModuleCreator_Helper_Data $helper */
             $helper = Mage::helper('modulecreator');
             $types  = $helper->getAttributeTypes();
@@ -48,8 +52,7 @@ class Ultimate_ModuleCreator_Model_Source_Attribute_Type {
                 $group = (string)$values->group;
                 if (!empty($group) && isset($this->_options[$group])) {
                     $this->_options[$group]['value'][] = array('label'=>(string)$values->label, 'value'=>$type);
-                }
-                else {
+                } else {
                     $this->_options[] = array('label'=>(string)$values->label, 'value'=>$type);
                 }
             }

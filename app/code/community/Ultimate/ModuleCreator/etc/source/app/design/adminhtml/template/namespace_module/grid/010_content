@@ -11,7 +11,7 @@
     </tr>
 </table>
 </div>
-<?php if( !Mage::app()->isSingleStoreMode() ): ?>
+<?php if ( !Mage::app()->isSingleStoreMode() ): ?>
     <?php echo $this->getChildHtml('store_switcher');?>
 <?php endif;?>
 <div>

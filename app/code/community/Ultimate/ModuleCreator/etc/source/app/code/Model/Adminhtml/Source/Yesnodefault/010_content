@@ -7,18 +7,21 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+class {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+{
     const YES = 1;
     const NO = 0;
     const USE_DEFAULT = 2;
+
     /**
      * get possible values
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function toOptionArray(){
+    public function toOptionArray()
+    {
         return array(
             array(
                 'label' => Mage::helper('{{namespace}}_{{module}}')->__('Use default config'),
@@ -34,13 +37,16 @@ class {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault
             )
         );
     }
+
     /**
      * Get list of all available values
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getAllOptions() {
+    public function getAllOptions()
+    {
         return $this->toOptionArray();
     }
 }

@@ -7,26 +7,31 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController
-    extends Mage_Core_Controller_Front_Action {
+class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController extends Mage_Core_Controller_Front_Action
+{
     /**
      * Action predispatch
      * Check customer authentication for some actions
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function preDispatch() {
+    public function preDispatch()
+    {
         parent::preDispatch();
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
     }
+
     /**
      * List comments
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
         $this->_initLayoutMessages('customer/session');
@@ -42,15 +47,20 @@ class {{Namespace}}_{{Module}}_{{Entity}}_Customer_CommentController
 
         $this->renderLayout();
     }
+
     /**
      * View comment
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function viewAction() {
+    public function viewAction()
+    {
         $commentId = $this->getRequest()->getParam('id');
         $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->load($commentId);
-        if (!$comment->getId() || $comment->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId() || $comment->getStatus() != {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED) {
+        if (!$comment->getId() ||
+            $comment->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId() ||
+            $comment->getStatus() != {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED) {
             $this->_forward('no-route');
             return;
         }

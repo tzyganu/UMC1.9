@@ -1986,6 +1986,13 @@
                     </depend>
                     <sort_order>100</sort_order>
                 </breadcrumbs_footer>
+                <view_canonical>
+                    <name>105_view_canonical</name>
+                    <depend>
+                        <create_view />
+                    </depend>
+                    <sort_order>105</sort_order>
+                </view_canonical>
                 <view_seo>
                     <name>110_view_seo</name>
                     <depend>

@@ -4,7 +4,7 @@
             'table'                         => '{{namespace}}_{{module}}/{{entity}}',
             'additional_attribute_table'    => '{{namespace}}_{{module}}/eav_attribute',
             'entity_attribute_collection'   => '{{namespace}}_{{module}}/{{entity}}_attribute_collection',
-            'attributes'        => array(
+            'attributes'                    => array(
 {{entityAttributesSetup}}
                 )
-	 	);
+         );

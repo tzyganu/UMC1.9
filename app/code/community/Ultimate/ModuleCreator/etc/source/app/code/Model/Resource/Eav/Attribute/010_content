@@ -7,8 +7,8 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
-    extends Mage_Eav_Model_Entity_Attribute {
+class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
+{
     const MODULE_NAME   = '{{Namespace}}_{{Module}}';
     const ENTITY        = '{{namespace}}_{{module}}_eav_attribute';
 
@@ -17,54 +17,70 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
 
     /**
      * Array with labels
+     *
      * @var array
      */
     static protected $_labels = null;
+
     /**
      * constructor
+     *
      * @access protected
      * @return void
      * {{qwertyuiop}}
      */
-    protected function _construct() {
+    protected function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/attribute');
     }
+
     /**
      * check if scope is store view
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function isScopeStore() {
+    public function isScopeStore()
+    {
         return $this->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE;
     }
+
     /**
      * check if scope is website
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function isScopeWebsite() {
+    public function isScopeWebsite()
+    {
         return $this->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE;
     }
+
     /**
      * check if scope is global
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function isScopeGlobal() {
+    public function isScopeGlobal()
+    {
         return (!$this->isScopeStore() && !$this->isScopeWebsite());
     }
+
     /**
      * get backend input type
+     *
      * @access public
      * @param string $type
      * @return string
      * {{qwertyuiop}}
      */
-    public function getBackendTypeByInput($type) {
-        switch ($type){
+    public function getBackendTypeByInput($type)
+    {
+        switch ($type) {
             case 'file':
                 //intentional fallthrough
             case 'image':
@@ -75,16 +91,21 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
             break;
         }
     }
+
     /**
      * don't delete system attributes
+     *
      * @access public
      * @param string $type
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _beforeDelete(){
-        if (!$this->getIsUserDefined()){
-            throw new Mage_Core_Exception(Mage::helper('{{namespace}}_{{module}}')->__('This attribute is not deletable'));
+    protected function _beforeDelete()
+    {
+        if (!$this->getIsUserDefined()) {
+            throw new Mage_Core_Exception(
+                Mage::helper('{{namespace}}_{{module}}')->__('This attribute is not deletable')
+            );
         }
         return parent::_beforeDelete();
     }

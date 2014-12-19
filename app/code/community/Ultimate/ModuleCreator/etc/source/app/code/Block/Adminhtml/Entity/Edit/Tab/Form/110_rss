@@ -1,14 +1,18 @@
-        $fieldset->addField('in_rss', 'select', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Show in rss'),
-            'name'  => 'in_rss',
-            'values'=> array(
-                array(
-                    'value' => 1,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Yes'),
+        $fieldset->addField(
+            'in_rss',
+            'select',
+            array(
+                'label'  => Mage::helper('{{namespace}}_{{module}}')->__('Show in rss'),
+                'name'   => 'in_rss',
+                'values' => array(
+                    array(
+                        'value' => 1,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Yes'),
+                    ),
+                    array(
+                        'value' => 0,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('No'),
+                    ),
                 ),
-                array(
-                    'value' => 0,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('No'),
-                ),
-            ),
-        ));
+            )
+        );

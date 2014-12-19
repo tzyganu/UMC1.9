@@ -7,49 +7,63 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection {
-	/**
-	 * init attribute select
-	 * @access protected
-	 * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
-	 * {{qwertyuiop}}
-	 */
-	protected function _initSelect() {
+class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+{
+    /**
+     * init attribute select
+     *
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
+     * {{qwertyuiop}}
+     */
+    protected function _initSelect()
+    {
         $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()))
-            ->where('main_table.entity_type_id=?', Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')->getTypeId())
+            ->where(
+                'main_table.entity_type_id=?',
+                Mage::getModel('eav/entity')->setType('{{namespace}}_{{module}}_{{entity}}')->getTypeId()
+            )
             ->join(
                 array('additional_table' => $this->getTable('{{namespace}}_{{module}}/eav_attribute')),
                 'additional_table.attribute_id=main_table.attribute_id'
             );
         return $this;
     }
+
     /**
      * set entity type filter
+     *
      * @access public
      * @param string $typeId
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
      * {{qwertyuiop}}
      */
- 	public function setEntityTypeFilter($typeId) {
+    public function setEntityTypeFilter($typeId)
+    {
         return $this;
     }
-	/**
+
+    /**
      * Specify filter by "is_visible" field
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
      * {{qwertyuiop}}
      */
-    public function addVisibleFilter() {
+    public function addVisibleFilter()
+    {
         return $this->addFieldToFilter('additional_table.is_visible', 1);
     }
-	/**
+
+    /**
      * Specify filter by "is_editable" field
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Attribute_Collection
      * {{qwertyuiop}}
      */
-    public function addEditableFilter() {
+    public function addEditableFilter()
+    {
         return $this->addFieldToFilter('additional_table.is_editable', 1);
     }
 }

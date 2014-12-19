@@ -1,28 +1,34 @@
 <?php
 {{License}}
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api
-    extends Mage_Api_Model_Resource_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api extends Mage_Api_Model_Resource_Abstract
+{
 {{defaultApiAttributes}}
+
     /**
      * init {{entityLabel}}
+     *
      * @access protected
      * @param ${{entity}}Id
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiopp}}
      */
-    protected function _init{{Entity}}(${{entity}}Id){
+    protected function _init{{Entity}}(${{entity}}Id)
+    {
         ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
         if (!${{entity}}->getId()) {
             $this->_fault('{{entity}}_not_exists');
         }
         return ${{entity}};
     }
+
     /**
      * get {{entitiesLabel}}
+     *
      * @access public
      * @param mixed $filters
      * @return array
      * {{qwertyuiop}}
      */
-    public function items($filters = null){
+    public function items($filters = null)
+    {
         $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection()

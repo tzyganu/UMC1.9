@@ -2,14 +2,17 @@
         $form->setFieldNameSuffix('{{entity}}');
         $this->setForm($form);
     }
+
     /**
      * prepare layout
+     *
      * @access protected
      * @return void
      * @see Mage_Adminhtml_Block_Widget_Form::_prepareLayout()
      * {{qwertyuiop}}
      */
-    protected function _prepareLayout() {
+    protected function _prepareLayout()
+    {
         Varien_Data_Form::setElementRenderer(
             $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
         );
@@ -20,26 +23,38 @@
             $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{module}}_renderer_fieldset_element')
         );
     }
+
     /**
      * get the additional element types for form
+     *
      * @access protected
      * @return array()
      * @see Mage_Adminhtml_Block_Widget_Form::_getAdditionalElementTypes()
      * {{qwertyuiop}}
      */
-    protected function _getAdditionalElementTypes(){
+    protected function _getAdditionalElementTypes()
+    {
         return array(
-            'file'    => Mage::getConfig()->getBlockClassName('{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_file'),
-            'image' => Mage::getConfig()->getBlockClassName('{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_image'),
-            'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg')
+            'file'     => Mage::getConfig()->getBlockClassName(
+                '{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_file'
+            ),
+            'image'    => Mage::getConfig()->getBlockClassName(
+                '{{namespace}}_{{module}}/adminhtml_{{entity}}_helper_image'
+            ),
+            'textarea' => Mage::getConfig()->getBlockClassName(
+                'adminhtml/catalog_helper_form_wysiwyg'
+            )
         );
     }
+
     /**
      * get current entity
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}() {
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }

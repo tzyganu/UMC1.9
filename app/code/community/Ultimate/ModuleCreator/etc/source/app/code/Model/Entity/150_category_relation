@@ -1,22 +1,28 @@
+
     /**
      * get category relation model
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Category
      * {{qwertyuiop}}
      */
-    public function getCategoryInstance(){
+    public function getCategoryInstance()
+    {
         if (!$this->_categoryInstance) {
             $this->_categoryInstance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_category');
         }
         return $this->_categoryInstance;
     }
+
     /**
      * get selected categories array
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getSelectedCategories(){
+    public function getSelectedCategories()
+    {
         if (!$this->hasSelectedCategories()) {
             $categories = array();
             foreach ($this->getSelectedCategoriesCollection() as $category) {
@@ -26,13 +32,16 @@
         }
         return $this->getData('selected_categories');
     }
+
     /**
      * Retrieve collection selected categories
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Resource_{{Entity}}_Category_Collection
      * {{qwertyuiop}}
      */
-    public function getSelectedCategoriesCollection(){
+    public function getSelectedCategoriesCollection()
+    {
         $collection = $this->getCategoryInstance()->getCategoryCollection($this);
         return $collection;
     }

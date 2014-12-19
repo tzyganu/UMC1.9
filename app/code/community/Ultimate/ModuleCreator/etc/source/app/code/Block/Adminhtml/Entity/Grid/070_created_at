@@ -1,6 +1,9 @@
-        $this->addColumn('created_at', array(
-            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Created at'),
-            'index'     => 'created_at',
-            'width'     => '120px',
-            'type'      => 'datetime',
-        ));
+        $this->addColumn(
+            'created_at',
+            array(
+                'header' => Mage::helper('{{namespace}}_{{module}}')->__('Created at'),
+                'index'  => 'created_at',
+                'width'  => '120px',
+                'type'   => 'datetime',
+            )
+        );

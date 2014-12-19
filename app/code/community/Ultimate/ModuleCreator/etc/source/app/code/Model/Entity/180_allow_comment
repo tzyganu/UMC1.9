@@ -1,10 +1,13 @@
+
     /**
      * check if comments are allowed
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getAllowComments() {
+    public function getAllowComments()
+    {
         if ($this->getData('allow_comment') == {{Namespace}}_{{Module}}_Model_Adminhtml_Source_Yesnodefault::NO) {
             return false;
         }

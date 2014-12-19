@@ -1,31 +1,49 @@
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_blockGroup = '{{namespace}}_{{module}}';
         $this->_controller = 'adminhtml_{{entity}}';
-        $this->_updateButton('save', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}}'));
-        $this->_updateButton('delete', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}}'));
-        $this->_addButton('saveandcontinue', array(
-            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Save And Continue Edit'),
-            'onclick'    => 'saveAndContinueEdit()',
-            'class'        => 'save',
-        ), -100);
+        $this->_updateButton(
+            'save',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}}')
+        );
+        $this->_updateButton(
+            'delete',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}}')
+        );
+        $this->_addButton(
+            'saveandcontinue',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Save And Continue Edit'),
+                'onclick' => 'saveAndContinueEdit()',
+                'class'   => 'save',
+            ),
+            -100
+        );
         $this->_formScripts[] = "
-            function saveAndContinueEdit(){
+            function saveAndContinueEdit() {
                 editForm.submit($('edit_form').action+'back/edit/');
             }
         ";
     }
+
     /**
      * get the edit form header
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getHeaderText(){
-        if( Mage::registry('current_{{entity}}') && Mage::registry('current_{{entity}}')->getId() ) {
-            return Mage::helper('{{namespace}}_{{module}}')->__("Edit {{EntityLabel}} '%s'", $this->escapeHtml(Mage::registry('current_{{entity}}')->get{{EntityNameMagicCode}}()));
-        }
-        else {
+    public function getHeaderText()
+    {
+        if (Mage::registry('current_{{entity}}') && Mage::registry('current_{{entity}}')->getId()) {
+            return Mage::helper('{{namespace}}_{{module}}')->__(
+                "Edit {{EntityLabel}} '%s'",
+                $this->escapeHtml(Mage::registry('current_{{entity}}')->get{{EntityNameMagicCode}}())
+            );
+        } else {
             return Mage::helper('{{namespace}}_{{module}}')->__('Add {{EntityLabel}}');
         }
     }

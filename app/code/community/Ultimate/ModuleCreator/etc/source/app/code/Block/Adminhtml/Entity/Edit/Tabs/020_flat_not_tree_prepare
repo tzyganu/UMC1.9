@@ -3,15 +3,24 @@
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'));
     }
+
     /**
      * before render html
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tabs
      * {{qwertyuiop}}
      */
-    protected function _beforeToHtml(){
-        $this->addTab('form_{{entity}}', array(
-            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
-            'title'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
-            'content'     => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_form')->toHtml(),
-        ));
+    protected function _beforeToHtml()
+    {
+        $this->addTab(
+            'form_{{entity}}',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
+                'title'   => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_form'
+                )
+                ->toHtml(),
+            )
+        );

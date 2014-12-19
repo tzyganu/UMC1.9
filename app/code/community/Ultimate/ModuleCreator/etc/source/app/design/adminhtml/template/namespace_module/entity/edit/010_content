@@ -6,22 +6,20 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    function {{entity}}Reset(url,useAjax){
-        if(useAjax){
+    function {{entity}}Reset(url,useAjax) {
+        if (useAjax) {
             var params = {active_tab_id:false};
             updateContent(url, params);
-        }
-        else{
+        } else {
             location.href = url;
         }
     }
     function {{entity}}Delete(url, useAjax, {{entity}}Id) {
-        if (confirm('<?php echo Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?') ?>')){
-            if (useAjax){
+        if (confirm('<?php echo Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?') ?>')) {
+            if (useAjax) {
                 tree.nodeForDelete = {{entity}}Id;
                 updateContent(url, {}, true);
-            }
-            else {
+            } else {
                 location.href = url;
             }
         }
@@ -62,20 +60,19 @@
                             alert(response.message);
                             needUpdate = false;
                         }
-                        if(response.ajaxExpired && response.ajaxRedirect) {
+                        if (response.ajaxExpired && response.ajaxRedirect) {
                             setLocation(response.ajaxRedirect);
                             needUpdate = false;
                         }
-                        if (needUpdate){
-                            if (response.content){
+                        if (needUpdate) {
+                            if (response.content) {
                                 $({{entity}}Container).update(response.content);
                             }
-                            if (response.messages){
+                            if (response.messages) {
                                 $(messagesContainer).update(response.messages);
                             }
                         }
-                    }
-                    else {
+                    } else {
                         $({{entity}}Container).update(transport.responseText);
                     }
                 }
@@ -85,7 +82,7 @@
             }
         });
     }
-    function refreshTreeArea(transport){
+    function refreshTreeArea(transport) {
         if (tree && window.editing{{Entity}}Breadcrumbs) {
             if (tree.nodeForDelete) {
                 var node = tree.getNodeById(tree.nodeForDelete);
@@ -94,8 +91,7 @@
                     node.parentNode.removeChild(node);
                     tree.currentNodeId = false;
                 }
-            }
-            else if (tree.addNodeTo) {
+            } else if (tree.addNodeTo) {
                 var parent = tree.getNodeById(tree.addNodeTo);
                 tree.addNodeTo = false;
                 if (parent) {
@@ -105,12 +101,11 @@
                     parent.appendChild(node);
                     if (parent.expanded) {
                         tree.selectCurrentNode();
-                    }
-                    else {
+                    } else {
                         var timer;
                         parent.expand();
-                        var f = function(){
-                            if(parent.expanded){
+                        var f = function() {
+                            if (parent.expanded) {
                                 clearInterval(timer);
                                 tree.selectCurrentNode();
                             }
@@ -127,7 +122,7 @@
             }
         }
     }
-    function displayLoadingMask(){
+    function displayLoadingMask() {
         var loaderArea = $$('#html-body .wrapper')[0];
         Position.clone($(loaderArea), $('loading-mask'), {offsetLeft:-2});
         toggleSelectsUnderBlock($('loading-mask'), false);

@@ -6,54 +6,64 @@
  * @package    {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Element
-    extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
+{
     /**
      * Initialize block template
+     *
      * @access protected
      * {{qwertyuiop}}
      */
-    protected function _construct() {
+    protected function _construct()
+    {
         $this->setTemplate('{{namespace}}_{{module}}/form/renderer/fieldset/element.phtml');
     }
 
     /**
      * Retrieve data object related with form
+     *
      * @access public
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function getDataObject() {
+    public function getDataObject()
+    {
         return $this->getElement()->getForm()->getDataObject();
     }
 
     /**
      * Retrieve associated with element attribute object
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute
      * {{qwertyuiop}}
      */
-    public function getAttribute() {
+    public function getAttribute()
+    {
         return $this->getElement()->getEntityAttribute();
     }
 
     /**
      * Retrieve associated attribute code
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getAttributeCode(){
+    public function getAttributeCode()
+    {
         return $this->getAttribute()->getAttributeCode();
     }
 
     /**
      * Check "Use default" checkbox display availability
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function canDisplayUseDefault(){
+    public function canDisplayUseDefault()
+    {
         if ($attribute = $this->getAttribute()) {
             if (!$this->isScopeGlobal($attribute)
                 && $this->getDataObject()
@@ -67,22 +77,26 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
 
     /**
      * Check default value usage fact
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function usedDefault(){
+    public function usedDefault()
+    {
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($this->getAttribute()->getAttributeCode());
         return !$defaultValue;
     }
 
     /**
      * Disable field in default value using case
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Element
      * {{qwertyuiop}}
      */
-    public function checkFieldDisable(){
+    public function checkFieldDisable()
+    {
         if ($this->canDisplayUseDefault() && $this->usedDefault()) {
             $this->getElement()->setDisabled(true);
         }
@@ -92,11 +106,13 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     /**
      * Retrieve label of attribute scope
      * GLOBAL | WEBSITE | STORE
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getScopeLabel(){
+    public function getScopeLabel()
+    {
         $html = '';
         $attribute = $this->getElement()->getEntityAttribute();
         if (!$attribute || Mage::app()->isSingleStoreMode()) {
@@ -104,11 +120,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
         }
         if ($this->isScopeGlobal($attribute)) {
             $html.= Mage::helper('{{namespace}}_{{module}}')->__('[GLOBAL]');
-        }
-        elseif ($this->isScopeWebsite($attribute)) {
+        } elseif ($this->isScopeWebsite($attribute)) {
             $html.= Mage::helper('{{namespace}}_{{module}}')->__('[WEBSITE]');
-        }
-        elseif ($this->isScopeStore($attribute)) {
+        } elseif ($this->isScopeStore($attribute)) {
             $html.= Mage::helper('{{namespace}}_{{module}}')->__('[STORE VIEW]');
         }
         return $html;
@@ -116,51 +130,64 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
 
     /**
      * Retrieve element label html
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getElementLabelHtml(){
+    public function getElementLabelHtml()
+    {
         return $this->getElement()->getLabelHtml();
     }
 
     /**
      * Retrieve element html
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getElementHtml(){
+    public function getElementHtml()
+    {
         return $this->getElement()->getElementHtml();
     }
+
     /**
      * check if an attribute is global
+     *
      * @access public
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeGlobal($attribute){
+    public function isScopeGlobal($attribute)
+    {
         return $attribute->getIsGlobal() == 1;
     }
+
     /**
      * check if an attribute has website scope
+     *
      * @access public
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeWebsite($attribute){
+    public function isScopeWebsite($attribute)
+    {
         return $attribute->getIsGlobal() == 2;
     }
+
     /**
      * check if an attribute has store view scope
+     *
      * @access public
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeStore($attribute){
+    public function isScopeStore($attribute)
+    {
         return !$this->isScopeGlobal($attribute) && !$this->isScopeWebsite($attribute);
     }
 }

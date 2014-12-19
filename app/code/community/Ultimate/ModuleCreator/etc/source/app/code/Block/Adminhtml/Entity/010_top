@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}
-    extends Mage_Adminhtml_Block_Widget_Grid_Container {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}} extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
     /**
      * constructor
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_controller         = 'adminhtml_{{entity}}';
         $this->_blockGroup         = '{{namespace}}_{{module}}';
         parent::__construct();

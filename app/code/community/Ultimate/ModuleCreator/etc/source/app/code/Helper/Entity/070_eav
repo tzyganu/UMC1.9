@@ -1,37 +1,43 @@
+
     /**
-	 * get {{entity}} attribute source model
-	 * @access public
-	 * @param string $inputType
-	 * @return mixed (string|null)
-	 * {{qwertyuiop}}
-	 */
- 	public function getAttributeSourceModelByInputType($inputType){
-        $inputTypes = $this->getAttributeInputTypes();
-        if (!empty($inputTypes[$inputType]['source_model'])) {
-            return $inputTypes[$inputType]['source_model'];
-        }
-        return null;
-    }
+     * get {{entity}} attribute source model
+     *
+     * @access public
+     * @param string $inputType
+     * @return mixed (string|null)
+     * {{qwertyuiop}}
+     */
+     public function getAttributeSourceModelByInputType($inputType)
+     {
+         $inputTypes = $this->getAttributeInputTypes();
+         if (!empty($inputTypes[$inputType]['source_model'])) {
+             return $inputTypes[$inputType]['source_model'];
+         }
+         return null;
+     }
+
     /**
-	 * get attribute input types
-	 * @access public
-	 * @param string $inputType
-	 * @return array()
-	 * {{qwertyuiop}}
-	 */
-	public function getAttributeInputTypes($inputType = null){
+     * get attribute input types
+     *
+     * @access public
+     * @param string $inputType
+     * @return array()
+     * {{qwertyuiop}}
+     */
+    public function getAttributeInputTypes($inputType = null)
+    {
         $inputTypes = array(
-            'multiselect'   => array(
-                'backend_model'     => 'eav/entity_attribute_backend_array'
+            'multiselect' => array(
+                'backend_model' => 'eav/entity_attribute_backend_array'
             ),
-            'boolean'       => array(
-                'source_model'      => 'eav/entity_attribute_source_boolean'
+            'boolean'     => array(
+                'source_model'  => 'eav/entity_attribute_source_boolean'
             ),
-            'file'			=> array(
-            	'backend_model'		=> '{{namespace}}_{{module}}/{{entity}}_attribute_backend_file'
+            'file'          => array(
+                'backend_model' => '{{namespace}}_{{module}}/{{entity}}_attribute_backend_file'
             ),
-            'image'			=> array(
-            	'backend_model'		=> '{{namespace}}_{{module}}/{{entity}}_attribute_backend_image'
+            'image'          => array(
+                'backend_model' => '{{namespace}}_{{module}}/{{entity}}_attribute_backend_image'
             ),
         );
 
@@ -42,22 +48,27 @@
         }
         return array();
     }
+
     /**
-	 * get {{entity}} attribute backend model
-	 * @access public
-	 * @param string $inputType
-	 * @return mixed (string|null)
-	 * {{qwertyuiop}}
-	 */
- 	public function getAttributeBackendModelByInputType($inputType){
+     * get {{entity}} attribute backend model
+     *
+     * @access public
+     * @param string $inputType
+     * @return mixed (string|null)
+     * {{qwertyuiop}}
+     */
+    public function getAttributeBackendModelByInputType($inputType)
+    {
         $inputTypes = $this->getAttributeInputTypes();
         if (!empty($inputTypes[$inputType]['backend_model'])) {
             return $inputTypes[$inputType]['backend_model'];
         }
         return null;
     }
+
     /**
      * filter attribute content
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param string $attributeHtml
@@ -65,11 +76,15 @@
      * @return string
      * {{qwertyuiop}}
      */
-	public function {{entity}}Attribute(${{entity}}, $attributeHtml, $attributeName){
-        $attribute = Mage::getSingleton('eav/config')->getAttribute({{Namespace}}_{{Module}}_Model_{{Entity}}::ENTITY, $attributeName);
+    public function {{entity}}Attribute(${{entity}}, $attributeHtml, $attributeName)
+    {
+        $attribute = Mage::getSingleton('eav/config')->getAttribute(
+            {{Namespace}}_{{Module}}_Model_{{Entity}}::ENTITY,
+            $attributeName
+        );
         if ($attribute && $attribute->getId() && !$attribute->getIsWysiwygEnabled()) {
-			if ($attribute->getFrontendInput() == 'textarea') {
-            	$attributeHtml = nl2br($attributeHtml);
+            if ($attribute->getFrontendInput() == 'textarea') {
+                $attributeHtml = nl2br($attributeHtml);
             }
         }
         if ($attribute->getIsWysiwygEnabled()) {
@@ -77,13 +92,16 @@
         }
         return $attributeHtml;
     }
+
     /**
      * get the template processor
+     *
      * @access protected
      * @return Mage_Catalog_Model_Template_Filter
      * {{qwertyuiop}}
      */
-	protected function _getTemplateProcessor(){
+    protected function _getTemplateProcessor()
+    {
         if (null === $this->_templateProcessor) {
             $this->_templateProcessor = Mage::helper('catalog')->getPageTemplateProcessor();
         }

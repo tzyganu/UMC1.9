@@ -11,7 +11,7 @@
 <div class="page-title">
     <h1><?php echo $this->__('My {{EntitiesLabel}} Comments') ?></h1>
 </div>
-<?php if( $this->getCollection() && $this->count()): ?>
+<?php if ( $this->getCollection() && $this->count()): ?>
     <?php echo $this->getToolbarHtml() ?>
     <table class="data-table" id="my-{{entity}}-comments-table">
         <col width="1" />
@@ -22,7 +22,7 @@
             <?php foreach ($this->getCollection() as $_comment): ?>
             <tr>
                 <td><span class="nobr"><?php echo $this->dateFormat($_comment->getCtCreatedAt()); ?></span></td>
-                <td><h2 class="product-name"><a href="<?php echo $this->get{{Entity}}Link($_comment) ?>"><?php echo $this->htmlEscape($_comment->get{{EntityNameMagicCode}}()) ?></a></h2></td>
+                <td><h2 class="product-name"><a href="<?php echo $this->get{{Entity}}Link($_comment) ?>"><?php echo $this->escapeHtml($_comment->get{{EntityNameMagicCode}}()) ?></a></h2></td>
                 <td><?php echo Mage::helper('core')->escapeHtml($_comment->getCtTitle()) ?></td>
                 <td><a href="<?php echo $this->getCommentLink($_comment) ?>" class="nobr"><?php echo $this->__('View Details') ?></a></td>
             </tr>

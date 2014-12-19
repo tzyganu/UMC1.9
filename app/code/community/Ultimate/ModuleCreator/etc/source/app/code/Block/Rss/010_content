@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Rss
-    extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_Rss extends Mage_Core_Block_Template
+{
     /**
      * RSS feeds for this block
      */
     protected $_feeds = array();
+
     /**
      * add a new feed
+     *
      * @access public
      * @param string $label
      * @param string $url
@@ -22,7 +24,8 @@ class {{Namespace}}_{{Module}}_Block_Rss
      * @return {{Namespace}}_{{Module}}_Block_Rss
      * {{qwertyuiop}}
      */
-    public function addFeed($label, $url, $prepare = false) {
+    public function addFeed($label, $url, $prepare = false)
+    {
         $link = ($prepare ? $this->getUrl($url) : $url);
         $feed = new Varien_Object();
         $feed->setLabel($label);
@@ -30,13 +33,16 @@ class {{Namespace}}_{{Module}}_Block_Rss
         $this->_feeds[$link] = $feed;
         return $this;
     }
+
     /**
      * get the current feeds
+     *
      * @access public
      * @return array()
      * {{qwertyuiop}}
      */
-    public function getFeeds() {
+    public function getFeeds()
+    {
         return $this->_feeds;
     }
 }

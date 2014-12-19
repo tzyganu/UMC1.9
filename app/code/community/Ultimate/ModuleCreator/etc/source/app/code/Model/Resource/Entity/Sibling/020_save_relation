@@ -1,12 +1,15 @@
+
     /**
-     * Save {{entity}} - {{sibling}} relations
+     * Save {{entityLabel}} - {{siblingLabel}} relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, $data){
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -21,23 +24,28 @@
 
         $related   = $adapter->fetchPairs($select, $bind);
         $deleteIds = array();
-        foreach($related as $relId => ${{sibling}}Id) {
+        foreach ($related as $relId => ${{sibling}}Id) {
             if (!isset($data[${{sibling}}Id])) {
                 $deleteIds[] = (int)$relId;
             }
         }
         if (!empty($deleteIds)) {
-            $adapter->delete($this->getMainTable(), array(
-                'rel_id IN (?)' => $deleteIds,
-            ));
+            $adapter->delete(
+                $this->getMainTable(),
+                array('rel_id IN (?)' => $deleteIds)
+            );
         }
 
         foreach ($data as ${{sibling}}Id => $info) {
-            $adapter->insertOnDuplicate($this->getMainTable(), array(
-                '{{entity}}_id'      => ${{entity}}->getId(),
-                '{{sibling}}_id'     => ${{sibling}}Id,
-                'position'      => @$info['position']
-            ), array('position'));
+            $adapter->insertOnDuplicate(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id'      => ${{entity}}->getId(),
+                    '{{sibling}}_id'     => ${{sibling}}Id,
+                    'position'      => @$info['position']
+                ),
+                array('position')
+            );
         }
         return $this;
     }

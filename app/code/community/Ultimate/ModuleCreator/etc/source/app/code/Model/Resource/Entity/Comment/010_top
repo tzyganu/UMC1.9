@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment
-    extends Mage_Core_Model_Resource_Db_Abstract {
+class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment extends Mage_Core_Model_Resource_Db_Abstract
+{
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function _construct(){
+    public function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/{{entity}}_comment', 'comment_id');
     }
 

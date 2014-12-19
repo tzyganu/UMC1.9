@@ -7,18 +7,24 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute
-    extends Mage_Adminhtml_Block_Widget_Grid_Container {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->_controller = 'adminhtml_{{entity}}_attribute';
         $this->_blockGroup = '{{namespace}}_{{module}}';
         $this->_headerText = Mage::helper('{{namespace}}_{{module}}')->__('Manage {{EntityLabel}} Attributes');
         parent::__construct();
-        $this->_updateButton('add', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Add New {{EntityLabel}} Attribute'));
+        $this->_updateButton(
+            'add',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Add New {{EntityLabel}} Attribute')
+        );
     }
 }

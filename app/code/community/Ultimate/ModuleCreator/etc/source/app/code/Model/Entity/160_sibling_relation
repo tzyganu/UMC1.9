@@ -1,22 +1,28 @@
+
     /**
-     * get {{sibling}} relation model
+     * get {{siblingLabel}} relation model
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
-    public function get{{Sibling}}Instance(){
+    public function get{{Sibling}}Instance()
+    {
         if (!$this->_{{sibling}}Instance) {
             $this->_{{sibling}}Instance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_{{sibling}}');
         }
         return $this->_{{sibling}}Instance;
     }
+
     /**
-     * get selected {{siblings}} array
+     * get selected {{siblingsLabel}} array
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getSelected{{Siblings}}(){
+    public function getSelected{{Siblings}}()
+    {
         if (!$this->hasSelected{{Siblings}}()) {
             ${{siblings}} = array();
             foreach ($this->getSelected{{Siblings}}Collection() as ${{sibling}}) {
@@ -26,13 +32,16 @@
         }
         return $this->getData('selected_{{siblings}}');
     }
+
     /**
-     * Retrieve collection selected {{siblings}}
+     * Retrieve collection selected {{siblingsLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}_Collection
      * {{qwertyuiop}}
      */
-    public function getSelected{{Siblings}}Collection(){
+    public function getSelected{{Siblings}}Collection()
+    {
         $collection = $this->get{{Sibling}}Instance()->get{{Siblings}}Collection($this);
         return $collection;
     }

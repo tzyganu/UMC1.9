@@ -1,6 +1,8 @@
     }
+
     /**
      * create {{entityLabel}}
+     *
      * @access protected
      * @param array $data
      * @return string|void
@@ -12,6 +14,7 @@
 
     /**
      * update {{entityLabel}}
+     *
      * @access protected
      * @param array $data
      * {{qwertyuiop}}
@@ -22,14 +25,17 @@
 
     /**
      * delete {{entityLabel}}
+     *
      * @access protected
      * {{qwertyuiop}}
      */
     protected function _delete() {
         $this->_critical(self::RESOURCE_METHOD_NOT_ALLOWED);
     }
+
     /**
      * delete current {{entityLabel}}
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * {{qwertyuiop}}
@@ -37,8 +43,10 @@
     protected function _set{{Entity}}({{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}) {
         $this->_{{entity}} = ${{entity}};
     }
+
     /**
      * get current {{entityLabel}}
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}

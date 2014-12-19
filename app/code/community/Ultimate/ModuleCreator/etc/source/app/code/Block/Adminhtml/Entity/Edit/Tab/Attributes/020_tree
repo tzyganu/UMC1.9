@@ -2,26 +2,40 @@
             if (!$this->get{{Entity}}()->getId()) {
                 // path
                 if ($this->getRequest()->getParam('parent')) {
-                    $fieldset->addField('path', 'hidden', array(
-                        'name'  => 'path',
-                        'value' => $this->getRequest()->getParam('parent')
-                    ));
+                    $fieldset->addField(
+                        'path',
+                        'hidden',
+                        array(
+                            'name'  => 'path',
+                            'value' => $this->getRequest()->getParam('parent')
+                        )
+                    );
+                } else {
+                    $fieldset->addField(
+                        'path',
+                        'hidden',
+                        array(
+                            'name'  => 'path',
+                            'value' => 1
+                        )
+                    );
                 }
-                else {
-                    $fieldset->addField('path', 'hidden', array(
+            } else {
+                $fieldset->addField(
+                    'id',
+                    'hidden',
+                    array(
+                        'name'  => 'id',
+                        'value' => $this->get{{Entity}}()->getId()
+                    )
+                );
+                $fieldset->addField(
+                    'path',
+                    'hidden',
+                    array(
                         'name'  => 'path',
-                        'value' => 1
-                    ));
-                }
-            }
-            else {
-                $fieldset->addField('id', 'hidden', array(
-                    'name'  => 'id',
-                    'value' => $this->get{{Entity}}()->getId()
-                ));
-                $fieldset->addField('path', 'hidden', array(
-                    'name'  => 'path',
-                    'value' => $this->get{{Entity}}()->getPath()
-                ));
+                        'value' => $this->get{{Entity}}()->getPath()
+                    )
+                );
             }
         }

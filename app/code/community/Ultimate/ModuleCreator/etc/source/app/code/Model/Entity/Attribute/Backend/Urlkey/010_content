@@ -7,16 +7,18 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+{
     /**
      * Before save
+     *
      * @access public
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
      * {{qwertyuiop}}
      */
-    public function beforeSave($object) {
+    public function beforeSave($object)
+    {
         $attributeName = $this->getAttribute()->getName();
         $urlKey = $object->getData($attributeName);
         if ($urlKey == '') {
@@ -25,17 +27,16 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
         $urlKey = $this->formatUrlKey($urlKey);
         $validKey = false;
         while (!$validKey) {
-            $entityId = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}')->checkUrlKey($urlKey, $object->getStoreId(), false);
+            $entityId = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}')
+                ->checkUrlKey($urlKey, $object->getStoreId(), false);
             if ($entityId == $object->getId() || empty($entityId)) {
                 $validKey = true;
-            }
-            else {
+            } else {
                 $parts = explode('-', $urlKey);
                 $last = $parts[count($parts) - 1];
-                if (!is_numeric($last)){
+                if (!is_numeric($last)) {
                     $urlKey = $urlKey.'-1';
-                }
-                else {
+                } else {
                     $suffix = '-'.($last + 1);
                     unset($parts[count($parts) - 1]);
                     $urlKey = implode('-', $parts).$suffix;
@@ -45,14 +46,17 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Urlkey
         $object->setData($attributeName, $urlKey);
         return $this;
     }
+
     /**
      * format url key
+     *
      * @access public
      * @param string $str
      * @return string
      * {{qwertyuiop}}
      */
-    public function formatUrlKey($str) {
+    public function formatUrlKey($str)
+    {
         $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
         $urlKey = strtolower($urlKey);
         $urlKey = trim($urlKey, '-');

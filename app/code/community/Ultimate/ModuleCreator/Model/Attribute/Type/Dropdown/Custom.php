@@ -22,26 +22,31 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
-    extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract {
+class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract
+{
     /**
      * check if source needs to be generated
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getGenerateSource(){
+    public function getGenerateSource()
+    {
         return $this->getTypeAttribute()->getAttribute()->getEntity()->getIsFlat();
     }
+
     /**
      * get additional setup values
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdditionalSetup(){
+    public function getAdditionalSetup()
+    {
         $content = '';
-        if ($this->getTypeAttribute()->getAttribute()->getEntity()->getIsEav()){
+        if ($this->getTypeAttribute()->getAttribute()->getEntity()->getIsEav()) {
             $padding  = $this->getPadding(6);
             $tab      = $this->getPadding();
             $eol      = $this->getEol();
@@ -59,13 +64,16 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
         }
         return $content;
     }
+
     /**
      * get attribute options for source model
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAttributeOptions(){
+    public function getAttributeOptions()
+    {
         $content = '';
         $padding  = $this->getPadding(2);
         $tab      = $this->getPadding();
@@ -76,7 +84,8 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
             $content .= $padding.'$options =  array('.$eol;
             foreach ($this->getTypeAttribute()->getAttribute()->getOptions(true) as $index=>$option) {
                 $content .= $padding.$tab.'array('.$eol;
-                $content .= $padding.$tab.$tab."'label' => Mage::helper('".$namespace.'_'.$module."')->__('".Mage::helper('core')->jsQuoteEscape($option)."'),".$eol;
+                $content .= $padding.$tab.$tab."'label' => Mage::helper('";
+                $content .= $namespace.'_'.$module."')->__('".Mage::helper('core')->jsQuoteEscape($option)."'),".$eol;
                 $content .= $padding.$tab.$tab."'value' => ".($index+1).$eol;
                 $content .= $padding.$tab.'),'.$eol;
             }
@@ -85,19 +94,21 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
             $content .= $padding.$tab.'array_unshift($options, array(\'label\'=>\'\', \'value\'=>\'\'));'.$eol;
             $content .= $padding.'}'.$eol;
             $content .= $padding.'return $options;'.$eol;
-        }
-        else {
+        } else {
             $content  = $padding.'return array();';
         }
         return $content;
     }
+
     /**
      * get attribute default value
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getDefaultValueProcessed() {
+    public function getDefaultValueProcessed()
+    {
         if ($this->getTypeAttribute()->getAttribute()->getForcedDefaultValue()) {
             return $this->getTypeAttribute()->getAttribute()->getForcedDefaultValue();
         }
@@ -110,8 +121,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Custom
                 if (in_array($option, $defaultValue)) {
                     if ($this->getTypeAttribute() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect) {
                         $multiselectValues[] = $index + 1;
-                    }
-                    else {
+                    } else {
                         return ($index + 1);
                     }
                 }

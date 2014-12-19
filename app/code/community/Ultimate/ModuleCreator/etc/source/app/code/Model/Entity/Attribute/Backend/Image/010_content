@@ -7,19 +7,20 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Image
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+{
 
     /**
-     * Save uploaded file and set its name to {{entity}} object
+     * Save uploaded file and set its name to {{entityLabel}} object
+     *
      * @access public
      * @param Varien_Object $object
      * @return null
      * {{qwertyuiop}}
      */
-    public function afterSave($object){
+    public function afterSave($object)
+    {
         $value = $object->getData($this->getAttribute()->getName());
-
         if (is_array($value) && !empty($value['delete'])) {
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()
@@ -37,9 +38,9 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Image
             $object->setData($this->getAttribute()->getName(), $result['file']);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
         } catch (Exception $e) {
-        	if ($e->getCode() != 666){
-        		//throw $e;
-        	}
+            if ($e->getCode() != 666) {
+                //throw $e;
+            }
             return;
         }
     }

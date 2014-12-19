@@ -7,17 +7,22 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form
-    extends Mage_Adminhtml_Block_Widget_Form {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+{
     /**
      * prepare the form
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Form
      * {{qwertyuiop}}
      */
-    protected function _prepareForm(){
+    protected function _prepareForm()
+    {
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('{{entity}}_');
         $form->setFieldNameSuffix('{{entity}}');
         $this->setForm($form);
-        $fieldset = $form->addFieldset('{{entity}}_form', array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}')));
+        $fieldset = $form->addFieldset(
+            '{{entity}}_form',
+            array('legend' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'))
+        );

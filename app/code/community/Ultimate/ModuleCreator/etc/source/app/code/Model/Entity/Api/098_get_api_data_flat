@@ -1,10 +1,13 @@
+
     /**
      * get data for api
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return array()
      * {{qwertyuiop}}
      */
-    protected function _getApiData({{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}) {
+    protected function _getApiData({{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}})
+    {
         return ${{entity}}->getData();
     }

@@ -1,7 +1,10 @@
+
     /**
-     * save {{entity}} relation
+     * save {{entityLabel}} relation
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _afterSave() {
+    protected function _afterSave()
+    {

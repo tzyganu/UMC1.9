@@ -1,5 +1,9 @@
-        $fieldset->addField('allow_comment', 'select', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Allow Comments'),
-            'name'  => 'allow_comment',
-            'values'=> Mage::getModel('{{namespace}}_{{module}}/adminhtml_source_yesnodefault')->toOptionArray()
-        ));
+        $fieldset->addField(
+            'allow_comment',
+            'select',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Allow Comments'),
+                'name'  => 'allow_comment',
+                'values'=> Mage::getModel('{{namespace}}_{{module}}/adminhtml_source_yesnodefault')->toOptionArray()
+            )
+        );

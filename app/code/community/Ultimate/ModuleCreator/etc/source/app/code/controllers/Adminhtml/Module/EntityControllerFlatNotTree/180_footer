@@ -1,43 +1,58 @@
+
     /**
      * export as csv - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportCsvAction(){
+    public function exportCsvAction()
+    {
         $fileName   = '{{entity}}.csv';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')->getCsv();
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
+            ->getCsv();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * export as MsExcel - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportExcelAction(){
+    public function exportExcelAction()
+    {
         $fileName   = '{{entity}}.xls';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')->getExcelFile();
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
+            ->getExcelFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * export as xml - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportXmlAction(){
+    public function exportXmlAction()
+    {
         $fileName   = '{{entity}}.xml';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')->getXml();
+        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_grid')
+            ->getXml();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * Check if admin has permissions to visit related pages
+     *
      * @access protected
      * @return boolean
      * {{qwertyuiop}}
      */
-    protected function _isAllowed() {
+    protected function _isAllowed()
+    {
         return Mage::getSingleton('admin/session')->isAllowed('{{selectedMenuPath}}');
     }
 }

@@ -1,12 +1,15 @@
+
     /**
      * Process {{entityLabel}} data before saving
      * prepare path and increment children count for parent {{entitiesLabel}}
+     *
      * @access protected
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _beforeSave({{beforeSaveParam}} $object){
+    protected function _beforeSave({{beforeSaveParam}} $object)
+    {
         parent::_beforeSave($object);
         if (!$object->getChildrenCount()) {
             $object->setChildrenCount(0);
@@ -23,7 +26,7 @@
                 $object->setParentId($path[$level - 1]);
             }
             $object->setPath($object->getPath() . '/');
-            $toUpdateChild = explode('/',$object->getPath());
+            $toUpdateChild = explode('/', $object->getPath());
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 array('children_count'  => new Zend_Db_Expr('children_count+1')),

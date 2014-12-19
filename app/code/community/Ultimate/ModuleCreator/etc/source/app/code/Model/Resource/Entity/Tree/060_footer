@@ -1,11 +1,14 @@
+
     /**
      * Get real existing {{entityLabel}} ids by specified ids
+     *
      * @access public
      * @param array $ids
      * @return array
      * {{qwertyuiop}}
      */
-    public function getExisting{{Entity}}IdsBySpecifiedIds($ids){
+    public function getExisting{{Entity}}IdsBySpecifiedIds($ids)
+    {
         if (empty($ids)) {
             return array();
         }
@@ -17,8 +20,10 @@
             ->where('entity_id IN (?)', $ids);
         return $this->_conn->fetchCol($select);
     }
+
     /**
      * add collection data
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
      * @param boolean $sorted
@@ -28,7 +33,14 @@
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      * {{qwertyuiop}}
      */
-    public function addCollectionData($collection = null, $sorted = false, $exclude = array(), $toLoad = true, $onlyActive = false){
+    public function addCollectionData(
+        $collection = null,
+        $sorted = false,
+        $exclude = array(),
+        $toLoad = true,
+        $onlyActive = false
+    )
+    {
         if (is_null($collection)) {
             $collection = $this->getCollection($sorted);
         } else {
@@ -66,50 +78,61 @@
         }
         return $this;
     }
+
     /**
-      * Add inactive {{entitiesLabel}} ids
+     * Add inactive {{entitiesLabel}} ids
+     *
      * @access public
      * @param unknown_type $ids
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      * {{qwertyuiop}}
      */
-    public function addInactive{{Entity}}Ids($ids){
+    public function addInactive{{Entity}}Ids($ids)
+    {
         if (!is_array($this->_inactive{{Entity}}Ids)) {
             $this->_initInactive{{Entity}}Ids();
         }
         $this->_inactive{{Entity}}Ids = array_merge($ids, $this->_inactive{{Entity}}Ids);
         return $this;
     }
+
     /**
      * Retrieve inactive {{entitiesLabel}} ids
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      * {{qwertyuiop}}
      */
-    protected function _initInactive{{Entity}}Ids(){
+    protected function _initInactive{{Entity}}Ids()
+    {
         $this->_inactive{{Entity}}Ids = array();
         return $this;
     }
     /**
      * Retrieve inactive {{entitiesLabel}} ids
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getInactive{{Entity}}Ids(){
+    public function getInactive{{Entity}}Ids()
+    {
         if (!is_array($this->_inactive{{Entity}}Ids)) {
             $this->_initInactive{{Entity}}Ids();
         }
         return $this->_inactive{{Entity}}Ids;
     }
+
     /**
      * Return disable {{entityLabel}} ids
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
      * @return array
      * {{qwertyuiop}}
      */
-    protected function _getDisabledIds($collection){
+    protected function _getDisabledIds($collection)
+    {
         $this->_inactiveItems = $this->getInactive{{Entity}}Ids();
         $this->_inactiveItems = array_merge(
             $this->_getInactiveItemIds($collection),
@@ -121,7 +144,7 @@
         foreach ($allIds as $id) {
             $parents = $this->getNodeById($id)->getPath();
             foreach ($parents as $parent) {
-                if (!$this->_getItemIsActive($parent->getId())){
+                if (!$this->_getItemIsActive($parent->getId())) {
                     $disabledIds[] = $id;
                     continue;
                 }
@@ -129,14 +152,17 @@
         }
         return $disabledIds;
     }
+
     /**
      * Retrieve inactive {{entityLabel}} item ids
+     *
      * @access protecte
      * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
      * @return array
      * {{qwertyuiop}}
      */
-    protected function _getInactiveItemIds($collection){
+    protected function _getInactiveItemIds($collection)
+    {
         $filter = $collection->getAllIdsSql();
         $table = Mage::getSingleton('core/resource')->getTable('{{namespace}}_{{module}}/{{entity}}');
         $bind = array(
@@ -148,14 +174,17 @@
             ->where('status = :cond');
         return $this->_conn->fetchCol($select, $bind);
     }
+
     /**
      * Check is {{entityLabel}} items active
+     *
      * @access protecte
      * @param int $id
      * @return boolean
      * {{qwertyuiop}}
      */
-    protected function _getItemIsActive($id){
+    protected function _getItemIsActive($id)
+    {
         if (!in_array($id, $this->_inactiveItems)) {
             return true;
         }

@@ -22,19 +22,23 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu
-    extends Mage_Adminhtml_Block_Page_Menu {
+class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu extends Mage_Adminhtml_Block_Page_Menu
+{
     /**
      * don't cache
+     *
      * @access public
      * @return int|null
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCacheLifetime(){
+    public function getCacheLifetime()
+    {
         return null;
     }
+
     /**
      * draw the menu
+     *
      * @access public
      * @param $menu
      * @param string $parentId
@@ -42,7 +46,8 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function renderUmcMenu($menu, $parentId = '', $level = 0) {
+    public function renderUmcMenu($menu, $parentId = '', $level = 0)
+    {
         $html = '<ul ' . (!$level ? 'id="umc-nav"' : '') . '>';
         $html .= $this->_renderSelector($parentId, 0);
         $previousSortOrder = 0;
@@ -52,14 +57,12 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu
             $html .= '<a href="#" onclick="return false">' . $this->escapeHtml($item['label']) . '</a>';
             if ($parentId) {
                 $nextParentId = $parentId.'/'.$key;
-            }
-            else {
+            } else {
                 $nextParentId = $key;
             }
             if (!empty($item['children'])) {
                 $html .= $this->renderUmcMenu($item['children'], $nextParentId, $level + 1);
-            }
-            else {
+            } else {
                 $html .= '<ul>'.$this->_renderSelector($nextParentId, 10).'</ul>';
             }
             $html .= '</li>';
@@ -73,23 +76,33 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Menu
 
     /**
      * render the selection link
+     *
      * @access protected
      * @param $parentId
      * @param $sortOrder
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _renderSelector($parentId, $sortOrder){
-        return '<li class="umc-menu-selector"><a class="insert-menu" menu-data=\'{"parent":"'.$parentId.'", "sort_order": "'.$sortOrder.'"}\' title="'.Mage::helper('modulecreator')->__('Insert here').'">'.Mage::helper('modulecreator')->__('Insert here').'</a></li>';
+    protected function _renderSelector($parentId, $sortOrder)
+    {
+        $html  = '<li class="umc-menu-selector">';
+        $html .= '<a class="insert-menu" menu-data=\'{"parent":"'.$parentId.'", "sort_order": "'.$sortOrder.'"}\'';
+        $html .= 'title="'.Mage::helper('modulecreator')->__('Insert here').'">';
+        $html .= Mage::helper('modulecreator')->__('Insert here');
+        $html .= '</a>';
+        $html .= '</li>';
+        return $html;
     }
 
     /**
      * render menu
+     *
      * @access protected
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _toHtml() {
+    protected function _toHtml()
+    {
         return $this->renderUmcMenu($this->getMenuArray());
     }
 }

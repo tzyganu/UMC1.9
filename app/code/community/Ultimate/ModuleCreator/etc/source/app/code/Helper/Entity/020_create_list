@@ -1,10 +1,13 @@
+
     /**
      * get the url to the {{entitiesLabel}} list page
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function get{{Entities}}Url(){
+    public function get{{Entities}}Url()
+    {
         if ($listKey = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_rewrite_list')) {
             return Mage::getUrl('', array('_direct'=>$listKey));
         }

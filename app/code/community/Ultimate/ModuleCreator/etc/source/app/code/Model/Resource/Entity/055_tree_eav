@@ -1,25 +1,31 @@
+
     /**
      * Retrieve {{entityLabel}} tree object
+     *
      * @access protected
      * @return Varien_Data_Tree_Db
      * {{qwertyuiop}}
      */
-    protected function _getTree(){
+    protected function _getTree()
+    {
         if (!$this->_tree) {
             $this->_tree = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_tree')->load();
         }
         return $this->_tree;
     }
+
     /**
      * Process {{entityLabel}} data before delete
      * update children count for parent {{entityLabel}}
      * delete child {{entitiesLabel}}
+     *
      * @access protected
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _beforeDelete({{beforeSaveParam}} $object){
+    protected function _beforeDelete({{beforeSaveParam}} $object)
+    {
         parent::_beforeDelete($object);
         /**
          * Update children count for all parent {{entitiesLabel}}
@@ -29,19 +35,22 @@
             $childDecrease = $object->getChildrenCount() + 1; // +1 is itself
             $data = array('children_count' => new Zend_Db_Expr('children_count - ' . $childDecrease));
             $where = array('entity_id IN(?)' => $parentIds);
-            $this->_getWriteAdapter()->update( $this->getMainTable(), $data, $where);
+            $this->_getWriteAdapter()->update($this->getMainTable(), $data, $where);
         }
         $this->deleteChildren($object);
         return $this;
     }
+
     /**
      * Delete children {{entitiesLabel}} of specific {{entityLabel}}
+     *
      * @access public
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function deleteChildren(Varien_Object $object){
+    public function deleteChildren(Varien_Object $object)
+    {
         $adapter = $this->_getWriteAdapter();
         $pathField = $adapter->quoteIdentifier('path');
         $select = $adapter->select()
@@ -61,14 +70,17 @@
         $object->setDeletedChildrenIds($childrenIds);
         return $this;
     }
+
     /**
      * Process {{entityLabel}} data after save {{entityLabel}} object
+     *
      * @access protected
      * @param Varien_Object $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _afterSave({{beforeSaveParam}} $object){
+    protected function _afterSave({{beforeSaveParam}} $object)
+    {
         if (substr($object->getPath(), -1) == '/') {
             $object->setPath($object->getPath() . $object->getId());
             $this->_savePath($object);
@@ -78,12 +90,14 @@
 
     /**
      * Update path field
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _savePath($object){
+    protected function _savePath($object)
+    {
         if ($object->getId()) {
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
@@ -96,12 +110,14 @@
 
     /**
      * Get maximum position of child {{entitiesLabel}} by specific tree path
+     *
      * @access protected
      * @param string $path
      * @return int
      * {{qwertyuiop}}
      */
-    protected function _getMaxPosition($path){
+    protected function _getMaxPosition($path)
+    {
         $adapter = $this->getReadConnection();
         $positionField = $adapter->quoteIdentifier('position');
         $level   = count(explode('/', $path));
@@ -120,28 +136,34 @@
         }
         return $position;
     }
+
     /**
      * Get children {{entitiesLabel}} count
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return int
      * {{qwertyuiop}}
      */
-    public function getChildrenCount(${{entity}}Id){
+    public function getChildrenCount(${{entity}}Id)
+    {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'children_count')
             ->where('entity_id = :entity_id');
         $bind = array('entity_id' => ${{entity}}Id);
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
+
     /**
      * Check if {{entityLabel}} id exist
+     *
      * @access public
      * @param int $entityId
      * @return bool
      * {{qwertyuiop}}
      */
-    public function checkId($entityId){
+    public function checkId($entityId)
+    {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'entity_id')
             ->where('entity_id = :entity_id');
@@ -151,12 +173,14 @@
 
     /**
      * Check array of {{entitiesLabel}} identifiers
+     *
      * @access public
      * @param array $ids
      * @return array
      * {{qwertyuiop}}
      */
-    public function verifyIds(array $ids){
+    public function verifyIds(array $ids)
+    {
         if (empty($ids)) {
             return array();
         }
@@ -166,6 +190,7 @@
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
+
     /**
      * Get count of active/not active children {{entitiesLabel}}
      *
@@ -174,7 +199,8 @@
      * @return int
      * {{qwertyuiop}}
      */
-    public function getChildrenAmount(${{entity}}, $isActiveFlag = true){
+    public function getChildrenAmount(${{entity}}, $isActiveFlag = true)
+    {
         $bind = array(
             'active_flag'  => $isActiveFlag,
             'c_path'   => ${{entity}}->getPath() . '/%'
@@ -185,28 +211,34 @@
             ->where('status' . ' = :active_flag');
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
+
     /**
      * Return parent {{entitiesLabel}} of {{entityLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return array
      * {{qwertyuiop}}
      */
-    public function getParent{{Entities}}(${{entity}}){
+    public function getParent{{Entities}}(${{entity}})
+    {
         $pathIds = array_reverse(explode('/', ${{entity}}->getPath()));
         ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
             ->addAttributeToFilter('entity_id', array('in' => $pathIds))
             ->addAttributeToSelect('*');
         return ${{entities}};
     }
+
     /**
      * Return child {{entitiesLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function getChildren{{Entities}}(${{entity}}){
+    public function getChildren{{Entities}}(${{entity}})
+    {
         $collection = ${{entity}}->getCollection();
         $collection
             ->addAttributeToFilter('status', 1)
@@ -214,15 +246,18 @@
             ->setOrder('position', Varien_Db_Select::SQL_ASC);
         return $collection;
     }
+
     /**
      * Return children ids of {{entityLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param boolean $recursive
      * @return array
      * {{qwertyuiop}}
      */
-    public function getChildren(${{entity}}, $recursive = true){
+    public function getChildren(${{entity}}, $recursive = true)
+    {
         $attributeId  = (int)$this->_getStatusAttributeId();
         $backendTable = $this->getTable(array($this->getEntityTablePrefix(), 'int'));
         $adapter      = $this->_getReadAdapter();
@@ -254,14 +289,18 @@
 
         return $adapter->fetchCol($select, $bind);
     }
+
     protected $_statusAttributeId = null;
+
     /**
      * Get "is_active" attribute identifier
+     *
      * @access protected
      * @return int
      * {{qwertyuiop}}
      */
-    protected function _getStatusAttributeId() {
+    protected function _getStatusAttributeId()
+    {
         if ($this->_statusAttributeId === null) {
             $bind = array(
                 '{{namespace}}_{{module}}_{{entity}}' => {{Namespace}}_{{Module}}_Model_{{Entity}}::ENTITY,

@@ -22,72 +22,86 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
-    extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract {
+class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Abstract
+{
     /**
      * entity code for source
+     *
      * @var string
      */
     protected $_entityCode      = 'catalog_product';
     /**
      * entity attribute
+     *
      * @var string
      */
     protected $_entityAttribute = null;
+
     /**
      * get attribute options for source model
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAttributeOptions(){
+    public function getAttributeOptions()
+    {
         $content = '';
         $padding  = $this->getPadding(2);
         $eol      = $this->getEol();
         $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
-        $content .= $padding.'$'."source  = Mage::getModel('eav/config')->getAttribute('".$this->getEntityCode()."', '".$attrCode."');".$eol;
+        $content .= $padding.'$'."source  = Mage::getModel('eav/config')->getAttribute('";
+        $content .= $this->getEntityCode()."', '".$attrCode."');".$eol;
         $content .= $padding.'return $source->getSource()->getAllOptions($withEmpty, $defaultValues);';
         return $content;
     }
 
     /**
      * get entity code
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEntityCode(){
+    public function getEntityCode()
+    {
         return $this->_entityCode;
     }
+
     /**
      * get attribute setup type
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getSetupType(){
+    public function getSetupType()
+    {
         $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
         /** @var Mage_Eav_Model_Config $config */
         $config = Mage::getModel('eav/config');
         $productAttribute = $config->getAttribute($this->getEntityCode(), $attrCode);
-        if ($productAttribute->getId()){
+        if ($productAttribute->getId()) {
             $type = $productAttribute->getBackendType();
-            if ($type == 'static'){
+            if ($type == 'static') {
                 return false;
             }
             return $type;
         }
         return false;
     }
+
     /**
      * get attribute setup type
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getTypeDdl(){
+    public function getTypeDdl()
+    {
         $entityAttribute = $this->_getEntityAttribute();
-        switch($entityAttribute->getBackendType()){
+        switch($entityAttribute->getBackendType()) {
             case 'int':
                 return 'TYPE_INTEGER';
             break;
@@ -110,13 +124,15 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
 
     /**
      * get attribute setup type
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getTypeSize(){
+    public function getTypeSize()
+    {
         $entityAttribute = $this->_getEntityAttribute();
-        switch($entityAttribute->getBackendType()){
+        switch($entityAttribute->getBackendType()) {
             case 'int':
                 return 'null';
                 break;
@@ -140,12 +156,14 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
 
     /**
      * get the source model attribute
+     *
      * @access public
      * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _getEntityAttribute(){
-        if (is_null($this->_entityAttribute)){
+    protected function _getEntityAttribute()
+    {
+        if (is_null($this->_entityAttribute)) {
             $attrCode = $this->getTypeAttribute()->getAttribute()->getOptionsSourceAttribute();
             /** @var Mage_Eav_Model_Config $config */
             $config = Mage::getModel('eav/config');

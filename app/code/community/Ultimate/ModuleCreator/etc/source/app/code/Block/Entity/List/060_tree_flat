@@ -2,70 +2,91 @@
         ${{entities}}->getSelect()->order('{{entityTableAlias}}.position');
         $this->set{{Entities}}(${{entities}});
     }
+
     /**
      * prepare the layout
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_{{Entity}}_List
      * {{qwertyuiop}}
      */
-    protected function _prepareLayout(){
+    protected function _prepareLayout()
+    {
         parent::_prepareLayout();
         $this->get{{Entities}}()->addFieldToFilter('level', 1);
-        if ($this->_getDisplayMode() == 0){
-            $pager = $this->getLayout()->createBlock('page/html_pager', '{{namespace}}_{{module}}.{{entities}}.html.pager')
-                ->setCollection($this->get{{Entities}}());
+        if ($this->_getDisplayMode() == 0) {
+            $pager = $this->getLayout()->createBlock(
+                'page/html_pager',
+                '{{namespace}}_{{module}}.{{entities}}.html.pager'
+            )
+            ->setCollection($this->get{{Entities}}());
             $this->setChild('pager', $pager);
             $this->get{{Entities}}()->load();
         }
         return $this;
     }
+
     /**
      * get the pager html
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getPagerHtml(){
+    public function getPagerHtml()
+    {
         return $this->getChildHtml('pager');
     }
+
     /**
      * get the display mode
+     *
      * @access protected
      * @return int
      * {{qwertyuiop}}
      */
-    protected function _getDisplayMode(){
+    protected function _getDisplayMode()
+    {
         return Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/tree');
     }
+
     /**
      * draw {{entityLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}}
      * @param int $level
      * @return int
      * {{qwertyuiop}}
      */
-    public function draw{{Entity}}(${{entity}}, $level = 0){
+    public function draw{{Entity}}(${{entity}}, $level = 0)
+    {
         $html = '';
         $recursion = $this->getRecursion();
-        if ($recursion !== '0' && $level >= $recursion){
+        if ($recursion !== '0' && $level >= $recursion) {
             return '';
         }
-        $storeIds = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->lookupStoreIds(${{entity}}->getId());
+        $storeIds = Mage::getResourceSingleton(
+            '{{namespace}}_{{module}}/{{entity}}'
+        )
+        ->lookupStoreIds(${{entity}}->getId());
         $validStoreIds = array(0, Mage::app()->getStore()->getId());
-        if (!array_intersect($storeIds, $validStoreIds)){
+        if (!array_intersect($storeIds, $validStoreIds)) {
             return '';
         }
-        if (!${{entity}}->getStatus()){
+        if (!${{entity}}->getStatus()) {
             return '';
         }
         $children = ${{entity}}->getChildren{{Entities}}();
         $activeChildren = array();
-        if ($recursion == 0 || $level < $recursion-1){
+        if ($recursion == 0 || $level < $recursion-1) {
             foreach ($children as $child) {
-                $childStoreIds = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}')->lookupStoreIds($child->getId());
+                $childStoreIds = Mage::getResourceSingleton(
+                    '{{namespace}}_{{module}}/{{entity}}'
+                )
+                ->lookupStoreIds($child->getId());
                 $validStoreIds = array(0, Mage::app()->getStore()->getId());
-                if (!array_intersect($childStoreIds, $validStoreIds)){
+                if (!array_intersect($childStoreIds, $validStoreIds)) {
                     continue;
                 }
                 if ($child->getStatus()) {
@@ -77,7 +98,7 @@
         $html .= {{nameHtml}};
         if (count($activeChildren) > 0) {
             $html .= '<ul>';
-            foreach ($children as $child){
+            foreach ($children as $child) {
                 $html .= $this->draw{{Entity}}($child, $level+1);
             }
             $html .= '</ul>';
@@ -85,14 +106,17 @@
         $html .= '</li>';
         return $html;
     }
+
     /**
      * get recursion
+     *
      * @access public
      * @return int
      * {{qwertyuiop}}
      */
-    public function getRecursion(){
-        if (!$this->hasData('recursion')){
+    public function getRecursion()
+    {
+        if (!$this->hasData('recursion')) {
             $this->setData('recursion', Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/recursion'));
         }
         return $this->getData('recursion');

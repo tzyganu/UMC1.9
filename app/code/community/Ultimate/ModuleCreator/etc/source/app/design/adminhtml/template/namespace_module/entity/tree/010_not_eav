@@ -12,7 +12,7 @@
         <?php endif; ?>
     </div>
     <div class="tree-actions">
-        <?php if($this->getRoot()): ?>
+        <?php if ($this->getRoot()): ?>
             <a href="#" onclick="tree.collapseTree(); return false;">
                 <?php echo Mage::helper('{{namespace}}_{{module}}')->__('Collapse All'); ?>
             </a>
@@ -37,11 +37,11 @@
         var ee = e.browserEvent || e;
         return ee.target ? Event.element(ee) : null;
     };
-    Ext.tree.TreePanel.Enhanced = function(el, config){
+    Ext.tree.TreePanel.Enhanced = function(el, config) {
         Ext.tree.TreePanel.Enhanced.superclass.constructor.call(this, el, config);
     };
     Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
-        loadTree : function(config, firstLoad){
+        loadTree : function(config, firstLoad) {
             var parameters = config['parameters'];
             var data = config['data'];
             if ((typeof parameters['root_visible']) != 'undefined') {
@@ -60,8 +60,7 @@
             this.render();
             if (parameters['expanded']) {
                 this.expandAll();
-            }
-            else {
+            } else {
                 root.expand();
             }
             var selectedNode = this.getNodeById(parameters['{{entity}}_id']);
@@ -70,12 +69,11 @@
             }
             this.selectCurrentNode();
         },
-        request : function(url, params){
+        request : function(url, params) {
             if (!params) {
                 if ({{entity}}_info_tabsJsTabs.activeTab) {
                     var params = {active_tab_id:{{entity}}_info_tabsJsTabs.activeTab.id};
-                }
-                else {
+                } else {
                     var params = {};
                 }
             }
@@ -91,20 +89,19 @@
             );
             return result;
         },
-        selectCurrentNode : function(){
+        selectCurrentNode : function() {
             if (this.currentNodeId) {
                 var selectedNode = this.getNodeById(this.currentNodeId);
                 if ((typeof selectedNode.attributes.path)!='undefined') {
                     var path = selectedNode.attributes.path;
                     path = '0/'+path;
                     this.selectPath(path);
-                }
-                else {
+                } else {
                     this.getSelectionModel().select(selectedNode);
                 }
             }
         },
-        collapseTree : function(){
+        collapseTree : function() {
             this.collapseAll();
             this.selectCurrentNode();
             if (!this.collapsed) {
@@ -113,7 +110,7 @@
                 this.request(this.loader.dataUrl, false);
             }
         },
-        expandTree : function(){
+        expandTree : function() {
             this.expandAll();
             if (this.collapsed) {
                 this.collapsed = false;
@@ -121,7 +118,7 @@
                 this.request(this.loader.dataUrl, false);
             }
         },
-        {{entity}}Click : function(node, e){
+        {{entity}}Click : function(node, e) {
             var baseUrl = '<?php echo $this->getEditUrl() ?>';
             var urlExt = 'id/'+node.id+'/';
             var url = parseSidUrl(baseUrl, urlExt);
@@ -136,7 +133,7 @@
             updateContent(url, params);
         }
     });
-    function reRenderTree(event){
+    function reRenderTree(event) {
         if (tree && event) {
             var obj = event.target;
             if ($('add_root_{{entity}}_button')) {
@@ -157,13 +154,11 @@
                     _renderNewTree(response);
                 }
             });
-        }
-        // render default tree
-        else {
+        } else {
             _renderNewTree();
         }
     }
-    function _renderNewTree(config){
+    function _renderNewTree(config) {
         if (!config) {
             var config = defaultLoadTreeParams;
         }
@@ -188,7 +183,7 @@
         <?php endif;?>
         updateContent(url);
     }
-    Ext.onReady(function(){
+    Ext.onReady(function() {
     {{entity}}Loader = new Ext.tree.TreeLoader({
        dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
     });
@@ -198,25 +193,23 @@
         if (config.children && !config.children.length) {
             delete(config.children);
             node = new Ext.tree.AsyncTreeNode(config);
-        }
-        else {
+        } else {
             node = new Ext.tree.TreeNode(config);
         }
         return node;
     };
-    {{entity}}Loader.build{{Entity}}Tree = function(parent, config){
+    {{entity}}Loader.build{{Entity}}Tree = function(parent, config) {
         if (!config) {
             return null;
         }
-        if (parent && config && config.length){
+        if (parent && config && config.length) {
             for (var i = 0; i < config.length; i++) {
                 var node;
                 var _node = Object.clone(config[i]);
                 if (_node.children && !_node.children.length) {
                     delete(_node.children);
                     node = new Ext.tree.AsyncTreeNode(_node);
-                }
-                else {
+                } else {
                     node = new Ext.tree.TreeNode(config[i]);
                 }
                 parent.appendChild(node);
@@ -227,7 +220,7 @@
             }
         }
     };
-    {{entity}}Loader.buildHash = function(node){
+    {{entity}}Loader.buildHash = function(node) {
         var hash = {};
         hash = this.toArray(node.attributes);
         if (node.childNodes.length>0 || (node.loaded==false && node.loading==false)) {
@@ -282,14 +275,14 @@
     reRenderTree();
 });
 
-    function addNew(url, isRoot){
+    function addNew(url, isRoot) {
         if (isRoot) {
             tree.currentNodeId = tree.root.id;
         }
         url+= 'parent/'+tree.currentNodeId;
         updateContent(url);
     }
-    function {{entity}}Move(obj){
+    function {{entity}}Move(obj) {
         var data = {id: obj.dropNode.id, form_key: FORM_KEY};
         data.point = obj.point;
         switch (obj.point) {
@@ -298,8 +291,7 @@
                 data.paid = obj.dropNode.parentNode.id;
                 if (obj.target.previousSibling) {
                     data.aid = obj.target.previousSibling.id;
-                }
-                else {
+                } else {
                     data.aid = 0;
                 }
                 break;
@@ -322,11 +314,10 @@
         }
         var success = function(o) {
             try {
-                if(o.responseText){
-                    if(o.responseText==='SUCCESS'){
+                if (o.responseText) {
+                    if (o.responseText==='SUCCESS') {
                         {{entity}}Form.refreshPath();
-                    }
-                    else {
+                    } else {
                         alert(o.responseText);
                         location.reload();
                     }

@@ -1,25 +1,31 @@
+
     /**
      * Get store ids to which specified item is assigned
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return array
      * {{qwertyuiop}}
      */
-    public function lookupStoreIds($commentId){
+    public function lookupStoreIds($commentId)
+    {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from($this->getTable('{{namespace}}_{{module}}/{{entity}}_comment_store'), 'store_id')
-            ->where('comment_id = ?',(int)$commentId);
+            ->where('comment_id = ?', (int)$commentId);
         return $adapter->fetchCol($select);
     }
+
     /**
      * Perform operations after object load
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object){
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
         if ($object->getId()) {
             $stores = $this->lookupStoreIds($object->getId());
             $object->setData('store_id', $stores);
@@ -35,7 +41,8 @@
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment $object
      * @return Zend_Db_Select
      */
-    protected function _getLoadSelect($field, $value, $object){
+    protected function _getLoadSelect($field, $value, $object)
+    {
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($object->getStoreId()) {
             $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());
@@ -50,14 +57,17 @@
         }
         return $select;
     }
+
     /**
      * Assign {{entityLabel}} comments to store views
+     *
      * @access protected
      * @param Mage_Core_Model_Abstract $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $object){
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
         $oldStores = $this->lookupStoreIds($object->getId());
         $newStores = (array)$object->getStores();
         if (empty($newStores)) {

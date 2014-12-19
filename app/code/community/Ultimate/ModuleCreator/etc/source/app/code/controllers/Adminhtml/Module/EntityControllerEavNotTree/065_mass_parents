@@ -1,29 +1,35 @@
+
     /**
      * mass {{siblingLabel}} change - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function mass{{Sibling}}IdAction(){
+    public function mass{{Sibling}}IdAction()
+    {
         ${{entity}}Ids = $this->getRequest()->getParam('{{entity}}');
-        if(!is_array(${{entity}}Ids)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Please select {{entitiesLabel}}.'));
-        }
-        else {
+        if (!is_array(${{entity}}Ids)) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('Please select {{entitiesLabel}}.')
+            );
+        } else {
             try {
                 foreach (${{entity}}Ids as ${{entity}}Id) {
                 ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)
-                            ->set{{Sibling}}Id($this->getRequest()->getParam('flag_{{sibling}}_id'))
-                            ->setIsMassupdate(true)
-                            ->save();
+                    ->set{{Sibling}}Id($this->getRequest()->getParam('flag_{{sibling}}_id'))
+                    ->setIsMassupdate(true)
+                    ->save();
                 }
-                $this->_getSession()->addSuccess($this->__('Total of %d {{entitiesLabel}} were successfully updated.', count(${{entity}}Ids)));
-            }
-            catch (Mage_Core_Exception $e){
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d {{entitiesLabel}} were successfully updated.', count(${{entity}}Ids))
+                );
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-            catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating {{entitiesLabel}}.'));
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating {{entitiesLabel}}.')
+                );
                 Mage::logException($e);
             }
         }

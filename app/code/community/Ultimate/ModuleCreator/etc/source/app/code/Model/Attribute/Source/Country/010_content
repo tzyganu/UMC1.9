@@ -7,20 +7,21 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Attribute_Source_Country
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+class {{Namespace}}_{{Module}}_Model_Attribute_Source_Country extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+{
     /**
      * Get list of all available countries
+     *
      * @access public
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function getAllOptions() {
+    public function getAllOptions()
+    {
         $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache);
-        }
-        else {
+        } else {
             $collection = Mage::getModel('directory/country')->getResourceCollection();
             $options = $collection->toOptionArray();
             if (Mage::app()->useCache('config')) {

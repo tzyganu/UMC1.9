@@ -7,15 +7,18 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Source
-    extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Source extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+{
     /**
      * Get all options
+     *
      * @access public
+     * @param bool $withEmpty
      * @return array
      * {{qwertyuiop}}
      */
-    public function getAllOptions($withEmpty = false) {
+    public function getAllOptions($withEmpty = false)
+    {
         if (is_null($this->_options)) {
             $this->_options = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
 

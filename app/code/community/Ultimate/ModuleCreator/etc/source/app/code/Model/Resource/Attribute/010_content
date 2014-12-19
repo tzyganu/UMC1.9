@@ -7,16 +7,18 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_Attribute
-    extends Mage_Eav_Model_Resource_Entity_Attribute {
+class {{Namespace}}_{{Module}}_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
+{
     /**
      * after saving the attribute
+     *
      * @access protected
      * @param Mage_Core_Model_Abstract $object
      * @return  {{Namespace}}_{{Module}}_Model_Resource_Attribute
      * {{qwertyuiop}}
      */
-    protected  function _afterSave(Mage_Core_Model_Abstract $object){
+    protected  function _afterSave(Mage_Core_Model_Abstract $object)
+    {
         $setup       = Mage::getModel('eav/entity_setup', 'core_write');
         $entityType  = $object->getEntityTypeId();
         $setId       = $setup->getDefaultAttributeSetId($entityType);

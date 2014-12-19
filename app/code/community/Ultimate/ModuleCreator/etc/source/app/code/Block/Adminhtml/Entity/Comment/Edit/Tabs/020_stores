@@ -1,7 +1,13 @@
-        if (!Mage::app()->isSingleStoreMode()){
-            $this->addTab('form_store_{{entity}}_comment', array(
-                'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Store views'),
-                'title'        => Mage::helper('{{namespace}}_{{module}}')->__('Store views'),
-                'content'     => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_edit_tab_stores')->toHtml(),
-            ));
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addTab(
+                'form_store_{{entity}}_comment',
+                array(
+                    'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Store views'),
+                    'title'   => Mage::helper('{{namespace}}_{{module}}')->__('Store views'),
+                    'content' => $this->getLayout()->createBlock(
+                        '{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_edit_tab_stores'
+                    )
+                    ->toHtml(),
+                )
+            );
         }

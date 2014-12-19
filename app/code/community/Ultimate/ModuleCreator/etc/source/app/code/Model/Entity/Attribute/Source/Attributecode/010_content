@@ -7,27 +7,32 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Source_{{AttributeCodeForFile}}
-    extends Mage_Eav_Model_Entity_Attribute_Source_Table {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Source_{{AttributeCodeForFile}} extends Mage_Eav_Model_Entity_Attribute_Source_Table
+{
     /**
      * get possible values
+     *
      * @access public
      * @param bool $withEmpty
      * @param bool $defaultValues
      * @return array
      * {{qwertyuiop}}
      */
-    public function getAllOptions($withEmpty = true, $defaultValues = false){
+    public function getAllOptions($withEmpty = true, $defaultValues = false)
+    {
 {{attributeOptions}}
     }
+
     /**
      * get options as array
+     *
      * @access public
      * @param bool $withEmpty
      * @return string
      * {{qwertyuiop}}
      */
-    public function getOptionsArray($withEmpty = true) {
+    public function getOptionsArray($withEmpty = true)
+    {
         $options = array();
         foreach ($this->getAllOptions($withEmpty) as $option) {
             $options[$option['value']] = $option['label'];

@@ -1,6 +1,8 @@
-                $breadcrumbBlock->addCrumb('{{entity}}', array(
-                            'label'    => ${{entity}}->get{{EntityNameMagicCode}}(),
-                            'link'    => '',
+                $breadcrumbBlock->addCrumb(
+                    '{{entity}}',
+                    array(
+                        'label' => ${{entity}}->get{{EntityNameMagicCode}}(),
+                        'link'  => '',
                     )
                 );
             }

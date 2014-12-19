@@ -1,25 +1,36 @@
+
     /**
       * default action
+      *
       * @access public
       * @return void
       * {{qwertyuiop}}
       */
-    public function indexAction(){
-         $this->loadLayout();
-         $this->_initLayoutMessages('catalog/session');
-         $this->_initLayoutMessages('customer/session');
-         $this->_initLayoutMessages('checkout/session');
-         if (Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getUseBreadcrumbs()){
-             if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')){
-                 $breadcrumbBlock->addCrumb('home', array(
-                            'label'    => Mage::helper('{{namespace}}_{{module}}')->__('Home'),
-                            'link'     => Mage::getUrl(),
-                        )
-                 );
-                 $breadcrumbBlock->addCrumb('{{entities}}', array(
-                            'label'    => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
-                            'link'    => '',
+    public function indexAction()
+    {
+        $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('checkout/session');
+        if (Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getUseBreadcrumbs()) {
+            if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+                $breadcrumbBlock->addCrumb(
+                    'home',
+                    array(
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Home'),
+                        'link'  => Mage::getUrl(),
                     )
-                 );
-             }
-         }
+                );
+                $breadcrumbBlock->addCrumb(
+                    '{{entities}}',
+                    array(
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
+                        'link'  => '',
+                    )
+                );
+            }
+        }
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->addLinkRel('canonical', Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url());
+        }

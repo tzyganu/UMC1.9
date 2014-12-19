@@ -25,15 +25,17 @@
 /**
  * @method Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tabs setTitle
  */
-class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tabs
-    extends Mage_Adminhtml_Block_Widget_Tabs {
+class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+{
     /**
      * construct
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function _construct() {
+    public function _construct()
+    {
         parent::_construct();
         $this->setId('modulecreator_info_tabs');
         $this->setDestElementId('edit_form');

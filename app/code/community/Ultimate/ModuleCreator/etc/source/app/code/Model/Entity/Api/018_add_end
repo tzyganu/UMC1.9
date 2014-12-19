@@ -1,25 +1,25 @@
             ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
                 ->setData((array)$data)
                 ->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return ${{entity}}->getId();
     }
 
     /**
-     * Change existing {{entity}} information
+     * Change existing {{entityLabel}} information
+     *
      * @access public
      * @param int ${{entity}}Id
      * @param array $data
      * @return bool
      * {{qwertyuiop}}
      */
-    public function update(${{entity}}Id, $data){
+    public function update(${{entity}}Id, $data)
+    {
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         try {
             $data = (array)$data;

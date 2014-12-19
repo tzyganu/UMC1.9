@@ -22,25 +22,30 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Source_Entity_Type {
+class Ultimate_ModuleCreator_Model_Source_Entity_Type
+{
     /**
      * options
+     *
      * @var mixed
      */
     protected $_options = null;
+
     /**
      * get options array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array|null
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toArray($withEmpty = false) {
-        if (is_null($this->_options)){
+    public function toArray($withEmpty = false)
+    {
+        if (is_null($this->_options)) {
             /** @var Ultimate_ModuleCreator_Helper_Data $helper */
             $helper = Mage::helper('modulecreator');
             $types  = $helper->getEntityTypes();
-            foreach ($types as $type=>$values){
+            foreach ($types as $type=>$values) {
                 $this->_options[$type] = Mage::helper('modulecreator')->__((string)$values->label);
             }
         }

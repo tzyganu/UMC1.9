@@ -7,13 +7,15 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiop}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_List
-    extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_List extends Mage_Core_Block_Template
+{
     /**
      * initialize
+     *
      * @access public
      * {{qwertyuiop}}
      */
-     public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
-         ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
+        ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')

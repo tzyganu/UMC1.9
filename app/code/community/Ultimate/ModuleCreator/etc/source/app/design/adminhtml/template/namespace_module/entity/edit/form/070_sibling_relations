@@ -1,15 +1,14 @@
-    <?php if(($block = $this->getLayout()->getBlock('{{entity}}.{{sibling}}.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
+    <?php if (($block = $this->getLayout()->getBlock('{{entity}}.{{sibling}}.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
     var {{entity}}{{Siblings}} = $H(<?php echo $this->get{{Siblings}}Json() ?>);
     $('in_{{entity}}_{{siblings}}').value = {{entity}}{{Siblings}}.toQueryString();
-    function register{{Entity}}{{Sibling}}(grid, element, checked){
-        if(checked){
-            if(element.positionElement){
+    function register{{Entity}}{{Sibling}}(grid, element, checked) {
+        if (checked) {
+            if (element.positionElement) {
                 element.positionElement.disabled = false;
                 {{entity}}{{Siblings}}.set(element.value, element.positionElement.value);
             }
-        }
-        else{
-            if(element.positionElement){
+        } else {
+            if (element.positionElement) {
                 element.positionElement.disabled = true;
             }
             {{entity}}{{Siblings}}.unset(element.value);
@@ -18,40 +17,40 @@
             grid.reloadParams = {'selected_{{siblings}}[]':{{entity}}{{Siblings}}.keys()
         };
     }
-    function {{entity}}{{Sibling}}RowClick(grid, event){
+    function {{entity}}{{Sibling}}RowClick(grid, event) {
         var trElement = Event.findElement(event, 'tr');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
+        if (trElement) {
             var checkbox = Element.getElementsBySelector(trElement, 'input');
-            if(checkbox[0]){
+            if (checkbox[0]) {
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
             }
         }
     }
-    function position{{Sibling}}Change(event){
+    function position{{Sibling}}Change(event) {
         var element = Event.element(event);
-        if(element && element.checkboxElement && element.checkboxElement.checked){
+        if (element && element.checkboxElement && element.checkboxElement.checked) {
             {{entity}}{{Siblings}}.set(element.checkboxElement.value, element.value);
             $('in_{{entity}}_{{siblings}}').value = {{entity}}{{Siblings}}.toQueryString();
         }
     }
     var tabIndex = 1000;
-    function {{entity}}{{Sibling}}RowInit(grid, row){
+    function {{entity}}{{Sibling}}RowInit(grid, row) {
         var checkbox = $(row).getElementsByClassName('checkbox')[0];
         var position = $(row).getElementsByClassName('input-text')[0];
-        if(checkbox && position){
+        if (checkbox && position) {
             checkbox.positionElement = position;
             position.checkboxElement = checkbox;
             position.disabled = !checkbox.checked;
             position.tabIndex = tabIndex++;
-            Event.observe(position,'keyup',position{{Sibling}}Change);
+            Event.observe(position, 'keyup', position{{Sibling}}Change);
         }
     }
     <?php echo $_gridJsObject ?>.rowClickCallback = {{entity}}{{Sibling}}RowClick;
     <?php echo $_gridJsObject ?>.initRowCallback = {{entity}}{{Sibling}}RowInit;
     <?php echo $_gridJsObject ?>.checkboxCheckCallback = register{{Entity}}{{Sibling}};
-    <?php echo $_gridJsObject ?>.rows.each(function(row){
+    <?php echo $_gridJsObject ?>.rows.each(function(row) {
         {{entity}}{{Sibling}}RowInit(<?php echo $_gridJsObject ?>, row)
     });
     <?php endif; ?>

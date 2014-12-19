@@ -1,15 +1,18 @@
+
     /**
      * check url key
+     *
      * @access public
      * @param string $urlKey
      * @param bool $active
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function checkUrlKey($urlKey, $storeId, $active = true){
+    public function checkUrlKey($urlKey, $storeId, $active = true)
+    {
         $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID, $storeId);
         $select = $this->_initCheckUrlKeySelect($urlKey, $stores);
-        if (!$select){
+        if (!$select) {
             return false;
         }
         $select->reset(Zend_Db_Select::COLUMNS)
@@ -17,17 +20,20 @@
             ->limit(1);
         return $this->_getReadAdapter()->fetchOne($select);
     }
+
     /**
      * init the check select
+     *
      * @access protected
      * @param string $urlKey
-      * @param array $store
+     * @param array $store
      * @return Zend_Db_Select
      * {{qwertyuiop}}
      */
-    protected function _initCheckUrlKeySelect($urlKey, $store){
+    protected function _initCheckUrlKeySelect($urlKey, $store)
+    {
         $urlRewrite = Mage::getModel('eav/config')->getAttribute('{{namespace}}_{{module}}_{{entity}}', 'url_key');
-        if (!$urlRewrite || !$urlRewrite->getId()){
+        if (!$urlRewrite || !$urlRewrite->getId()) {
             return false;
         }
         $table = $urlRewrite->getBackend()->getTable();
@@ -39,18 +45,20 @@
             ->order('e.store_id DESC');
         return $select;
     }
+
     /**
      * Check for unique URL key
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    public function getIsUniqueUrlKey(Mage_Core_Model_Abstract $object){
+    public function getIsUniqueUrlKey(Mage_Core_Model_Abstract $object)
+    {
         if (Mage::app()->isSingleStoreMode() || !$object->hasStores()) {
             $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
-        }
-        else {
+        } else {
             $stores = (array)$object->getData('stores');
         }
         $select = $this->_initCheckUrlKeySelect($object->getData('url_key'), $stores);
@@ -62,23 +70,29 @@
         }
         return true;
     }
+
     /**
      * Check if the URL key is numeric
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[0-9]+$/', $object->getData('url_key'));
     }
+
     /**
-     * Checkif the URL key is valid
+     * Check if the URL key is valid
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function isValidUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isValidUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('url_key'));
     }

@@ -11,19 +11,19 @@
                     return true;
                 }
             }
-            if ($settings['prefix']){
+            if ($settings['prefix']) {
                 $parts = explode('/', $urlKey);
-                if ($parts[0] != $settings['prefix'] || count($parts) != 2){
+                if ($parts[0] != $settings['prefix'] || count($parts) != 2) {
                     continue;
                 }
                 $urlKey = $parts[1];
             }
-            if ($settings['suffix']){
-                $urlKey = substr($urlKey, 0 , -strlen($settings['suffix']) - 1);
+            if ($settings['suffix']) {
+                $urlKey = substr($urlKey, 0, -strlen($settings['suffix']) - 1);
             }
             $model = Mage::getModel($settings->getModel());
             $id = $model->checkUrlKey($urlKey, Mage::app()->getStore()->getId());
-            if ($id){
+            if ($id) {
                 if ($settings->getCheckPath() && !$model->load($id)->getStatusPath()) {
                     continue;
                 }

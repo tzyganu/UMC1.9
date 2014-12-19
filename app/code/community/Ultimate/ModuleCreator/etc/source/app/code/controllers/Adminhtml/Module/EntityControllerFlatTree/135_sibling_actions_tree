@@ -1,21 +1,26 @@
+
     /**
-     * get {{siblings}} action
+     * get {{siblingsLabel}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{siblings}}Action(){
+    public function {{siblings}}Action()
+    {
         $this->_init{{Entity}}();
         $this->loadLayout();
         $this->renderLayout();
     }
+
     /**
-     * get child {{siblings}}  action
+     * get child {{siblingsLabel}}  action
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{siblings}}JsonAction(){
+    public function {{siblings}}JsonAction()
+    {
         $this->_init{{Entity}}();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}')

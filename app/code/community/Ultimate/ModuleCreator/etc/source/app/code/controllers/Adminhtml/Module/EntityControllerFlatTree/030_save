@@ -1,10 +1,13 @@
+
     /**
      * {{EntityLabel}} save action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function saveAction(){
+    public function saveAction()
+    {
         if (!${{entity}} = $this->_init{{Entity}}()) {
             return;
         }

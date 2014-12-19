@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Catalog_Category_List_{{Entity}}
-    extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_Catalog_Category_List_{{Entity}} extends Mage_Core_Block_Template
+{
     /**
-     * get the list of {{entities}}
+     * get the list of {{entitiesLabel}}
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}Collection(){
-        if (!$this->hasData('{{entity}}_collection')){
+    public function get{{Entity}}Collection()
+    {
+        if (!$this->hasData('{{entity}}_collection')) {
             $category = Mage::registry('current_category');
             $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')

@@ -21,32 +21,38 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */   
-class Ultimate_ModuleCreator_Model_Writer
-    extends Mage_Connect_Package_Writer {
+class Ultimate_ModuleCreator_Model_Writer extends Mage_Connect_Package_Writer
+{
     /**
      * prefix for path
+     *
      * @var string
      */
     protected $_pathPrefix = '';
+
     /**
-     * constructor
-     * @access public
-     * @param array $files
-     * @param mixed $namePackage
+     * set path prefix
+     *
+     * @param $pathPrefix
+     * @return $this
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function __construct($files, $namePackage='') {
-        parent::__construct($files, $namePackage='');
-        $this->_pathPrefix = 'var'.DS.'modulecreator'.DS;
+    public function setPathPrefix($pathPrefix)
+    {
+        $this->_pathPrefix = $pathPrefix;
+        return $this;
     }
+
     /**
      * build the package
+     *
      * @access public
      * @return Ultimate_ModuleCreator_Model_Writer
      * @see Mage_Connect_Package_Writer::composePackage()
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function composePackage() {
+    public function composePackage()
+    {
         @mkdir(self::PATH_TO_TEMPORARY_DIRECTORY, 0777, true);
         $root = self::PATH_TO_TEMPORARY_DIRECTORY . basename($this->_namePackage);
         @mkdir($root, 0777, true);
@@ -60,24 +66,26 @@ class Ultimate_ModuleCreator_Model_Writer
                 @mkdir($root . DS . $filePath, 0777, true);
                 if (is_file($file)) {
                     copy($file, $root . DS . $filePath . DS . $fileName);
-                }
-                else {
+                } else {
                     @mkdir($root . DS . $filePath . $fileName, 0777);
                 }
             }
         }
         $this->_temporaryPackageDir = $root;
         return $this;
-     }
-     /**
-      * set the package name
-      * @access public
-      * @param string $name
-      * @return Ultimate_ModuleCreator_Model_Writer
-      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-      */
-     public function setNamePackage($name) {
-         $this->_namePackage = $name;
-         return $this;
-     }
+    }
+
+    /**
+     * set the package name
+     *
+     * @access public
+     * @param string $name
+     * @return Ultimate_ModuleCreator_Model_Writer
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function setNamePackage($name)
+    {
+        $this->_namePackage = $name;
+        return $this;
+    }
 }

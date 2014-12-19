@@ -7,53 +7,58 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Attribute
-    extends Mage_Eav_Model_Entity_Attribute {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
+class {{Namespace}}_{{Module}}_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
+{
+    const SCOPE_STORE       = 0;
+    const SCOPE_GLOBAL      = 1;
+    const SCOPE_WEBSITE     = 2;
 
-    const MODULE_NAME                           = '{{Namespace}}_{{Module}}';
-    const ENTITY                                = '{{namespace}}_{{module}}_eav_attribute';
+    const MODULE_NAME       = '{{Namespace}}_{{Module}}';
+    const ENTITY            = '{{namespace}}_{{module}}_eav_attribute';
 
     /**
      * Event prefix
      *
      * @var string
      */
-    protected $_eventPrefix                     = '{{namespace}}_{{module}}_entity_attribute';
+    protected $_eventPrefix = '{{namespace}}_{{module}}_entity_attribute';
+
     /**
      * Event object name
      *
      * @var string
      */
-    protected $_eventObject                     = 'attribute';
+    protected $_eventObject = 'attribute';
 
     /**
      * Array with labels
      *
      * @var array
      */
-    static protected $_labels                   = null;
+    static protected $_labels = null;
 
     /**
      * constructor
+     *
      * @access protected
      * @return void
      * {{qwertyuiop}}
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/attribute');
     }
 
     /**
      * Processing object before save data
+     *
      * @access protected
      * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
      * {{qwertyuiop}}
      */
-    protected function _beforeSave(){
+    protected function _beforeSave()
+    {
         $this->setData('modulePrefix', self::MODULE_NAME);
         if (isset($this->_origData['is_global'])) {
             if (!isset($this->_data['is_global'])) {
@@ -70,11 +75,13 @@ class {{Namespace}}_{{Module}}_Model_Attribute
 
     /**
      * Processing object after save data
+     *
      * @access protected
      * @return Mage_Core_Model_Abstract
      * {{qwertyuiop}}
      */
-    protected function _afterSave(){
+    protected function _afterSave()
+    {
         /**
          * Fix saving attribute in admin
          */
@@ -84,51 +91,61 @@ class {{Namespace}}_{{Module}}_Model_Attribute
 
     /**
      * Return is attribute global
+     *
      * @access public
      * @return integer
      * {{qwertyuiop}}
      */
-    public function getIsGlobal(){
+    public function getIsGlobal()
+    {
         return $this->_getData('is_global');
     }
 
     /**
      * Retrieve attribute is global scope flag
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeGlobal(){
+    public function isScopeGlobal()
+    {
         return $this->getIsGlobal() == self::SCOPE_GLOBAL;
     }
 
     /**
      * Retrieve attribute is website scope website
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeWebsite(){
+    public function isScopeWebsite()
+    {
         return $this->getIsGlobal() == self::SCOPE_WEBSITE;
     }
 
     /**
      * Retrieve attribute is store scope flag
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function isScopeStore(){
+    public function isScopeStore()
+    {
         return !$this->isScopeGlobal() && !$this->isScopeWebsite();
     }
 
     /**
      * Retrieve store id
+     *
      * @access public
      * @return int
      * {{qwertyuiop}}
      */
-    public function getStoreId(){
+    public function getStoreId()
+    {
         $dataObject = $this->getDataObject();
         if ($dataObject) {
             return $dataObject->getStoreId();
@@ -137,11 +154,13 @@ class {{Namespace}}_{{Module}}_Model_Attribute
     }
     /**
      * Retrieve source model
+     *
      * @access public
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
      * {{qwertyuiop}}
      */
-    public function getSourceModel(){
+    public function getSourceModel()
+    {
         $model = $this->getData('source_model');
         if (empty($model)) {
             if ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select') {
@@ -154,34 +173,40 @@ class {{Namespace}}_{{Module}}_Model_Attribute
 
     /**
      * Retrieve not translated frontend label
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getFrontendLabel(){
+    public function getFrontendLabel()
+    {
         return $this->_getData('frontend_label');
     }
 
     /**
      * Get Attribute translated label for store
+     *
      * @access protected
      * @deprecated
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _getLabelForStore(){
+    protected function _getLabelForStore()
+    {
         return $this->getFrontendLabel();
     }
 
     /**
      * Initialize store Labels for attributes
+     *
      * @access public
      * @param mixed $storeId
      * @deprecated
      * @return void
      * {{qwertyuiop}}
      */
-    public static function initLabels($storeId = null){
+    public static function initLabels($storeId = null)
+    {
         if (is_null(self::$_labels)) {
             if (is_null($storeId)) {
                 $storeId = Mage::app()->getStore()->getId();
@@ -193,17 +218,21 @@ class {{Namespace}}_{{Module}}_Model_Attribute
                     $attributeLabels[] = $attribute->getData('frontend_label');
                 }
             }
-            self::$_labels = Mage::app()->getTranslator()->getResource()->getTranslationArrayByStrings($attributeLabels, $storeId);
+            self::$_labels = Mage::app()->getTranslator()
+                ->getResource()
+                ->getTranslationArrayByStrings($attributeLabels, $storeId);
         }
     }
 
     /**
      * Get default attribute source model
+     *
      * @access public
      * @return string
-   	 * {{qwertyuiop}}
+     * {{qwertyuiop}}
      */
-    public function _getDefaultSourceModel(){
+    public function _getDefaultSourceModel()
+    {
         return 'eav/entity_attribute_source_table';
     }
 }

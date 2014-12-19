@@ -1,18 +1,21 @@
+
     /**
-     * Save {{entity}} - {{sibling}} relations
+     * Save {{entityLabel}} - {{siblingLabel}} relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, ${{sibling}}Ids){
-        if (is_null(${{sibling}}Ids)){
+    public function save{{Entity}}Relation(${{entity}}, ${{sibling}}Ids)
+    {
+        if (is_null(${{sibling}}Ids)) {
             return $this;
         }
         $old{{Siblings}} = ${{entity}}->getSelected{{Siblings}}();
         $old{{Sibling}}Ids = array();
-        foreach ($old{{Siblings}} as ${{sibling}}){
+        foreach ($old{{Siblings}} as ${{sibling}}) {
             $old{{Sibling}}Ids[] = ${{sibling}}->getId();
         }
         $insert = array_diff(${{sibling}}Ids, $old{{Sibling}}Ids);

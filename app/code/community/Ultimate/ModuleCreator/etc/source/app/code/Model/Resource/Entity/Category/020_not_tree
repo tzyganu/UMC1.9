@@ -1,12 +1,15 @@
+
     /**
-     * Save {{entity}} - category relations
+     * Save {{entityLabel}} - category relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, $data){
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -14,10 +17,10 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as $categoryId) {
-            if (!empty($categoryId)){
+            if (!empty($categoryId)) {
                 $insert = array(
-                    '{{entity}}_id'      => ${{entity}}->getId(),
-                    'category_id'     => $categoryId,
+                    '{{entity}}_id' => ${{entity}}->getId(),
+                    'category_id'   => $categoryId,
                     'position'      => 1
                 );
                 $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $insert, array_keys($insert));
@@ -25,15 +28,18 @@
         }
         return $this;
     }
+
     /**
-     * Save  category - {{entity}} relations
+     * Save  category - {{entityLabel}} relations
+     *
      * @access public
      * @param Mage_Catalog_Model_Category $category
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
-     * @{{qwertyuiop}}
+     * {{qwertyuiop}}
      */
-    public function saveCategoryRelation($category, $data){
+    public function saveCategoryRelation($category, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -41,11 +47,14 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as ${{entity}}Id => $info) {
-            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                '{{entity}}_id' => ${{entity}}Id,
-                'category_id' => $category->getId(),
-                'position'   => @$info['position']
-            ));
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}Id,
+                    'category_id'   => $category->getId(),
+                    'position'      => @$info['position']
+                )
+            );
         }
         return $this;
     }

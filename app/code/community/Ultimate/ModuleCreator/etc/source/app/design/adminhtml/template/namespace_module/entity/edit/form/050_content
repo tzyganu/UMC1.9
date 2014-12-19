@@ -9,10 +9,9 @@
         this.canShowError = true;
         this.submitUrl = url;
         if (this.validator && this.validator.validate()) {
-            if(this.validationUrl){
+            if (this.validationUrl) {
                 this._validate();
-            }
-            else{
+            } else {
                 if (this.isSubmitted) {
                     return false;
                 }
@@ -34,8 +33,7 @@
                 response = transport.responseText.evalJSON()
                 if (response.error) {
                     alert(response.message);
-                }
-                else {
+                } else {
                     if ({{entity}}Form.get{{Entity}}Id() == response['id']) {
                         {{entity}}Form.set{{Entity}}Path(response['path']);
                     }
@@ -53,14 +51,14 @@
     };
 
     {{entity}}Form.get{{Entity}}Id = function () {
-        collection = $(this.formId).getInputs('hidden','{{entity}}[id]');
+        collection = $(this.formId).getInputs('hidden', '{{entity}}[id]');
         if (collection.size() > 0) {
             return collection.first().value;
         }
         return false;
     };
     {{entity}}Form.set{{Entity}}Path = function (path) {
-        collection = $(this.formId).getInputs('hidden','{{entity}}[path]');
+        collection = $(this.formId).getInputs('hidden', '{{entity}}[path]');
         if (collection.size() > 0) {
             return collection.first().value = path;
         }
@@ -74,7 +72,7 @@
         }
         var params = {};
         var fields = $('{{entity}}_edit_form').getElementsBySelector('input', 'select');
-        for(var i=0;i<fields.length;i++){
+        for(var i=0;i<fields.length;i++) {
             if (!fields[i].name) {
                 continue;
             }
@@ -92,8 +90,7 @@
                 tree.currentNodeId = parentId;
             }
             tree.addNodeTo = parentId;
-        }
-        else {
+        } else {
             var currentNode = tree.getNodeById({{entity}}Id);
             var oldClass = 'active-category';
             var newClass = 'active-category';
@@ -101,8 +98,7 @@
                 if (parseInt(params['{{entity}}[status]'])) {
                     var oldClass = 'no-active-category';
                     var newClass = 'active-category';
-                }
-                else {
+                } else {
                     var oldClass = 'active-category';
                     var newClass = 'no-active-category';
                 }

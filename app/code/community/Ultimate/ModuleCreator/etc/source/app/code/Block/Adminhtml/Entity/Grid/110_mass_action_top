@@ -1,30 +1,39 @@
+
     /**
      * prepare mass action
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Grid
      * {{qwertyuiop}}
      */
-    protected function _prepareMassaction(){
+    protected function _prepareMassaction()
+    {
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('{{entity}}');
-        $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
-            'url'  => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
-        ));
-        $this->getMassactionBlock()->addItem('status', array(
-            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
-            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
-            'additional' => array(
-                'status' => array(
-                        'name' => 'status',
-                        'type' => 'select',
-                        'class' => 'required-entry',
-                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
+        $this->getMassactionBlock()->addItem(
+            'delete',
+            array(
+                'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
+                'url'  => $this->getUrl('*/*/massDelete'),
+                'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
+            )
+        );
+        $this->getMassactionBlock()->addItem(
+            'status',
+            array(
+                'label'      => Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
+                'url'        => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+                'additional' => array(
+                    'status' => array(
+                        'name'   => 'status',
+                        'type'   => 'select',
+                        'class'  => 'required-entry',
+                        'label'  => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
                         'values' => array(
-                                '1' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
-                                '0' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
+                            '1' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
+                            '0' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
                         )
+                    )
                 )
             )
-        ));
+        );

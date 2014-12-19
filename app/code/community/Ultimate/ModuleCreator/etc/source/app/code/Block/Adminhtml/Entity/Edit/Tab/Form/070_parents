@@ -1,13 +1,13 @@
-        $values = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection'){{siblingToOptionArraySelect}}->toOptionArray();
-        array_unshift($values, array('label'=>'', 'value'=>''));
+        $values = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection')
+            {{siblingToOptionArraySelect}}->toOptionArray();
+        array_unshift($values, array('label' => '', 'value' => ''));
 
         $html = '<a href="{#url}" id="{{entity}}_{{sibling}}_id_link" target="_blank"></a>';
         $html .= '<script type="text/javascript">
-            function change{{Sibling}}IdLink(){
+            function change{{Sibling}}IdLink() {
                 if ($(\'{{entity}}_{{sibling}}_id\').value == \'\') {
                     $(\'{{entity}}_{{sibling}}_id_link\').hide();
-                }
-                else {
+                } else {
                     $(\'{{entity}}_{{sibling}}_id_link\').show();
                     var url = \''.$this->getUrl('adminhtml/{{module}}_{{sibling}}/edit', array('id'=>'{#id}', 'clear'=>1)).'\';
                     var text = \''.Mage::helper('core')->escapeHtml($this->__('View {#name}')).'\';
@@ -20,10 +20,14 @@
             change{{Sibling}}IdLink();
             </script>';
 
-        $fieldset->addField('{{sibling}}_id', 'select', array(
-            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingLabel}}'),
-            'name'      => '{{sibling}}_id',
-            'required'  => false,
-            'values'    => $values,
-            'after_element_html' => $html
-        ));
+        $fieldset->addField(
+            '{{sibling}}_id',
+            'select',
+            array(
+                'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingLabel}}'),
+                'name'      => '{{sibling}}_id',
+                'required'  => false,
+                'values'    => $values,
+                'after_element_html' => $html
+            )
+        );

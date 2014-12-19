@@ -1,76 +1,96 @@
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
-                'header'=>  Mage::helper('{{namespace}}_{{module}}')->__('Action'),
-                'width' => '100',
-                'type'  => 'action',
-                'getter'=> 'getCtCommentId',
-                'actions'   => array(
+                'header'  => Mage::helper('{{namespace}}_{{module}}')->__('Action'),
+                'width'   => '100',
+                'type'    => 'action',
+                'getter'  => 'getCtCommentId',
+                'actions' => array(
                     array(
-                        'caption'   => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
-                        'url'   => array('base'=> '*/*/edit'),
-                        'field' => 'id'
+                        'caption' => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
+                        'url'     => array('base'=> '*/*/edit'),
+                        'field'   => 'id'
                     )
                 ),
-                'filter'=> false,
-                'is_system'    => true,
+                'filter'    => false,
+                'is_system' => true,
                 'sortable'  => false,
-        ));
+            )
+        );
         $this->addExportType('*/*/exportCsv', Mage::helper('{{namespace}}_{{module}}')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('{{namespace}}_{{module}}')->__('Excel'));
         $this->addExportType('*/*/exportXml', Mage::helper('{{namespace}}_{{module}}')->__('XML'));
         return parent::_prepareColumns();
     }
+
     /**
      * prepare mass action
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Grid
      * {{qwertyuiop}}
      */
-    protected function _prepareMassaction(){
+    protected function _prepareMassaction()
+    {
         $this->setMassactionIdField('ct_comment_id');
         $this->setMassactionIdFilter('ct.comment_id');
         $this->setMassactionIdFieldOnlyIndexValue(true);
         $this->getMassactionBlock()->setFormFieldName('comment');
-        $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
-            'url'  => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
-        ));
-        $this->getMassactionBlock()->addItem('status', array(
-            'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
-            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
-            'additional' => array(
-                'status' => array(
-                        'name' => 'status',
-                        'type' => 'select',
-                        'class' => 'required-entry',
-                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
-                        'values' => array(
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  => Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED => Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
-                            {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED => Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
-                        )
+        $this->getMassactionBlock()->addItem(
+            'delete',
+            array(
+                'label'=> Mage::helper('{{namespace}}_{{module}}')->__('Delete'),
+                'url'  => $this->getUrl('*/*/massDelete'),
+                'confirm'  => Mage::helper('{{namespace}}_{{module}}')->__('Are you sure?')
+            )
+        );
+        $this->getMassactionBlock()->addItem(
+            'status',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Change status'),
+                'url'   => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+                'additional' => array(
+                    'status' => array(
+                            'name' => 'status',
+                            'type' => 'select',
+                            'class' => 'required-entry',
+                            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
+                            'values' => array(
+                                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING  =>
+                                    Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
+                                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED =>
+                                    Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
+                                {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED =>
+                                    Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
+                            )
+                    )
                 )
             )
-        ));
+        );
         return $this;
     }
+
     /**
      * get the row url
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * @return string
      * {{qwertyuiop}}
      */
-    public function getRowUrl($row){
+    public function getRowUrl($row)
+    {
         return $this->getUrl('*/*/edit', array('id' => $row->getCtCommentId()));
     }
+
     /**
      * get the grid url
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getGridUrl(){
+    public function getGridUrl()
+    {
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }

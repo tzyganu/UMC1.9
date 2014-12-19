@@ -3,14 +3,18 @@
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Information'));
     }
+
     /**
      * prepare the layout
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tabs
      * {{qwertyuiop}}
      */
-    protected function _prepareLayout(){
+    protected function _prepareLayout()
+    {
         ${{entity}} = $this->get{{Entity}}();
-        $entity = Mage::getModel('eav/entity_type')->load('{{namespace}}_{{module}}_{{entity}}', 'entity_type_code');
+        $entity = Mage::getModel('eav/entity_type')
+            ->load('{{namespace}}_{{module}}_{{entity}}', 'entity_type_code');
         $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
                 ->setEntityTypeFilter($entity->getEntityTypeId());

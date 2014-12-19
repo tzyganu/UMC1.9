@@ -1,15 +1,18 @@
+
     /**
      * Assign category to {{entityLabel}}
+     *
      * @access public
      * @param int ${{entity}}Id
      * @param int $categoryId
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function assignCategory(${{entity}}Id, $categoryId){
+    public function assignCategory(${{entity}}Id, $categoryId)
+    {
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         $category   = Mage::getModel('catalog/category')->load($categoryId);
-        if (!$category->getId()){
+        if (!$category->getId()) {
             $this->_fault('category_not_exists');
         }
         $categories = ${{entity}}->getSelectedCategories();
@@ -21,34 +24,35 @@
         ${{entity}}->setCategoriesData($categoryIds);
         try {
             ${{entity}}->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return true;
     }
+
     /**
      * remove category from {{entityLabel}}
+     *
      * @access public
      * @param int ${{entity}}Id
      * @param int $categoryId
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function unassignCategory(${{entity}}Id, $categoryId){
+    public function unassignCategory(${{entity}}Id, $categoryId)
+    {
         ${{entity}}    = $this->_init{{Entity}}(${{entity}}Id);
         $categories    = ${{entity}}->getSelectedCategories();
         $categoryIds   = array();
-        foreach ($categories as $key=>$category){
-            if ($category->getId() != $categoryId){
+        foreach ($categories as $key=>$category) {
+            if ($category->getId() != $categoryId) {
                 $categoryIds[] = $category->getId();
             }
         }
         ${{entity}}->setCategoriesData($categoryIds);
         try {
             ${{entity}}->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return true;

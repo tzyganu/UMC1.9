@@ -1,4 +1,11 @@
-        $this->addTab('{{siblings}}', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingsLabel}}'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}','{{entity}}.{{sibling}}.grid')->toHtml(),
-        ));
+        $this->addTab(
+            '{{siblings}}',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingsLabel}}'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_{{sibling}}',
+                    '{{entity}}.{{sibling}}.grid'
+                )
+                ->toHtml(),
+            )
+        );

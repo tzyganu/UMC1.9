@@ -22,10 +22,11 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Category
-    extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product {
+class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Category extends Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown_Product
+{
     /**
      * entity code for source
+     *
      * @var string
      */
     protected $_entityCode = 'catalog_category';

@@ -1,7 +1,7 @@
         ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($comment->get{{Entity}}Id());
-        if (!${{entity}}->getId() || ${{entity}}->getStatus() != 1){
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load($comment->get{{Entity}}Id());
+        if (!${{entity}}->getId() || ${{entity}}->getStatus() != 1) {
             $this->_forward('no-route');
             return;
         }

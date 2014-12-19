@@ -3,14 +3,23 @@
         $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'));
         $this->setTemplate('widget/tabshoriz.phtml');
     }
+
     /**
      * Prepare Layout Content
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tabs
      */
-    protected function _prepareLayout(){
-        $this->addTab('form_{{entity}}', array(
-            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
-            'title'        => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
-            'content'     => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_form')->toHtml(),
-        ));
+    protected function _prepareLayout()
+    {
+        $this->addTab(
+            'form_{{entity}}',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
+                'title'   => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_form'
+                )
+                ->toHtml(),
+            )
+        );

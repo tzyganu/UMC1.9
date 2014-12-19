@@ -1,6 +1,9 @@
-        $this->addColumn('updated_at', array(
-            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Updated at'),
-            'index'     => 'updated_at',
-            'width'     => '120px',
-            'type'      => 'datetime',
-        ));
+        $this->addColumn(
+            'updated_at',
+            array(
+                'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Updated at'),
+                'index'     => 'updated_at',
+                'width'     => '120px',
+                'type'      => 'datetime',
+            )
+        );

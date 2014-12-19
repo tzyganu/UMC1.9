@@ -1,10 +1,13 @@
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
-                'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
-                'index' => 'store_id',
-                'type'  => 'store',
-                'store_all' => true,
-                'store_view'=> true,
-                'sortable'  => false,
-            ));
+            $this->addColumn(
+                'store_id',
+                array(
+                    'header'     => Mage::helper('{{namespace}}_{{module}}')->__('Store Views'),
+                    'index'      => 'store_id',
+                    'type'       => 'store',
+                    'store_all'  => true,
+                    'store_view' => true,
+                    'sortable'   => false,
+                )
+            );
         }

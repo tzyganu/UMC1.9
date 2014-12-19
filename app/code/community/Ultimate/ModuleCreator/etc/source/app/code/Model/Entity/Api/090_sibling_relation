@@ -1,5 +1,7 @@
+
     /**
      * Assign {{siblingLabel}} to {{entityLabel}}
+     *
      * @access public
      * @param int ${{entity}}Id
      * @param int ${{sibling}}Id
@@ -7,48 +9,50 @@
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function assign{{Sibling}}(${{entity}}Id, ${{sibling}}Id, $position = null){
+    public function assign{{Sibling}}(${{entity}}Id, ${{sibling}}Id, $position = null)
+    {
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         $positions    = array();
         ${{siblings}}     = ${{entity}}->getSelected{{Siblings}}();
-        foreach (${{siblings}} as ${{sibling}}){
+        foreach (${{siblings}} as ${{sibling}}) {
             ${{siblings}}[${{sibling}}->getId()] = array('position'=>${{sibling}}->getPosition());
         }
         ${{sibling}} = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}')->load(${{sibling}}Id);
-        if (!${{sibling}}->getId()){
+        if (!${{sibling}}->getId()) {
             $this->_fault('{{entity}}_{{sibling}}_not_exists');
         }
         $positions[${{sibling}}Id]['position'] = $position;
         ${{sibling}}->set{{Siblings}}Data($positions);
         try {
             ${{sibling}}->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return true;
     }
+
     /**
      * remove {{siblingLabel}} from {{entityLabel}}
+     *
      * @access public
      * @param int ${{entity}}Id
      * @param int ${{sibling}}Id
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function unassign{{Sibling}}(${{entity}}Id, ${{sibling}}Id){
+    public function unassign{{Sibling}}(${{entity}}Id, ${{sibling}}Id)
+    {
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         $positions    = array();
         ${{siblings}}     = ${{entity}}->getSelected{{Siblings}}();
-        foreach (${{siblings}} as ${{sibling}}){
+        foreach (${{siblings}} as ${{sibling}}) {
             ${{siblings}}[${{sibling}}->getId()] = array('position'=>${{sibling}}->getPosition());
         }
         unset($positions[${{sibling}}Id]);
         ${{entity}}->set{{Siblings}}Data($positions);
         try {
             ${{entity}}->save();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
         return true;

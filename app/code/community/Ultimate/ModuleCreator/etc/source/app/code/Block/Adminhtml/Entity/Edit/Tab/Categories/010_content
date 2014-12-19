@@ -7,64 +7,78 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
-    extends Mage_Adminhtml_Block_Catalog_Category_Tree {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree
+{
     protected $_categoryIds = null;
     protected $_selectedNodes = null;
 
     /**
      * constructor
+     *
      * Specify template to use
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setTemplate('{{namespace}}_{{module}}/{{entity}}/edit/tab/categories.phtml');
         $this->_withProductCount = false;
     }
+
     /**
      * Retrieve currently edited {{entityLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}(){
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
+
     /**
      * Return array with categories IDs which the {{entityLabel}} is linked to
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getCategoryIds(){
-        if (is_null($this->_categoryIds)){
+    public function getCategoryIds()
+    {
+        if (is_null($this->_categoryIds)) {
             $categories = $this->get{{Entity}}()->getSelectedCategories();
-                $ids = array();
-                foreach ($categories as $category){
-                    $ids[] = $category->getId();
-                }
-                $this->_categoryIds = $ids;
+            $ids = array();
+            foreach ($categories as $category) {
+                $ids[] = $category->getId();
+            }
+            $this->_categoryIds = $ids;
         }
         return $this->_categoryIds;
     }
+
     /**
      * Forms string out of getCategoryIds()
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getIdsString(){
+    public function getIdsString()
+    {
         return implode(',', $this->getCategoryIds());
     }
+
     /**
      * Returns root node and sets 'checked' flag (if necessary)
+     *
      * @access public
      * @return Varien_Data_Tree_Node
      * {{qwertyuiop}}
      */
-    public function getRootNode(){
+    public function getRootNode()
+    {
         $root = $this->getRoot();
         if ($root && in_array($root->getId(), $this->getCategoryIds())) {
             $root->setChecked(true);
@@ -80,7 +94,8 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
      * @return Varien_Data_Tree_Node
      * {{qwertyuiop}}
      */
-    public function getRoot($parentNodeCategory = null, $recursionLevel = 3){
+    public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
+    {
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
         }
@@ -99,15 +114,18 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return $root;
     }
+
     /**
      * Returns array with configuration of current node
+     *
      * @access public
      * @param Varien_Data_Tree_Node $node
      * @param int $level How deep is the node in the tree
      * @return array
      * {{qwertyuiop}}
      */
-    protected function _getNodeJson($node, $level = 1){
+    protected function _getNodeJson($node, $level = 1)
+    {
         $item = parent::_getNodeJson($node, $level);
         if ($this->_isParentSelectedCategory($node)) {
             $item['expanded'] = true;
@@ -117,14 +135,17 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return $item;
     }
+
     /**
      * Returns whether $node is a parent (not exactly direct) of a selected node
+     *
      * @access public
      * @param Varien_Data_Tree_Node $node
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function _isParentSelectedCategory($node){
+    protected function _isParentSelectedCategory($node)
+    {
         $result = false;
         // Contains string with all category IDs of children (not exactly direct) of the node
         $allChildren = $node->getAllChildren();
@@ -141,12 +162,14 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return $result;
     }
+
     /**
      * Returns array with nodes those are selected (contain current {{entityLabel}})
      *
      * @return array
      */
-    protected function _getSelectedNodes(){
+    protected function _getSelectedNodes()
+    {
         if ($this->_selectedNodes === null) {
             $this->_selectedNodes = array();
             $root = $this->getRoot();
@@ -161,12 +184,14 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
 
     /**
      * Returns JSON-encoded array of category children
+     *
      * @access public
      * @param int $categoryId
      * @return string
      * {{qwertyuiop}}
      */
-    public function getCategoryChildrenJson($categoryId){
+    public function getCategoryChildrenJson($categoryId)
+    {
         $category = Mage::getModel('catalog/category')->load($categoryId);
         $node = $this->getRoot($category, 1)->getTree()->getNodeById($categoryId);
         if (!$node || !$node->hasChildren()) {
@@ -178,25 +203,30 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return Mage::helper('core')->jsonEncode($children);
     }
+
     /**
      * Returns URL for loading tree
+     *
      * @access public
      * @param null $expanded
      * @return string
      * {{qwertyuiop}}
      */
-    public function getLoadTreeUrl($expanded = null){
+    public function getLoadTreeUrl($expanded = null)
+    {
         return $this->getUrl('*/*/categoriesJson', array('_current' => true));
     }
 
     /**
      * Return distinct path ids of selected category
+     *
      * @access public
      * @param mixed $rootId Root category Id for context
      * @return array
      * {{qwertyuiop}}
      */
-    public function getSelectedCategoryPathIds($rootId = false){
+    public function getSelectedCategoryPathIds($rootId = false)
+    {
         $ids = array();
         $categoryIds = $this->getCategoryIds();
         if (empty($categoryIds)) {
@@ -205,8 +235,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         $collection = Mage::getResourceModel('catalog/category_collection');
         if ($rootId) {
             $collection->addFieldToFilter('parent_id', $rootId);
-        }
-        else {
+        } else {
             $collection->addFieldToFilter('entity_id', array('in'=>$categoryIds));
         }
 
@@ -222,16 +251,24 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Categories
         }
         return $ids;
     }
+
     /**
      * Get node label
+     *
      * @access public
      * @param Varien_Object $node
      * @return string
      * {{qwertyuiop}}
      */
-    public function buildNodeName($node){
+    public function buildNodeName($node)
+    {
         $result = parent::buildNodeName($node);
-        $result .= '<a target="_blank" href="'.$this->getUrl('adminhtml/catalog_category/index', array('id'=>$node->getId(), 'clear'=>1)).'"><em>'.$this->__(' - Edit').'</em></a>';
+        $result .= '<a target="_blank" href="'.
+            $this->getUrl(
+                'adminhtml/catalog_category/index',
+                array('id'=>$node->getId(), 'clear'=>1)
+            ).
+            '"><em>'.$this->__(' - Edit').'</em></a>';
         return $result;
     }
 }

@@ -1,5 +1,11 @@
-        $this->addTab('form_meta_{{entity}}', array(
-            'label'        => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
-            'title'        => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
-            'content'     => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_meta')->toHtml(),
-        ));
+        $this->addTab(
+            'form_meta_{{entity}}',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+                'title'   => Mage::helper('{{namespace}}_{{module}}')->__('Meta'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_meta'
+                )
+                ->toHtml(),
+            )
+        );

@@ -1,25 +1,31 @@
+
     /**
      * Get store ids to which specified item is assigned
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return array
      * {{qwertyuiop}}
      */
-    public function lookupStoreIds(${{entity}}Id){
+    public function lookupStoreIds(${{entity}}Id)
+    {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from($this->getTable('{{namespace}}_{{module}}/{{entity}}_store'), 'store_id')
-            ->where('{{entity}}_id = ?',(int)${{entity}}Id);
+            ->where('{{entity}}_id = ?', (int)${{entity}}Id);
         return $adapter->fetchCol($select);
     }
+
     /**
      * Perform operations after object load
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object){
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
         if ($object->getId()) {
             $stores = $this->lookupStoreIds($object->getId());
             $object->setData('store_id', $stores);
@@ -35,7 +41,8 @@
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} $object
      * @return Zend_Db_Select
      */
-    protected function _getLoadSelect($field, $value, $object){
+    protected function _getLoadSelect($field, $value, $object)
+    {
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($object->getStoreId()) {
             $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());

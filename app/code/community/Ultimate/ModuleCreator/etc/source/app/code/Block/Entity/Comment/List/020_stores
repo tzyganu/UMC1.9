@@ -1,1 +1,1 @@
-                         ->addStoreFilter(Mage::app()->getStore())
+            ->addStoreFilter(Mage::app()->getStore())

@@ -1,11 +1,14 @@
+
     /**
      * Assign {{entityLabel}} to store views
+     *
      * @access protected
      * @param Mage_Core_Model_Abstract $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $object){
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
         $oldStores = $this->lookupStoreIds($object->getId());
         $newStores = (array)$object->getStores();
         if (empty($newStores)) {

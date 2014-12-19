@@ -22,16 +22,18 @@
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
 
-class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid_Column_Renderer_Download
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract {
+class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid_Column_Renderer_Download extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+{
     /**
      * render row
+     *
      * @access public
      * @param Varien_Object $row
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function render(Varien_Object $row) {
+    public function render(Varien_Object $row)
+    {
         /** @var string $what */
         $what = $this->getColumn()->getWhat();
         /** @var string $id */
@@ -55,18 +57,24 @@ class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_Grid_Column_Renderer_
                 break;
         }
         if (file_exists($file) && is_readable($file)) {
-            return '<a href="'.$this->getUrl('*/*/download', array('type'=>$what, 'id'=>$id)).'">'.$this->_getLabel().'</a>';
+            return '<a href="'.
+                $this->getUrl('*/*/download', array('type'=>$what, 'id'=>$id)).'">'.$this->_getLabel().
+                '</a>';
         }
-        return '<span style="color:red;">'.Mage::helper('modulecreator')->__('File does not exist or is not readable').'</span>';
+        return '<span style="color:red;">'.
+            Mage::helper('modulecreator')->__('File does not exist or is not readable').
+            '</span>';
     }
 
     /**
      * get the link label
+     *
      * @access protected
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _getLabel() {
+    protected function _getLabel()
+    {
         if ($this->getColumn()->getLabel()) {
             return $this->getColumn()->getLabel();
         }

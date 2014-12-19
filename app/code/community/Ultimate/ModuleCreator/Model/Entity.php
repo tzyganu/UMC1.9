@@ -59,136 +59,182 @@
  * @method bool getSearch()
  * @method int getIndex()
  */
-class Ultimate_ModuleCreator_Model_Entity
-    extends Ultimate_ModuleCreator_Model_Abstract {
+class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_Abstract
+{
     /**
      * reference to type instance
+     *
      * @var null|Ultimate_ModuleCreator_Model_Entity_Type_Abstract
      */
     protected $_typeInstance           = null;
+
     /**
      * entity code
+     *
      * @var string
      */
     protected $_entityCode             = 'umc_entity';
+
     /**
      * entity attributes
+     *
      * @var array
      */
     protected $_attributes             = array();
+
     /**
      * entity module
+     *
      * @var Ultimate_ModuleCreator_Model_Module
      */
     protected $_module                 = null;
+
     /**
      * attribute that behaves as name
+     *
      * @var Ultimate_ModuleCreator_Model_Attribute
      */
     protected $_nameAttribute           = null;
+
     /**
      * remember if attributes were prepared
+     *
      * @var bool
      */
     protected $_preparedAttributes      = null;
+
     /**
      * related entities
+     *
      * @var array()
      */
     protected $_relatedEntities         = array();
+
     /**
      * placeholders for replacing in source files
+     *
      * @var mixed
      */
     protected $_placeholders            = null;
+
     /**
      * placeholders for sibling entities
+     *
      * @var mixed
      */
     protected $_placeholdersAsSibling   = null;
+
     /**
      * set the entity module
+     *
      * @access public
      * @param Ultimate_ModuleCreator_Model_Module $module
      * @return Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function setModule(Ultimate_ModuleCreator_Model_Module $module){
+    public function setModule(Ultimate_ModuleCreator_Model_Module $module)
+    {
         $this->_module = $module;
         return $this;
     }
+
     /**
      * get the entity module
+     *
      * @access public
      * @return Ultimate_ModuleCreator_Model_Module
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getModule(){
+    public function getModule()
+    {
         return $this->_module;
     }
+
     /**
      * add new attribute
+     *
      * @access public
      * @param Ultimate_ModuleCreator_Model_Attribute $attribute
      * @return Ultimate_ModuleCreator_Model_Entity
      * @throws Ultimate_ModuleCreator_Exception
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function addAttribute(Ultimate_ModuleCreator_Model_Attribute $attribute){
-        Mage::dispatchEvent('umc_entity_add_attribute_before', array('attribute'=>$attribute, 'entity'=>$this));
+    public function addAttribute(Ultimate_ModuleCreator_Model_Attribute $attribute)
+    {
+        Mage::dispatchEvent(
+            'umc_entity_add_attribute_before',
+            array('attribute'=>$attribute, 'entity'=>$this)
+        );
         $attribute->setEntity($this);
-        if (isset($this->_attributes[$attribute->getCode()])){
-            throw new Ultimate_ModuleCreator_Exception(Mage::helper('modulecreator')->__('An attribute with the code "%s" already exists for entity "%s"', $attribute->getCode(), $this->getNameSingular()));
+        if (isset($this->_attributes[$attribute->getCode()])) {
+            throw new Ultimate_ModuleCreator_Exception(
+                Mage::helper('modulecreator')->__(
+                    'An attribute with the code "%s" already exists for entity "%s"',
+                    $attribute->getCode(),
+                    $this->getNameSingular()
+                )
+            );
         }
         $this->_preparedAttributes = false;
         $this->_attributes[$attribute->getCode()] = $attribute;
-        if ($attribute->getIsName()){
-            if (!$attribute->getIsAllowedAsName()){
+        if ($attribute->getIsName()) {
+            if (!$attribute->getIsAllowedAsName()) {
                 /** @var Ultimate_ModuleCreator_Helper_Data $helper */
                 $helper = Mage::helper('modulecreator');
                 $attributeTypes = $helper->getNameAttributeTypes(true);
-                throw new Ultimate_ModuleCreator_Exception(Mage::helper('modulecreator')->__('An attribute that acts as name must have one of the types "%s".', implode(', ', $attributeTypes)));
+                throw new Ultimate_ModuleCreator_Exception(
+                    Mage::helper('modulecreator')->__(
+                        'An attribute that acts as name must have one of the types "%s".',
+                        implode(', ', $attributeTypes)
+                    )
+                );
             }
             $attribute->setUserDefined(false);
             $this->_nameAttribute = $attribute;
         }
-        if ($attribute->getEditor()){
+        if ($attribute->getEditor()) {
             $this->setEditor(true);
         }
-        if ($attribute->getType() == 'image'){
+        if ($attribute->getType() == 'image') {
             $this->setHasImage(true);
         }
-        if ($attribute->getType() == 'file'){
+        if ($attribute->getType() == 'file') {
             $this->setHasFile(true);
         }
-        if ($attribute->getType() == 'country'){
+        if ($attribute->getType() == 'country') {
             $this->setHasCountry(true);
         }
         if ($attribute->getIsMultipleSelect()) {
             $this->setHasMultipleSelect(true);
         }
-        Mage::dispatchEvent('umc_entity_add_attribute_after', array('attribute'=>$attribute, 'entity'=>$this));
+        Mage::dispatchEvent(
+            'umc_entity_add_attribute_after',
+            array('attribute'=>$attribute, 'entity'=>$this)
+        );
         return $this;
     }
+
     /**
      * prepare attributes
+     *
      * @access protected
      * @return Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _prepareAttributes(){
-        if ($this->_preparedAttributes){
+    protected function _prepareAttributes()
+    {
+        if ($this->_preparedAttributes) {
             return $this;
         }
         $attributesByPosition = array();
-        foreach ($this->_attributes as $attribute){
+        foreach ($this->_attributes as $attribute) {
             /** @var Ultimate_ModuleCreator_Model_Attribute $attribute */
             $attributesByPosition[$attribute->getPosition()][] = $attribute;
         }
         ksort($attributesByPosition);
         $attributes = array();
-        foreach ($attributesByPosition as $attributeList){
-            foreach ($attributeList as $attribute){
+        foreach ($attributesByPosition as $attributeList) {
+            foreach ($attributeList as $attribute) {
                 $attributes[$attribute->getCode()] = $attribute;
             }
         }
@@ -197,20 +243,25 @@ class Ultimate_ModuleCreator_Model_Entity
         $this->_preparedAttributes = true;
         return $this;
     }
+
     /**
      * ge the entity attributes
+     *
      * @access public
      * @return Ultimate_ModuleCreator_Model_Attribute[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAttributes(){
-        if (!$this->_preparedAttributes){
+    public function getAttributes()
+    {
+        if (!$this->_preparedAttributes) {
             $this->_prepareAttributes();
         }
         return $this->_attributes;
     }
+
     /**
      * entity to xml
+     *
      * @access public
      * @param array $arrAttributes
      * @param string $rootName
@@ -219,7 +270,8 @@ class Ultimate_ModuleCreator_Model_Entity
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toXml(array $arrAttributes = array(), $rootName = 'entity', $addOpenTag=false, $addCdata=false){
+    public function toXml(array $arrAttributes = array(), $rootName = 'entity', $addOpenTag=false, $addCdata=false)
+    {
         $xml = '';
         if ($addOpenTag) {
             $xml.= '<?xml version="1.0" encoding="UTF-8"?>'.$this->getEol();
@@ -229,7 +281,7 @@ class Ultimate_ModuleCreator_Model_Entity
         }
         $xml .= parent::toXml($this->getXmlAttributes(), '', false, $addCdata);
         $xml .= '<attributes>'.$this->getEol();
-        foreach ($this->getAttributes() as $attribute){
+        foreach ($this->getAttributes() as $attribute) {
             $xml .= $attribute->toXml(array(), 'attribute', false, $addCdata);
         }
         $xml .= '</attributes>'.$this->getEol();
@@ -238,66 +290,82 @@ class Ultimate_ModuleCreator_Model_Entity
         }
         return $xml;
     }
+
     /**
      * get magic function code for the name attribute
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameAttributeMagicCode(){
+    public function getNameAttributeMagicCode()
+    {
         $nameAttribute = $this->getNameAttribute();
-        if ($nameAttribute){
+        if ($nameAttribute) {
             $entityNameMagicCode = $nameAttribute->getMagicMethodCode();
-        }
-        else{
+        } else {
             $entityNameMagicCode = 'Name';
         }
         return $entityNameMagicCode;
     }
+
     /**
      * get the name attribute
+     *
      * @access public
      * @return mixed(null|Ultimate_ModuleCreator_Model_Attribute)
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameAttribute(){
+    public function getNameAttribute()
+    {
         return $this->_nameAttribute;
     }
 
     /**
      * get the attribute code for the name attribute
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameAttributeCode(){
+    public function getNameAttributeCode()
+    {
         return $this->_nameAttribute->getCode();
     }
+
     /**
      * get the attribute label for the name attribute
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameAttributeLabel(){
+    public function getNameAttributeLabel()
+    {
         return $this->getNameAttribute()->getLabel();
     }
+
     /**
      * check if the entity has file attributes
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHasFile(){
+    public function getHasFile()
+    {
         return $this->getTypeInstance()->getHasFile();
     }
+
     /**
      * check if the entity has image attributes
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHasImage(){
+    public function getHasImage()
+    {
         return $this->getTypeInstance()->getHasImage();
     }
     /**
@@ -306,245 +374,313 @@ class Ultimate_ModuleCreator_Model_Entity
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHasUpload(){
+    public function getHasUpload()
+    {
         return $this->getHasFile() || $this->getHasImage();
     }
+
     /**
      * get the first image attribute code
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getFirstImageField(){
-        foreach ($this->getAttributes() as $attribute){
-            if ($attribute->getType() == 'image'){
+    public function getFirstImageField()
+    {
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getType() == 'image') {
                 return $attribute->getCode();
             }
         }
         return '';
     }
+
     /**
      * get the attribute name for plural
+     *
      * @access public
      * @param bool $lower
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNamePlural($lower = false){
+    public function getNamePlural($lower = false)
+    {
         $plural = $this->getData('name_plural');
-        if ($plural == $this->getNameSingular()){
-            if ($plural == ""){
+        if ($plural == $this->getNameSingular()) {
+            if ($plural == "") {
                 return "";
             }
             $plural = $this->getNameSingular().'s';
         }
-        if ($lower){
+        if ($lower) {
             $plural = strtolower($plural);
         }
         return $plural;
     }
+
     /**
      * check if frontend list files must be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCreateList(){
+    public function getCreateList()
+    {
         return $this->getCreateFrontend() && $this->getData('create_list');
     }
+
     /**
      * get list template
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getListTemplate(){
-        if ($this->getCreateList()){
+    public function getListTemplate()
+    {
+        if ($this->getCreateList()) {
             return $this->getData('list_template');
         }
         return '';
     }
+
     /**
      * check if frontend view files must be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCreateView(){
+    public function getCreateView()
+    {
         return $this->getCreateFrontend() && $this->getData('create_view');
     }
+
     /**
      * get list template
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getViewTemplate(){
-        if ($this->getCreateView()){
+    public function getViewTemplate()
+    {
+        if ($this->getCreateView()) {
             return $this->getData('view_template');
         }
         return '';
     }
+
     /**
      * check if widget list files must be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWidget(){
+    public function getWidget()
+    {
         return $this->getCreateFrontend() && $this->getData('widget');
     }
+
     /**
      * check if SEO attributes should be added
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAddSeo(){
+    public function getAddSeo()
+    {
         return $this->getCreateView() && $this->getData('add_seo');
     }
+
     /**
      * check if SEO attributes should be added
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRss(){
+    public function getRss()
+    {
         return $this->getCreateFrontend() && $this->getData('rss');
     }
+
     /**
-     * check if url rewrite shoul be added
+     * check if url rewrite should be added
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getUrlRewrite(){
+    public function getUrlRewrite()
+    {
         return $this->getCreateView() && $this->getData('url_rewrite');
     }
+
     /**
      * get url prefix
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getUrlPrefix(){
-        if ($this->getUrlRewrite()){
+    public function getUrlPrefix()
+    {
+        if ($this->getUrlRewrite()) {
             return $this->getData('url_prefix');
         }
         return '';
     }
+
     /**
      * get url suffix
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getUrlSuffix(){
-        if ($this->getUrlRewrite()){
+    public function getUrlSuffix()
+    {
+        if ($this->getUrlRewrite()) {
             return $this->getData('url_suffix');
         }
         return '';
     }
+
     /**
      * check if products are listed in the entity view page
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getShowProducts(){
-        return $this->getLinkProduct() && $this->getCreateFrontend() && $this->getData('show_products');
+    public function getShowProducts()
+    {
+        return $this->getLinkProduct() &&
+            $this->getCreateFrontend() &&
+            $this->getData('show_products');
     }
+
     /**
      * check if entity list is shown on product page
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getShowOnProduct(){
+    public function getShowOnProduct()
+    {
         return $this->getLinkProduct() && $this->getData('show_on_product');
     }
+
     /**
      * check if entity list is shown on category page
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getShowOnCategory(){
+    public function getShowOnCategory()
+    {
         return $this->getLinkCategory() && $this->getData('show_on_category');
     }
+
     /**
      * add related entities
+     *
      * @access public
      * @param string $type
      * @param Ultimate_ModuleCreator_Model_Entity $entity
      * @return Ultimate_ModuleCreator_Model_Entity
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function addRelatedEntity($type, $entity){
+    public function addRelatedEntity($type, $entity)
+    {
         $this->_relatedEntities[$type][] = $entity;
         return $this;
     }
+
     /**
      * get the related entities
+     *
      * @access public
      * @param mixed $type
      * @return Ultimate_ModuleCreator_Model_Entity[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRelatedEntities($type = null){
-        if (is_null($type)){
+    public function getRelatedEntities($type = null)
+    {
+        if (is_null($type)) {
             return $this->_relatedEntities;
         }
-        if (isset($this->_relatedEntities[$type])){
+        if (isset($this->_relatedEntities[$type])) {
             return $this->_relatedEntities[$type];
         }
         return array();
     }
+
     /**
      * check if entity does not behave as tree
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNotIsTree(){
+    public function getNotIsTree()
+    {
         return !$this->getIsTree();
     }
+
     /**
      * check if entity does not have url rewrites
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNotUrlRewrite(){
+    public function getNotUrlRewrite()
+    {
         return !$this->getUrlRewrite();
     }
+
     /**
      * check if entity is EAV
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getIsEav(){
+    public function getIsEav()
+    {
         return $this->getType() == Ultimate_ModuleCreator_Model_Entity_Type_Abstract::TYPE_EAV;
     }
+
     /**
      * check if entity is Flat
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getIsFlat(){
+    public function getIsFlat()
+    {
         return $this->getType() == Ultimate_ModuleCreator_Model_Entity_Type_Abstract::TYPE_FLAT;
     }
 
     /**
      * get the entity type instance
+     *
      * @access public
      * @return Ultimate_ModuleCreator_Model_Entity_Type_Abstract
      * @throws Ultimate_ModuleCreator_Exception
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getTypeInstance(){
+    public function getTypeInstance()
+    {
         if (is_null($this->_typeInstance)) {
             $type = $this->getType();
             /** @var Ultimate_ModuleCreator_Helper_Data $helper */
@@ -554,9 +690,10 @@ class Ultimate_ModuleCreator_Model_Entity
                 /** @var Ultimate_ModuleCreator_Model_Entity_Type_Abstract $typeInstance */
                 $typeInstance = Mage::getModel((string)$types[$type]->type_model);
                 $this->_typeInstance = $typeInstance;
-            }
-            else {
-                throw new Ultimate_ModuleCreator_Exception(Mage::helper('modulecreator')->__('Entity "%s" type is not valid', $type));
+            } else {
+                throw new Ultimate_ModuleCreator_Exception(
+                    Mage::helper('modulecreator')->__('Entity "%s" type is not valid', $type)
+                );
             }
             $this->_typeInstance->setEntity($this);
         }
@@ -565,32 +702,39 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * check if entity has default config settings
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHasConfigDefaults(){
+    public function getHasConfigDefaults()
+    {
         return $this->getCreateFrontend();
     }
+
     /**
      * check if entity is linked to core entities (product, category)
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getLinkCore(){
+    public function getLinkCore()
+    {
         return $this->getLinkProduct() || $this->getLinkCategory();
     }
 
     /**
      * get entity placeholders
+     *
      * @access public
      * @param null $param
      * @return array|mixed|null|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getPlaceholders($param = null){
-        if (is_null($this->_placeholders)){
+    public function getPlaceholders($param = null)
+    {
+        if (is_null($this->_placeholders)) {
             $this->_placeholders = array();
             $this->_placeholders['{{entity_default_config}}']       = $this->getDefaultConfig();
             $this->_placeholders['{{entity}}']                      = $this->getNameSingular(true);
@@ -687,10 +831,10 @@ class Ultimate_ModuleCreator_Model_Entity
             Mage::dispatchEvent('umc_entity_placeholdrers', array('event_object'=>$eventObject));
             $this->_placeholders = $eventObject->getPlaceholders();
         }
-        if (is_null($param)){
+        if (is_null($param)) {
             return $this->_placeholders;
         }
-        if (isset($this->_placeholders[$param])){
+        if (isset($this->_placeholders[$param])) {
             return $this->_placeholders[$param];
         }
         return '';
@@ -698,13 +842,15 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get placeholders as sibling
+     *
      * @access public
      * @param null $param
      * @return array|mixed|null|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getPlaceholdersAsSibling($param = null){
-        if (is_null($this->_placeholdersAsSibling)){
+    public function getPlaceholdersAsSibling($param = null)
+    {
+        if (is_null($this->_placeholdersAsSibling)) {
             $this->_placeholdersAsSibling = array();
             $this->_placeholdersAsSibling['{{sibling_default_config}}']         = $this->getDefaultConfig();
             $this->_placeholdersAsSibling['{{sibling}}']                        = $this->getNameSingular(true);
@@ -728,10 +874,12 @@ class Ultimate_ModuleCreator_Model_Entity
             $this->_placeholdersAsSibling['{{siblingViewLayout}}']              = $this->getViewTemplate();
             $this->_placeholdersAsSibling['{{SiblingListItem}}']                = $this->getHtmlLink();
             $this->_placeholdersAsSibling['{{siblingNameAttribute}}']           = $this->getNameAttributeCode();
-            $this->_placeholdersAsSibling['{{siblingAdditionalPrepareCollection}}'] = $this->getAdditionalPrepareCollection();
+            $this->_placeholdersAsSibling['{{siblingAdditionalPrepareCollection}}']
+                = $this->getAdditionalPrepareCollection();
             $this->_placeholdersAsSibling['{{siblingTableAlias}}']              = $this->getEntityTableAlias();
             $this->_placeholdersAsSibling['{{siblingFilterMethod}}']            = $this->getFilterMethod();
-            $this->_placeholdersAsSibling['{{siblingAllAttributesToCollection}}'] = $this->getAllAttributesToCollection();
+            $this->_placeholdersAsSibling['{{siblingAllAttributesToCollection}}']
+                = $this->getAllAttributesToCollection();
             $this->_placeholdersAsSibling['{{siblingLoadStoreId}}']              = $this->getLoadStoreId();
             $this->_placeholdersAsSibling['{{siblingToOptionArraySelect}}']     = $this->getToOptionArraySelect();
             $this->_placeholdersAsSibling['{{siblingParentStaticParams}}']      = $this->getParentStaticParams();
@@ -741,13 +889,16 @@ class Ultimate_ModuleCreator_Model_Entity
                     'placeholders' => $this->_placeholdersAsSibling
                 )
             );
-            Mage::dispatchEvent('umc_entity_placeholdrers_as_sibling', array('event_object'=>$eventObject));
+            Mage::dispatchEvent(
+                'umc_entity_placeholdrers_as_sibling',
+                array('event_object'=>$eventObject)
+            );
             $this->_placeholdersAsSibling = $eventObject->getPlaceholders();
         }
-        if (is_null($param)){
+        if (is_null($param)) {
             return $this->_placeholdersAsSibling;
         }
-        if (isset($this->_placeholdersAsSibling[$param])){
+        if (isset($this->_placeholdersAsSibling[$param])) {
             return $this->_placeholdersAsSibling[$param];
         }
         return '';
@@ -755,12 +906,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get default config settings
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getDefaultConfig(){
-        if (!$this->getHasConfigDefaults()){
+    public function getDefaultConfig()
+    {
+        if (!$this->getHasConfigDefaults()) {
             return '';
         }
         $padding3   = $this->getPadding(3);
@@ -768,28 +921,28 @@ class Ultimate_ModuleCreator_Model_Entity
         $eol        = $this->getEol();
 
         $text = '<'.$this->getNameSingular().'>'.$eol;
-        if ($this->getCreateFrontend()){
+        if ($this->getCreateFrontend()) {
             $text.= $padding3.$padding.'<breadcrumbs>1</breadcrumbs>'.$eol;
         }
-        if ($this->getUrlRewrite() && $this->getUrlPrefix()){
+        if ($this->getUrlRewrite() && $this->getUrlPrefix()) {
             $text.= $padding3.$padding.'<url_prefix>'.$this->getUrlPrefix().'</url_prefix>'.$eol;
         }
-        if ($this->getUrlRewrite() && $this->getUrlSuffix()){
+        if ($this->getUrlRewrite() && $this->getUrlSuffix()) {
             $text.= $padding3.$padding.'<url_suffix>'.$this->getUrlSuffix().'</url_suffix>'.$eol;
         }
         if ($this->getUrlRewrite() && $this->getUrlRewriteList()) {
             $text.= $padding3.$padding.'<url_rewrite_list>'.$this->getUrlRewriteList().'</url_rewrite_list>'.$eol;
         }
-        if ($this->getAllowComment()){
+        if ($this->getAllowComment()) {
             $text.= $padding3.$padding.'<allow_comment>1</allow_comment>'.$eol;
         }
-        if ($this->getRss()){
+        if ($this->getRss()) {
             $text.= $padding3.$padding.'<rss>1</rss>'.$eol;
         }
-        if ($this->getAddSeo()){
+        if ($this->getAddSeo()) {
             $text.= $padding3.$padding.'<meta_title>'.$this->getLabelPlural().'</meta_title>'.$eol;
         }
-        if ($this->getIsTree() && $this->getCreateFrontend()){
+        if ($this->getIsTree() && $this->getCreateFrontend()) {
             $text.= $padding3.$padding.'<tree>1</tree>'.$eol;
             $text.= $padding3.$padding.'<recursion>0</recursion>'.$eol;
         }
@@ -799,70 +952,91 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get xml for add product event
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAddBlockToProductEvent(){
+    public function getAddBlockToProductEvent()
+    {
         $text = '';
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $ns     = $this->getNamespace(true);
             $eol    = $this->getEol();
-            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+                $this->getNameSingular(true).'>'.$eol;
             $text  .= $this->getPadding(6).'<type>singleton</type>'.$eol;
-            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().'/adminhtml_observer</class>'.$eol;
-            $text  .= $this->getPadding(6).'<method>add'.ucfirst(strtolower($this->getNameSingular())).'Block</method>'.$eol;
-            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().
+                '/adminhtml_observer</class>'.$eol;
+            $text  .= $this->getPadding(6).'<method>add'.ucfirst(strtolower($this->getNameSingular())).
+                'Block</method>'.$eol;
+            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+                $this->getNameSingular(true).'>'.$eol;
         }
         return $text;
     }
+
     /**
      * get xml for add product save after event
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getProductSaveAfterEvent(){
+    public function getProductSaveAfterEvent()
+    {
         $text = '';
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $ns     = strtolower($this->getModule()->getNamespace());
             $eol    = $this->getEol();
-            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+                $this->getNameSingular(true).'>'.$eol;
             $text  .= $this->getPadding(6).'<type>singleton</type>'.$eol;
-            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().'/adminhtml_observer</class>'.$eol;
-            $text  .= $this->getPadding(6).'<method>save'.ucfirst(strtolower($this->getNameSingular())).'Data</method>'.$eol;
-            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().
+                '/adminhtml_observer</class>'.$eol;
+            $text  .= $this->getPadding(6).'<method>save'.ucfirst(strtolower($this->getNameSingular())).
+                'Data</method>'.$eol;
+            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().
+                '_'.$this->getNameSingular(true).'>'.$eol;
         }
         return $text;
     }
+
     /**
      * get xml for add can load ext js
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCanLoadExtJsEvent(){
+    public function getCanLoadExtJsEvent()
+    {
         $text = '';
-        if ($this->getLinkProduct() && $this->getIsTree()){
+        if ($this->getLinkProduct() && $this->getIsTree()) {
             $eol    = $this->getEol();
             $ns     = strtolower($this->getModule()->getNamespace());
-            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+                $this->getNameSingular(true).'>'.$eol;
             $text  .= $this->getPadding(6).'<type>singleton</type>'.$eol;
-            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().'/adminhtml_observer</class>'.$eol;
+            $text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().
+                '/adminhtml_observer</class>'.$eol;
             $text  .= $this->getPadding(6).'<method>setCanLoadExtJs</method>'.$eol;
-            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.$this->getNameSingular(true).'>'.$eol;
+            $text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().
+                '_'.$this->getNameSingular(true).'>'.$eol;
         }
         return $text;
     }
 
     /**
      * get xml for admin menu
+     *
      * @access public
      * @param $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getMenu($padding){
+    public function getMenu($padding)
+    {
         $extension  = $this->getModule()->getExtensionName(true);
         $module     = $this->getModule()->getLowerModuleName();
         $title      = ucwords($this->getLabelSingular());
@@ -875,8 +1049,9 @@ class Ultimate_ModuleCreator_Model_Entity
         $text .= $this->getPadding($padding + 1).'<action>adminhtml/'.$action.'</action>'.$eol;
         $text .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
         $text .= $this->getPadding($padding).'</'.$entity.'>'.$eol;
-        if ($this->getAllowComment()){
-            $text .= $this->getPadding($padding).'<'.$entity.'_comments translate="title" module="'.$extension.'">'.$eol;
+        if ($this->getAllowComment()) {
+            $text .= $this->getPadding($padding).'<'.$entity.
+                '_comments translate="title" module="'.$extension.'">'.$eol;
             $text .= $this->getPadding($padding + 1).'<title>Manage '.$title.' Comments</title>'.$eol;
             $text .= $this->getPadding($padding + 1).'<action>adminhtml/'.$action.'_comment</action>'.$eol;
             $text .= $this->getPadding($padding + 1).'<sort_order>'.($this->getPosition() + 4).'</sort_order>'.$eol;
@@ -890,12 +1065,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get xml for acl
+     *
      * @access public
      * @param $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getMenuAcl($padding){
+    public function getMenuAcl($padding)
+    {
         $extension  = $this->getModule()->getExtensionName(true);
         $title      = ucwords($this->getLabelSingular());
         $entity     = $this->getNameSingular(true);
@@ -906,8 +1083,9 @@ class Ultimate_ModuleCreator_Model_Entity
         $text .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
         $text .= $this->getPadding($padding).'</'.$entity.'>'.$eol;
 
-        if ($this->getAllowComment()){
-            $text .= $this->getPadding($padding).'<'.$entity.'_comments translate="title" module="'.$extension.'">'.$eol;
+        if ($this->getAllowComment()) {
+            $text .= $this->getPadding($padding).'<'.$entity.
+                '_comments translate="title" module="'.$extension.'">'.$eol;
             $text .= $this->getPadding($padding + 1).'<title>Manage '.$title.' Comments</title>'.$eol;
             $text .= $this->getPadding($padding + 1).'<sort_order>'.($this->getPosition() + 5).'</sort_order>'.$eol;
             $text .= $this->getPadding($padding).'</'.$entity.'_comments>'.$eol;
@@ -919,118 +1097,140 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get attributes that need to be added in the admin grid collection
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCollectionAttributes(){
+    public function getCollectionAttributes()
+    {
         return $this->getTypeInstance()->getCollectionAttributes();
     }
+
     /**
      * get join with admin - for the admin grid
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdminJoin(){
+    public function getAdminJoin()
+    {
         return $this->getTypeInstance()->getAdminJoin();
     }
+
     /**
      * code above the prepare columns
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getPrepareColumnsHeader(){
+    public function getPrepareColumnsHeader()
+    {
         return $this->getTypeInstance()->getPrepareColumnsHeader();
     }
+
     /**
      * name attribute in grid
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameAttributeGridEav(){
+    public function getNameAttributeGridEav()
+    {
         return $this->getTypeInstance()->getNameAttributeGridEav();
     }
 
     /**
      * check if the frontend list block can be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCanCreateListBlock(){
-        if ($this->getCreateList()){
+    public function getCanCreateListBlock()
+    {
+        if ($this->getCreateList()) {
             return true;
         }
-        if ($this->getShowOnProduct()){
+        if ($this->getShowOnProduct()) {
             return true;
         }
-        if ($this->getShowOnCategory()){
+        if ($this->getShowOnCategory()) {
             return true;
         }
         //check for siblings with frontend view
-        $related = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($related as $r){
-            if ($r->getCreateView()){
+        $related = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($related as $r) {
+            if ($r->getCreateView()) {
                 return true;
             }
         }
         //check for parents with frontend view
-        $related = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
-        foreach ($related as $r){
-            if ($r->getCreateView()){
+        $related = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD
+        );
+        foreach ($related as $r) {
+            if ($r->getCreateView()) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * get ddl text for attributes
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAttributesDdlSql(){
+    public function getAttributesDdlSql()
+    {
         $padding    = $this->getPadding();
         $eol        = $this->getEol();
         $content    = '';
         $content   .= $this->getParentEntitiesFkAttributes($padding, true);
-        if ($this->getIsFlat()){
-            foreach ($this->getAttributes() as $attribute){
+        if ($this->getIsFlat()) {
+            foreach ($this->getAttributes() as $attribute) {
                 $content .= $padding.$attribute->getDdlSqlColumn().$eol;
             }
         }
         if ($this->getIsFlat()) {
             $simulated = $this->getSimulatedAttributes(null, false);
-        }
-        elseif ($this->getIsTree()) {
+        } elseif ($this->getIsTree()) {
             $simulated = $this->getSimulatedAttributes('tree', false);
-        }
-        else {
+        } else {
             $simulated = array();
         }
-        foreach ($simulated as $attr){
+        foreach ($simulated as $attr) {
             $content .= $padding.$attr->getDdlSqlColumn().$eol;
         }
-        return substr($content,0, strlen($content) - strlen($eol));
+        return substr($content, 0, strlen($content) - strlen($eol));
     }
 
     /**
      * get foreign key columns
+     *
      * @access public
      * @param $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getParentEntitiesFkAttributes($padding){
+    public function getParentEntitiesFkAttributes($padding)
+    {
         if ($this->getIsEav()) {
             return '';
         }
-        $parents = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+        $parents = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD
+        );
         $content = '';
-        foreach ($parents as $parent){
+        foreach ($parents as $parent) {
             /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
             $attr = Mage::getModel('modulecreator/attribute');
             $attr->setCode($parent->getPlaceholders('{{entity}}').'_id');
@@ -1043,6 +1243,7 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get simulated attributes
+     *
      * @access public
      * @param mixed $type
      * @param bool $ignoreSettings
@@ -1050,21 +1251,22 @@ class Ultimate_ModuleCreator_Model_Entity
      * @return Ultimate_ModuleCreator_Model_Attribute[]
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getSimulatedAttributes($type = null, $ignoreSettings = false, $except = array()){
+    public function getSimulatedAttributes($type = null, $ignoreSettings = false, $except = array())
+    {
         /** @var Ultimate_ModuleCreator_Model_Attribute[] $attributes */
         $attributes = array();
         $namespace  = $this->getNamespace(true);
-        if (is_null($type)){
+        if (is_null($type)) {
             $types = array('status', 'url_rewrite', 'tree', 'rss', 'seo', 'comment');
             $attributes = array();
-            foreach ($types as $type){
-                if (!in_array($type, $except)){
+            foreach ($types as $type) {
+                if (!in_array($type, $except)) {
                     $attributes = array_merge($attributes, $this->getSimulatedAttributes($type, $ignoreSettings));
                 }
             }
             return $attributes;
         }
-        switch ($type){
+        switch ($type) {
             case 'status':
                 /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                 $attr = Mage::getModel('modulecreator/attribute');
@@ -1075,7 +1277,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 $attributes[] = $attr;
                 break;
             case 'url_rewrite':
-                if ($this->getUrlRewrite() || $ignoreSettings){
+                if ($this->getUrlRewrite() || $ignoreSettings) {
                     /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                     $attr = Mage::getModel('modulecreator/attribute');
                     $attr->setCode('url_key');
@@ -1088,7 +1290,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 }
                 break;
             case 'tree' :
-                if ($this->getIsTree() || $ignoreSettings){
+                if ($this->getIsTree() || $ignoreSettings) {
                     /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                     $attr = Mage::getModel('modulecreator/attribute');
                     $attr->setCode('parent_id');
@@ -1130,7 +1332,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 }
                 break;
             case 'rss':
-                if($this->getRss() || $ignoreSettings){
+                if ($this->getRss() || $ignoreSettings) {
                     /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                     $attr = Mage::getModel('modulecreator/attribute');
                     $attr->setCode('in_rss');
@@ -1141,7 +1343,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 }
                 break;
             case 'seo':
-                if ($this->getAddSeo() || $ignoreSettings){
+                if ($this->getAddSeo() || $ignoreSettings) {
                     /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                     $attr = Mage::getModel('modulecreator/attribute');
                     $attr->setCode('meta_title');
@@ -1164,7 +1366,7 @@ class Ultimate_ModuleCreator_Model_Entity
                 }
                 break;
             case 'comment':
-                if ($this->getAllowComment() || $ignoreSettings){
+                if ($this->getAllowComment() || $ignoreSettings) {
                     /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
                     $attr = Mage::getModel('modulecreator/attribute');
                     $attr->setCode('allow_comment');
@@ -1175,7 +1377,10 @@ class Ultimate_ModuleCreator_Model_Entity
                     $attr->setEntity($this);
                     $attr->setDefaultValue('2');
                     $attr->setForcedDefaultValue('2');
-                    $attr->setForcedSource($namespace.'_'.$this->getModule()->getLowerModuleName().'/adminhtml_source_yesnodefault');
+                    $attr->setForcedSource(
+                        $namespace.'_'.$this->getModule()->getLowerModuleName().
+                        '/adminhtml_source_yesnodefault'
+                    );
                     $attributes[] = $attr;
                 }
                 break;
@@ -1187,80 +1392,115 @@ class Ultimate_ModuleCreator_Model_Entity
         }
         return $attributes;
     }
+
     /**
      * get layout xml head reference
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getReferenceHeadLayout(){
+    public function getReferenceHeadLayout()
+    {
         $eol        = $this->getEol();
         $content    = $this->getPadding(2);
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $namespace  = $this->getNamespace(true);
             $module     = $this->getModule()->getLowerModuleName();
             $entity     = $this->getNameSingular(true);
             $content   .= '<reference name="head">'.$eol;
-            $content   .= $this->getPadding(3).'<action method="addItem" ifconfig="'.$namespace.'_'.$module.'/'.$entity.'/tree"><type>skin_js</type><js>js/'.$namespace.'_'.$module.'/tree.js</js></action>'.$eol;
+            $content   .= $this->getPadding(3).
+                '<action method="addItem" ifconfig="'.$namespace.'_'.$module.'/'.$entity.
+                '/tree"><type>skin_js</type><js>js/'.$namespace.'_'.$module.'/tree.js</js></action>'.$eol;
             $content   .= $this->getPadding(2).'</reference>'.$eol;
             $content   .= $this->getPadding(2);
         }
         return $content;
     }
+
     /**
      * get layout xml for relation to product
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRelationLayoutXml(){
+    public function getRelationLayoutXml()
+    {
         $eol        = $this->getEol();
         $content    = $this->getPadding(2);
         $module     = $this->getModule()->getLowerModuleName();
         $entityName = $this->getNameSingular(true);
         $namespace  = $this->getNamespace(true);
-        if ($this->getIsTree()){
-            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_children" name="'.$entityName.'_children" template="'.$namespace.'_'.$module.'/'.$entityName.'/children.phtml" />'.$eol.$this->getPadding(2);
+        if ($this->getIsTree()) {
+            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.
+                $entityName.'_children" name="'.$entityName.'_children" template="'.
+                $namespace.'_'.$module.'/'.$entityName.'/children.phtml" />'.$eol.$this->getPadding(2);
         }
-        if ($this->getShowProducts()){
-            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_catalog_product_list" name="'.$entityName.'.info.products" as="'.$entityName.'_products" template="'.$namespace.'_'.$module.'/'.$entityName.'/catalog/product/list.phtml" />'.$eol.$this->getPadding(2);
+        if ($this->getShowProducts()) {
+            $content .= $this->getPadding().'<block type="'.
+                $namespace.'_'.$module.'/'.$entityName.'_catalog_product_list" name="'.
+                $entityName.'.info.products" as="'.$entityName.'_products" template="'.
+                $namespace.'_'.$module.'/'.$entityName.'/catalog/product/list.phtml" />'.
+                $eol.$this->getPadding(2);
         }
-        if ($this->getShowCategory()){
-            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_catalog_category_list" name="'.$entityName.'.info.categories" as="'.$entityName.'_categories" template="'.$namespace.'_'.$module.'/'.$entityName.'/catalog/category/list.phtml" />'.$eol.$this->getPadding(2);
+        if ($this->getShowCategory()) {
+            $content .= $this->getPadding().'<block type="'.
+                $namespace.'_'.$module.'/'.$entityName.'_catalog_category_list" name="'.
+                $entityName.'.info.categories" as="'.$entityName.
+                '_categories" template="'.$namespace.'_'.$module.'/'.$entityName.
+                '/catalog/category/list.phtml" />'.$eol.$this->getPadding(2);
         }
-        $children = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT);
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
+        $children = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT
+        );
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
         /** @var Ultimate_ModuleCreator_Model_Entity[] $relatedEntities */
         $relatedEntities = array_merge($children, $siblings);
-        foreach ($relatedEntities as $entity){
-            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_'.strtolower($entity->getNameSingular()).'_list" name="'.$entityName.'.'.strtolower($entity->getNameSingular()).'_list" as="'.$entityName.'_'.strtolower($this->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.strtolower($entity->getNameSingular()).'/list.phtml" />'.$eol.$this->getPadding(2);
+        foreach ($relatedEntities as $entity) {
+            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.
+                $entityName.'_'.strtolower($entity->getNameSingular()).'_list" name="'.$entityName.
+                '.'.strtolower($entity->getNameSingular()).'_list" as="'.$entityName.'_'.
+                strtolower($this->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.
+                strtolower($entity->getNameSingular()).'/list.phtml" />'.$eol.$this->getPadding(2);
         }
         if ($this->getAllowComment()) {
-            $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_comment_list" name="'.$entityName.'.comments_list" as="'.$entityName.'_comment_list" template="'.$namespace.'_'.$module.'/'.$entityName.'/comment/list.phtml">'.$eol.$this->getPadding(2);
-            $content .= $this->getPadding(2).'<block type="'.$namespace.'_'.$module.'/'.$entityName.'_comment_form" name="comment_form" as="comment_form" template="'.$namespace.'_'.$module.'/'.$entityName.'/comment/form.phtml" />'.$eol.$this->getPadding(2);
+            $content .= $this->getPadding().'<block type="'.
+                $namespace.'_'.$module.'/'.$entityName.'_comment_list" name="'.
+                $entityName.'.comments_list" as="'.$entityName.'_comment_list" template="'.$namespace.'_'.$module.'/'.
+                $entityName.'/comment/list.phtml">'.$eol.$this->getPadding(2);
+            $content .= $this->getPadding(2).
+                '<block type="'.$namespace.'_'.$module.'/'.$entityName.
+                '_comment_form" name="comment_form" as="comment_form" template="'.
+                $namespace.'_'.$module.'/'.$entityName.'/comment/form.phtml" />'.$eol.$this->getPadding(2);
             $content .= $this->getPadding().'</block>'.$eol.$this->getPadding(2);
         }
         return $content;
     }
+
     /**
      * get html link to entity
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHtmlLink(){
+    public function getHtmlLink()
+    {
         $eol        = $this->getEol();
         $entity     = $this->getNameSingular(true);
         $entityUc   = ucfirst($this->getNameSingular());
         $nameCode   = $this->getNameAttributeMagicCode();
         $content    = '';
         $padd       = 3;
-        if ($this->getCreateView()){
+        if ($this->getCreateView()) {
             $padd = 4;
             $content .= $this->getPadding(3).'<a href="<?php echo $_'.$entity.'->get'.$entityUc.'Url()?>">'.$eol;
         }
         $content .= $this->getPadding($padd).'<?php echo $_'.$entity.'->get'.$nameCode.'();?>'.$eol;
-        if ($this->getCreateView()){
+        if ($this->getCreateView()) {
             $content .= $this->getPadding(3).'</a>';
         }
         $content .= '<br />';
@@ -1269,16 +1509,19 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get the html for attributes in view page
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getViewAttributesHtml(){
+    public function getViewAttributesHtml()
+    {
         $eol     = $this->getEol();
         $content = '';
-        foreach ($this->getAttributes() as $attribute){
-            if ($attribute->getFrontend()){
-                $content .= $this->getPadding().'<div class="'.$this->getNameSingular().'-'.$attribute->getCode().'">'.$eol;
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getFrontend()) {
+                $content .= $this->getPadding().
+                    '<div class="'.$this->getNameSingular().'-'.$attribute->getCode().'">'.$eol;
                 $content .= $this->getPadding(2).$attribute->getFrontendHtml().$eol;
                 $content .= $this->getPadding().'</div>'.$eol;
             }
@@ -1288,39 +1531,47 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * check if comments should be split by store
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAllowCommentByStore(){
+    public function getAllowCommentByStore()
+    {
         return $this->getTypeInstance()->getAllowCommentByStore();
     }
 
     /**
      * get view widget attributes
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getViewWidgetAttributesHtml(){
+    public function getViewWidgetAttributesHtml()
+    {
         $content = '';
         $padding = $this->getPadding(3);
         $tab     = $this->getPadding();
         $eol     = $this->getEol();
-        foreach ($this->getAttributes() as $attribute){
-            if ($attribute->getWidget()){
-                $content .= $padding.'<div class="'.$attribute->getCode().'-widget">'.$eol.$padding.$tab.$attribute->getFrontendHtml().$padding.'</div>'.$eol;
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getWidget()) {
+                $content .= $padding.'<div class="'.$attribute->getCode().'-widget">'.
+                    $eol.$padding.$tab.$attribute->getFrontendHtml().$padding.'</div>'.$eol;
             }
         }
         return $content;
     }
+
     /**
      * get the system attributes
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getSystemAttributes(){
+    public function getSystemAttributes()
+    {
         $position = 10;
         $content = '';
         $tab = $this->getPadding();
@@ -1338,7 +1589,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</breadcrumbs>'.$eol;
             $position += 10;
         }
-        if ($this->getUrlRewrite()){
+        if ($this->getUrlRewrite()) {
             $content .= $padding.'<url_rewrite_list translate="label comment">'.$eol;
             $content .= $padding.$tab.'<label>URL key for list page</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;
@@ -1399,7 +1650,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</allow_guest_comment>'.$eol;
             $position += 10;
         }
-        if ($this->getRss()){
+        if ($this->getRss()) {
             $content .= $padding.'<rss translate="label">'.$eol;
             $content .= $padding.$tab.'<label>Enable rss</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>select</frontend_type>'.$eol;
@@ -1411,7 +1662,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</rss>'.$eol;
             $position += 10;
         }
-        if ($this->getIsTree() && $this->getCreateList()){
+        if ($this->getIsTree() && $this->getCreateList()) {
             $content .= $padding.'<tree translate="label">'.$eol;
             $content .= $padding.$tab.'<label>Display as tree</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>select</frontend_type>'.$eol;
@@ -1423,7 +1674,7 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'</tree>'.$eol;
             $position += 10;
         }
-        if ($this->getIsTree() && ($this->getCreateList() || $this->getWidget())){
+        if ($this->getIsTree() && ($this->getCreateList() || $this->getWidget())) {
             $content .= $padding.'<recursion translate="label">'.$eol;
             $content .= $padding.$tab.'<label>Recursion level</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;
@@ -1435,9 +1686,10 @@ class Ultimate_ModuleCreator_Model_Entity
             $position += 10;
         }
 
-        if ($this->getAddSeo() && $this->getCreateList()){
+        if ($this->getAddSeo() && $this->getCreateList()) {
             $content .= $padding.'<meta_title translate="label">'.$eol;
-            $content .= $padding.$tab.'<label>Meta title for '.strtolower($this->getLabelPlural()).' list page</label>'.$eol;
+            $content .= $padding.$tab.'<label>Meta title for '.
+                strtolower($this->getLabelPlural()).' list page</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>text</frontend_type>'.$eol;
             $content .= $padding.$tab.'<sort_order>'.$position.'</sort_order>'.$eol;
             $content .= $padding.$tab.'<show_in_default>1</show_in_default>'.$eol;
@@ -1447,7 +1699,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $position += 10;
 
             $content .= $padding.'<meta_description translate="label">'.$eol;
-            $content .= $padding.$tab.'<label>Meta description for '.strtolower($this->getLabelPlural()).' list page</label>'.$eol;
+            $content .= $padding.$tab.'<label>Meta description for '.
+                strtolower($this->getLabelPlural()).' list page</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>textarea</frontend_type>'.$eol;
             $content .= $padding.$tab.'<sort_order>'.$position.'</sort_order>'.$eol;
             $content .= $padding.$tab.'<show_in_default>1</show_in_default>'.$eol;
@@ -1457,7 +1710,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $position += 10;
 
             $content .= $padding.'<meta_keywords translate="label">'.$eol;
-            $content .= $padding.$tab.'<label>Meta keywords for '.strtolower($this->getLabelPlural()).' list page</label>'.$eol;
+            $content .= $padding.$tab.'<label>Meta keywords for '.
+                strtolower($this->getLabelPlural()).' list page</label>'.$eol;
             $content .= $padding.$tab.'<frontend_type>textarea</frontend_type>'.$eol;
             $content .= $padding.$tab.'<sort_order>'.$position.'</sort_order>'.$eol;
             $content .= $padding.$tab.'<show_in_default>1</show_in_default>'.$eol;
@@ -1465,33 +1719,39 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.$tab.'<show_in_store>1</show_in_store>'.$eol;
             $content .= $padding.'</meta_keywords>'.$eol;
         }
-        return substr($content,0, strlen($content) - strlen($eol));
+        return substr($content, 0, strlen($content) - strlen($eol));
     }
+
     /**
      * get additional api xml
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiAdditional(){
+    public function getApiAdditional()
+    {
         $content  = $this->getApiTree();
         $content .= $this->getTypeInstance()->getApiAdditional();
         $content .= $this->getApiRelations();
         return $content;
     }
+
     /**
      * get additional api xml for tree entities
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiTree(){
+    public function getApiTree()
+    {
         $content    = '';
         $padding    = $this->getPadding();
         $prefix     = str_repeat($padding, 5);
         $eol        = $this->getEol();
         $extension  = $this->getModule()->getExtensionName(true);
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $module         = $this->getModule()->getLowerModuleName();
             $entity         = $this->getNameSingular(true);
             $entityLabel    = strtolower($this->getLabelSingular());
@@ -1510,13 +1770,15 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get api relations for a section
+     *
      * @access public
      * @param $relatedCode
      * @param $relatedLabel
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiRelationsSection($relatedCode, $relatedLabel){
+    public function getApiRelationsSection($relatedCode, $relatedLabel)
+    {
         $eol            = $this->getEol();
         $padding        = $this->getPadding();
         $prefix         = $this->getPadding(5);
@@ -1525,6 +1787,7 @@ class Ultimate_ModuleCreator_Model_Entity
         $entityLabelUc  = ucfirst($this->getLabelSingular());
         $entityLabel    = strtolower($this->getLabelSingular());
         $extension      = $this->getModule()->getExtensionName(true);
+
         $string  = '';
         $string .= $prefix. '<assign'.$relatedCode.' translate="title" module="'.$extension.'">'.$eol;
         $string .= $prefix.$padding. '<title>Assign '.$relatedLabel.' to '.$entityLabelUc.'</title>'.$eol;
@@ -1540,20 +1803,22 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get API xml for entity relations
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiRelations(){
+    public function getApiRelations()
+    {
         $string         = '';
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $string .= $this->getApiRelationsSection('Product', 'product');
         }
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $string .= $this->getApiRelationsSection('Category', 'category');
         }
         $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        foreach ($siblings as $sibling) {
             $siblingNameUc   = ucfirst($sibling->getNameSingular());
             $siblingLabel    = strtolower($sibling->getLabelSingular());
             $string         .= $this->getApiRelationsSection($siblingNameUc, $siblingLabel);
@@ -1564,6 +1829,7 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get API faults for a section
+     *
      * @access public
      * @param $relatedCode
      * @param $relatedLabel
@@ -1571,7 +1837,8 @@ class Ultimate_ModuleCreator_Model_Entity
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiFaultsSection($relatedCode, $relatedLabel, $code){
+    public function getApiFaultsSection($relatedCode, $relatedLabel, $code)
+    {
         $padding        = $this->getPadding();
         $prefix         = str_repeat($padding, 5);
         $eol            = $this->getEol();
@@ -1586,11 +1853,13 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get list of faults for API
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiFaults(){
+    public function getApiFaults()
+    {
         $string         = '';
         $padding        = $this->getPadding();
         $prefix         = str_repeat($padding, 5);
@@ -1598,23 +1867,26 @@ class Ultimate_ModuleCreator_Model_Entity
         $code           = 105;
         $entity         = $this->getNameSingular(true);
         $entityLabelUc  = ucfirst($this->getLabelSingular());
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $string .= $prefix.'<not_moved>'.$eol;
             $string .= $prefix.$padding.'<code>'.$code.'</code>'.$eol;
-            $string .= $prefix.$padding.'<message>'.$entityLabelUc.' not moved. Details in error message.</message>'.$eol;
+            $string .= $prefix.$padding.'<message>'.
+                $entityLabelUc.' not moved. Details in error message.</message>'.$eol;
             $string .= $prefix.'</not_moved>'.$eol;
             $code++;
         }
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $string .= $this->getApiFaultsSection('product', 'Product', $code);
             $code++;
         }
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $string .= $this->getApiFaultsSection('category', 'Category', $code);
             $code++;
         }
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingLabelUc  = ucfirst($sibling->getLabelSingular());
 
@@ -1628,17 +1900,19 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get additional api acl
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdditionalApiAcl(){
+    public function getAdditionalApiAcl()
+    {
         $content    = '';
         $padding    = $this->getPadding();
         $prefix     = str_repeat($padding, 6);
         $eol        = $this->getEol();
         $extension  = $this->getModule()->getExtensionName(true);
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content       .= $prefix.'<move translate="title" module="'.$extension.'">'.$eol;
             $content       .= $prefix.$padding.'<title>Move</title>'.$eol;
             $content       .= $prefix.'</move>'.$eol;
@@ -1646,21 +1920,26 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= str_repeat($padding, 5);
         return $content;
     }
+
     /**
      * get attributes format for wsdl
+     *
      * @access public
      * @param bool $wsi
      * @param bool $forAdd
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlAttributes($wsi = false, $forAdd = false){
-        $parents    = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+    public function getWsdlAttributes($wsi = false, $forAdd = false)
+    {
+        $parents    = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD
+        );
         $tab        = $this->getPadding();
         $padding    = str_repeat($tab, 5);
         $eol        = $this->getEol();
         $content    = '';
-        foreach ($parents as $parent){
+        foreach ($parents as $parent) {
             /** @var Ultimate_ModuleCreator_Model_Attribute $attr */
             $attr = Mage::getModel('modulecreator/attribute');
             $attr->setCode($parent->getNameSingular().'_id');
@@ -1668,37 +1947,42 @@ class Ultimate_ModuleCreator_Model_Entity
             $attr->setType('int');
             $content .= $padding.$attr->getWsdlFormat($wsi).$eol;
         }
-        foreach ($this->getAttributes() as $attribute){
+        foreach ($this->getAttributes() as $attribute) {
             $content .= $padding.$attribute->getWsdlFormat($wsi).$eol;
         }
         $simulated = $this->getSimulatedAttributes(null, false);
-        foreach ($simulated as $attr){
-            if (!$forAdd || !$attr->getIgnoreApi()){
+        foreach ($simulated as $attr) {
+            if (!$forAdd || !$attr->getIgnoreApi()) {
                 $content .= $padding.$attr->getWsdlFormat($wsi).$eol;
             }
         }
         $content .= $this->getTypeInstance()->getWsdlAttributes($wsi);
         return $content;
     }
+
     /**
      * get attributes format for wsi
+     *
      * @access public
      * @param bool $forAdd
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiAttributes($forAdd = false){
+    public function getWsiAttributes($forAdd = false)
+    {
         return $this->getWsdlAttributes(true, $forAdd);
     }
 
     /**
      * get wsdl relation type for a section
+     *
      * @param $relatedCode
      * @param $relatedId
      * @param bool $wsi
      * @return string
      */
-    public function getWsdlRelationTypesSection($relatedCode, $relatedId, $wsi = false){
+    public function getWsdlRelationTypesSection($relatedCode, $relatedId, $wsi = false)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = str_repeat($tab, 3);
@@ -1712,16 +1996,21 @@ class Ultimate_ModuleCreator_Model_Entity
 
         $content .= $padding.'<'.$mainTag .' name="'.$module.$entityUc.'Assign'.$relatedCode.'Entity">'.$eol;
         $content .= $padding.$tab.'<'.$subtag.'>'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="position" type="xsd:string"'.((!$wsi)?' minOccurs="0"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'Id" type="xsd:string"'.
+            ((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'Id" type="xsd:string"'.
+            ((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="position" type="xsd:string"'.
+            ((!$wsi)?' minOccurs="0"':'').' />'.$eol;
         $content .= $padding.$tab.'</'.$subtag.'>'.$eol;
         $content .= $padding.'</'.$mainTag.'>'.$eol;
 
         $content .= $padding.'<'.$mainTag .' name="'.$module.$entityUc.'Unassign'.$relatedCode.'Entity">'.$eol;
         $content .= $padding.$tab.'<'.$subtag.'>'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$entity.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-        $content .= $padding.$tab.'<'.$element.' name="'.$relatedId.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.
+            $entity.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+        $content .= $padding.$tab.'<'.$element.' name="'.
+            $relatedId.'Id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
         $content .= $padding.$tab.'</'.$subtag.'>'.$eol;
         $content .= $padding.'</'.$mainTag.'>'.$eol;
 
@@ -1730,12 +2019,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get entity WSDL relation types
+     *
      * @access public
      * @param bool $wsi
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlRelationTypes($wsi = false){
+    public function getWsdlRelationTypes($wsi = false)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = str_repeat($tab, 3);
@@ -1746,23 +2037,28 @@ class Ultimate_ModuleCreator_Model_Entity
         $module     = $this->getModule()->getLowerModuleName();
         $entity     = $this->getNameSingular(true);
         $entityUc   = ucfirst($this->getNameSingular());
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $padding.'<'.$mainTag .' name="'.$module.$entityUc.'MoveEntity">'.$eol;
             $content .= $padding.$tab.'<'.$subtag.'>'.$eol;
-            $content .= $padding.$tab.'<'.$element.' name="'.$entity.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-            $content .= $padding.$tab.'<'.$element.' name="parent_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
-            $content .= $padding.$tab.'<'.$element.' name="after_id" type="xsd:string"'.((!$wsi)?' minOccurs="0"':'').' />'.$eol;
+            $content .= $padding.$tab.'<'.$element.
+                ' name="'.$entity.'_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+            $content .= $padding.$tab.'<'.$element.
+                ' name="parent_id" type="xsd:string"'.((!$wsi)?' minOccurs="1"':'').' />'.$eol;
+            $content .= $padding.$tab.'<'.$element.
+                ' name="after_id" type="xsd:string"'.((!$wsi)?' minOccurs="0"':'').' />'.$eol;
             $content .= $padding.$tab.'</'.$subtag.'>'.$eol;
             $content .= $padding.'</'.$mainTag.'>'.$eol;
         }
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsdlRelationTypesSection('Product', 'product', $wsi);
         }
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsdlRelationTypesSection('Category', 'category', $wsi);
         }
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($sibling->getNameSingular());
             $content .= $this->getWsdlRelationTypesSection($siblingNameUc, $siblingName, $wsi);
@@ -1771,18 +2067,22 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $tab.$tab;
         return $content;
     }
+
     /**
      * get entity WSI relation types
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationTypes(){
+    public function getWsiRelationTypes()
+    {
         return $this->getWsdlRelationTypes(true);
     }
 
     /**
      * get wsdl port type relations for a section
+     *
      * @access public
      * @param $relatedLabel
      * @param $relatedText
@@ -1790,7 +2090,8 @@ class Ultimate_ModuleCreator_Model_Entity
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlPortTypeRelationSection($relatedLabel, $relatedText, $wsi){
+    public function getWsdlPortTypeRelationSection($relatedLabel, $relatedText, $wsi)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = $tab.$tab;
@@ -1801,14 +2102,20 @@ class Ultimate_ModuleCreator_Model_Entity
         $tagPrefix  = ($wsi) ? 'wsdl:':'';
 
         $content .= $padding.'<'.$tagPrefix.'operation name="'.$module.$entityUc.'Assign'.$relatedLabel.'">'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Assign '.$relatedText.' to '.$label.'</'.$tagPrefix.'documentation>'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'input message="typens:'.$module.$entityUc.'Assign'.$relatedLabel.'Request" />'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.$module.$entityUc.'Assign'.$relatedLabel.'Response" />'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Assign '.
+            $relatedText.' to '.$label.'</'.$tagPrefix.'documentation>'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'input message="typens:'.
+            $module.$entityUc.'Assign'.$relatedLabel.'Request" />'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.
+            $module.$entityUc.'Assign'.$relatedLabel.'Response" />'.$eol;
         $content .= $padding.'</'.$tagPrefix.'operation>'.$eol;
         $content .= $padding.'<'.$tagPrefix.'operation name="'.$module.$entityUc.'Unassign'.$relatedLabel.'">'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Remove '.$relatedText.' from '.$label.'</'.$tagPrefix.'documentation>'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'input message="typens:'.$module.$entityUc.'Unassign'.$relatedLabel.'Request" />'.$eol;
-        $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.$module.$entityUc.'Unassign'.$relatedLabel.'Response" />'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Remove '.
+            $relatedText.' from '.$label.'</'.$tagPrefix.'documentation>'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'input message="typens:'.
+            $module.$entityUc.'Unassign'.$relatedLabel.'Request" />'.$eol;
+        $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.
+            $module.$entityUc.'Unassign'.$relatedLabel.'Response" />'.$eol;
         $content .= $padding.'</'.$tagPrefix.'operation>'.$eol;
 
         return $content;
@@ -1816,12 +2123,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get entity WSDL port type for relations
+     *
      * @access public
      * @param bool $wsi
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlPortTypeRelation($wsi = false){
+    public function getWsdlPortTypeRelation($wsi = false)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = $tab.$tab;
@@ -1833,24 +2142,28 @@ class Ultimate_ModuleCreator_Model_Entity
 
         $tagPrefix = ($wsi) ? 'wsdl:':'';
 
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $padding.'<'.$tagPrefix.'operation name="'.$module.$entityUc.'Move">'.$eol;
-            $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Move '.$label.' in tree</'.$tagPrefix.'documentation>'.$eol;
+            $content .= $padding.$tab.'<'.$tagPrefix.'documentation>Move '.$label.
+                ' in tree</'.$tagPrefix.'documentation>'.$eol;
             $content .= $padding.$tab.'<'.$tagPrefix.'input message="typens:'.$module.$entityUc.'MoveRequest" />'.$eol;
-            $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.$module.$entityUc.'MoveResponse" />'.$eol;
+            $content .= $padding.$tab.'<'.$tagPrefix.'output message="typens:'.
+                $module.$entityUc.'MoveResponse" />'.$eol;
             $content .= $padding.'</'.$tagPrefix.'operation>'.$eol;
 
         }
 
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsdlPortTypeRelationSection('Product', 'product', $wsi);
         }
 
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsdlPortTypeRelationSection('Category', 'category', $wsi);
         }
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingNameUc   = ucfirst($sibling->getNameSingular());
             $siblingLabel    = strtolower($sibling->getLabelSingular());
 
@@ -1860,24 +2173,29 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $tab;
         return $content;
     }
+
     /**
      * get entity WSI port type for relations
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiPortTypeRelation(){
+    public function getWsiPortTypeRelation()
+    {
         return $this->getWsdlPortTypeRelation(true);
     }
 
     /**
      * get wsld relation binding for a section
+     *
      * @access public
      * @param $sectionName
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlRelationBindingSection($sectionName){
+    public function getWsdlRelationBindingSection($sectionName)
+    {
         $content     = '';
         $tab        = $this->getPadding();
         $doubleTab  = $tab.$tab;
@@ -1890,36 +2208,47 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<operation name="'.$module.$entityUc.$sectionName.'">'.$eol;
         $content .= $padding.$tab.'<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />'.$eol;
         $content .= $padding.$tab.'<input>'.$eol;
-        $content .= $padding.$doubleTab.'<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />'.$eol;
+        $content .= $padding.$doubleTab.
+            '<soap:body namespace="urn:{{var wsdl.name}}"'.
+            ' use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />'.
+            $eol;
         $content .= $padding.$tab.'</input>'.$eol;
         $content .= $padding.$tab.'<output>'.$eol;
-        $content .= $padding.$doubleTab.'<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />'.$eol;
+        $content .= $padding.$doubleTab.
+            '<soap:body namespace="urn:{{var wsdl.name}}"'.
+            ' use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />'.
+            $eol;
         $content .= $padding.$tab.'</output>'.$eol;
         $content .= $padding.'</operation>'.$eol;
         return $content;
     }
+
     /**
      * get WSDL relation binding
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlRelationBinding(){
+    public function getWsdlRelationBinding()
+    {
         $content     = '';
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $this->getWsdlRelationBindingSection('Move');
         }
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsdlRelationBindingSection('AssignProduct');
             $content .= $this->getWsdlRelationBindingSection('UnassignProduct');
         }
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsdlRelationBindingSection('AssignCategory');
             $content .= $this->getWsdlRelationBindingSection('UnassignCategory');
         }
 
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($siblingName);
             $content .= $this->getWsdlRelationBindingSection('Assign'.$siblingNameUc);
@@ -1931,12 +2260,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get wsld relation binding for a section
+     *
      * @access public
      * @param $sectionName
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationBindingSection($sectionName){
+    public function getWsiRelationBindingSection($sectionName)
+    {
         $content     = '';
         $tab        = $this->getPadding();
         $doubleTab  = $tab.$tab;
@@ -1960,26 +2291,30 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get WSI relation binding
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationBinding(){
+    public function getWsiRelationBinding()
+    {
         $content     = '';
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $this->getWsiRelationBindingSection('Move');
         }
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsiRelationBindingSection('AssignProduct');
             $content .= $this->getWsiRelationBindingSection('UnassignProduct');
         }
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationBindingSection('AssignCategory');
             $content .= $this->getWsiRelationBindingSection('UnassignCategory');
         }
 
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($siblingName);
 
@@ -1992,13 +2327,15 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get wsi relation param types for a section
+     *
      * @access public
      * @param $sectionName
      * @param $sectionParam
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationParamTypesSection($sectionName, $sectionParam){
+    public function getWsiRelationParamTypesSection($sectionName, $sectionParam)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = $this->getPadding(3);
@@ -2009,10 +2346,14 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<xsd:element name="'.$module.$entityUc.'Assign'.$sectionName.'RequestParam">'.$eol;
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="0" maxOccurs="1" name="position" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="0" maxOccurs="1" name="position" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
         $content .= $padding.'</xsd:element>'.$eol;
@@ -2020,7 +2361,8 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<xsd:element name="'.$module.$entityUc.'Assign'.$sectionName.'ResponseParam">'.$eol;
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
         $content .= $padding.'</xsd:element>'.$eol;
@@ -2028,9 +2370,12 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<xsd:element name="'.$module.$entityUc.'Unassign'.$sectionName.'RequestParam">'.$eol;
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="'.$sectionParam.'Id" type="xsd:string" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
         $content .= $padding.'</xsd:element>'.$eol;
@@ -2038,20 +2383,24 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $padding.'<xsd:element name="'.$module.$entityUc.'Unassign'.$sectionName.'ResponseParam">'.$eol;
         $content .= $padding.$tab.'<xsd:complexType>'.$eol;
         $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-        $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
+        $content .= $padding.str_repeat($tab, 3).
+            '<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
         $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
         $content .= $padding.$tab.'</xsd:complexType>'.$eol;
         $content .= $padding.'</xsd:element>'.$eol;
 
         return $content;
     }
+
     /**
      * get entity WSI relation param types
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationParamTypes(){
+    public function getWsiRelationParamTypes()
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = str_repeat($tab, 3);
@@ -2060,14 +2409,18 @@ class Ultimate_ModuleCreator_Model_Entity
         $entity     = $this->getNameSingular(true);
         $entityUc   = ucfirst($entity);
 
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $padding.'<xsd:element name="'.$module.$entityUc.'MoveRequestParam">'.$eol;
             $content .= $padding.$tab.'<xsd:complexType>'.$eol;
             $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="session_id" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="parentId" type="xsd:string" />'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="0" maxOccurs="1" name="afterId" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).
+                '<xsd:element minOccurs="1" maxOccurs="1" name="session_id" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).
+                '<xsd:element minOccurs="1" maxOccurs="1" name="'.$entity.'Id" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).
+                '<xsd:element minOccurs="1" maxOccurs="1" name="parentId" type="xsd:string" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).
+                '<xsd:element minOccurs="0" maxOccurs="1" name="afterId" type="xsd:string" />'.$eol;
             $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
             $content .= $padding.$tab.'</xsd:complexType>'.$eol;
             $content .= $padding.'</xsd:element>'.$eol;
@@ -2075,22 +2428,25 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.'<xsd:element name="'.$module.$entityUc.'AssignProductResponseParam">'.$eol;
             $content .= $padding.$tab.'<xsd:complexType>'.$eol;
             $content .= $padding.str_repeat($tab, 2).'<xsd:sequence>'.$eol;
-            $content .= $padding.str_repeat($tab, 3).'<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
+            $content .= $padding.str_repeat($tab, 3).
+                '<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />'.$eol;
             $content .= $padding.str_repeat($tab, 2).'</xsd:sequence>'.$eol;
             $content .= $padding.$tab.'</xsd:complexType>'.$eol;
             $content .= $padding.'</xsd:element>'.$eol;
         }
 
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsiRelationParamTypesSection('Product', 'product');
         }
 
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationParamTypesSection('Category', 'category');
         }
 
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($siblingName);
             $content .= $this->getWsiRelationParamTypesSection($siblingNameUc, $siblingName);
@@ -2101,11 +2457,13 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get wsi relation messaged for a section
+     *
      * @param $sectionName
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationMessagesSection($sectionName){
+    public function getWsiRelationMessagesSection($sectionName)
+    {
         $content    = '';
         $padding    = $this->getPadding();
         $tab        = $padding;
@@ -2115,10 +2473,12 @@ class Ultimate_ModuleCreator_Model_Entity
         $entityUc   = ucfirst($entity);
 
         $content .= $padding.'<wsdl:message name="'.$module.$entityUc.$sectionName.'Request">'.$eol;
-        $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.$module.$entityUc.$sectionName.'RequestParam" />'.$eol;
+        $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.
+            $module.$entityUc.$sectionName.'RequestParam" />'.$eol;
         $content .= $padding.'</wsdl:message>'.$eol;
         $content .= $padding.'<wsdl:message name="'.$module.$entityUc.$sectionName.'Response">'.$eol;
-        $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.$module.$entityUc.$sectionName.'ResponseParam" />'.$eol;
+        $content .= $padding.$tab.'<wsdl:part name="parameters" element="typens:'.
+            $module.$entityUc.$sectionName.'ResponseParam" />'.$eol;
         $content .= $padding.'</wsdl:message>'.$eol;
 
         return $content;
@@ -2126,27 +2486,29 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get entity WSI relation messages
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsiRelationMessages(){
+    public function getWsiRelationMessages()
+    {
         $content     = '';
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $this->getWsiRelationMessagesSection('Move');
         }
 
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsiRelationMessagesSection('AssignProduct');
             $content .= $this->getWsiRelationMessagesSection('UnassignProduct');
         }
 
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationMessagesSection('AssignCategory');
             $content .= $this->getWsiRelationMessagesSection('UnassignCategory');
         }
         $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($siblingName);
 
@@ -2158,12 +2520,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get wsdl messages for a section
+     *
      * @param $sectionName
      * @param $sectionParam
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlMessagesSection($sectionName, $sectionParam){
+    public function getWsdlMessagesSection($sectionName, $sectionParam)
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = $tab.$tab;
@@ -2195,11 +2559,13 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get entity WSDL messages for relations
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getWsdlMessages(){
+    public function getWsdlMessages()
+    {
         $content    = '';
         $tab        = $this->getPadding();
         $padding    = $tab.$tab;
@@ -2208,7 +2574,7 @@ class Ultimate_ModuleCreator_Model_Entity
         $entity     = $this->getNameSingular(true);
         $entityUc   = ucfirst($entity);
 
-        if ($this->getIsTree()){
+        if ($this->getIsTree()) {
             $content .= $padding.'<message name="'.$module.$entityUc.'MoveRequest">'.$eol;
             $content .= $padding.$tab.'<part name="session_id" type="xsd:string" />'.$eol;
             $content .= $padding.$tab.'<part name="'.$entity.'_id" type="xsd:string" />'.$eol;
@@ -2220,16 +2586,18 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $padding.$tab.'<part name="id" type="xsd:boolean"/>'.$eol;
             $content .= $padding.'</message>'.$eol;
         }
-        if ($this->getLinkProduct()){
+        if ($this->getLinkProduct()) {
             $content .= $this->getWsdlMessagesSection('Product', 'product');
         }
 
-        if ($this->getLinkCategory()){
+        if ($this->getLinkCategory()) {
             $content .= $this->getWsdlMessagesSection('Category', 'category');
         }
 
-        $siblings = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING);
-        foreach ($siblings as $sibling){
+        $siblings = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING
+        );
+        foreach ($siblings as $sibling) {
             $siblingName     = $sibling->getNameSingular(true);
             $siblingNameUc   = ucfirst($siblingName);
 
@@ -2240,35 +2608,43 @@ class Ultimate_ModuleCreator_Model_Entity
     }
     /**
      * get foreign keys for sql (Ddl)
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getParentEntitiesFksDdl(){
+    public function getParentEntitiesFksDdl()
+    {
         $padding    = $this->getPadding();
         $eol        = $this->getEol();
-        $parents    = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD);
+        $parents    = $this->getRelatedEntities(
+            Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD
+        );
         $content    = '';
 
         $module     = $this->getModule()->getLowerModuleName();
         $namespace  = $this->getNamespace(true);
-        foreach ($parents as $parent){
+        foreach ($parents as $parent) {
             $parentName = $parent->getNameSingular(true);
-            $content .= $eol.$padding."->addIndex($"."this->getIdxName('".$namespace.'_'.$module.'/'.$parentName."', array('".$parentName."_id')), array('".$parentName."_id'))";
+            $content .= $eol.$padding."->addIndex($"."this->getIdxName('".
+                $namespace.'_'.$module.'/'.$parentName."', array('".$parentName."_id')), array('".
+                $parentName."_id'))";
         }
         return $content;
     }
 
     /**
      * get selected menu path
+     *
      * @access public
      * @param string $suffix
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getSelectedMenuPath($suffix = ''){
+    public function getSelectedMenuPath($suffix = '')
+    {
         $path = $this->getModule()->getMenuParent();
-        if (!empty($path)){
+        if (!empty($path)) {
             $path .= '/';
         }
         $path .= $this->getModule()->getExtensionName(true).'/';
@@ -2279,137 +2655,176 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get attributes content for setup
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAttributesSetup(){
+    public function getAttributesSetup()
+    {
         return $this->getTypeInstance()->getAttributesSetup();
     }
 
     /**
      * get parent class for the entity resource model
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getResourceModelParent(){
+    public function getResourceModelParent()
+    {
         return $this->getTypeInstance()->getResourceModelParent();
     }
+
     /**
      * get parent class for the entity resource model
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getResourceCollectionModelParent(){
+    public function getResourceCollectionModelParent()
+    {
         return $this->getTypeInstance()->getResourceCollectionModelParent();
     }
+
     /**
      * get related entities relations table
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getResourceRelationsTables(){
+    public function getResourceRelationsTables()
+    {
         return $this->getTypeInstance()->getResourceRelationsTables();
     }
+
     /**
      * get related entities relations table declaration
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getResourceRelationsTablesDeclare(){
+    public function getResourceRelationsTablesDeclare()
+    {
         return $this->getTypeInstance()->getResourceRelationsTablesDeclare();
     }
+
     /**
      * get admin layout content for index page
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdminIndexLayoutContent(){
+    public function getAdminIndexLayoutContent()
+    {
         return $this->getTypeInstance()->getAdminIndexLayoutContent();
     }
 
     /**
      * get the parent model class
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEntityParentModel() {
+    public function getEntityParentModel()
+    {
         return $this->getTypeInstance()->getEntityParentModel();
     }
+
     /**
      * get entity table alias
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEntityTableAlias() {
+    public function getEntityTableAlias()
+    {
         return $this->getTypeInstance()->getEntityTableAlias();
     }
+
     /**
      * get additional prepare collection
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdditionalPrepareCollection(){
+    public function getAdditionalPrepareCollection()
+    {
         return $this->getTypeInstance()->getAdditionalPrepareCollection();
     }
 
     /**
      * additional layout block for left section
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEditLayoutLeft() {
+    public function getEditLayoutLeft()
+    {
         return $this->getTypeInstance()->getEditLayoutLeft();
     }
+
     /**
      * additional layout block edit
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEditLayoutAdditional(){
+    public function getEditLayoutAdditional()
+    {
         return $this->getTypeInstance()->getEditLayoutAdditional();
     }
 
     /**
      * get the label for product attribute scope
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getProductAttributeScopeLabel(){
+    public function getProductAttributeScopeLabel()
+    {
         return $this->_getScopeLabel($this->getProductAttributeScope());
     }
+
     /**
      * get the label for category attribute scope
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCategoryAttributeScopeLabel(){
+    public function getCategoryAttributeScopeLabel()
+    {
         return $this->_getScopeLabel($this->getCategoryAttributeScope());
     }
 
     /**
      * get scope label for install scripts
+     *
      * @param $value
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _getScopeLabel($value){
+    protected function _getScopeLabel($value)
+    {
         $values = array(
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE      => 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE',
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE    => 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE',
-            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL     => 'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL'
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>
+                'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE',
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>
+                'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE',
+            Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>
+                'Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL'
         );
         if (!isset($values[$value])) {
             $value = Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL;
@@ -2419,106 +2834,129 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * check if the entity is used as an attribute
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getIsAttribute() {
+    public function getIsAttribute()
+    {
         return $this->getProductAttribute() || $this->getCategoryAttribute();
     }
 
     /**
      * check if source model can be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCanCreateSourceModel() {
+    public function getCanCreateSourceModel()
+    {
         return $this->getIsAttribute() || $this->getIsParent();
     }
 
     /**
      * check if entity has children
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getIsParent() {
+    public function getIsParent()
+    {
         $children = $this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_PARENT);
         return count($children) > 0;
     }
 
     /**
      * get product attribute group
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getProductAttributeGroupLabel() {
+    public function getProductAttributeGroupLabel()
+    {
         if ($this->getProductAttributeGroup()) {
-            return "'group'             => '".$this->getProductAttributeGroup()."',".$this->getEol().$this->getPadding();
+            return "'group'             => '".$this->getProductAttributeGroup()."',".
+                $this->getEol().$this->getPadding(2);
         }
         return '';
     }
     /**
      * get category attribute group
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCategoryAttributeGroupLabel() {
+    public function getCategoryAttributeGroupLabel()
+    {
         if ($this->getCategoryAttributeGroup()) {
-            return "'group'             => '".$this->getCategoryAttributeGroup()."',".$this->getEol().$this->getPadding();
+            return "'group'             => '".$this->getCategoryAttributeGroup().
+                "',".$this->getEol().$this->getPadding(2);
         }
         return '';
     }
 
     /**
      * get param name for before save
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getBeforeSaveParam() {
+    public function getBeforeSaveParam()
+    {
         return $this->getTypeInstance()->getBeforeSaveParam();
     }
 
     /**
      * entity attribute set string
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getEntityAttributeSetId() {
+    public function getEntityAttributeSetId()
+    {
         return $this->getTypeInstance()->getEntityAttributeSetId();
     }
+
     /**
      * filter method name
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getFilterMethod() {
+    public function getFilterMethod()
+    {
         return $this->getTypeInstance()->getFilterMethod();
     }
 
     /**
      * convert multiple select fields to strings
+     *
      * @access public
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getMultipleSelectConvert(){
+    public function getMultipleSelectConvert()
+    {
         return $this->getTypeInstance()->getMultipleSelectConvert();
     }
 
     /**
      * check if the entity helper can be created
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCanCreateEntityHelper(){
+    public function getCanCreateEntityHelper()
+    {
         if ($this->getIsTree()) {
             return true;
         }
@@ -2533,31 +2971,38 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get additional code for toOptionArray()
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getToOptionAddition(){
+    public function getToOptionAddition()
+    {
         return $this->getTypeInstance()->getToOptionAddition();
     }
 
     /**
      * check if entity should be included in the category menu
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getShowInCategoryMenu() {
-        return $this->getListMenu() == Ultimate_ModuleCreator_Model_Source_Entity_Menu::CATEGORY_MENU;
+    public function getShowInCategoryMenu()
+    {
+        return $this->getListMenu() ==
+            Ultimate_ModuleCreator_Model_Source_Entity_Menu::CATEGORY_MENU;
     }
 
     /**
      * get multiselect methods
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getMultiselectMethods() {
+    public function getMultiselectMethods()
+    {
         $content = '';
         $padding = $this->getPadding();
         $tab     = $this->getPadding();
@@ -2568,13 +3013,15 @@ class Ultimate_ModuleCreator_Model_Entity
             if ($attribute->getTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Multiselect) {
                 $content .= $eol.$padding.'/**'.$eol;
                 $content .= $padding.'  * get '.$attribute->getLabel().$eol;
+                $content .= $padding.'  *'.$eol;
                 $content .= $padding.'  * @access public'.$eol;
                 $content .= $padding.'  * @return array'.$eol;
                 $content .= $padding.'  * '.$this->getModule()->getQwertyuiop().$eol;
                 $content .= $padding.'  */'.$eol;
-                $content .= $padding.'public function get'.$magicCode.'() {'.$eol;
+                $content .= $padding.'public function get'.$magicCode.'()'.$eol;
+                $content .= $padding.'{'.$eol;
                 $content .= $padding.$tab.'if (!$this->getData(\''.$code.'\')) {'.$eol;
-                $content .= $padding.$tab.$tab.'return explode(\',\',$this->getData(\''.$code.'\'));'.$eol;
+                $content .= $padding.$tab.$tab.'return explode(\',\', $this->getData(\''.$code.'\'));'.$eol;
                 $content .= $padding.$tab.'}'.$eol;
                 $content .= $padding.$tab.'return $this->getData(\''.$code.'\');'.$eol;
                 $content .= $padding.'}';
@@ -2585,19 +3032,20 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get html for displaying the name
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameHtml() {
+    public function getNameHtml()
+    {
         $content = '';
         $lower   = $this->getNameSingular(true);
         $ucFirst = ucfirst($lower);
         $name    = $this->getNameAttributeMagicCode();
         if ($this->getCreateView()) {
             $content .= '\'<a href="\'.$'.$lower.'->get'.$ucFirst.'Url().\'">\'.$'.$lower.'->get'.$name.'().\'</a>\'';
-        }
-        else {
+        } else {
             $content .= '\'<a href="#">\'.$'.$lower.'->get'.$name.'().\'</a>\'';
         }
         return $content;
@@ -2605,29 +3053,37 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * check if the entity is not store related
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNoStore() {
+    public function getNoStore()
+    {
         return !$this->getStore();
     }
+
     /**
      * get comment name field filter index
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getCommentFilterIndexPrefix() {
+    public function getCommentFilterIndexPrefix()
+    {
         return $this->getTypeInstance()->getCommentFilterIndexPrefix();
     }
+
     /**
      * additional API subentities.
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiAdditionalSettings() {
+    public function getApiAdditionalSettings()
+    {
         $content = '';
 
         if ($this->getAllowComment()) {
@@ -2640,7 +3096,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $ns       = $this->getNamespace(true);
 
             $content .= $eol;
-            $content .= $padding.'<'.$module.'_'.$entity.'_comment translate="title" module="'.$ns.'_'.$module.'">'.$eol;
+            $content .= $padding.'<'.$module.'_'.$entity.'_comment translate="title" module="'.
+                $ns.'_'.$module.'">'.$eol;
             $content .= $padding.$tab.'<title>'.$title.'</title>'.$eol;
             $content .= $padding.$tab.'<model>'.$ns.'_'.$module.'/'.$entity.'_comment_api</model>'.$eol;
             $content .= $padding.$tab.'<acl>'.$module.'/'.$entity.'/comment</acl>'.$eol;
@@ -2667,13 +3124,16 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $this->getTypeInstance()->getApiAdditionalSettings();
         return $content;
     }
+
     /**
      * get subentities acl
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getSubEntitiesAcl(){
+    public function getSubEntitiesAcl()
+    {
         $content = '';
         if ($this->getAllowComment()) {
             $padding  = $this->getPadding(5);
@@ -2699,13 +3159,16 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $this->getTypeInstance()->getSubEntitiesAcl();
         return $content;
     }
+
     /**
      * get api aliases
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiResourcesAlias() {
+    public function getApiResourcesAlias()
+    {
         $content = '';
         if ($this->getAllowComment()) {
             $padding  = $this->getPadding(3);
@@ -2718,13 +3181,16 @@ class Ultimate_ModuleCreator_Model_Entity
         $content .= $this->getTypeInstance()->getApiResourcesAlias();
         return $content;
     }
+
     /**
      * get api V2 aliases
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getApiResourcesAliasV2() {
+    public function getApiResourcesAliasV2()
+    {
         $content = '';
         if ($this->getAllowComment()) {
             $padding  = $this->getPadding(4);
@@ -2740,33 +3206,41 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get default api attributes
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getDefaultApiAttributes(){
+    public function getDefaultApiAttributes()
+    {
         return $this->getTypeInstance()->getDefaultApiAttributes();
     }
+
     /**
      * get the module namespace
+     *
      * @access public
      * @param bool $lower
      * @return mixed|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNamespace($lower = false){
+    public function getNamespace($lower = false)
+    {
         return $this->getModule()->getNamespace($lower);
     }
+
     /**
      * get entity name
+     *
      * @access public
      * @param bool $lower
      * @return mixed|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getNameSingular($lower = false){
+    public function getNameSingular($lower = false)
+    {
         $name = $this->getData('name_singular');
-        if ($lower){
+        if ($lower) {
             $name = strtolower($name);
         }
         return $name;
@@ -2774,58 +3248,69 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get code that filters dates
+     *
      * @access public
      * @param int $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getFilterDates($padding = 4) {
+    public function getFilterDates($padding = 4)
+    {
         $dateAttributes = array();
         foreach ($this->getAttributes() as $attribute) {
-            if ($attribute->getTypeInstance() instanceof Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp) {
+            if ($attribute->getTypeInstance() instanceof
+                Ultimate_ModuleCreator_Model_Attribute_Type_Timestamp) {
                 $dateAttributes[] = $attribute->getCode();
             }
         }
         if (count($dateAttributes) == 0) {
             return '';
         }
-        return $this->getEol().$this->getPadding($padding).'$data = $this->_filterDates($data, array(\''.implode("' ,'", $dateAttributes).'\'));';
+        return $this->getEol().$this->getPadding($padding).
+            '$data = $this->_filterDates($data, array(\''.implode("' ,'", $dateAttributes).'\'));';
     }
 
     /**
      * get add all attributes to collection
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAllAttributesToCollection() {
+    public function getAllAttributesToCollection()
+    {
         return $this->getTypeInstance()->getAllAttributesToCollection();
     }
 
     /**
      * get load store id statement
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getLoadStoreId() {
+    public function getLoadStoreId()
+    {
         return $this->getTypeInstance()->getLoadStoreId();
     }
 
     /**
      * get rest resource group
+     *
      * @param $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRestResourceGroup($padding) {
+    public function getRestResourceGroup($padding)
+    {
         $content = '';
         $eol = $this->getEol();
         if ($this->getRest()) {
             $ns       = $this->getNamespace(true);
             $md       = $this->getModule()->getLowerModuleName();
             $entity   = $this->getNameSingular(true);
-            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
+            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.
+                ' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
             $content .= $this->getPadding($padding + 1).'<title>'.$this->getLabelSingular().'</title>'.$eol;
             $content .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
             $content .= $this->getPadding($padding).'</'.$ns.'_'.$md.'_'.$entity.'>'.$eol;
@@ -2835,21 +3320,25 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get rest resource
+     *
      * @param $padding
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRestResource($padding) {
+    public function getRestResource($padding)
+    {
         $content = '';
         $eol = $this->getEol();
         if ($this->getRest()) {
             $ns       = $this->getNamespace(true);
             $md       = $this->getModule()->getLowerModuleName();
             $entity   = $this->getNameSingular(true);
-            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
+            $content .= $this->getPadding($padding).'<'.$ns.'_'.$md.'_'.$entity.
+                ' translate="title" module="'.$ns.'_'.$md.'">'.$eol;
             $content .= $this->getPadding($padding + 1).'<group>'.$ns.'_'.$md.'_'.$entity.'</group>'.$eol;
             $content .= $this->getPadding($padding + 1).'<model>'.$ns.'_'.$md.'/api2_'.$entity.'</model>'.$eol;
-            $content .= $this->getPadding($padding + 1).'<working_model>'.$ns.'_'.$md.'/'.$entity.'</working_model>'.$eol;
+            $content .= $this->getPadding($padding + 1).'<working_model>'.$ns.'_'.$md.'/'.$entity.
+                '</working_model>'.$eol;
             $content .= $this->getPadding($padding + 1).'<title>'.$this->getLabelSingular().'</title>'.$eol;
             $content .= $this->getPadding($padding + 1).'<sort_order>'.$this->getPosition().'</sort_order>'.$eol;
             $content .= $this->getPadding($padding + 1).'<privileges>'.$eol;
@@ -2866,19 +3355,22 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $this->getPadding($padding + 3).'<retrieve>1</retrieve>'.$eol;
             $content .= $this->getPadding($padding + 2).'</guest>'.$eol;
             $content .= $this->getPadding($padding + 1).'</privileges>'.$eol;
-            $content .= $this->getPadding($padding + 1).'<attributes translate="'.$this->getRestAttributes(true, true).'" module="'.$ns.'_'.$md.'">'.$eol;
+            $content .= $this->getPadding($padding + 1).'<attributes translate="'.
+                $this->getRestAttributes(true, true).'" module="'.$ns.'_'.$md.'">'.$eol;
             foreach ($this->getRestAttributes(false, false) as $code=>$label) {
                 $content .= $this->getPadding($padding + 2).'<'.$code.'>'.$label.'</'.$code.'>'.$eol;
             }
             $content .= $this->getPadding($padding + 1).'</attributes>'.$eol;
             $content .= $this->getPadding($padding + 1).'<routes>'.$eol;
             $content .= $this->getPadding($padding + 2).'<route_entity>'.$eol;
-            $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/:id</route>'.$eol;
+            $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).
+                '/:id</route>'.$eol;
             $content .= $this->getPadding($padding + 3).'<action_type>entity</action_type>'.$eol;
             $content .= $this->getPadding($padding + 2).'</route_entity>'.$eol;
             if ($this->getIsEav() || $this->getStore()) {
                 $content .= $this->getPadding($padding + 2).'<route_entity_with_store>'.$eol;
-                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/:id/store/:store</route>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).
+                    '/:id/store/:store</route>'.$eol;
                 $content .= $this->getPadding($padding + 3).'<action_type>entity</action_type>'.$eol;
                 $content .= $this->getPadding($padding + 2).'</route_entity_with_store>'.$eol;
             }
@@ -2888,7 +3380,8 @@ class Ultimate_ModuleCreator_Model_Entity
             $content .= $this->getPadding($padding + 2).'</route_collection>'.$eol;
             if ($this->getIsEav() || $this->getStore()) {
                 $content .= $this->getPadding($padding + 2).'<route_collection_with_store>'.$eol;
-                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).'/store/:store</route>'.$eol;
+                $content .= $this->getPadding($padding + 3).'<route>/'.$md.'_'.$this->getNamePlural(true).
+                    '/store/:store</route>'.$eol;
                 $content .= $this->getPadding($padding + 3).'<action_type>collection</action_type>'.$eol;
                 $content .= $this->getPadding($padding + 2).'</route_collection_with_store>'.$eol;
             }
@@ -2901,12 +3394,14 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * get rest attributes
+     *
      * @param bool $codeOnly
      * @param bool $asString
      * @return array|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRestAttributes($codeOnly = false, $asString = false) {
+    public function getRestAttributes($codeOnly = false, $asString = false)
+    {
         $attributes = array(
             'entity_id' => 'Id',
         );
@@ -2927,61 +3422,76 @@ class Ultimate_ModuleCreator_Model_Entity
 
     /**
      * @access public
+     *
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getRestCollectionCleanup() {
+    public function getRestCollectionCleanup()
+    {
         return $this->getTypeInstance()->getRestCollectionCleanup();
-    }
-    /**
-     * @access public
-     * @return string
-     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
-     */
-    public function getRestCollectionStoreId() {
-        return $this->getTypeInstance()->getRestCollectionStoreId();
     }
 
     /**
      * @access public
+     *
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getDefaultAttributeValues(){
+    public function getRestCollectionStoreId()
+    {
+        return $this->getTypeInstance()->getRestCollectionStoreId();
+    }
+
+    /**
+     * get default attribute values
+     *
+     * @access public
+     * @return string
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function getDefaultAttributeValues()
+    {
         return $this->getTypeInstance()->getDefaultAttributeValues();
     }
 
     /**
      * check if entity has parent entities
+     *
      * @access public
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getHasParentRelation() {
+    public function getHasParentRelation()
+    {
         return count($this->getRelatedEntities(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_CHILD)) > 0;
     }
+
     /**
      * get additional to option array select
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getToOptionArraySelect() {
+    public function getToOptionArraySelect()
+    {
         return $this->getTypeInstance()->getToOptionArraySelect();
     }
 
     /**
      * get parent grid column static params
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getParentStaticParams() {
+    public function getParentStaticParams()
+    {
         if ($this->getNotIsTree()) {
             return '';
         }
         $eol      = $this->getEol();
-        $padding  = $this->getPadding(3);
+        $padding  = $this->getPadding(4);
         $tab      = $this->getPadding();
         $content  = $eol;
         $content .= $padding."'static' => array(".$eol;

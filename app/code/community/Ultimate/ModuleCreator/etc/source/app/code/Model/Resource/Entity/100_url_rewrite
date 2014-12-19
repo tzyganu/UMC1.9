@@ -1,5 +1,7 @@
+
     /**
      * check url key
+     *
      * @access public
      * @param string $urlKey
      * @param int $storeId
@@ -7,7 +9,8 @@
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function checkUrlKey($urlKey, $storeId, $active = true){
+    public function checkUrlKey($urlKey, $storeId, $active = true)
+    {
         $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID, $storeId);
         $select = $this->_initCheckUrlKeySelect($urlKey, $stores);
         if ($active) {
@@ -22,16 +25,17 @@
 
     /**
      * Check for unique URL key
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    public function getIsUniqueUrlKey(Mage_Core_Model_Abstract $object){
+    public function getIsUniqueUrlKey(Mage_Core_Model_Abstract $object)
+    {
         if (Mage::app()->isSingleStoreMode() || !$object->hasStores()) {
             $stores = array(Mage_Core_Model_App::ADMIN_STORE_ID);
-        }
-        else {
+        } else {
             $stores = (array)$object->getData('stores');
         }
         $select = $this->_initCheckUrlKeySelect($object->getData('url_key'), $stores);
@@ -43,34 +47,43 @@
         }
         return true;
     }
+
     /**
      * Check if the URL key is numeric
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[0-9]+$/', $object->getData('url_key'));
     }
+
     /**
-     * Checkif the URL key is valid
+     * Check if the URL key is valid
+     *
      * @access public
      * @param Mage_Core_Model_Abstract $object
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function isValidUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isValidUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('url_key'));
     }
+
     /**
      * format string as url key
+     *
      * @access public
      * @param string $str
      * @return string
      * {{qwertyuiop}}
      */
-    public function formatUrlKey($str) {
+    public function formatUrlKey($str)
+    {
         $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
         $urlKey = strtolower($urlKey);
         $urlKey = trim($urlKey, '-');

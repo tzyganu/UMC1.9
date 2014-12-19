@@ -1,8 +1,11 @@
+
     /**
      * get after element html
+     *
      * @access protected
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _getAdditionalElementHtml($element) {
+    protected function _getAdditionalElementHtml($element)
+    {

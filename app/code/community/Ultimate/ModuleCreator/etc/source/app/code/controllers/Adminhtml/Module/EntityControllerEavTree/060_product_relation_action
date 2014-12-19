@@ -1,14 +1,21 @@
+
     /**
      * get the products grid
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function productsgridAction(){
+    public function productsgridAction()
+    {
         if (!${{entity}} = $this->_init{{Entity}}()) {
             return;
         }
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_product', '{{entity}}.product.grid')->toHtml()
+            $this->getLayout()->createBlock(
+                '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_product',
+                '{{entity}}.product.grid'
+            )
+            ->toHtml()
         );
     }

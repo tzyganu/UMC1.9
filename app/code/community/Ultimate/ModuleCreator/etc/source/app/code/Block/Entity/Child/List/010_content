@@ -7,36 +7,44 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_{{Sibling}}_List
-    extends {{Namespace}}_{{Module}}_Block_{{Sibling}}_List {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_{{Sibling}}_List extends {{Namespace}}_{{Module}}_Block_{{Sibling}}_List
+{
     /**
      * initialize
+     *
      * @access public
      * {{qwertyuiop}}
      */
-     public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         ${{entity}} = $this->get{{Entity}}();
-        if (${{entity}}){
+        if (${{entity}}) {
             $this->get{{Siblings}}()->addFieldToFilter('{{entity}}_id', ${{entity}}->getId());
         }
     }
+
     /**
      * prepare the layout - actually do nothing
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_{{Entity}}_{{Sibling}}_List
      * {{qwertyuiop}}
      */
-    protected function _prepareLayout(){
+    protected function _prepareLayout()
+    {
         return $this;
     }
+
     /**
-     * get the current {{entity}}
+     * get the current {{entityLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}(){
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
 }

@@ -3,23 +3,23 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-function saveAndContinueEdit(){
+function saveAndContinueEdit() {
     disableElements('save');
     var activeTab = <?php echo $this->getMainEntityName()?>_attribute_tabsJsTabs.activeTab.id;
     if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
         enableElements('save');
      }
-    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function () {
         enableElements('save');
     });
 }
 
-function saveAttribute(){
+function saveAttribute() {
     disableElements('save');
-    if (editForm.submit() == false){
+    if (editForm.submit() == false) {
         enableElements('save');
     }
-    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function () {
         enableElements('save');
     });
 }
@@ -39,13 +39,12 @@ function toggleApplyVisibility(select) {
     }
 }
 
-function checkOptionsPanelVisibility(){
-    if($('matage-options-panel')){
+function checkOptionsPanelVisibility() {
+    if ($('matage-options-panel')) {
         var panel = $('matage-options-panel');
-        if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect')){
+        if ($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect')) {
             panel.show();
-        }
-        else {
+        } else {
             panel.hide();
         }
     }
@@ -56,25 +55,24 @@ function bindAttributeInputType()
     checkOptionsPanelVisibility();
     switchDefaultValueField();
     checkIsConfigurableVisibility();
-    if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')){
-        if($('is_filterable') && !$('is_filterable').getAttribute('readonly')){
+    if ($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')) {
+        if ($('is_filterable') && !$('is_filterable').getAttribute('readonly')) {
             $('is_filterable').disabled = false;
         }
-        if($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')){
+        if ($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')) {
             $('is_filterable_in_search').disabled = false;
         }
-        if($('backend_type') && $('backend_type').options){
-            for(var i=0;i<$('backend_type').options.length;i++){
-                if($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
+        if ($('backend_type') && $('backend_type').options) {
+            for(var i=0;i<$('backend_type').options.length;i++) {
+                if ($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
             }
         }
-    }
-    else {
-        if($('is_filterable')){
+    } else {
+        if ($('is_filterable')) {
             $('is_filterable').selectedIndex=0;
             $('is_filterable').disabled = true;
         }
-        if($('is_filterable_in_search')){
+        if ($('is_filterable_in_search')) {
             $('is_filterable_in_search').disabled = true;
         }
     }
@@ -85,8 +83,7 @@ function bindAttributeInputType()
         if ($('used_for_sort_by')) {
             $('used_for_sort_by').disabled = true;
         }
-    }
-    else {
+    } else {
         if ($('used_for_sort_by') && !$('used_for_sort_by').getAttribute('readonly')) {
             $('used_for_sort_by').disabled = false;
         }
@@ -97,13 +94,11 @@ function bindAttributeInputType()
         setRowVisibility('is_wysiwyg_enabled', true);
         $('frontend_class').value = '';
         $('frontend_class').disabled = true;
-    }
-    else if($('frontend_input').value=='text'){
+    } else if ($('frontend_input').value=='text') {
         if (!$('frontend_class').getAttribute('readonly')) {
             $('frontend_class').disabled = false;
         }
-    }
-    else{
+    } else {
         $('frontend_class').value = '';
         $('frontend_class').disabled = true;
     }
@@ -117,7 +112,7 @@ function switchIsFilterable()
         if ($('is_filterable').selectedIndex == 0) {
             $('position').disabled = true;
         } else {
-            if (!$('position').getAttribute('readonly')){
+            if (!$('position').getAttribute('readonly')) {
                 $('position').disabled = false;
             }
         }
@@ -258,7 +253,7 @@ function updateRequriedOptions()
     }
 }
 
-if($('frontend_input')){
+if ($('frontend_input')) {
     Event.observe($('frontend_input'), 'change', updateRequriedOptions);
     Event.observe($('frontend_input'), 'change', bindAttributeInputType);
     Event.observe($('is_global'), 'change', checkIsConfigurableVisibility);

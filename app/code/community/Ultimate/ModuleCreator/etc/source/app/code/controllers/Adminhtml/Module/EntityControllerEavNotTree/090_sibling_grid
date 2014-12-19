@@ -1,23 +1,29 @@
+
     /**
-     * {{siblings}} on the current {{entity}} 
+     * {{siblingsLabel}} on the current {{entityLabel}}
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{siblings}}Action(){
+    public function {{siblings}}Action()
+    {
         $this->_init{{Entity}}();
         $this->loadLayout();
         $this->getLayout()->getBlock('{{namespace}}_{{module}}.{{entity}}.edit.tab.{{sibling}}')
             ->set{{Entity}}{{Siblings}}($this->getRequest()->getPost('{{siblings}}', null));
         $this->renderLayout();
     }
+
     /**
-     * {{siblings}} on the current {{entity}}  
+     * {{siblingsLabel}} on the current {{entityLabel}}
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{siblings}}GridAction(){
+    public function {{siblings}}GridAction()
+    {
         $this->_init{{Entity}}();
         $this->loadLayout();
         $this->getLayout()->getBlock('{{namespace}}_{{module}}.{{entity}}.edit.tab.{{sibling}}')

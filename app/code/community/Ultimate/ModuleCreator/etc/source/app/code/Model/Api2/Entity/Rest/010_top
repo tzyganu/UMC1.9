@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-abstract class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest
-    extends {{Namespace}}_{{Module}}_Model_Api2_{{Entity}} {
+abstract class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest extends {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}
+{
     /**
      * current {{entityLabel}}
      */
     protected $_{{entity}};
+
     /**
      * retrieve entity
+     *
      * @access protected
      * @return array|mixed
      * {{qwertyuiop}}
@@ -24,8 +26,10 @@ abstract class {{Namespace}}_{{Module}}_Model_Api2_{{Entity}}_Rest
         $this->_prepare{{Entity}}ForResponse(${{entity}});
         return ${{entity}}->getData();
     }
+
     /**
      * get collection
+     *
      * @access protected
      * @return array
      * {{qwertyuiop}}

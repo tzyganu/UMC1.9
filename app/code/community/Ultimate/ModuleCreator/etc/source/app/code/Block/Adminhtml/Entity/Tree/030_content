@@ -1,12 +1,15 @@
         return parent::_prepareLayout();
     }
+
     /**
      * get the {{entityLabel}} collection
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}Collection(){
+    public function get{{Entity}}Collection()
+    {
         $collection = $this->getData('{{entity}}_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection();

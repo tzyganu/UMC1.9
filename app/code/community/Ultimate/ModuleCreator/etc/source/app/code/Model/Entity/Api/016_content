@@ -5,8 +5,7 @@
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
         $result = array();
@@ -15,16 +14,19 @@
         }
         return $result;
     }
+
     /**
-     * Add {{entity}}
+     * Add {{entityLabel}}
+     *
      * @access public
      * @param array $data
      * @return array
      * {{qwertyuiop}}
      */
-    public function add($data){
+    public function add($data)
+    {
         try {
-            if (is_null($data)){
+            if (is_null($data)) {
                 throw new Exception(Mage::helper('{{namespace}}_{{module}}')->__("Data cannot be null"));
             }
             $data = (array)$data;

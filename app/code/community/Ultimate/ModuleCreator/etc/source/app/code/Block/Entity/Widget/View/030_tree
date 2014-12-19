@@ -1,10 +1,13 @@
+
     /**
      * Prepare a for widget
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_{{Entity}}_Widget_View
      * {{qwertyuiop}}
      */
-    protected function _beforeToHtml() {
+    protected function _beforeToHtml()
+    {
         parent::_beforeToHtml();
         ${{entity}}Id = $this->getData('{{entity}}_id');
         if (${{entity}}Id) {

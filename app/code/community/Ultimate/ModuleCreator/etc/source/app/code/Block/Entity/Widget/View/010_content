@@ -7,7 +7,7 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Widget_View
-    extends Mage_Core_Block_Template
-    implements Mage_Widget_Block_Interface {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Widget_View extends Mage_Core_Block_Template implements
+    Mage_Widget_Block_Interface
+{
     protected $_htmlTemplate = '{{namespace}}_{{module}}/{{entity}}/widget/view.phtml';

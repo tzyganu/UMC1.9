@@ -6,16 +6,18 @@
  * @package    {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_Helper_Column_Renderer_Relation
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_Helper_Column_Renderer_Relation extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
+{
     /**
      * render the column
+     *
      * @access public
      * @param Varien_Object $row
      * @return string
      * {{qwertyuiop}}
      */
-    public function render(Varien_Object $row) {
+    public function render(Varien_Object $row)
+    {
         $base = $this->getColumn()->getBaseLink();
         if (!$base) {
             return parent::render($row);

@@ -22,20 +22,24 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Source_Install {
+class Ultimate_ModuleCreator_Model_Source_Install
+{
     /**
      * get the list of available install actions
+     *
      * @access public
      * @param bool $withEmpty
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toOptionArray($withEmpty = false) {
+    public function toOptionArray($withEmpty = false)
+    {
         $options = array();
-        if ($withEmpty){
+        if ($withEmpty) {
             $options[] = array(
                 'value'=>'',
-                'label'=>Mage::helper('modulecreator')->__('Select action'));
+                'label'=>Mage::helper('modulecreator')->__('Select action')
+            );
         }
         $options[] = array(
             'value' => '1',
@@ -47,14 +51,17 @@ class Ultimate_ModuleCreator_Model_Source_Install {
         );
         return $options;
     }
+
     /**
      * get options as an array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAllOptions($withEmpty = true) {
+    public function getAllOptions($withEmpty = true)
+    {
         $options = array();
         foreach ($this->toOptionArray($withEmpty) as $option) {
             $options[$option['value']] = $option['label'];
@@ -64,11 +71,13 @@ class Ultimate_ModuleCreator_Model_Source_Install {
 
     /**
      * get options as an array - wrapper
+     *
      * @param bool $withEmpty
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toArray($withEmpty = true) {
+    public function toArray($withEmpty = true)
+    {
         return $this->getAllOptions($withEmpty);
     }
 }

@@ -2,103 +2,135 @@
         }
         return $collection;
     }
+
     /**
      * get html for add root button
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getAddRootButtonHtml(){
+    public function getAddRootButtonHtml()
+    {
         return $this->getChildHtml('add_root_button');
     }
+
     /**
      * get html for add child button
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getAddSubButtonHtml(){
+    public function getAddSubButtonHtml()
+    {
         return $this->getChildHtml('add_sub_button');
     }
+
     /**
      * get html for expand button
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getExpandButtonHtml(){
+    public function getExpandButtonHtml()
+    {
         return $this->getChildHtml('expand_button');
     }
+
     /**
      * get html for add collapse button
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getCollapseButtonHtml(){
+    public function getCollapseButtonHtml()
+    {
         return $this->getChildHtml('collapse_button');
     }
+
     /**
      * get url for tree load
+     *
      * @access public
      * @param mxed $expanded
      * @return string
      * {{qwertyuiop}}
      */
-    public function getLoadTreeUrl($expanded=null){
-        $params = array('_current'=>true, 'id'=>null,'store'=>null);
-        if ((is_null($expanded) && Mage::getSingleton('admin/session')->get{{Entity}}IsTreeWasExpanded())|| $expanded == true) {
+    public function getLoadTreeUrl($expanded=null)
+    {
+        $params = array('_current' => true, 'id' => null, 'store' => null);
+        if ((is_null($expanded) &&
+            Mage::getSingleton('admin/session')->get{{Entity}}IsTreeWasExpanded()) ||
+            $expanded == true) {
             $params['expand_all'] = true;
         }
         return $this->getUrl('*/*/{{entities}}Json', $params);
     }
+
     /**
      * get url for loading nodes
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getNodesUrl(){
+    public function getNodesUrl()
+    {
         return $this->getUrl('*/{{module}}_{{entities}}/jsonTree');
     }
+
     /**
      * check if tree is expanded
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getIsWasExpanded(){
+    public function getIsWasExpanded()
+    {
         return Mage::getSingleton('admin/session')->get{{Entity}}IsTreeWasExpanded();
     }
+
     /**
      * get url for moving {{entityLabel}}
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getMoveUrl(){
+    public function getMoveUrl()
+    {
         return $this->getUrl('*/{{module}}_{{entity}}/move');
     }
+
     /**
      * get the tree as json
+     *
      * @access public
      * @param mixed $parentNode{{Entity}}
      * @return string
      * {{qwertyuiop}}
      */
-    public function getTree($parentNode{{Entity}} = null){
+    public function getTree($parentNode{{Entity}} = null)
+    {
         $rootArray = $this->_getNodeJson($this->getRoot($parentNode{{Entity}}));
         $tree = isset($rootArray['children']) ? $rootArray['children'] : array();
         return $tree;
     }
+
     /**
      * get the tree as json
+     *
      * @access public
      * @param mixed $parentNode{{Entity}}
      * @return string
      * {{qwertyuiop}}
      */
-    public function getTreeJson($parentNode{{Entity}} = null){
+    public function getTreeJson($parentNode{{Entity}} = null)
+    {
         $rootArray = $this->_getNodeJson($this->getRoot($parentNode{{Entity}}));
         $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
         return $json;
@@ -106,18 +138,21 @@
 
     /**
      * Get JSON of array of {{entitiesLabel}}, that are breadcrumbs for specified {{entityLabel}} path
+     *
      * @access public
      * @param string $path
      * @param string $javascriptVarName
      * @return string
      * {{qwertyuiop}}
      */
-    public function getBreadcrumbsJavascript($path, $javascriptVarName){
+    public function getBreadcrumbsJavascript($path, $javascriptVarName)
+    {
         if (empty($path)) {
             return '';
         }
 
-        ${{entities}} = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree')->loadBreadcrumbsArray($path);
+        ${{entities}} = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_tree')
+            ->loadBreadcrumbsArray($path);
         if (empty(${{entities}})) {
             return '';
         }
@@ -133,26 +168,27 @@
 
     /**
      * Get JSON of a tree node or an associative array
+     *
      * @access protected
      * @param Varien_Data_Tree_Node|array $node
      * @param int $level
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _getNodeJson($node, $level = 0){
+    protected function _getNodeJson($node, $level = 0)
+    {
         // create a node from data array
         if (is_array($node)) {
             $node = new Varien_Data_Tree_Node($node, 'entity_id', new Varien_Data_Tree);
         }
         $item = array();
-        $item['text']     = $this->buildNodeName($node);
-        $item['id']      = $node->getId();
-        $item['path']     = $node->getData('path');
-        $item['cls']     = 'folder';
-        if ($node->getStatus()){
+        $item['text'] = $this->buildNodeName($node);
+        $item['id']   = $node->getId();
+        $item['path'] = $node->getData('path');
+        $item['cls']  = 'folder';
+        if ($node->getStatus()) {
             $item['cls'] .= ' active-category';
-        }
-        else{
+        } else {
             $item['cls'] .= ' no-active-category';
         }
         $item['allowDrop'] = true;
@@ -174,35 +210,44 @@
         }
         return $item;
     }
+
     /**
      * Get node label
+     *
      * @access public
      * @param Varien_Object $node
      * @return string
      * {{qwertyuiop}}
      */
-    public function buildNodeName($node){
+    public function buildNodeName($node)
+    {
         $result = $this->escapeHtml($node->get{{EntityNameMagicCode}}());
         return $result;
     }
+
     /**
      * check if entity is movable
+     *
      * @access protected
      * @param Varien_Object $node
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function _is{{Entity}}Moveable($node){
+    protected function _is{{Entity}}Moveable($node)
+    {
         return true;
     }
+
     /**
      * check if parent is selected
+     *
      * @access protected
      * @param Varien_Object $node
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function _isParentSelected{{Entity}}($node){
+    protected function _isParentSelected{{Entity}}($node)
+    {
         if ($node && $this->get{{Entity}}()) {
             $pathIds = $this->get{{Entity}}()->getPathIds();
             if (in_array($node->getId(), $pathIds)) {
@@ -214,27 +259,35 @@
 
     /**
      * Check if page loaded by outside link to {{entityLabel}} edit
+     *
      * @access public
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function isClearEdit(){
+    public function isClearEdit()
+    {
         return (bool) $this->getRequest()->getParam('clear');
     }
+
     /**
      * Check availability of adding root {{entityLabel}}
+     *
      * @access public
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function canAddRoot{{Entity}}(){
+    public function canAddRoot{{Entity}}()
+    {
         return true;
     }
+
     /**
      * Check availability of adding child {{entityLabel}}
+     *
      * @access public
      * @return boolean
      */
-    public function canAddChild(){
+    public function canAddChild()
+    {
         return true;
     }

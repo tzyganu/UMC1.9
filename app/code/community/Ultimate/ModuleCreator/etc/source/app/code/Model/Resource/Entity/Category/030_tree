@@ -1,12 +1,15 @@
+
     /**
      * Save {{entityLabel}} - category relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, $data){
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -14,10 +17,10 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as $categoryId) {
-            if (!empty($categoryId)){
+            if (!empty($categoryId)) {
                 $insert = array(
-                    '{{entity}}_id'      => ${{entity}}->getId(),
-                    'category_id'     => $categoryId,
+                    '{{entity}}_id' => ${{entity}}->getId(),
+                    'category_id'   => $categoryId,
                     'position'      => 1
                 );
                 $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $insert, array_keys($insert));
@@ -25,19 +28,22 @@
         }
         return $this;
     }
+
     /**
      * Save  category - {{entityLabel}} relations
+     *
      * @access public
      * @param Mage_Catalog_Model_Category $category
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category
      * {{qwertyuiop}}
      */
-    public function saveCategoryRelation($category, ${{entity}}Ids){
+    public function saveCategoryRelation($category, ${{entity}}Ids)
+    {
 
         $old{{Entities}} = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}($category);
         $old{{Entity}}Ids = array();
-        foreach ($old{{Entities}} as ${{entity}}){
+        foreach ($old{{Entities}} as ${{entity}}) {
             $old{{Entity}}Ids[] = ${{entity}}->getId();
         }
         $insert = array_diff(${{entity}}Ids, $old{{Entity}}Ids);
@@ -62,7 +68,7 @@
         if (!empty($delete)) {
             foreach ($delete as ${{entity}}Id) {
                 $where = array(
-                    'category_id = ?'  => (int)$category->getId(),
+                    'category_id = ?'   => (int)$category->getId(),
                     '{{entity}}_id = ?' => (int)${{entity}}Id,
                 );
                 $write->delete($this->getMainTable(), $where);

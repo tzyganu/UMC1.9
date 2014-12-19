@@ -1,20 +1,22 @@
-        $this->addColumn('action',
+        $this->addColumn(
+            'action',
             array(
-                'header'=>  Mage::helper('{{namespace}}_{{module}}')->__('Action'),
-                'width' => '100',
-                'type'  => 'action',
-                'getter'=> 'getId',
-                'actions'   => array(
+                'header'  =>  Mage::helper('{{namespace}}_{{module}}')->__('Action'),
+                'width'   => '100',
+                'type'    => 'action',
+                'getter'  => 'getId',
+                'actions' => array(
                     array(
-                        'caption'   => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
-                        'url'   => array('base'=> '*/*/edit'),
-                        'field' => 'id'
+                        'caption' => Mage::helper('{{namespace}}_{{module}}')->__('Edit'),
+                        'url'     => array('base'=> '*/*/edit'),
+                        'field'   => 'id'
                     )
                 ),
-                'filter'=> false,
-                'is_system'    => true,
+                'filter'    => false,
+                'is_system' => true,
                 'sortable'  => false,
-        ));
+            )
+        );
         $this->addExportType('*/*/exportCsv', Mage::helper('{{namespace}}_{{module}}')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('{{namespace}}_{{module}}')->__('Excel'));
         $this->addExportType('*/*/exportXml', Mage::helper('{{namespace}}_{{module}}')->__('XML'));

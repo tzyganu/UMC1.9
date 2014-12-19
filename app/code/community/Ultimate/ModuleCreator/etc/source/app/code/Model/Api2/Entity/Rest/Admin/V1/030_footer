@@ -12,8 +12,10 @@
         ${{entities}}Array = ${{entities}}->toArray();{{restCollectionCleanup}}
         return ${{entities}}Array;
     }
+
     /**
      * Delete {{entityLabel}} by its ID
+     *
      * @access protected
      * @throws Mage_Api2_Exception
      * {{qwertyuiop}}
@@ -31,6 +33,7 @@
 
     /**
      * Create {{entityLabel}}
+     *
      * @access protected
      * @param array $data
      * @return string
@@ -51,6 +54,7 @@
 
     /**
      * Update {{entityLabel}} by its ID
+     *
      * @access protected
      * @param array $data
      * {{qwertyuiop}}
@@ -69,6 +73,7 @@
 
     /**
      * Set additional data before {{entityLabel}} save
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} $entity
      * @param array ${{entity}}Data

@@ -1,20 +1,22 @@
+
     /**
      * Retrieve parent {{siblingsLabel}}
+     *
      * @access public
      * @return null|{{Namespace}}_{{Module}}_Model_{{Sibling}}
      * {{qwertyuiop}}
      */
-    public function getParent{{Sibling}}(){
+    public function getParent{{Sibling}}()
+    {
         if (!$this->hasData('_parent_{{sibling}}')) {
             if (!$this->get{{Sibling}}Id()) {
                 return null;
-            }
-            else {
-                ${{sibling}} = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}'){{siblingLoadStoreId}}->load($this->get{{Sibling}}Id());
+            } else {
+                ${{sibling}} = Mage::getModel('{{namespace}}_{{module}}/{{sibling}}'){{siblingLoadStoreId}}
+                    ->load($this->get{{Sibling}}Id());
                 if (${{sibling}}->getId()) {
                     $this->setData('_parent_{{sibling}}', ${{sibling}});
-                }
-                else {
+                } else {
                     $this->setData('_parent_{{sibling}}', null);
                 }
             }

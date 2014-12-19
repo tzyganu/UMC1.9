@@ -2,30 +2,47 @@
         $comments->setOrder('created_at', 'asc');
         $this->setComments($comments);
     }
+
     /**
      * prepare the layout
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_List
      * {{qwertyuiop}}
      */
-    protected function _prepareLayout(){
+    protected function _prepareLayout()
+    {
         parent::_prepareLayout();
-        $pager = $this->getLayout()->createBlock('page/html_pager', '{{namespace}}_{{module}}.{{entity}}.html.pager')
-            ->setCollection($this->getComments());
+        $pager = $this->getLayout()->createBlock(
+            'page/html_pager',
+            '{{namespace}}_{{module}}.{{entity}}.html.pager'
+        )
+        ->setCollection($this->getComments());
         $this->setChild('pager', $pager);
         $this->getComments()->load();
         return $this;
     }
+
     /**
      * get the pager html
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getPagerHtml(){
+    public function getPagerHtml()
+    {
         return $this->getChildHtml('pager');
     }
-    public function get{{Entity}}() {
+    /**
+     * get the current {{entityLabel}}
+     *
+     * @access protected
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
+     * {{qwertyuiop}}
+     */
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
 }

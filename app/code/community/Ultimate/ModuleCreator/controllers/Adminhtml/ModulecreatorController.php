@@ -22,72 +22,92 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
-    extends Mage_Adminhtml_Controller_Action {
+class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController extends Mage_Adminhtml_Controller_Action
+{
     /**
+     * default action
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->_title(Mage::helper('modulecreator')->__('Ultimate module creator'));
-        $this->_getSession()->addNotice(Mage::helper('modulecreator')->__(
-            'To delete a module from this list go to "<strong>%s</strong>" and remove the files "<strong>%s</strong>" and "<strong>%s</strong>" and folder "<strong>%s</strong>" if they exist. Replace <strong>Namespace_Module</strong> with the appropriate value for each module. There is no delete link in here for security reasons.',
-            Mage::getBaseDir('var').DS.'modulecreator',
-            'Namespace_Module.tgz',
-            'package/Namespace_Module.xml',
-            'package/Namespace_Module/'
-
-        ));
+        $this->_getSession()->addNotice(
+            Mage::helper('modulecreator')->__(
+                'To delete a module from this list go to "<strong>%s</strong>" and remove the files "<strong>%s</strong>" and "<strong>%s</strong>" and folder "<strong>%s</strong>" if they exist. Replace <strong>Namespace_Module</strong> with the appropriate value for each module. There is no delete link in here for security reasons.',
+                Mage::getBaseDir('var').DS.'modulecreator',
+                'Namespace_Module.tgz',
+                'package/Namespace_Module.xml',
+                'package/Namespace_Module/'
+            )
+        );
         $this->loadLayout();
         $this->renderLayout();
     }
 
     /**
      * grid action
+     *
+     * @access public
+     * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function gridAction() {
+    public function gridAction()
+    {
         $this->loadLayout();
         $this->renderLayout();
     }
 
     /**
      * new action
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function newAction() {
+    public function newAction()
+    {
         $this->_forward('edit');
     }
+
     /**
      * edit action
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function editAction() {
+    public function editAction()
+    {
         $module = $this->_initModule();
         $this->_title(Mage::helper('modulecreator')->__('Ultimate module creator'));
         if ($module) {
             $extensionName = $module->getNamespace().'_'.$module->getModuleName();
-            $this->_getSession()->addNotice(Mage::helper('modulecreator')->__('You are editing the module: %s', $extensionName));
+            $this->_getSession()->addNotice(
+                Mage::helper('modulecreator')->__(
+                    'You are editing the module: %s',
+                    $extensionName
+                )
+            );
             $this->_title($extensionName);
-        }
-        else {
+        } else {
             $this->_title(Mage::helper('modulecreator')->__('Add module'));
         }
         $this->loadLayout();
         $this->renderLayout();
     }
+
     /**
      * init module
+     *
      * @access protected
      * @return mixed
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _initModule() {
+    protected function _initModule()
+    {
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
         if ($packageName) {
             try {
@@ -102,8 +122,7 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
                     Mage::register('current_module', $module);
                     return $module;
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::logException($e);
                 $this->_getSession()->addError($e->getMessage());
                 $this->_redirect('*/*/index');
@@ -111,14 +130,17 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         }
         return false;
     }
+
     /**
      * init a module from an array
+     *
      * @access public
      * @param array $data
      * @return Ultimate_ModuleCreator_Model_Module
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _initModuleFromData($data) {
+    protected function _initModuleFromData($data)
+    {
         $entitiesByIndex = array();
         /** @var Ultimate_ModuleCreator_Model_Module $module */
         $module = Mage::getModel('modulecreator/module');
@@ -154,8 +176,8 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
                 }
             }
             if (isset($data['relation'])) {
-                foreach($data['relation'] as $index=>$values){
-                    foreach ($values as $jndex=>$type){
+                foreach($data['relation'] as $index => $values) {
+                    foreach ($values as $jndex=>$type) {
                         if (isset($entitiesByIndex[$index]) && isset($entitiesByIndex[$jndex])) {
                             /** @var Ultimate_ModuleCreator_Model_Relation $relation */
                             $relation = Mage::getModel('modulecreator/relation');
@@ -171,63 +193,73 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
 
     /**
      * validate module before saving
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function validateAction(){
+    public function validateAction()
+    {
         try{
             $response = new Varien_Object();
             $module = $this->_initModuleFromData($this->getRequest()->getPost());
             $errors = $module->validate();
-            if (count($errors) == 0){
+            if (count($errors) == 0) {
                 $messages = $module->buildModule();
                 $module->save();
                 $response->setError(false);
-            }
-            else{
-                if (isset($errors[''])){
+            } else {
+                if (isset($errors[''])) {
                     $response->setMessage(implode('<br />', $errors['']));
                     unset($errors['']);
                 }
                 $response->setError(true);
                 $response->setAttributes($errors);
             }
-        }
-        catch (Exception $e){
+        } catch (Exception $e){
             $response->setError(true);
             $response->setMessage($e->getMessage());
         }
         $this->getResponse()->setBody($response->toJson());
     }
+
     /**
      * save module - actually only redirects the page
      * the save was done in validateAction(). there is no need to process the request twice.
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function saveAction() {
-        $this->_getSession()->addSuccess(Mage::helper('modulecreator')->__('Your extension has been created!'));
+    public function saveAction()
+    {
+        $this->_getSession()->addSuccess(
+            Mage::helper('modulecreator')->__('Your extension has been created!')
+        );
         $module = $this->_initModuleFromData($this->getRequest()->getPost());
         $redirectBack = $this->getRequest()->getParam('back', false);
         if ($redirectBack) {
-            $this->_redirect('*/*/edit', array(
-                'id'    => strtr(base64_encode($module->getExtensionName()), '+/=', '-_,'),
-                '_current'    => true
-            ));
-        }
-        else {
+            $this->_redirect(
+                '*/*/edit',
+                array(
+                    'id'    => strtr(base64_encode($module->getExtensionName()), '+/=', '-_,'),
+                    '_current'    => true
+                )
+            );
+        } else {
             $this->_redirect('*/*/');
         }
     }
+
     /**
      * download module action
+     *
      * @access public
      * @return void
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function downloadAction(){
+    public function downloadAction()
+    {
         $what = $this->getRequest()->getParam('type');
         $packageName = base64_decode(strtr($this->getRequest()->getParam('id'), '-_,', '+/='));
         /** @var Ultimate_ModuleCreator_Helper_Data $helper */
@@ -253,9 +285,12 @@ class Ultimate_ModuleCreator_Adminhtml_ModulecreatorController
         if (file_exists($file) && is_readable($file)) {
             $content = file_get_contents($file);
             $this->_prepareDownloadResponse($namePrefix.basename($file), $content);
-        }
-        else{
-            $this->_getSession()->addError(Mage::helper('modulecreator')->__('Your extension archive was not created or is not readable'));
+        } else {
+            $this->_getSession()->addError(
+                Mage::helper('modulecreator')->__(
+                    'Your extension archive was not created or is not readable'
+                )
+            );
             $this->_redirect('*/*');
         }
     }

@@ -1,14 +1,16 @@
 <?php
 {{License}}
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api_V2
-    extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Api {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api_V2 extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Api
+{
     /**
      * {{EntityLabel}} info
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return object
      * {{qwertyuiop}}
      */
-    public function info(${{entity}}Id){
+    public function info(${{entity}}Id)
+    {
         $result = parent::info(${{entity}}Id);
         $result = Mage::helper('api')->wsiArrayPacker($result);

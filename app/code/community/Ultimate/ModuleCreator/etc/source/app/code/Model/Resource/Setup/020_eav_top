@@ -1,8 +1,11 @@
+
     /**
-	 * get the default entities for {{module}} module - used at installation
-	 * @access public
-	 * @return array()
-	 * {{qwertyuiop}}
-	 */
-	public function getDefaultEntities(){
-		$entities = array();
+     * get the default entities for {{module}} module - used at installation
+     *
+     * @access public
+     * @return array()
+     * {{qwertyuiop}}
+     */
+    public function getDefaultEntities()
+    {
+        $entities = array();

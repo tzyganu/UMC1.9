@@ -1,10 +1,13 @@
+
     /**
      * {{entities}} grid in the catalog page
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{entities}}gridAction(){
+    public function {{entities}}gridAction()
+    {
         $this->_initCategory();
         $this->loadLayout();
         $this->getLayout()->getBlock('category.edit.tab.{{entity}}')

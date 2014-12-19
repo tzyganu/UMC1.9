@@ -1,11 +1,14 @@
+
     /**
      * validate before saving
+     *
      * @access protected
      * @param $object
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object){
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
         {{multipleSelectConvert}}$urlKey = $object->getData('url_key');
         if ($urlKey == '') {
             $urlKey = $object->get{{EntityNameMagicCode}}();
@@ -16,14 +19,12 @@
             $entityId = $this->checkUrlKey($urlKey, $object->getStoreId(), false);
             if ($entityId == $object->getId() || empty($entityId)) {
                 $validKey = true;
-            }
-            else {
+            } else {
                 $parts = explode('-', $urlKey);
                 $last = $parts[count($parts) - 1];
-                if (!is_numeric($last)){
+                if (!is_numeric($last)) {
                     $urlKey = $urlKey.'-1';
-                }
-                else {
+                } else {
                     $suffix = '-'.($last + 1);
                     unset($parts[count($parts) - 1]);
                     $urlKey = implode('-', $parts).$suffix;

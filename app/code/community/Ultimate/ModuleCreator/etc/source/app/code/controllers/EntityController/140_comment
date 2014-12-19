@@ -1,15 +1,19 @@
+
     /**
      * Submit new comment action
-     *
+     * @access public
+     * {{qwertyuiop}}
      */
-    public function commentpostAction() {
+    public function commentpostAction()
+    {
         $data   = $this->getRequest()->getPost();
         ${{entity}} = $this->_init{{Entity}}();
         $session    = Mage::getSingleton('core/session');
         if (${{entity}}) {
             if (${{entity}}->getAllowComments()) {
-                if ((Mage::getSingleton('customer/session')->isLoggedIn() || Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment'))){
-                    $comment    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->setData($data);
+                if ((Mage::getSingleton('customer/session')->isLoggedIn() ||
+                    Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/allow_guest_comment'))) {
+                    $comment  = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->setData($data);
                     $validate = $comment->validate();
                     if ($validate === true) {
                         try {
@@ -19,29 +23,24 @@
                                 ->setStores(array(Mage::app()->getStore()->getId()))
                                 ->save();
                             $session->addSuccess($this->__('Your comment has been accepted for moderation.'));
-                        }
-                        catch (Exception $e) {
+                        } catch (Exception $e) {
                             $session->set{{Entity}}CommentData($data);
                             $session->addError($this->__('Unable to post the comment.'));
                         }
-                    }
-                    else {
+                    } else {
                         $session->set{{Entity}}CommentData($data);
                         if (is_array($validate)) {
                             foreach ($validate as $errorMessage) {
                                 $session->addError($errorMessage);
                             }
-                        }
-                        else {
+                        } else {
                             $session->addError($this->__('Unable to post the comment.'));
                         }
                     }
-                }
-                else {
+                } else {
                     $session->addError($this->__('Guest comments are not allowed'));
                 }
-            }
-            else {
+            } else {
                 $session->addError($this->__('This {{entityLabel}} does not allow comments'));
             }
         }

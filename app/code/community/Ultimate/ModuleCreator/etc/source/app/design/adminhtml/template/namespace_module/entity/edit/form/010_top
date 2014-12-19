@@ -3,11 +3,11 @@
 ?>
 <div class="content-header">
     <h3 class="icon-head head-categories">
-        <?php echo $this->htmlEscape($this->getHeader()) . ($this->get{{Entity}}Id() ? ' (' . Mage::helper('{{namespace}}_{{module}}')->__('ID: %s', $this->get{{Entity}}Id()) . ')' : '') ?>
+        <?php echo $this->escapeHtml($this->getHeader()) . ($this->get{{Entity}}Id() ? ' (' . Mage::helper('{{namespace}}_{{module}}')->__('ID: %s', $this->get{{Entity}}Id()) . ')' : '') ?>
     </h3>
     <p class="content-buttons form-buttons">
         <?php echo $this->getResetButtonHtml() ?>
-        <?php if($this->get{{Entity}}Id()): ?>
+        <?php if ($this->get{{Entity}}Id()): ?>
             <?php echo $this->getDeleteButtonHtml() ?>
         <?php endif; ?>
         <?php echo $this->getAdditionalButtonsHtml(); ?>

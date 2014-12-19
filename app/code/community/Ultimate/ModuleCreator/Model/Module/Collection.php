@@ -22,14 +22,14 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */ 
-class Ultimate_ModuleCreator_Model_Module_Collection
-    extends Varien_Data_Collection_Filesystem {
+class Ultimate_ModuleCreator_Model_Module_Collection extends Varien_Data_Collection_Filesystem
+{
     /**
      * Files and folders regexsp
      * @var string
      */
-    protected $_allowedDirsMask = '/^[a-z0-9\.\-]+$/i';
-    protected $_allowedFilesMask= '/^[a-z0-9\.\-\_]+\.(xml|ser)$/i';
+    protected $_allowedDirsMask     = '/^[a-z0-9\.\-]+$/i';
+    protected $_allowedFilesMask    = '/^[a-z0-9\.\-\_]+\.(xml)$/i';
     protected $_disallowedFilesMask = '/^package\.xml$/i';
 
     /**
@@ -41,10 +41,12 @@ class Ultimate_ModuleCreator_Model_Module_Collection
 
     /**
      * Set base dir
+     *
      * @access public
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_baseDir = Mage::getBaseDir('var') . DS . 'modulecreator'.DS.'package';
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
@@ -54,14 +56,16 @@ class Ultimate_ModuleCreator_Model_Module_Collection
 
     /**
      * Row generator
+     *
      * @access public
      * @param string $filename
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    protected function _generateRow($filename) {
+    protected function _generateRow($filename)
+    {
         $row = parent::_generateRow($filename);
-        $row['package']     = preg_replace('/\.(xml|ser)$/', '', str_replace($this->_baseDir . DS, '', $filename));
+        $row['package']     = preg_replace('/\.(xml)$/', '', str_replace($this->_baseDir . DS, '', $filename));
         $row['filename_id'] = $row['package'];
         $row['safe_id']     = strtr(base64_encode($row['package']), '+/=', '-_,');
         $folder             = explode(DS, $row['package']);
@@ -75,11 +79,13 @@ class Ultimate_ModuleCreator_Model_Module_Collection
 
     /**
      * Get all folders as options array
+     *
      * @access public
      * @return array
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function collectFolders() {
+    public function collectFolders()
+    {
         $collectFiles = $this->_collectFiles;
         $collectDirs = $this->_collectDirs;
         $this->setCollectFiles(false)->setCollectDirs(true);

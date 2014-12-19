@@ -1,5 +1,8 @@
-        $this->addTab('{{siblings}}', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingsLabel}}'),
-            'url'   => $this->getUrl('*/*/{{siblings}}', array('_current' => true)),
-            'class'    => 'ajax'
-        ));
+        $this->addTab(
+            '{{siblings}}',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{SiblingsLabel}}'),
+                'url'   => $this->getUrl('*/*/{{siblings}}', array('_current' => true)),
+                'class' => 'ajax'
+            )
+        );

@@ -1,10 +1,13 @@
+
     /**
      * get child {{entitiesLabel}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{entities}}JsonAction(){
+    public function {{entities}}JsonAction()
+    {
         $this->_initCategory();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_catalog_category_edit_{{entity}}')

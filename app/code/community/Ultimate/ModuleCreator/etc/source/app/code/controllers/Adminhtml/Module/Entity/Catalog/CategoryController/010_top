@@ -7,15 +7,17 @@
  * {{qwertyuiopp}}
  */
 require_once ("Mage/Adminhtml/controllers/Catalog/CategoryController.php");
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_Catalog_CategoryController
-    extends Mage_Adminhtml_Catalog_CategoryController {
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_Catalog_CategoryController extends Mage_Adminhtml_Catalog_CategoryController
+{
     /**
      * construct
+     *
      * @access protected
      * @return void
      * {{qwertyuiop}}
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         // Define module dependent translate
         $this->setUsedModuleName('{{Namespace}}_{{Module}}');
     }

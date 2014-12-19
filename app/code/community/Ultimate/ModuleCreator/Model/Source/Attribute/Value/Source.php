@@ -22,27 +22,31 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Source_Attribute_Value_Source {
+class Ultimate_ModuleCreator_Model_Source_Attribute_Value_Source
+{
     /**
      * options
+     *
      * @var mixed
      */
     protected $_options = null;
 
     /**
      * get options array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array|null
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toArray($withEmpty = false) {
+    public function toArray($withEmpty = false)
+    {
         if (is_null($this->_options)) {
             /** @var Ultimate_ModuleCreator_Helper_Data $helper */
             $helper = Mage::helper('modulecreator');
             $options = $helper->getDropdownSubtypes(true);
             $this->_options = array();
-            foreach ($options as $key=>$option){
+            foreach ($options as $key=>$option) {
                 $this->_options[$key] = $option->label;
             }
         }

@@ -6,26 +6,31 @@
 
     /**
      * Gets collection items count
+     *
      * @access public
      * @return int
      * {{qwertyuiop}}
      */
-    public function count() {
+    public function count()
+    {
         return $this->_collection->getSize();
     }
 
     /**
      * Get html code for toolbar
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getToolbarHtml() {
+    public function getToolbarHtml()
+    {
         return $this->getChildHtml('toolbar');
     }
 
     /**
      * Initializes toolbar
+     *
      * @access protected
      * @return Mage_Core_Block_Abstract
      * {{qwertyuiop}}
@@ -41,57 +46,70 @@
 
     /**
      * Get collection
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    protected function _getCollection() {
+    protected function _getCollection()
+    {
         return $this->_collection;
     }
 
     /**
      * Get collection
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function getCollection() {
+    public function getCollection()
+    {
         return $this->_getCollection();
     }
 
     /**
      * Get review link
+     *
      * @access public
      * @param mixed $comment
      * @return string
      * {{qwertyuiop}}
      */
-    public function getCommentLink($comment) {
-        if ($comment instanceof Varien_Object){
+    public function getCommentLink($comment)
+    {
+        if ($comment instanceof Varien_Object) {
             $comment = $comment->getCtCommentId();
         }
-        return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}_customer_comment/view/', array('id'=>$comment));
+        return Mage::getUrl(
+            '{{namespace}}_{{module}}/{{entity}}_customer_comment/view/',
+            array('id' => $comment)
+        );
     }
 
     /**
      * Get product link
+     *
      * @access public
      * @param mixed $comment
      * @return string
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}Link($comment) {
+    public function get{{Entity}}Link($comment)
+    {
         return $comment->get{{Entity}}Url();
     }
 
     /**
      * Format date in short format
+     *
      * @access public
      * @param $date
      * @return string
      * {{qwertyuiop}}
      */
-    public function dateFormat($date) {
+    public function dateFormat($date)
+    {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
     }
 }

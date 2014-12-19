@@ -1,14 +1,17 @@
+
     /**
      * get option text
+     *
      * @access public
      * @param mixed $value
      * @return string
      * {{qwertyuiop}}
      */
-    public function getOptionText($value) {
+    public function getOptionText($value)
+    {
         $options = $this->getOptionsArray();
         if (!is_array($value)) {
-            $value = array($value);
+            $value = explode(',', $value);
         }
         $texts = array();
         foreach ($value as $v) {

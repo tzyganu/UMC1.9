@@ -1,23 +1,32 @@
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
+
     /**
      * Prepare columns for the a grid
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
      * {{qwertyuiop}}
      */
-    protected function _prepareColumns(){
-        $this->addColumn('chooser_id', array(
-            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Id'),
-            'align'     => 'right',
-            'index'     => 'entity_id',
-            'type'        => 'number',
-            'width'     => 50
-        ));
+    protected function _prepareColumns()
+    {
+        $this->addColumn(
+            'chooser_id',
+            array(
+                'header' => Mage::helper('{{namespace}}_{{module}}')->__('Id'),
+                'align'  => 'right',
+                'index'  => 'entity_id',
+                'type'   => 'number',
+                'width'  => 50
+            )
+        );
 
-        $this->addColumn('chooser_{{nameAttributeCode}}', array(
-            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
-            'align' => 'left',
-            'index' => '{{nameAttributeCode}}',
-        ));
+        $this->addColumn(
+            'chooser_{{nameAttributeCode}}',
+            array(
+                'header' => Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
+                'align'  => 'left',
+                'index'  => '{{nameAttributeCode}}',
+            )
+        );

@@ -1,8 +1,10 @@
                 ${{entity}}->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been saved.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been saved.')
+                );
                 $refreshTree = 'true';
             }
-            catch (Exception $e){
+            catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage())->set{{Entity}}Data($data);
                 Mage::logException($e);
                 $refreshTree = 'false';

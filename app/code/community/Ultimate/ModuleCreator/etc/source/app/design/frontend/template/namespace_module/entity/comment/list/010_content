@@ -18,11 +18,11 @@
             <dl>
                 <?php foreach ($_comments as $_comment):?>
                 <dt>
-                    <div class="author"><?php echo $this->__('On %s %s wrote:', $this->formatDate($_comment->getCreatedAt(), 'long'), $this->htmlEscape($_comment->getName()))?></div>
-                    <strong><?php echo $this->htmlEscape($_comment->getTitle()) ?></strong>
+                    <div class="author"><?php echo $this->__('On %s %s wrote:', $this->formatDate($_comment->getCreatedAt(), 'long'), $this->escapeHtml($_comment->getName()))?></div>
+                    <strong><?php echo $this->escapeHtml($_comment->getTitle()) ?></strong>
                 </dt>
                 <dd>
-                    <?php echo nl2br($this->htmlEscape($_comment->getComment())) ?>
+                    <?php echo nl2br($this->escapeHtml($_comment->getComment())) ?>
                 </dd>
                 <?php endforeach; ?>
             </dl>

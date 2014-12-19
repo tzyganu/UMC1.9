@@ -13,7 +13,7 @@
     </div>
     <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
-        <?php if($this->getRoot()): ?>
+        <?php if ($this->getRoot()): ?>
             <a href="#" onclick="tree.collapseTree(); return false;">
                 <?php echo Mage::helper('{{namespace}}_{{module}}')->__('Collapse All'); ?>
             </a>
@@ -93,8 +93,7 @@
             if (!params) {
                 if ({{entity}}_info_tabsJsTabs.activeTab) {
                     var params = {active_tab_id:{{entity}}_info_tabsJsTabs.activeTab.id};
-                }
-                else {
+                } else {
                     var params = {};
                 }
             }
@@ -181,7 +180,7 @@
                 storeParam += obj.switchParams;
             }
             if (switcher.useConfirm) {
-                if (!confirm("<?php echo $this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.') ?>")){
+                if (!confirm("<?php echo $this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.') ?>")) {
                     obj.value = '<?php echo (int) $this->getStoreId() ?>';
                     return false;
                 }
@@ -190,8 +189,7 @@
             if ($('add_root_{{entity}}_button')) {
                 if (newStoreId == 0) {
                     $('add_root_{{entity}}_button').show();
-                }
-                else {
+                } else {
                     $('add_root_{{entity}}_button').hide();
                 }
             }
@@ -214,9 +212,7 @@
                     _renderNewTree(response, storeParam);
                 }
             });
-        }
-        // render default tree
-        else {
+        } else {
             _renderNewTree();
         }
     }
@@ -276,7 +272,7 @@
         {
             if (!config) return null;
 
-            if (parent && config && config.length){
+            if (parent && config && config.length) {
                 for (var i = 0; i < config.length; i++) {
                     var node;
                     var _node = Object.clone(config[i]);
@@ -376,8 +372,7 @@
 
         if (/store\/\d+/.test(url)) {
             url = url.replace(/store\/\d+/, "store/" + tree.storeId);
-        }
-        else    {
+        } else {
             url+= "store/" + tree.storeId + "/";
         }
 
@@ -420,17 +415,15 @@
 
         var success = function(o) {
             try {
-                if(o.responseText){
-                    if(o.responseText==='SUCCESS'){
+                if (o.responseText) {
+                    if (o.responseText==='SUCCESS') {
                         {{entity}}Form.refreshPath();
                     } else {
                         alert(o.responseText);
                         location.reload();
                     }
                 }
-            }
-            catch(e) {
-            }
+            } catch(e) { }
         };
 
         var failure = function(o) {

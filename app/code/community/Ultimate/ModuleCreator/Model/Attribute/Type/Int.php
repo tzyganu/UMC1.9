@@ -22,36 +22,47 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Attribute_Type_Int
-    extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
+class Ultimate_ModuleCreator_Model_Attribute_Type_Int extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
+{
     /**
      * type code
+     *
      * @var string
      */
     protected $_type        = 'int';
+
     /**
-     * sql colum ddl type
+     * sql column ddl type
+     *
      * @var string
      */
     protected $_typeDdl     = 'TYPE_INTEGER';
+
     /**
-     * sql colum ddl size
+     * sql column ddl size
+     *
      * @var string
      */
     protected $_sizeDdl     = 'null';
+
     /**
      * eav setup type
+     *
+     * @var string
      */
     protected $_setupType   = 'int';
+
     /**
      * get admin column options
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdminColumnOptions() {
+    public function getAdminColumnOptions()
+    {
         $options = $this->getEol();
-        $options .= $this->getPadding(3);
+        $options .= $this->getPadding(4);
         $options .= "'type'=> 'number',".$this->getEol();
         return $options;
     }

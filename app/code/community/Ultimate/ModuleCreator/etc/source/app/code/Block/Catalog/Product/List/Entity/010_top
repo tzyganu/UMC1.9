@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Catalog_Product_List_{{Entity}}
-    extends Mage_Catalog_Block_Product_Abstract {
+class {{Namespace}}_{{Module}}_Block_Catalog_Product_List_{{Entity}} extends Mage_Catalog_Block_Product_Abstract
+{
     /**
-     * get the list of {{entities}}
+     * get the list of {{entitiesLabel}}
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}Collection(){
-        if (!$this->hasData('{{entity}}_collection')){
+    public function get{{Entity}}Collection()
+    {
+        if (!$this->hasData('{{entity}}_collection')) {
             $product = Mage::registry('product');
             $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')

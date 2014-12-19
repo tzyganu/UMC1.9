@@ -22,25 +22,29 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Source_Entity_Layout {
+class Ultimate_ModuleCreator_Model_Source_Entity_Layout
+{
     /**
      * options
+     *
      * @var mixed
      */
     protected $_options = null;
     /**
      * get options array
+     *
      * @access public
      * @param bool $withEmpty
      * @return array|null
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function toArray($withEmpty = false){
-        if (is_null($this->_options)){
+    public function toArray($withEmpty = false)
+    {
+        if (is_null($this->_options)) {
             /** @var Mage_Page_Model_Source_Layout $layoutModel */
             $layoutModel = Mage::getSingleton('page/source_layout');
             $_options    = $layoutModel->toOptionArray();
-            foreach ($_options as $option){
+            foreach ($_options as $option) {
                 $this->_options[$option['value']] = $option['label'];
             }
         }

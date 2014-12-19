@@ -1,6 +1,10 @@
         $attributes->getSelect()->order('additional_table.position', 'ASC');
 
-        $this->addTab('info', array(
-            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Information'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_attributes')
-                            ->setAttributes($attributes)
+        $this->addTab(
+            'info',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} Information'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_attributes'
+                )
+                ->setAttributes($attributes)

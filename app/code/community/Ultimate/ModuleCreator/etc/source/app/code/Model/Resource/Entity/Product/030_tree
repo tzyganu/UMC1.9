@@ -1,12 +1,15 @@
+
     /**
      * Save {{entityLabel}} - product relations
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}, $data){
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
         if (!is_array($data)) {
             $data = array();
         }
@@ -14,27 +17,32 @@
         $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
 
         foreach ($data as $productId => $info) {
-            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                '{{entity}}_id'      => ${{entity}}->getId(),
-                'product_id'     => $productId,
-                'position'      => @$info['position']
-            ));
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}->getId(),
+                    'product_id'    => $productId,
+                    'position'      => @$info['position']
+                )
+            );
         }
         return $this;
     }
+
     /**
      * Save  product - {{entityLabel}} relations
+     *
      * @access public
      * @param Mage_Catalog_Model_Product $prooduct
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product
      * {{qwertyuiop}}
      */
-    public function saveProductRelation($product, ${{entity}}Ids){
-
+    public function saveProductRelation($product, ${{entity}}Ids)
+    {
         $old{{Entities}} = Mage::helper('{{namespace}}_{{module}}/product')->getSelected{{Entities}}($product);
         $old{{Entity}}Ids = array();
-        foreach ($old{{Entities}} as ${{entity}}){
+        foreach ($old{{Entities}} as ${{entity}}) {
             $old{{Entity}}Ids[] = ${{entity}}->getId();
         }
         $insert = array_diff(${{entity}}Ids, $old{{Entity}}Ids);

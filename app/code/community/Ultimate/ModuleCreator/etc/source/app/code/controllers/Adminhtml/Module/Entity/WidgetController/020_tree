@@ -1,10 +1,13 @@
+
     /**
      * {{entitiesLabel}} json action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function {{entities}}JsonAction(){
+    public function {{entities}}JsonAction()
+    {
         if (${{entity}}Id = (int) $this->getRequest()->getPost('id')) {
             ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
             if (${{entity}}->getId()) {
@@ -16,15 +19,22 @@
             );
         }
     }
+
     /**
-     * get {{entity}} tree block
+     * get {{entityLabel}} tree block
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser
      * {{qwertyuiop}}
      */
-    protected function _get{{Entity}}TreeBlock(){
-        return $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_widget_chooser', '', array(
-            'id' => $this->getRequest()->getParam('uniq_id'),
-            'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
-        ));
+    protected function _get{{Entity}}TreeBlock()
+    {
+        return $this->getLayout()->createBlock(
+            '{{namespace}}_{{module}}/adminhtml_{{entity}}_widget_chooser',
+            '',
+            array(
+                'id' => $this->getRequest()->getParam('uniq_id'),
+                'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
+            )
+        );
     }

@@ -7,22 +7,25 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}
-    extends {{EntityParentModel}} {
+class {{Namespace}}_{{Module}}_Model_{{Entity}} extends {{EntityParentModel}}
+{
     /**
      * Entity code.
      * Can be used as part of method name for entity processing
      */
     const ENTITY    = '{{namespace}}_{{module}}_{{entity}}';
     const CACHE_TAG = '{{namespace}}_{{module}}_{{entity}}';
+
     /**
      * Prefix of model events names
+     *
      * @var string
      */
     protected $_eventPrefix = '{{namespace}}_{{module}}_{{entity}}';
 
     /**
      * Parameter name in event
+     *
      * @var string
      */
     protected $_eventObject = '{{entity}}';

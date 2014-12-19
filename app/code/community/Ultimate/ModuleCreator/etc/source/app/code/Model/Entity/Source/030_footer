@@ -1,5 +1,5 @@
-                ->load()
-                ->toOptionArray();
+            ->load()
+            ->toOptionArray();
         }
         $options = $this->_options;
         if ($withEmpty) {
@@ -10,12 +10,14 @@
 
     /**
      * Get a text for option value
+     *
      * @access public
      * @param string|integer $value
      * @return string
      * {{qwertyuiop}}
      */
-    public function getOptionText($value) {
+    public function getOptionText($value)
+    {
         $options = $this->getAllOptions(false);
         foreach ($options as $item) {
             if ($item['value'] == $value) {
@@ -27,21 +29,25 @@
 
     /**
      * Convert to options array
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function toOptionArray() {
+    public function toOptionArray()
+    {
         return $this->getAllOptions();
     }
 
     /**
      * Retrieve flat column definition
+     *
      * @access public
      * @return array
      * {{qwertyuiop}}
      */
-    public function getFlatColums() {
+    public function getFlatColums()
+    {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(
             'unsigned'  => true,
@@ -57,16 +63,18 @@
             $column['comment']  = $attributeCode . ' {{EntityLabel}} column';
         }
         return array($attributeCode => $column);
-   }
+    }
 
     /**
      * Retrieve Select for update attribute value in flat table
+     *
      * @access public
      * @param   int $store
      * @return  Varien_Db_Select|null
      * {{qwertyuiop}}
      */
-    public function getFlatUpdateSelect($store) {
+    public function getFlatUpdateSelect($store)
+    {
         return Mage::getResourceModel('eav/entity_attribute_option')
             ->getFlatUpdateSelect($this->getAttribute(), $store, false);
     }

@@ -1,12 +1,15 @@
+
     /**
      * init the check select
+     *
      * @access protected
      * @param string $urlKey
      * @param array $store
      * @return Zend_Db_Select
      * {{qwertyuiop}}
      */
-    protected function _initCheckUrlKeySelect($urlKey, $store){
+    protected function _initCheckUrlKeySelect($urlKey, $store)
+    {
         $select = $this->_getReadAdapter()->select()
             ->from(array('e' => $this->getMainTable()))
             ->where('e.url_key = ?', $urlKey);

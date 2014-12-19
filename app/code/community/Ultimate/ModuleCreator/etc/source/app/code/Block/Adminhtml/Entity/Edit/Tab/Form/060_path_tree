@@ -3,18 +3,29 @@
             if (!$parentId) {
                 $parentId = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id();
             }
-            $fieldset->addField('path', 'hidden', array(
-                'name'  => 'path',
-                'value' => $parentId
-            ));
-        }
-        else {
-            $fieldset->addField('id', 'hidden', array(
-                'name'  => 'id',
-                'value' => $this->get{{Entity}}()->getId()
-            ));
-            $fieldset->addField('path', 'hidden', array(
-                'name'  => 'path',
-                'value' => $this->get{{Entity}}()->getPath()
-            ));
+            $fieldset->addField(
+                'path',
+                'hidden',
+                array(
+                    'name'  => 'path',
+                    'value' => $parentId
+                )
+            );
+        } else {
+            $fieldset->addField(
+                'id',
+                'hidden',
+                array(
+                    'name'  => 'id',
+                    'value' => $this->get{{Entity}}()->getId()
+                )
+            );
+            $fieldset->addField(
+                'path',
+                'hidden',
+                array(
+                    'name'  => 'path',
+                    'value' => $this->get{{Entity}}()->getPath()
+                )
+            );
         }

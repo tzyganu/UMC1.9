@@ -7,28 +7,33 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Controller_Router
-    extends Mage_Core_Controller_Varien_Router_Abstract {
+class {{Namespace}}_{{Module}}_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract
+{
     /**
      * init routes
+     *
      * @access public
      * @param Varien_Event_Observer $observer
      * @return {{Namespace}}_{{Module}}_Controller_Router
      * {{qwertyuiop}}
      */
-    public function initControllerRouters($observer){
+    public function initControllerRouters($observer)
+    {
         $front = $observer->getEvent()->getFront();
         $front->addRouter('{{namespace}}_{{module}}', $this);
         return $this;
     }
+
     /**
      * Validate and match entities and modify request
+     *
      * @access public
      * @param Zend_Controller_Request_Http $request
      * @return bool
      * {{qwertyuiop}}
      */
-    public function match(Zend_Controller_Request_Http $request){
+    public function match(Zend_Controller_Request_Http $request)
+    {
         if (!Mage::isInstalled()) {
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect(Mage::getUrl('install'))

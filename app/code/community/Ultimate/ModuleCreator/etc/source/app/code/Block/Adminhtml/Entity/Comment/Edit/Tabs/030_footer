@@ -1,12 +1,15 @@
         return parent::_beforeToHtml();
     }
+
     /**
-     * Retrieve {{entityLabel}} entity
+     * Retrieve comment
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    public function getComment(){
+    public function getComment()
+    {
         return Mage::registry('current_comment');
     }
 }

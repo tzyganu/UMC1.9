@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiop}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_List
-    extends Mage_Core_Block_Template {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_List extends Mage_Core_Block_Template
+{
     /**
      * initialize
+     *
      * @access public
      * {{qwertyuiop}}
      */
-     public function __construct(){
-         parent::__construct();
-         ${{entity}} = $this->get{{Entity}}();
-         $comments = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_collection')
-             ->addFieldToFilter('{{entity}}_id', ${{entity}}->getId())
+    public function __construct()
+    {
+        parent::__construct();
+        ${{entity}} = $this->get{{Entity}}();
+        $comments = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_collection')
+            ->addFieldToFilter('{{entity}}_id', ${{entity}}->getId())

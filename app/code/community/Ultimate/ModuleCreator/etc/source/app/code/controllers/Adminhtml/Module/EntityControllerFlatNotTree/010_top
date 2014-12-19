@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
-    extends {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}} {
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller extends {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
+{
     /**
-     * init the {{entity}}
+     * init the {{entityLabel}}
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      */
-    protected function _init{{Entity}}(){
+    protected function _init{{Entity}}()
+    {
         ${{entity}}Id  = (int) $this->getRequest()->getParam('id');
         ${{entity}}    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}');
         if (${{entity}}Id) {
@@ -23,38 +25,49 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         Mage::register('current_{{entity}}', ${{entity}});
         return ${{entity}};
     }
-     /**
+
+    /**
      * default action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->loadLayout();
         $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
              ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'));
         $this->renderLayout();
     }
+
     /**
      * grid action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function gridAction() {
+    public function gridAction()
+    {
         $this->loadLayout()->renderLayout();
     }
+
     /**
      * edit {{entityLabel}} - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function editAction() {
+    public function editAction()
+    {
         ${{entity}}Id    = $this->getRequest()->getParam('id');
         ${{entity}}      = $this->_init{{Entity}}();
         if (${{entity}}Id && !${{entity}}->getId()) {
-            $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.'));
+            $this->_getSession()->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.')
+            );
             $this->_redirect('*/*/');
             return;
         }
@@ -66,10 +79,9 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         $this->loadLayout();
         $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
              ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'));
-        if (${{entity}}->getId()){
+        if (${{entity}}->getId()) {
             $this->_title(${{entity}}->get{{EntityNameMagicCode}}());
-        }
-        else{
+        } else {
             $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('Add {{entityLabel}}'));
         }
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
@@ -77,22 +89,28 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         }
         $this->renderLayout();
     }
+
     /**
      * new {{entityLabel}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function newAction() {
+    public function newAction()
+    {
         $this->_forward('edit');
     }
+
     /**
      * save {{entityLabel}} - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function saveAction() {
+    public function saveAction()
+    {
         if ($data = $this->getRequest()->getPost('{{entity}}')) {
             try {{{filterEntityDates}}
                 ${{entity}} = $this->_init{{Entity}}();

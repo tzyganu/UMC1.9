@@ -1,10 +1,13 @@
 {{RelationsResourceTablesDeclare}}
+
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         $resource = Mage::getSingleton('core/resource');
         $this->setType('{{namespace}}_{{module}}_{{entity}}')
             ->setConnection(
@@ -13,12 +16,15 @@
             );
 {{RelationsResourceTables}}
     }
+
     /**
      * wrapper for main table getter
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getMainTable() {
+    public function getMainTable()
+    {
         return $this->getEntityTable();
     }

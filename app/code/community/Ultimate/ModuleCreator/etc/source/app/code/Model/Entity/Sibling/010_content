@@ -7,39 +7,46 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}
-    extends Mage_Core_Model_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}} extends Mage_Core_Model_Abstract
+{
     /**
      * Initialize resource
+     *
      * @access protected
      * @return void
      * {{qwertyuiop}}
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/{{entity}}_{{sibling}}');
     }
+
     /**
-     * Save data for {{entity}} - {{sibling}} relation
+     * Save data for {{entityLabel}} - {{siblingLabel}} relation
      * @access public
      * @param  {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_{{Sibling}}
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}){
+    public function save{{Entity}}Relation(${{entity}})
+    {
         $data = ${{entity}}->get{{Siblings}}Data();
         if (!is_null($data)) {
             $this->_getResource()->save{{Entity}}Relation(${{entity}}, $data);
         }
         return $this;
     }
+
     /**
-     * get {{siblings}} for {{entity}}
+     * get {{siblingsLabel}} for {{entityLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_{{Sibling}}_Collection
      * {{qwertyuiop}}
      */
-    public function get{{Siblings}}Collection(${{entity}}){
+    public function get{{Siblings}}Collection(${{entity}})
+    {
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_{{sibling}}_collection')
             ->add{{Entity}}Filter(${{entity}});
         return $collection;

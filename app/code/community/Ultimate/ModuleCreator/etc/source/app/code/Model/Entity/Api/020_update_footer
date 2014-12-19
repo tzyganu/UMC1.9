@@ -7,31 +7,36 @@
 
         return true;
     }
+
     /**
-     * remove {{entity}}
+     * remove {{entityLabel}}
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return bool
      * {{qwertyuiop}}
      */
-    public function remove(${{entity}}Id){
+    public function remove(${{entity}}Id)
+    {
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         try {
             ${{entity}}->delete();
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('remove_error', $e->getMessage());
         }
         return true;
     }
+
     /**
      * get info
+     *
      * @access public
      * @param int ${{entity}}Id
      * @return array
      * {{qwertyuiop}}
      */
-    public function info(${{entity}}Id){
+    public function info(${{entity}}Id)
+    {
         $result = array();
         ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
         $result = $this->_getApiData(${{entity}});

@@ -632,7 +632,7 @@
                             <required>0</required>
                             <position>70</position>
                             <class>validate-one-required-by-name is_name</class>
-                            <depend_class>type-text type-int type-decimal type-timestamp</depend_class>
+                            <depend_class>type-text type-int type-signedint type-decimal type-timestamp</depend_class>
                             <tooltip><![CDATA[Each entity must have an attribute to behave as "Name". This attribute will be used to identify different entities among themselves. It will also be used in dropdowns with entities. This option is available only for text, number and decimal attributes.]]></tooltip>
                         </is_name>
                         <required translate="label tooltip" module="modulecreator">
@@ -661,7 +661,7 @@
                             <position>100</position>
                             <source>adminhtml/system_config_source_yesno</source>
                             <system>1</system>
-                            <depend_class>type-text type-yesno type-timestamp type-int type-decimal type-website type-dropdown type-country</depend_class>
+                            <depend_class>type-text type-yesno type-timestamp type-int type-signedint type-decimal type-website type-dropdown type-country</depend_class>
                             <tooltip><![CDATA[This allows you to display the attribute as a column in the admin grid of the entity. The attribute set to behave as "Name" will be included by default in the grid.]]></tooltip>
                         </admin_grid>
                         <frontend translate="label tooltip" module="modulecreator">
@@ -841,12 +841,19 @@
                 <mass_update>0</mass_update>
             </image>
             <int translate="label" module="modulecreator">
-                <label>Int</label>
+                <label>Unsinged Int</label>
                 <type_model>modulecreator/attribute_type_int</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
                 <mass_update>0</mass_update>
             </int>
+            <signedint translate="label" module="modulecreator">
+                <label>Singed Int</label>
+                <type_model>modulecreator/attribute_type_signedint</type_model>
+                <group>text</group>
+                <allow_is_name>1</allow_is_name>
+                <mass_update>0</mass_update>
+            </signedint>
             <multiselect translate="label" module="modulecreator">
                 <label>Multiselect</label>
                 <type_model>modulecreator/attribute_type_multiselect</type_model>
@@ -1030,6 +1037,57 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_5_0>
+            <version>1.9.5.0</version>
+            <date>2014-12-19</date>
+            <data>
+                <cleanup translate="label type comment">
+                    <label>Cleaned up the code</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[Cleaned up the UMC code and the generated code. Now all files (almost) follow the zend coding standards.]]></comment>
+                </cleanup>
+                <gcl translate="label type">
+                    <label>Stick to CGL</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/68" target="_blank">#68</a>]]></comment>
+                </gcl>
+                <signed translate="label type">
+                    <label>Support for signed int attributes/fields</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/43" target="_blank">#43</a>]]></comment>
+                </signed>
+                <modman translate="label type">
+                    <label>Suport for modman file</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/64" target="_blank">#64</a> - The modman file is generated in `var/modulecreator/package/Namespace_Module/`]]></comment>
+                </modman>
+                <htmlescape translate="label type">
+                    <label>Removed calls to deprecated method htmlEscape</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/66" target="_blank">#66</a>]]></comment>
+                </htmlescape>
+                <canonical translate="label type">
+                    <label>Support for canonical URL in generated module</label>
+                    <type>Feature</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/69" target="_blank">#69</a>]]></comment>
+                </canonical>
+                <helper translate="label type">
+                    <label>Fixed wrong helper alias in Yes/No attribute display</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/72" target="_blank">#72</a>]]></comment>
+                </helper>
+                <multiselect translate="label type comment">
+                    <label>Fixed wrong display of multiselect attribute on frontend</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[Multiselect attribute values were not displayed correctly on frontend]]></comment>
+                </multiselect>
+                <status translate="label type">
+                    <label>Fixed 2 status fields generated in the setup file</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a href="https://github.com/tzyganu/UMC1.9/issues/73" target="_blank">#73</a>]]></comment>
+                </status>
+            </data>
+        </v1_9_5_0>
         <v1_9_4_4>
             <version>1.9.4.4</version>
             <date>2014-10-29</date>

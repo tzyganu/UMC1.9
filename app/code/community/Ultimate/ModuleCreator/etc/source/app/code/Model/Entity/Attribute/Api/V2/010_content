@@ -7,16 +7,18 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api_V2
-    extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api_V2 extends {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api
+{
     /**
      * Create new {{entityLabel}} attribute
+     *
      * @access public
      * @param array $data input data
      * @return integer
      * {{qwertyuiop}}
      */
-    public function create($data) {
+    public function create($data)
+    {
         $helper = Mage::helper('api');
         $helper->v2AssociativeArrayUnpacker($data);
         Mage::helper('api')->toArray($data);
@@ -25,13 +27,15 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api_V2
 
     /**
      * Update product attribute
+     *
      * @access public
      * @param string|integer $attribute attribute code or ID
      * @param array $data
      * @return boolean
      * {{qwertyuiop}}
      */
-    public function update($attribute, $data) {
+    public function update($attribute, $data)
+    {
         $helper = Mage::helper('api');
         $helper->v2AssociativeArrayUnpacker($data);
         Mage::helper('api')->toArray($data);
@@ -40,31 +44,35 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Api_V2
 
     /**
      * Add option to select or multiselect attribute
+     *
      * @access public
      * @param  integer|string $attribute attribute ID or code
      * @param  array $data
      * @return bool
      * {{qwertyuiop}}
      */
-    public function addOption($attribute, $data) {
+    public function addOption($attribute, $data)
+    {
         Mage::helper('api')->toArray($data);
         return parent::addOption($attribute, $data);
     }
 
     /**
      * Get full information about attribute with list of options
+     *
      * @access public
      * @param integer|string $attribute attribute ID or code
      * @return array
      * {{qwertyuiop}}
      */
-    public function info($attribute) {
+    public function info($attribute)
+    {
         $result = parent::info($attribute);
-        if (!empty($result['additional_fields'])){
+        if (!empty($result['additional_fields'])) {
             $keys = array_keys($result['additional_fields']);
-            foreach ($keys as $key ) {
+            foreach ($keys as $key) {
                 $result['additional_fields'][] = array(
-                    'key' => $key,
+                    'key'   => $key,
                     'value' => $result['additional_fields'][$key]
                 );
                 unset($result['additional_fields'][$key]);

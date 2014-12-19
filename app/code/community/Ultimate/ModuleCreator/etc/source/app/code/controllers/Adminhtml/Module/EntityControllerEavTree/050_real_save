@@ -13,10 +13,11 @@
                 ${{entity}}->unsetData('use_post_data_config');
 
                 ${{entity}}->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been saved.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been saved.')
+                );
                 $refreshTree = 'true';
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage())
                     ->set{{Entity}}Data($data);
                 $refreshTree = 'false';
@@ -30,13 +31,17 @@
 
     /**
      * Move {{entityLabel}} action
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function moveAction() {
+    public function moveAction()
+    {
         ${{entity}} = $this->_init{{Entity}}();
         if (!${{entity}}) {
-            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'));
+            $this->getResponse()->setBody(
+                Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error')
+            );
             return;
         }
         $parentNodeId   = $this->getRequest()->getPost('pid', false);
@@ -45,12 +50,12 @@
         try {
             ${{entity}}->move($parentNodeId, $prevNodeId);
             $this->getResponse()->setBody("SUCCESS");
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->getResponse()->setBody($e->getMessage());
-        }
-        catch (Exception $e){
-            $this->getResponse()->setBody(Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error'.$e));
+        } catch (Exception $e) {
+            $this->getResponse()->setBody(
+                Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}} move error')
+            );
             Mage::logException($e);
         }
 
@@ -58,28 +63,35 @@
 
     /**
      * Delete {{entityLabel}} action
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
                 ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
-                Mage::dispatchEvent('{{namespace}}_{{module}}_controller_{{entity}}_delete', array('{{entity}}'=>${{entity}}));
+                Mage::dispatchEvent(
+                    '{{namespace}}_{{module}}_controller_{{entity}}_delete',
+                    array('{{entity}}' => ${{entity}})
+                );
 
                 Mage::getSingleton('admin/session')->set{{Entity}}DeletedPath(${{entity}}->getPath());
 
                 ${{entity}}->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been deleted.'));
-            }
-            catch (Mage_Core_Exception $e){
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__('The {{entityLabel}} has been deleted.')
+                );
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 return;
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.'));
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while trying to delete the {{entityLabel}}.')
+                );
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
                 return;
             }
@@ -90,10 +102,12 @@
     /**
      * Tree Action
      * Retrieve {{entityLabel}} tree
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function treeAction() {
+    public function treeAction()
+    {
         $storeId = (int) $this->getRequest()->getParam('store');
         ${{entity}}Id = (int) $this->getRequest()->getParam('id');
 
@@ -109,43 +123,54 @@
 
         $block = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_tree');
         $root  = $block->getRoot();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
-            'data' => $block->getTree(),
-            'parameters' => array(
-                'text'        => $block->buildNodeName($root),
-                'draggable'   => false,
-                'allowDrop'   => ($root->getIsVisible()) ? true : false,
-                'id'          => (int) $root->getId(),
-                'expanded'    => (int) $block->getIsWasExpanded(),
-                'store_id'    => (int) $block->getStore()->getId(),
-                '{{entity}}_id' => (int) ${{entity}}->getId(),
-                'root_visible'=> (int) $root->getIsVisible()
-        ))));
+        $this->getResponse()->setBody(
+            Mage::helper('core')->jsonEncode(
+                array(
+                    'data' => $block->getTree(),
+                    'parameters' => array(
+                        'text'         => $block->buildNodeName($root),
+                        'draggable'    => false,
+                        'allowDrop'    => ($root->getIsVisible()) ? true : false,
+                        'id'           => (int) $root->getId(),
+                        'expanded'     => (int) $block->getIsWasExpanded(),
+                        'store_id'     => (int) $block->getStore()->getId(),
+                        '{{entity}}_id' => (int) ${{entity}}->getId(),
+                        'root_visible' => (int) $root->getIsVisible()
+                    )
+                )
+            )
+        );
     }
 
-    /**
+   /**
     * Build response for refresh input element 'path' in form
+    *
     * @access public
     * {{qwertyuiop}}
     */
-    public function refreshPathAction() {
+    public function refreshPathAction()
+    {
         if ($id = (int) $this->getRequest()->getParam('id')) {
             ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load($id);
             $this->getResponse()->setBody(
-                Mage::helper('core')->jsonEncode(array(
-                   'id' => $id,
-                   'path' => ${{entity}}->getPath(),
-                ))
+                Mage::helper('core')->jsonEncode(
+                    array(
+                       'id' => $id,
+                       'path' => ${{entity}}->getPath(),
+                    )
+                )
             );
         }
     }
 
     /**
      * Check if admin has permissions to visit related pages
+     *
      * @access protected
      * @return boolean
      * {{qwertyuiop}}
      */
-    protected function _isAllowed() {
+    protected function _isAllowed()
+    {
         return Mage::getSingleton('admin/session')->isAllowed('{{selectedMenuPath}}');
     }

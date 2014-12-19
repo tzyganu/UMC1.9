@@ -1,2 +1,6 @@
-                ${{attributeMagicCode}}Name = $this->_uploadAndGetName('{{attributeCode}}', Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseDir(), $data);
+                ${{attributeMagicCode}}Name = $this->_uploadAndGetName(
+                    '{{attributeCode}}',
+                    Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseDir(),
+                    $data
+                );
                 ${{entity}}->setData('{{attributeCode}}', ${{attributeMagicCode}}Name);

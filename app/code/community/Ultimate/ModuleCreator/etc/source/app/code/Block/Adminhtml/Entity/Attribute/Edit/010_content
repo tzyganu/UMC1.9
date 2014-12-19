@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit
-    extends Mage_Adminhtml_Block_Widget_Form_Container {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+{
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_objectId = 'attribute_id';
         $this->_controller = 'adminhtml_{{entity}}_attribute';
         $this->_blockGroup = '{{namespace}}_{{module}}';
@@ -29,49 +31,65 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit
             ),
             100
         );
-        $this->_updateButton('save', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} Attribute'));
+        $this->_updateButton(
+            'save',
+            'label',
+            Mage::helper('{{namespace}}_{{module}}')->__('Save {{EntityLabel}} Attribute')
+        );
         $this->_updateButton('save', 'onclick', 'saveAttribute()');
 
         if (!Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');
         } else {
-            $this->_updateButton('delete', 'label', Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} Attribute'));
+            $this->_updateButton(
+                'delete',
+                'label',
+                Mage::helper('{{namespace}}_{{module}}')->__('Delete {{EntityLabel}} Attribute')
+            );
         }
     }
+
     /**
      * get the header text for the form
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getHeaderText(){
+    public function getHeaderText()
+    {
         if (Mage::registry('entity_attribute')->getId()) {
             $frontendLabel = Mage::registry('entity_attribute')->getFrontendLabel();
             if (is_array($frontendLabel)) {
                 $frontendLabel = $frontendLabel[0];
             }
-            return Mage::helper('{{namespace}}_{{module}}')->__('Edit {{EntityLabel}} Attribute "%s"', $this->htmlEscape($frontendLabel));
-        }
-        else {
+            return Mage::helper('{{namespace}}_{{module}}')->__('Edit {{EntityLabel}} Attribute "%s"', $this->escapeHtml($frontendLabel));
+        } else {
             return Mage::helper('{{namespace}}_{{module}}')->__('New {{EntityLabel}} Attribute');
         }
     }
+
     /**
      * get validation url for form
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getValidationUrl(){
+    public function getValidationUrl()
+    {
         return $this->getUrl('*/*/validate', array('_current'=>true));
     }
+
     /**
      * get save url for form
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getSaveUrl(){
+    public function getSaveUrl()
+    {
         return $this->getUrl('*/'.$this->_controller.'/save', array('_current'=>true, 'back'=>null));
     }
 }

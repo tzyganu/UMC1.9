@@ -7,19 +7,24 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Customer_Comment_List
-    extends Mage_Customer_Block_Account_Dashboard {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Customer_Comment_List extends Mage_Customer_Block_Account_Dashboard
+{
     /**
      * {{Entity}} comments collection
+     *
      * @var {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_{{Entity}}_Collection
      */
     protected $_collection;
 
     /**
      * Initializes collection
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    protected function _construct() {
-        $this->_collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_comment_{{entity}}_collection');
+    protected function _construct()
+    {
+        $this->_collection = Mage::getResourceModel(
+            '{{namespace}}_{{module}}/{{entity}}_comment_{{entity}}_collection'
+        );
         $this->_collection

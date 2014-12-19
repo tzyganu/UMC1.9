@@ -7,10 +7,11 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
-    extends Mage_Adminhtml_Controller_Action {
+class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}} extends Mage_Adminhtml_Controller_Action
+{
     /**
      * upload file and get the uploaded name
+     *
      * @access public
      * @param string $input
      * @param string $destinationFolder
@@ -18,12 +19,12 @@ class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _uploadAndGetName($input, $destinationFolder, $data) {
-        try{
-            if (isset($data[$input]['delete'])){
+    protected function _uploadAndGetName($input, $destinationFolder, $data)
+    {
+        try {
+            if (isset($data[$input]['delete'])) {
                 return '';
-            }
-            else{
+            } else {
                 $uploader = new Varien_File_Uploader($input);
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(true);
@@ -31,13 +32,11 @@ class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
                 $result = $uploader->save($destinationFolder);
                 return $result['file'];
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) {
                 throw $e;
-            }
-            else{
-                if (isset($data[$input]['value'])){
+            } else {
+                if (isset($data[$input]['value'])) {
                     return $data[$input]['value'];
                 }
             }

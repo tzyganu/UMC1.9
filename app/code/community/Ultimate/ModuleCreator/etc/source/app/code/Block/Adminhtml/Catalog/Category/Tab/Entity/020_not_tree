@@ -7,14 +7,16 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
-    extends Mage_Adminhtml_Block_Widget_Grid {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}} extends Mage_Adminhtml_Block_Widget_Grid
+{
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-	public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId('catalog_category_{{entity}}');
         $this->setDefaultSort('entity_id');
@@ -23,31 +25,36 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
             $this->setDefaultFilter(array('in_{{entities}}'=>1));
         }
     }
+
     /**
      * get current category
+     *
      * @access public
      * @return Mage_Catalog_Model_Category|null
      * {{qwertyuiop}}
      */
-    public function getCategory() {
+    public function getCategory()
+    {
         return Mage::registry('current_category');
     }
+
     /**
      * prepare the collection
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _prepareCollection() {
+    protected function _prepareCollection()
+    {
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
-        if ($this->getCategory()->getId()){
+        if ($this->getCategory()->getId()) {
             $constraint = 'related.category_id='.$this->getCategory()->getId();
-        }
-        else{
+        } else {
             $constraint = 'related.category_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related'=>$collection->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
+            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
             'related.{{entity}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );
@@ -55,73 +62,93 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
         parent::_prepareCollection();
         return $this;
     }
+
     /**
      * Prepare the columns
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _prepareColumns() {
-        $this->addColumn('in_{{entities}}', array(
-            'header_css_class'  => 'a-center',
-            'type'  => 'checkbox',
-            'name'  => 'in_{{entities}}',
-            'values'=> $this->_getSelected{{Entities}}(),
-            'align' => 'center',
-            'index' => 'entity_id'
-        ));
-        $this->addColumn('entity_id', array(
-            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('Id'),
-            'type'  => 'number',
-            'align' => 'left',
-            'index' => 'entity_id',
-        ));
-        $this->addColumn('{{nameAttributeCode}}', array(
-            'header'=> Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
-            'align' => 'left',
-            'index' => '{{nameAttributeCode}}',
-            'renderer'  => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
-            'params' => array(
-                'id'=>'getId'
-            ),
-            'base_link' => 'adminhtml/{{module}}_{{entity}}/edit',
-        ));
-        $this->addColumn('position', array(
-            'header'        => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
-            'name'          => 'position',
-            'width'         => 60,
-            'type'        => 'number',
-            'validate_class'=> 'validate-number',
-            'index'         => 'position',
-            'editable'      => true,
-        ));
+    protected function _prepareColumns()
+    {
+        $this->addColumn(
+            'in_{{entities}}',
+            array(
+                'header_css_class'  => 'a-center',
+                'type'   => 'checkbox',
+                'name'   => 'in_{{entities}}',
+                'values' => $this->_getSelected{{Entities}}(),
+                'align'  => 'center',
+                'index'  => 'entity_id'
+            )
+        );
+        $this->addColumn(
+            'entity_id',
+            array(
+                'header' => Mage::helper('{{namespace}}_{{module}}')->__('Id'),
+                'type'   => 'number',
+                'align'  => 'left',
+                'index'  => 'entity_id',
+            )
+        );
+        $this->addColumn(
+            '{{nameAttributeCode}}',
+            array(
+                'header' => Mage::helper('{{namespace}}_{{module}}')->__('{{nameAttributeLabel}}'),
+                'align'  => 'left',
+                'index'  => '{{nameAttributeCode}}',
+                'renderer' => '{{namespace}}_{{module}}/adminhtml_helper_column_renderer_relation',
+                'params' => array(
+                    'id' => 'getId'
+                ),
+                'base_link' => 'adminhtml/{{module}}_{{entity}}/edit',
+            )
+        );
+        $this->addColumn(
+            'position',
+            array(
+                'header'         => Mage::helper('{{namespace}}_{{module}}')->__('Position'),
+                'name'           => 'position',
+                'width'          => 60,
+                'type'           => 'number',
+                'validate_class' => 'validate-number',
+                'index'          => 'position',
+                'editable'       => true,
+            )
+        );
         return parent::_prepareColumns();
     }
 
     /**
      * Retrieve selected {{entities}}
+     *
      * @access protected
      * @return array
      * {{qwertyuiop}}
      */
-    protected function _getSelected{{Entities}}(){
+    protected function _getSelected{{Entities}}()
+    {
         ${{entities}} = $this->getCategory{{Entities}}();
         if (!is_array(${{entities}})) {
             ${{entities}} = array_keys($this->getSelected{{Entities}}());
         }
         return ${{entities}};
     }
-     /**
+
+    /**
      * Retrieve selected {{entities}}
+     *
      * @access protected
      * @return array
      * {{qwertyuiop}}
      */
-    public function getSelected{{Entities}}() {
+    public function getSelected{{Entities}}()
+    {
         ${{entities}} = array();
         //used helper here in order not to override the category model
         $selected = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}(Mage::registry('current_category'));
-        if (!is_array($selected)){
+        if (!is_array($selected)) {
             $selected = array();
         }
         foreach ($selected as ${{entity}}) {
@@ -129,35 +156,47 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
         }
         return ${{entities}};
     }
+
     /**
      * get row url
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}}
      * @return string
      * {{qwertyuiop}}
      */
-    public function getRowUrl($item){
+    public function getRowUrl($item)
+    {
         return '#';
     }
+
     /**
      * get grid url
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function getGridUrl(){
-        return $this->getUrl('adminhtml/{{module}}_{{entity}}_catalog_category/{{entities}}grid', array(
-            'id'=>$this->getCategory()->getId()
-        ));
+    public function getGridUrl()
+    {
+        return $this->getUrl(
+            'adminhtml/{{module}}_{{entity}}_catalog_category/{{entities}}grid',
+            array(
+                'id'=>$this->getCategory()->getId()
+            )
+        );
     }
+
     /**
      * Add filter
+     *
      * @access protected
      * @param object $column
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _addColumnFilterToCollection($column){
+    protected function _addColumnFilterToCollection($column)
+    {
         if ($column->getId() == 'in_{{entities}}') {
             ${{entity}}Ids = $this->_getSelected{{Entities}}();
             if (empty(${{entity}}Ids)) {
@@ -165,14 +204,12 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}}
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', array('in'=>${{entity}}Ids));
-            }
-            else {
-                if(${{entity}}Ids) {
+            } else {
+                if (${{entity}}Ids) {
                     $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>${{entity}}Ids));
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;

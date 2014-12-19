@@ -1,4 +1,11 @@
-        $this->addTab('categories', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Associated Categories'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_categories','{{entity}}.category.tree')->toHtml(),
-        ));
+        $this->addTab(
+            'categories',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Associated Categories'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_categories',
+                    '{{entity}}.category.tree'
+                )
+                ->toHtml(),
+            )
+        );

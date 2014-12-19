@@ -17,7 +17,7 @@
         <div class="{{entity}}-list-container">
             <?php foreach ($_{{entities}} as $_{{entity}}) : ?>
                 <div class="{{entity}}-list-item">
-                    <a href="<?php echo $_{{entity}}->get{{Entity}}Url();?>" title="<?php echo $this->htmlEscape($_{{entity}}->get{{EntityNameMagicCode}}()) ?>">
+                    <a href="<?php echo $_{{entity}}->get{{Entity}}Url();?>" title="<?php echo $this->escapeHtml($_{{entity}}->get{{EntityNameMagicCode}}()) ?>">
                         <?php echo $_{{entity}}->get{{EntityNameMagicCode}}(); ?>
                     </a>
                 </div>

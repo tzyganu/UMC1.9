@@ -1,16 +1,30 @@
 $table = $this->getConnection()
     ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}'))
-    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'identity'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-        ), '{{EntityLabel}} ID')
+    ->addColumn(
+        'entity_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'identity'  => true,
+            'nullable'  => false,
+            'primary'   => true,
+        ),
+        '{{EntityLabel}} ID'
+    )
 {{attributeDdlSql}}
-     ->addColumn('status', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        ), '{{EntityLabel}} Status')
-    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-            ), '{{EntityLabel}} Modification Time')
-    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
-        ), '{{EntityLabel}} Creation Time') {{fksDdl}}
+    ->addColumn(
+        'updated_at',
+        Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+        null,
+        array(),
+        '{{EntityLabel}} Modification Time'
+    )
+    ->addColumn(
+        'created_at',
+        Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+        null,
+        array(),
+        '{{EntityLabel}} Creation Time'
+    ) {{fksDdl}}
     ->setComment('{{EntityLabel}} Table');
 $this->getConnection()->createTable($table);

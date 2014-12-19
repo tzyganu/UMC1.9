@@ -1,14 +1,18 @@
-        $fieldset->addField('status', 'select', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
-            'name'  => 'status',
-            'values'=> array(
-                array(
-                    'value' => 1,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
+        $fieldset->addField(
+            'status',
+            'select',
+            array(
+                'label'  => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
+                'name'   => 'status',
+                'values' => array(
+                    array(
+                        'value' => 1,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Enabled'),
+                    ),
+                    array(
+                        'value' => 0,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
+                    ),
                 ),
-                array(
-                    'value' => 0,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Disabled'),
-                ),
-            ),
-        ));
+            )
+        );

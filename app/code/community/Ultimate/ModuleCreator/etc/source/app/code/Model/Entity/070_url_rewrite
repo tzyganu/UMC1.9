@@ -1,32 +1,37 @@
+
     /**
      * get the url to the {{entityLabel}} details page
+     *
      * @access public
      * @return string
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}Url(){
-        if ($this->getUrlKey()){
+    public function get{{Entity}}Url()
+    {
+        if ($this->getUrlKey()) {
             $urlKey = '';
-            if ($prefix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix')){
+            if ($prefix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix')) {
                 $urlKey .= $prefix.'/';
             }
             $urlKey .= $this->getUrlKey();
-            if ($suffix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix')){
+            if ($suffix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix')) {
                 $urlKey .= '.'.$suffix;
             }
             return Mage::getUrl('', array('_direct'=>$urlKey));
         }
         return Mage::getUrl('{{namespace}}_{{module}}/{{entity}}/view', array('id'=>$this->getId()));
     }
+
     /**
      * check URL key
+     *
      * @access public
      * @param string $urlKey
      * @param bool $active
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function checkUrlKey($urlKey, $active = true){
+    public function checkUrlKey($urlKey, $active = true)
+    {
         return $this->_getResource()->checkUrlKey($urlKey, $active);
     }
-

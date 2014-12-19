@@ -22,22 +22,26 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Model_Attribute_Type_Text
-    extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract {
+class Ultimate_ModuleCreator_Model_Attribute_Type_Text extends Ultimate_ModuleCreator_Model_Attribute_Type_Abstract
+{
     /**
      * type code
+     *
      * @var string
      */
     protected $_type = 'text';
+
     /**
      * get admin column options
+     *
      * @access public
      * @return string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getAdminColumnOptions() {
+    public function getAdminColumnOptions()
+    {
         $options = $this->getEol();
-        $options .= $this->getPadding(3);
+        $options .= $this->getPadding(4);
         $options .= "'type'=> 'text',".$this->getEol();
         return $options;
     }

@@ -2,55 +2,65 @@
 {{License}}
 /**
  * {{EntityLabel}} tree resource model
+ *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
-    extends Varien_Data_Tree_Dbp {
+class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree extends Varien_Data_Tree_Dbp
+{
     const ID_FIELD        = 'entity_id';
     const PATH_FIELD      = 'path';
     const ORDER_FIELD     = 'order';
     const LEVEL_FIELD     = 'level';
+
     /**
      * {{EntitiesLabel}} resource collection
+     *
      * @var {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      */
     protected $_collection;
     protected $_storeId;
+
     /**
      * Inactive {{entitiesLabel}} ids
      * @var array
      */
+
     protected $_inactive{{Entity}}Ids  = null;
+
     /**
      * Initialize tree
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function __construct(){
+    public function __construct()
+    {
         $resource = Mage::getSingleton('core/resource');
         parent::__construct(
             $resource->getConnection('{{namespace}}_{{module}}_write'),
             $resource->getTableName('{{namespace}}_{{module}}/{{entity}}'),
             array(
-                Varien_Data_Tree_Dbp::ID_FIELD   => 'entity_id',
-                Varien_Data_Tree_Dbp::PATH_FIELD => 'path',
-                Varien_Data_Tree_Dbp::ORDER_FIELD=> 'position',
-                Varien_Data_Tree_Dbp::LEVEL_FIELD=> 'level',
+                Varien_Data_Tree_Dbp::ID_FIELD    => 'entity_id',
+                Varien_Data_Tree_Dbp::PATH_FIELD  => 'path',
+                Varien_Data_Tree_Dbp::ORDER_FIELD => 'position',
+                Varien_Data_Tree_Dbp::LEVEL_FIELD => 'level',
             )
         );
     }
 
     /**
      * Get {{entitiesLabel}} collection
+     *
      * @access public
      * @param boolean $sorted
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      * {{qwertyuiop}}
      */
-    public function getCollection($sorted = false){
+    public function getCollection($sorted = false)
+    {
         if (is_null($this->_collection)) {
             $this->_collection = $this->_getDefaultCollection($sorted);
         }
@@ -58,11 +68,13 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
     }
     /**
      * set the collection
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection $collection
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
      */
-    public function setCollection($collection){
+    public function setCollection($collection)
+    {
         if (!is_null($this->_collection)) {
             destruct($this->_collection);
         }
@@ -71,9 +83,11 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Tree
     }
     /**
      * get the default collection
+     *
      * @access protected
      * @param boolean $sorted
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
      */
-    protected function _getDefaultCollection($sorted = false){
+    protected function _getDefaultCollection($sorted = false)
+    {
         $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->getCollection();

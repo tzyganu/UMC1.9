@@ -7,37 +7,54 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tabs
-    extends Mage_Adminhtml_Block_Widget_Tabs {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+{
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId('{{entity}}_attribute_tabs');
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('{{namespace}}_{{module}}')->__('Attribute Information'));
     }
+
     /**
      * add attribute tabs
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Adminhtml_{{Entity}}_Attribute_Edit_Tabs
      * {{qwertyuiop}}
      */
-    protected function _beforeToHtml() {
-        $this->addTab('main', array(
-            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Properties'),
-            'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Properties'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit_tab_main')->toHtml(),
-            'active'    => true
-        ));
-        $this->addTab('labels', array(
-            'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Manage Label / Options'),
-            'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Manage Label / Options'),
-            'content'   => $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit_tab_options')->toHtml(),
-        ));
+    protected function _beforeToHtml()
+    {
+        $this->addTab(
+            'main',
+            array(
+                'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Properties'),
+                'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Properties'),
+                'content'   => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit_tab_main'
+                )
+                ->toHtml(),
+                'active'    => true
+            )
+        );
+        $this->addTab(
+            'labels',
+            array(
+                'label'     => Mage::helper('{{namespace}}_{{module}}')->__('Manage Label / Options'),
+                'title'     => Mage::helper('{{namespace}}_{{module}}')->__('Manage Label / Options'),
+                'content'   => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_attribute_edit_tab_options'
+                )
+                ->toHtml(),
+            )
+        );
         return parent::_beforeToHtml();
     }
 }

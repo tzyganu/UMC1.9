@@ -7,18 +7,21 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Helper_Image
-    extends Varien_Data_Form_Element_Image {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Helper_Image extends Varien_Data_Form_Element_Image
+{
     /**
      * get the url of the image
+     *
      * @access protected
      * @return string
      * {{qwertyuiop}}
      */
-    protected function _getUrl(){
+    protected function _getUrl()
+    {
         $url = false;
         if ($this->getValue()) {
-            $url = Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseUrl().$this->getValue();
+            $url = Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseUrl().
+                $this->getValue();
         }
         return $url;
     }

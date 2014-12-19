@@ -7,58 +7,88 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tab_Form
-    extends Mage_Adminhtml_Block_Widget_Form {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+{
     /**
      * prepare the form
+     *
      * @access protected
      * @return {{Module}}_{{Entity}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tab_Form
      * {{qwertyuiop}}
      */
-    protected function _prepareForm(){
+    protected function _prepareForm()
+    {
         ${{entity}} = Mage::registry('current_{{entity}}');
         $comment    = Mage::registry('current_comment');
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('comment_');
         $form->setFieldNameSuffix('comment');
         $this->setForm($form);
-        $fieldset = $form->addFieldset('comment_form', array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Comment')));
-        $fieldset->addField('{{entity}}_id', 'hidden', array(
-            'name'  => '{{entity}}_id',
-            'after_element_html' => '<a href="'.Mage::helper('adminhtml')->getUrl('adminhtml/{{module}}_{{entity}}/edit', array('id'=>${{entity}}->getId())).'" target="_blank">'.Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}').' : '.${{entity}}->get{{EntityNameMagicCode}}().'</a>'
-        ));
-        $fieldset->addField('title', 'text', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Title'),
-            'name'  => 'title',
-            'required'  => true,
-            'class' => 'required-entry',
-        ));
-        $fieldset->addField('comment', 'textarea', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Comment'),
-            'name'  => 'comment',
-            'required'  => true,
-            'class' => 'required-entry',
-        ));
-        $fieldset->addField('status', 'select', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
-            'name'  => 'status',
-            'required'  => true,
-            'class' => 'required-entry',
-            'values'=> array(
-                array(
-                    'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
+        $fieldset = $form->addFieldset(
+            'comment_form',
+            array('legend'=>Mage::helper('{{namespace}}_{{module}}')->__('Comment'))
+        );
+        $fieldset->addField(
+            '{{entity}}_id',
+            'hidden',
+            array(
+                'name'  => '{{entity}}_id',
+                'after_element_html' => '<a href="'.
+                    Mage::helper('adminhtml')->getUrl(
+                        'adminhtml/{{module}}_{{entity}}/edit',
+                        array(
+                            'id'=>${{entity}}->getId()
+                        )
+                    ).
+                    '" target="_blank">'.
+                    Mage::helper('{{namespace}}_{{module}}')->__('{{EntityLabel}}').
+                    ' : '.${{entity}}->get{{EntityNameMagicCode}}().'</a>'
+            )
+        );
+        $fieldset->addField(
+            'title',
+            'text',
+            array(
+                'label'    => Mage::helper('{{namespace}}_{{module}}')->__('Title'),
+                'name'     => 'title',
+                'required' => true,
+                'class'    => 'required-entry',
+            )
+        );
+        $fieldset->addField(
+            'comment',
+            'textarea',
+            array(
+                'label'    => Mage::helper('{{namespace}}_{{module}}')->__('Comment'),
+                'name'     => 'comment',
+                'required' => true,
+                'class'    => 'required-entry',
+            )
+        );
+        $fieldset->addField(
+            'status',
+            'select',
+            array(
+                'label'    => Mage::helper('{{namespace}}_{{module}}')->__('Status'),
+                'name'     => 'status',
+                'required' => true,
+                'class'    => 'required-entry',
+                'values'   => array(
+                    array(
+                        'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_PENDING,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Pending'),
+                    ),
+                    array(
+                        'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
+                    ),
+                    array(
+                        'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED,
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
+                    ),
                 ),
-                array(
-                    'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_APPROVED,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Approved'),
-                ),
-                array(
-                    'value' => {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment::STATUS_REJECTED,
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Rejected'),
-                ),
-            ),
-        ));
+            )
+        );
         $configuration = array(
              'label' => Mage::helper('{{namespace}}_{{module}}')->__('Poster name'),
              'name'  => 'name',
@@ -66,16 +96,31 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Edit_Tab_Form
              'class' => 'required-entry',
         );
         if ($comment->getCustomerId()) {
-            $configuration['after_element_html'] = '<a href="'.Mage::helper('adminhtml')->getUrl('adminhtml/customer/edit', array('id'=>$comment->getCustomerId())).'" target="_blank">'.Mage::helper('{{namespace}}_{{module}}')->__('Customer profile').'</a>';
+            $configuration['after_element_html'] = '<a href="'.
+                Mage::helper('adminhtml')->getUrl(
+                    'adminhtml/customer/edit',
+                    array(
+                        'id'=>$comment->getCustomerId()
+                    )
+                ).
+                '" target="_blank">'.
+                Mage::helper('{{namespace}}_{{module}}')->__('Customer profile').'</a>';
         }
         $fieldset->addField('name', 'text', $configuration);
-        $fieldset->addField('email', 'text', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Poster e-mail'),
-            'name'  => 'email',
-            'required'  => true,
-            'class' => 'required-entry',
-        ));
-        $fieldset->addField('customer_id', 'hidden', array(
-            'name'  => 'customer_id',
-        ));
-
+        $fieldset->addField(
+            'email',
+            'text',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Poster e-mail'),
+                'name'  => 'email',
+                'required'  => true,
+                'class' => 'required-entry',
+            )
+        );
+        $fieldset->addField(
+            'customer_id',
+            'hidden',
+            array(
+                'name'  => 'customer_id',
+            )
+        );

@@ -1,9 +1,12 @@
+
     /**
      * check if breadcrumbs can be used
+     *
      * @access public
      * @return bool
      * {{qwertyuiop}}
      */
-    public function getUseBreadcrumbs(){
+    public function getUseBreadcrumbs()
+    {
         return Mage::getStoreConfigFlag('{{namespace}}_{{module}}/{{entity}}/breadcrumbs');
     }

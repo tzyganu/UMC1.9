@@ -1,15 +1,17 @@
+
     /**
      * Retrieve {{siblingsLabel}} collection
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Sibling}}_Collection
      * {{qwertyuiop}}
      */
-    public function getSelected{{Siblings}}Collection(){
+    public function getSelected{{Siblings}}Collection()
+    {
         if (!$this->hasData('_{{sibling}}_collection')) {
             if (!$this->getId()) {
                 return new Varien_Data_Collection();
-            }
-            else {
+            } else {
                 $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{sibling}}_collection'){{siblingAllAttributesToCollection}}
                         ->{{siblingFilterMethod}}('{{entity}}_id', $this->getId());
                 $this->setData('_{{sibling}}_collection', $collection);

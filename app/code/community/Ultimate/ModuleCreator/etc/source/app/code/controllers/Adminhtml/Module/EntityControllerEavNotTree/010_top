@@ -7,25 +7,30 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
-    extends Mage_Adminhtml_Controller_Action {
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller extends Mage_Adminhtml_Controller_Action
+{
     /**
      * constructor - set the used module name
+     *
      * @access protected
      * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
      * {{qwertyuiop}}
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->setUsedModuleName('{{Namespace}}_{{Module}}');
     }
+
     /**
-     * init the {{entity}}
+     * init the {{entityLabel}}
+     *
      * @access protected 
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _init{{Entity}}(){
+    protected function _init{{Entity}}()
+    {
         $this->_title($this->__('{{module_menu}}'))
              ->_title($this->__('Manage {{EntitiesLabel}}'));
 
@@ -39,75 +44,100 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller
         Mage::register('current_{{entity}}', ${{entity}});
         return ${{entity}};
     }
+
     /**
      * default action for {{entity}} controller
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $this->_title($this->__('{{module_menu}}'))
              ->_title($this->__('Manage {{EntitiesLabel}}'));
         $this->loadLayout();
         $this->renderLayout();
     }
+
     /**
      * new {{entity}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function newAction(){
+    public function newAction()
+    {
         $this->_forward('edit');
     }
+
     /**
      * edit {{entity}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function editAction(){
+    public function editAction()
+    {
         ${{entity}}Id  = (int) $this->getRequest()->getParam('id');
-
-        ${{entity}} = $this->_init{{Entity}}();
+        ${{entity}}    = $this->_init{{Entity}}();
         if (${{entity}}Id && !${{entity}}->getId()) {
-            $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.'));
+            $this->_getSession()->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('This {{entityLabel}} no longer exists.')
+            );
             $this->_redirect('*/*/');
             return;
         }
-        if ($data = Mage::getSingleton('adminhtml/session')->get{{Entity}}Data(true)){
+        if ($data = Mage::getSingleton('adminhtml/session')->get{{Entity}}Data(true)) {
             ${{entity}}->setData($data);
         }
         $this->_title(${{entity}}->get{{EntityNameMagicCode}}());
-        Mage::dispatchEvent('{{namespace}}_{{module}}_{{entity}}_edit_action', array('{{entity}}' => ${{entity}}));
+        Mage::dispatchEvent(
+            '{{namespace}}_{{module}}_{{entity}}_edit_action',
+            array('{{entity}}' => ${{entity}})
+        );
         $this->loadLayout();
-        if (${{entity}}->getId()){
+        if (${{entity}}->getId()) {
             if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
                 $switchBlock->setDefaultStoreName(Mage::helper('{{namespace}}_{{module}}')->__('Default Values'))
                     ->setWebsiteIds(${{entity}}->getWebsiteIds())
-                    ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, 'active_tab'=>null, 'tab' => null, 'store'=>null)));
+                    ->setSwitchUrl(
+                        $this->getUrl(
+                            '*/*/*',
+                            array(
+                                '_current'=>true,
+                                'active_tab'=>null,
+                                'tab' => null,
+                                'store'=>null
+                            )
+                        )
+                    );
             }
-        }
-        else{
+        } else {
             $this->getLayout()->getBlock('left')->unsetChild('store_switcher');
         }
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
         $this->renderLayout();
     }
+
     /**
-     * save {{entity}} action
+     * save {{entityLabel}} action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function saveAction(){
+    public function saveAction()
+    {
         $storeId        = $this->getRequest()->getParam('store');
         $redirectBack   = $this->getRequest()->getParam('back', false);
-        ${{entity}}Id      = $this->getRequest()->getParam('id');
+        ${{entity}}Id   = $this->getRequest()->getParam('id');
         $isEdit         = (int)($this->getRequest()->getParam('id') != null);
         $data = $this->getRequest()->getPost();
         if ($data) {
-            ${{entity}}    = $this->_init{{Entity}}();
+            ${{entity}}     = $this->_init{{Entity}}();
             ${{entity}}Data = $this->getRequest()->getPost('{{entity}}', array());
             ${{entity}}->addData(${{entity}}Data);
             ${{entity}}->setAttributeSetId(${{entity}}->getDefaultAttributeSetId());

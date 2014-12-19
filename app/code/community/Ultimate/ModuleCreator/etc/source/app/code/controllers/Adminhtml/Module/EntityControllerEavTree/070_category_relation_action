@@ -1,10 +1,13 @@
+
     /**
      * get child categories action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function categoriesJsonAction(){
+    public function categoriesJsonAction()
+    {
         $this->_init{{Entity}}();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_categories')

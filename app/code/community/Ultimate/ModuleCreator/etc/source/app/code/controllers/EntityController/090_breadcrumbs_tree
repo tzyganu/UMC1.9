@@ -1,14 +1,20 @@
-                $breadcrumbBlock->addCrumb('{{entities}}', array(
-                            'label'    => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
-                            'link'    => Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url(),
+                $breadcrumbBlock->addCrumb(
+                    '{{entities}}',
+                    array(
+                        'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
+                        'link'  => Mage::helper('{{namespace}}_{{module}}/{{entity}}')->get{{Entities}}Url(),
                     )
                 );
                 $parents = ${{entity}}->getParent{{Entities}}();
-                foreach ($parents as $parent){
-                    if ($parent->getId() != Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id() && $parent->getId() != ${{entity}}->getId()){
-                        $breadcrumbBlock->addCrumb('{{entity}}-'.$parent->getId(), array(
+                foreach ($parents as $parent) {
+                    if ($parent->getId() != Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getRoot{{Entity}}Id() &&
+                        $parent->getId() != ${{entity}}->getId()) {
+                        $breadcrumbBlock->addCrumb(
+                            '{{entity}}-'.$parent->getId(),
+                            array(
                                 'label'    => $parent->get{{EntityNameMagicCode}}(),
                                 'link'    => $link = $parent->get{{Entity}}Url(),
-                        ));
+                            )
+                        );
                     }
                 }

@@ -1,8 +1,11 @@
+
     /**
      * constructor
+     *
      * @access public
      * {{qwertyuiop}}
      */
-    public function _construct(){
+    public function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/{{entity}}', 'entity_id');
     }

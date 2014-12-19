@@ -7,24 +7,29 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_{{Entity}}_Customer_Comment_View
-    extends Mage_Customer_Block_Account_Dashboard {
+class {{Namespace}}_{{Module}}_Block_{{Entity}}_Customer_Comment_View extends Mage_Customer_Block_Account_Dashboard
+{
     /**
      * get current comment
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    public function getComment() {
+    public function getComment()
+    {
         return Mage::registry('current_comment');
     }
+
     /**
      * get current {{entityLabel}}
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    public function get{{Entity}}() {
+    public function get{{Entity}}()
+    {
         return Mage::registry('current_{{entity}}');
     }
 }

@@ -1,0 +1,4 @@
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->addLinkRel('canonical', ${{entity}}->get{{Entity}}Url());
+        }

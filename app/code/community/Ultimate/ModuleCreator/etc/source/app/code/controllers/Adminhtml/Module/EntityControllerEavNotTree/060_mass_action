@@ -1,34 +1,38 @@
+
     /**
      * mass {{attributeLabel}} change
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function mass{{AttributeMagicCode}}Action(){
+    public function mass{{AttributeMagicCode}}Action()
+    {
         ${{entity}}Ids = (array)$this->getRequest()->getParam('{{entity}}');
-        $storeId    = (int)$this->getRequest()->getParam('store', 0);
-        $flag     = (int)$this->getRequest()->getParam('flag_{{attributeCode}}');
-        if ($flag == 2){
+        $storeId       = (int)$this->getRequest()->getParam('store', 0);
+        $flag          = (int)$this->getRequest()->getParam('flag_{{attributeCode}}');
+        if ($flag == 2) {
             $flag = 0;
         }
         try {
             foreach (${{entity}}Ids as ${{entity}}Id) {
-                ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->setStoreId($storeId)->load(${{entity}}Id);
+                ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')
+                    ->setStoreId($storeId)
+                    ->load(${{entity}}Id);
                 ${{entity}}->set{{AttributeMagicCode}}($flag)->save();
             }
             $this->_getSession()->addSuccess(
                 Mage::helper('{{namespace}}_{{module}}')->__('Total of %d record(s) have been updated.', count(${{entity}}Ids))
             );
-        }
-        catch (Mage_Core_Model_Exception $e) {
+        } catch (Mage_Core_Model_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addException(
+                $e,
+                Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while updating the {{entitiesLabel}}.')
+            );
         }
-        catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('{{namespace}}_{{module}}')->__('An error occurred while updating the {{entitiesLabel}}.'));
-        }
-
         $this->_redirect('*/*/', array('store'=> $storeId));
     }

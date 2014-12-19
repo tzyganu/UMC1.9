@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
-    extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
+{
     /**
-     * Prepare {{entity}} attributes grid collection object
+     * Prepare {{entityLabel}} attributes grid collection object
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
      * {{qwertyuiop}}
      */
-    protected function _prepareCollection(){
+    protected function _prepareCollection()
+    {
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_attribute_collection')
             ->addVisibleFilter();
         $this->setCollection($collection);
@@ -24,24 +26,33 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
 
     /**
      * Prepare {{entity}} attributes grid columns
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Attribute_Grid
      * {{qwertyuiop}}
      */
-    protected function _prepareColumns() {
+    protected function _prepareColumns()
+    {
         parent::_prepareColumns();
-        $this->addColumnAfter('is_global', array(
-            'header'=>Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
-            'sortable'=>true,
-            'index'=>'is_global',
-            'type' => 'options',
-            'options' => array(
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('{{namespace}}_{{module}}')->__('Website'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>Mage::helper('{{namespace}}_{{module}}')->__('Global'),
+        $this->addColumnAfter(
+            'is_global',
+            array(
+                'header'   => Mage::helper('{{namespace}}_{{module}}')->__('Scope'),
+                'sortable' => true,
+                'index'    => 'is_global',
+                'type'     => 'options',
+                'options'  => array(
+                    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE   =>
+                        Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
+                    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>
+                        Mage::helper('{{namespace}}_{{module}}')->__('Website'),
+                    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL  =>
+                        Mage::helper('{{namespace}}_{{module}}')->__('Global'),
+                ),
+                'align' => 'center',
             ),
-            'align' => 'center',
-        ), 'is_user_defined');
+            'is_user_defined'
+        );
         return $this;
     }
 }

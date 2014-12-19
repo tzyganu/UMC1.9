@@ -1,12 +1,15 @@
+
     /**
      * filter store column
+     *
      * @access protected
      * @param {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_Collection $collection
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Comment_Grid
      * {{qwertyuiop}}
      */
-    protected function _filterStoreCondition($collection, $column){
+    protected function _filterStoreCondition($collection, $column)
+    {
         if (!$value = $column->getFilter()->getValue()) {
             return;
         }

@@ -1,5 +1,8 @@
-        $this->addTab('categories', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Associated categories'),
-            'url'   => $this->getUrl('*/*/categories', array('_current' => true)),
-            'class'    => 'ajax'
-        ));
+        $this->addTab(
+            'categories',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Associated categories'),
+                'url'   => $this->getUrl('*/*/categories', array('_current' => true)),
+                'class' => 'ajax'
+            )
+        );

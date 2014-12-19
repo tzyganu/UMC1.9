@@ -22,15 +22,17 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
-class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Config_Form_Fieldset_Settings
-    extends Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Config_Form_Fieldset_Abstract {
+class Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Config_Form_Fieldset_Settings extends Ultimate_ModuleCreator_Block_Adminhtml_Modulecreator_System_Config_Form_Fieldset_Abstract
+{
     /**
      * get the form name from umc.xml
+     *
      * @access public
      * @return mixed|string
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getFormName() {
+    public function getFormName()
+    {
         return 'settings';
     }
 }

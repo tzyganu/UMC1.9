@@ -12,7 +12,7 @@
         <div id="category-{{entities}}" class="tree"></div>
     </fieldset>
 </div>
-<?php if($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
+<?php if ($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
 <script type="text/javascript">
     Ext.EventManager.onDocumentReady(function() {
         var {{entity}}Loader = new Ext.tree.TreeLoader({
@@ -24,8 +24,7 @@
             if (config.children && !config.children.length) {
                 delete(config.children);
                 node = new Ext.tree.AsyncTreeNode(config);
-            }
-            else {
+            } else {
                 node = new Ext.tree.TreeNode(config);
             }
             return node;
@@ -47,7 +46,7 @@
             rootVisible: '<?php echo $this->getRootNode()->getIsVisible() ?>'
         });
         tree.on('check', function(node) {
-            if(node.attributes.checked) {
+            if (node.attributes.checked) {
                 {{entity}}Add(node.id);
             } else {
                 {{entity}}Remove(node.id);
@@ -68,12 +67,12 @@
         tree.render();
         root.expand();
     });
-    function bild{{Entity}}Tree(parent, config){
+    function bild{{Entity}}Tree(parent, config) {
         if (!config) {
             return null;
         }
-        if (parent && config && config.length){
-            for (var i = 0; i < config.length; i++){
+        if (parent && config && config.length) {
+            for (var i = 0; i < config.length; i++) {
                 config[i].uiProvider = Ext.tree.CheckboxNodeUI;
                 var node;
                 var _node = Object.clone(config[i]);
@@ -81,19 +80,18 @@
                     delete(_node.children);
                     node = new Ext.tree.AsyncTreeNode(_node);
 
-                }
-                else {
+                } else {
                     node = new Ext.tree.TreeNode(config[i]);
                 }
                 parent.appendChild(node);
                 node.loader = node.getOwnerTree().loader;
-                if(config[i].children){
+                if (config[i].children) {
                     bild{{Entity}}Tree(node, config[i].children);
                 }
             }
         }
     }
-    function {{entity}}Click(node, e){
+    function {{entity}}Click(node, e) {
         if (node.disabled) {
             return;
         }

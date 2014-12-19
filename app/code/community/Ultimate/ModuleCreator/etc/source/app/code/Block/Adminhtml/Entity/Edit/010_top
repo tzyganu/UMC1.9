@@ -7,10 +7,11 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit
-    extends Mage_Adminhtml_Block_Widget_Form_Container {
+class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+{
     /**
      * constructor
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}

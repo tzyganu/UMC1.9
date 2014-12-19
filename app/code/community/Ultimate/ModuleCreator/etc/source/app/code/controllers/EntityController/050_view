@@ -1,29 +1,34 @@
+
     /**
      * init {{EntityLabel}}
+     *
      * @access protected
-     * @return {{Namespace}}_{{Module}}_Model_Entity
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
      * {{qwertyuiop}}
      */
-    protected function _init{{Entity}}(){
+    protected function _init{{Entity}}()
+    {
         ${{entity}}Id   = $this->getRequest()->getParam('id', 0);
         ${{entity}}     = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')
-                        ->setStoreId(Mage::app()->getStore()->getId())
-                        ->load(${{entity}}Id);
-        if (!${{entity}}->getId()){
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load(${{entity}}Id);
+        if (!${{entity}}->getId()) {
             return false;
-        }
-        elseif (!${{entity}}->getStatus()){
+        } elseif (!${{entity}}->getStatus()) {
             return false;
         }
         return ${{entity}};
     }
+
     /**
-      * view {{entityLabel}} action
-      * @access public
-      * @return void
-      * {{qwertyuiop}}
-      */
-    public function viewAction(){
+     * view {{entityLabel}} action
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function viewAction()
+    {
         ${{entity}} = $this->_init{{Entity}}();
         if (!${{entity}}) {
             $this->_forward('no-route');

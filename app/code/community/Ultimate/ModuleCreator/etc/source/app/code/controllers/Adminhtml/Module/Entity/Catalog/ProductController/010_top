@@ -7,5 +7,5 @@
  * {{qwertyuiopp}}
  */
 require_once ("Mage/Adminhtml/controllers/Catalog/ProductController.php");
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_Catalog_ProductController
-    extends Mage_Adminhtml_Catalog_ProductController {
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_Catalog_ProductController extends Mage_Adminhtml_Catalog_ProductController
+{

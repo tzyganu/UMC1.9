@@ -7,15 +7,17 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentController
-    extends Mage_Adminhtml_Controller_Action {
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentController extends Mage_Adminhtml_Controller_Action
+{
     /**
      * init the comment
+     *
      * @access protected
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment
      * {{qwertyuiop}}
      */
-    protected function _initComment(){
+    protected function _initComment()
+    {
         $commentId  = (int) $this->getRequest()->getParam('id');
         $comment    = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment');
         if ($commentId) {
@@ -24,39 +26,50 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentCont
         Mage::register('current_comment', $comment);
         return $comment;
     }
-     /**
+
+    /**
      * default action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->loadLayout();
         $this->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{module_menu}}'))
              ->_title(Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'))
              ->_title(Mage::helper('{{namespace}}_{{module}}')->__('Comments'));
         $this->renderLayout();
     }
+
     /**
      * grid action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function gridAction() {
+    public function gridAction()
+    {
         $this->loadLayout()->renderLayout();
     }
+
     /**
      * edit comment - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function editAction() {
+    public function editAction()
+    {
         $commentId    = $this->getRequest()->getParam('id');
         $comment      = $this->_initComment();
         if (!$comment->getId()) {
-            $this->_getSession()->addError(Mage::helper('{{namespace}}_{{module}}')->__('This comment no longer exists.'));
+            $this->_getSession()->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('This comment no longer exists.')
+            );
             $this->_redirect('*/*/');
             return;
         }
@@ -74,22 +87,27 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentCont
              ->_title($comment->getTitle());
         $this->renderLayout();
     }
+
     /**
      * save {{entityLabel}} - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function saveAction() {
+    public function saveAction()
+    {
         if ($data = $this->getRequest()->getPost('comment')) {
             try {
                 $comment = $this->_initComment();
                 $comment->addData($data);
-                if (!$comment->getCustomerId()){
+                if (!$comment->getCustomerId()) {
                     $comment->unsCustomerId();
                 }
                 $comment->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('Comment was successfully saved'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__('Comment was successfully saved')
+                );
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', array('id' => $comment->getId()));
@@ -97,8 +115,7 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentCont
                 }
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Mage_Core_Exception $e){
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
@@ -106,144 +123,191 @@ class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}_CommentCont
             }
             catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was a problem saving the comment.'));
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('There was a problem saving the comment.')
+                );
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Unable to find comment to save.'));
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('{{namespace}}_{{module}}')->__('Unable to find comment to save.')
+        );
         $this->_redirect('*/*/');
     }
+
     /**
      * delete comment - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function deleteAction() {
-        if( $this->getRequest()->getParam('id') > 0) {
+    public function deleteAction()
+    {
+        if ( $this->getRequest()->getParam('id') > 0) {
             try {
                 $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment');
                 $comment->setId($this->getRequest()->getParam('id'))->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('Comment was successfully deleted.'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__('Comment was successfully deleted.')
+                );
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Mage_Core_Exception $e){
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleting the comment.'));
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleting the comment.')
+                );
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Could not find comment to delete.'));
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('{{namespace}}_{{module}}')->__('Could not find comment to delete.')
+        );
         $this->_redirect('*/*/');
     }
+
     /**
      * mass delete comments - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function massDeleteAction() {
+    public function massDeleteAction()
+    {
         $commentIds = $this->getRequest()->getParam('comment');
-        if(!is_array($commentIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Please select comments to delete.'));
-        }
-        else {
+        if (!is_array($commentIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('Please select comments to delete.')
+            );
+        } else {
             try {
                 foreach ($commentIds as $commentId) {
                     $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment');
                     $comment->setId($commentId)->delete();
                 }
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('{{namespace}}_{{module}}')->__('Total of %d comments were successfully deleted.', count($commentIds)));
-            }
-            catch (Mage_Core_Exception $e){
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('{{namespace}}_{{module}}')->__(
+                        'Total of %d comments were successfully deleted.',
+                        count($commentIds)
+                    )
+                );
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleting comments.'));
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('There was an error deleting comments.')
+                );
             }
         }
         $this->_redirect('*/*/index');
     }
+
     /**
      * mass status change - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function massStatusAction(){
+    public function massStatusAction()
+    {
         $commentIds = $this->getRequest()->getParam('comment');
-        if(!is_array($commentIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('Please select comments.'));
-        }
-        else {
+        if (!is_array($commentIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('Please select comments.')
+            );
+        } else {
             try {
                 foreach ($commentIds as $commentId) {
                     $comment = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_comment')->load($commentId)
-                             ->setStatus($this->getRequest()->getParam('status'))
-                             ->setIsMassupdate(true)
-                             ->save();
+                         ->setStatus($this->getRequest()->getParam('status'))
+                         ->setIsMassupdate(true)
+                         ->save();
                 }
-                $this->_getSession()->addSuccess($this->__('Total of %d comments were successfully updated.', count($commentIds)));
-            }
-            catch (Mage_Core_Exception $e){
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d comments were successfully updated.', count($commentIds))
+                );
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-            catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating comments.'));
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('{{namespace}}_{{module}}')->__('There was an error updating comments.')
+                );
                 Mage::logException($e);
             }
         }
         $this->_redirect('*/*/index');
     }
+
     /**
      * export as csv - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportCsvAction(){
+    public function exportCsvAction()
+    {
         $fileName   = '{{entity}}_comments.csv';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid')->getCsv();
+        $content    = $this->getLayout()->createBlock(
+            '{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid'
+        )
+        ->getCsv();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * export as MsExcel - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportExcelAction(){
+    public function exportExcelAction()
+    {
         $fileName   = '{{entity}}_comments.xls';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid')->getExcelFile();
+        $content    = $this->getLayout()->createBlock(
+            '{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid'
+        )
+        ->getExcelFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * export as xml - action
+     *
      * @access public
      * @return void
      * {{qwertyuiop}}
      */
-    public function exportXmlAction(){
+    public function exportXmlAction()
+    {
         $fileName   = '{{entity}}_comments.xml';
-        $content    = $this->getLayout()->createBlock('{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid')->getXml();
+        $content    = $this->getLayout()->createBlock(
+            '{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid'
+        )
+        ->getXml();
         $this->_prepareDownloadResponse($fileName, $content);
     }
+
     /**
      * check access
+     *
      * @access protected
      * @return bool
      * {{qwertyuiop}}
      */
-    protected function _isAllowed(){
+    protected function _isAllowed()
+    {
         return Mage::getSingleton('admin/session')->isAllowed('{{selectedMenuPath}}_comments');
     }
 }

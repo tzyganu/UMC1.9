@@ -1,16 +1,20 @@
+
     /**
      * Obtain select for {{entitiesLabel}}
      * By default everything from entity table is selected
      * + name
+     *
      * @access public
      * @param bool $sorted
      * @param array $optionalAttributes
      * @return Zend_Db_Select
      * {{qwertyuiop}}
      */
-    protected function _createCollectionDataSelect($sorted = true){
+    protected function _createCollectionDataSelect($sorted = true)
+    {
         $select = $this->_getDefaultCollection($sorted ? $this->_orderField : false)->getSelect();
-        ${{entities}}Table = Mage::getSingleton('core/resource')->getTableName('{{namespace}}_{{module}}/{{entity}}');
+        ${{entities}}Table = Mage::getSingleton('core/resource')
+            ->getTableName('{{namespace}}_{{module}}/{{entity}}');
         $subConcat = $this->_conn->getConcatSql(array('{{entityTableAlias}}.path', $this->_conn->quote('/%')));
         $subSelect = $this->_conn->select()
             ->from(array('see' => ${{entities}}Table), null)

@@ -7,39 +7,46 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Product
-    extends Mage_Core_Model_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Product extends Mage_Core_Model_Abstract
+{
     /**
      * Initialize resource
+     *
      * @access protected
      * @return void
      * {{qwertyuiop}}
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('{{namespace}}_{{module}}/{{entity}}_product');
     }
+
     /**
-     * Save data for {{entity}}-product relation
+     * Save data for {{entityLabel}}-product relation
      * @access public
      * @param  {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Product
      * {{qwertyuiop}}
      */
-    public function save{{Entity}}Relation(${{entity}}){
+    public function save{{Entity}}Relation(${{entity}})
+    {
         $data = ${{entity}}->getProductsData();
         if (!is_null($data)) {
             $this->_getResource()->save{{Entity}}Relation(${{entity}}, $data);
         }
         return $this;
     }
+
     /**
-     * get products for {{entity}}
+     * get products for {{entityLabel}}
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
      * {{qwertyuiop}}
      */
-    public function getProductCollection(${{entity}}){
+    public function getProductCollection(${{entity}})
+    {
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_product_collection')
             ->add{{Entity}}Filter(${{entity}});
         return $collection;

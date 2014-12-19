@@ -7,21 +7,25 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
-    extends Mage_Catalog_Model_Resource_Product_Collection {
+class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
+{
     /**
      * remember if fields have been joined
+     *
      * @var bool
      */
     protected $_joinedFields = false;
+
     /**
      * join the link table
+     *
      * @access public
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
      * {{qwertyuiop}}
      */
-    public function joinFields(){
-        if (!$this->_joinedFields){
+    public function joinFields()
+    {
+        if (!$this->_joinedFields) {
             $this->getSelect()->join(
                 array('related' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_product')),
                 'related.product_id = e.entity_id',
@@ -31,18 +35,21 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
         }
         return $this;
     }
+
     /**
-     * add {{entity}} filter
+     * add {{entityLabel}} filter
+     *
      * @access public
      * @param {{Namespace}}_{{Module}}_Model_{{Entity}} | int ${{entity}}
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product_Collection
      * {{qwertyuiop}}
      */
-    public function add{{Entity}}Filter(${{entity}}){
-        if (${{entity}} instanceof {{Namespace}}_{{Module}}_Model_{{Entity}}){
+    public function add{{Entity}}Filter(${{entity}})
+    {
+        if (${{entity}} instanceof {{Namespace}}_{{Module}}_Model_{{Entity}}) {
             ${{entity}} = ${{entity}}->getId();
         }
-        if (!$this->_joinedFields){
+        if (!$this->_joinedFields ) {
             $this->joinFields();
         }
         $this->getSelect()->where('related.{{entity}}_id = ?', ${{entity}});

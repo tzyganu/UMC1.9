@@ -7,16 +7,18 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
-    extends Mage_Api_Model_Resource_Abstract {
+class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api extends Mage_Api_Model_Resource_Abstract
+{
     /**
      * get {{entitiesLabel}} comments
+     *
      * @access public
      * @param mixed $filters
      * @return array
      * {{qwertyuiop}}
      */
-    public function items($filters = null){
+    public function items($filters = null)
+    {
         $collection = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->getCollection();
         $apiHelper = Mage::helper('api');
         $filters = $apiHelper->parseFilters($filters);
@@ -24,8 +26,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
         $result = array();
@@ -34,19 +35,21 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Comment_Api
         }
         return $result;
     }
+
     /**
      * update comment status
+     *
      * @access public
      * @param mixed $filters
      * @return bool
      * {{qwertyuiop}}
      */
-    public function updateStatus($commentId, $status){
+    public function updateStatus($commentId, $status)
+    {
         $comment = Mage::getModel('{{namespace}}_{{module}}/{{entity}}_comment')->load($commentId);
-        if (!$comment->getId()){
+        if (!$comment->getId()) {
             $this->_fault('not_exists');
         }
-
         try {
             $comment->setStatus($status)->save();
         }
