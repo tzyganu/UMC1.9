@@ -1,0 +1,27 @@
+        ${{entity}}Data = Mage::registry('current_{{entity}}')->getData();
+        $storeIds = ${{entity}}Data['store_id'];
+        for ($i = 0; $i < count($storeIds); ++$i) {
+            if ($storeIds[$i] == 0) {
+                $storeIds[$i] = 1;
+            }
+        }
+        $storeIds = array_unique($storeIds);
+        foreach ($storeIds as $storeId) {
+            $store = Mage::app()->getStore($storeId);
+            ${{entity}} = Mage::registry('current_{{entity}}');
+            $linkToPreview = $store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+            if ($prefix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_prefix')){
+                $linkToPreview .= $prefix.'/';
+            }
+            $linkToPreview .= ${{entity}}->getUrlKey();
+            if ($suffix = Mage::getStoreConfig('{{namespace}}_{{module}}/{{entity}}/url_suffix')){
+                $linkToPreview .= '.'.$suffix;
+            }
+            $linkToPreview .= '?mode=preview';
+            $fieldset->addField('preview-store-'.$storeId, 'link', array(
+                'label' => 'Preview for Store '.$store->getName(),
+                'href' => $linkToPreview,
+                'value' => 'Open preview',
+                'onclick' => 'window.open(\''.$linkToPreview.'\', \'_blank\'); return false;'
+            ));
+        }

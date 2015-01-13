@@ -1244,6 +1244,10 @@
                     </depend>
                     <sort_order>120</sort_order>
                 </rss>
+                <preview>
+                    <name>115_preview</name>
+                    <sort_order>120</sort_order>
+                </preview>
                 <stores>
                     <name>120_stores</name>
                     <depend>

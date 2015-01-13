@@ -22,9 +22,10 @@
                 $urlKey = substr($urlKey, 0, -strlen($settings['suffix']) - 1);
             }
             $model = Mage::getModel($settings->getModel());
-            $id = $model->checkUrlKey($urlKey, Mage::app()->getStore()->getId());
+            $isPreview = Mage::app()->getFrontController()->getRequest()->getParam('mode') == 'preview';
+            $id = $model->checkUrlKey($urlKey, Mage::app()->getStore()->getId(), !$isPreview);
             if ($id) {
-                if ($settings->getCheckPath() && !$model->load($id)->getStatusPath()) {
+                if ($settings->getCheckPath() && !$model->load($id)->getStatusPath() && !$isPreview) {
                     continue;
                 }
                 $request->setModuleName('{{frontKey}}')
