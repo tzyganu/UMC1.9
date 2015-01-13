@@ -153,8 +153,13 @@ abstract class {{Namespace}}_{{Module}}_Helper_Image_Abstract extends Mage_Core_
         $this->_resized = false;
         $this->_adaptiveResize = 'center';
 
+        $imageFilePath = $this->getImageBaseDir().$this->_image;
+        if (!file_exists($imageFilePath)) {
+            Mage::helper('core/file_storage_database')->saveFileToFilesystem($imageFilePath);
+        }
+
         try {
-            $this->_getImageProcessor()->open($this->getImageBaseDir().$this->_image);
+            $this->_getImageProcessor()->open($imageFilePath);
         } catch (Exception $e) {
             $this->_openError = $e->getMessage();
             try {
