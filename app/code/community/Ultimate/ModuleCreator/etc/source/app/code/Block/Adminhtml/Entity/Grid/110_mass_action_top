@@ -37,33 +37,3 @@
                 )
             )
         );
-        $storeViewList = array();
-        $storeViewList['-1'] = Mage::helper('{{namespace}}_{{module}}')->__('Keep Existing');
-        foreach (Mage::app()->getWebsites() as $website) {
-            foreach ($website->getGroups() as $group) {
-                $stores = $group->getStores();
-                foreach ($stores as $store) {
-                    $storeViewList[$store->getId()] = $website->getName() . ' / ' . $group->getName() . ' / ' . $store->getName();
-                }
-            }
-        }
-        $this->getMassactionBlock()->addItem('copy_to_store_view', array(
-            'label' => Mage::helper('{{namespace}}_{{module}}')->__('Copy to store view'),
-            'url' => $this->getUrl('*/*/massCopyToStoreView', array('_current' => true)),
-            'additional' => array(
-                'store' => array(
-                    'name' => 'storeview',
-                    'type' => 'select',
-                    'class' => 'required-entry',
-                    'style' => 'max-width:100px',
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Store View'),
-                    'values' => $storeViewList
-                ),
-                'suffix' => array(
-                    'name' => 'suffix',
-                    'type' => 'text',
-                    'style' => 'width:50px',
-                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('Suffix for URL Key'),
-                )
-            )
-        ));

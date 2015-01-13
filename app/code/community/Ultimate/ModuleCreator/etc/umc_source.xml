@@ -1619,6 +1619,15 @@
                     <name>110_mass_action_top</name>
                     <sort_order>110</sort_order>
                 </mass_action_top>
+                <mass_action_copy_to_store_view>
+                    <name>115_mass_action_copy_to_store_view</name>
+                    <sort_order>115</sort_order>
+                    <depend>
+                        <is_flat/>
+                        <not_is_tree/>
+                        <store/>
+                    </depend>
+                </mass_action_copy_to_store_view>
                 <mass_action_flags>
                     <name>120_mass_action_flags</name>
                     <scope>attribute</scope>
