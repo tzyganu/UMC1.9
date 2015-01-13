@@ -119,3 +119,59 @@
         }
         $this->_redirect('*/*/index');
     }
+    /**
+     * mass copy to store view - action
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function massCopyToStoreViewAction() {
+        ${{entity}}Ids = $this->getRequest()->getParam('{{entity}}');
+        $store = $this->getRequest()->getParam('storeview');
+        $suffix = $this->getRequest()->getParam('suffix');
+
+        if (!is_array(${{entity}}Ids)) {
+            $this->_getSession()->addError(
+                Mage::helper('{{namespace}}_{{module}}')->__('Please select {{entitiesLabel}}.')
+            );
+        } else {
+            try {
+                foreach (${{entity}}Ids as ${{entity}}Id) {
+                    ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id);
+                    $data = ${{entity}}->getData();
+                    $selectedProductsFullInformation = ${{entity}}->getSelectedProducts();
+                    $selectedProducts = array();
+                    foreach ($selectedProductsFullInformation as $selectedProductsFullInformation) {
+                        $selectedProduct = $selectedProductsFullInformation->getData();
+                        $selectedProducts[$selectedProduct['entity_id']] = array(position => $selectedProduct['position']);
+                    }
+                    $selectedCategoriesFullInformation = ${{entity}}->getSelectedCategories();
+                    $selectedCategories = array();
+                    foreach ($selectedCategoriesFullInformation as $selectedCategoryFullInformation) {
+                        $selectedCategory = $selectedCategoryFullInformation->getData();
+                        $selectedCategories[] = $selectedCategory['entity_id'];
+                    }
+                    if ($store != -1) {
+                        $data['store_id'] = array($store);
+                    }
+                    if (strlen($suffix) > 0) {
+                        $data['url_key'] = $data['url_key'] . '-' . $suffix;
+                    }
+                    unset($data['entity_id'], $data['created_at'], $data['updated_at']);
+                    $data['status'] = 0;
+                    $model = Mage::getModel('{{namespace}}_{{module}}/{{entity}}');
+                    $model->setData($data);
+                    $model->setProductsData($selectedProducts);
+                    $model->setCategoriesData($selectedCategories);
+                    $model->save();
+                }
+                $this->_getSession()->addSuccess(
+                        Mage::helper('{{namespace}}_{{module}}')->__('Total of %d {{entitiesLabel}} were successfully copied.', count(${{entity}}Ids))
+                );
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage() . ' ' . Mage::helper('{{namespace}}_{{module}}')->__('There was an error copying {{entitiesLabel}}.'));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
