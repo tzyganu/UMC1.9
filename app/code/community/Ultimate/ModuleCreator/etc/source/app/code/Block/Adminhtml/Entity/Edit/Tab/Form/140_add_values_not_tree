@@ -8,6 +8,6 @@
         } elseif (Mage::registry('current_{{entity}}')) {
             $formValues = array_merge($formValues, Mage::registry('current_{{entity}}')->getData());
         }
-        $form->setValues($formValues);
+        $form->addValues($formValues);
         return parent::_prepareForm();
     }
