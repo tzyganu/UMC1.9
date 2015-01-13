@@ -1242,11 +1242,11 @@
                     <depend>
                         <rss/>
                     </depend>
-                    <sort_order>120</sort_order>
+                    <sort_order>110</sort_order>
                 </rss>
                 <preview>
                     <name>115_preview</name>
-                    <sort_order>120</sort_order>
+                    <sort_order>115</sort_order>
                 </preview>
                 <stores>
                     <name>120_stores</name>
