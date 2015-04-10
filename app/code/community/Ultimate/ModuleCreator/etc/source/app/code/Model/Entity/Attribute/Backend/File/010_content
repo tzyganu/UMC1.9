@@ -31,7 +31,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_File extends M
         $path = Mage::helper('{{namespace}}_{{module}}/{{entity}}')->getFileBaseDir();
 
         try {
-            $uploader = new Varien_File_Uploader($this->getAttribute()->getName());
+            $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             //set allowed file extensions if you need
             //$uploader->setAllowedExtensions(array('mp4', 'mov', 'f4v', 'flv'));
             $uploader->setAllowRenameFiles(true);
