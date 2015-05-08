@@ -913,7 +913,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     {
         $paths = array(
             'app/etc/modules/'.$this->getNamespace().'_'.$this->getModuleName().'.xml',
-            'app/code/'.$this->getCodepool().'/'.$this->getNamespace().'_'.$this->getModuleName(),
+            'app/code/'.$this->getCodepool().'/'.$this->getNamespace().'/'.$this->getModuleName(),
             'app/locale/en_US/'.$this->getNamespace().'_'.$this->getModuleName().'.csv',
             'app/design/adminhtml/default/default/layout/'.$this->getNamespace(true).'_'.$this->getLowerModuleName().'.xml',
             'app/design/adminhtml/default/default/template/'.$this->getNamespace(true).'_'.$this->getLowerModuleName()
