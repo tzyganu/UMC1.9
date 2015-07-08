@@ -88,8 +88,8 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
             $eol.$this->getPadding(3).'$adminStore'
             .$eol.$this->getPadding(2).');'.$eol;
         $result .= $this->getPadding(2).'if ($store->getId()) {'.$eol;
-        $result .= $this->getPadding(3).    '$collection->joinAttribute(\''.
-            $eol.$this->getPadding(4).$this->getModule()->getNamespace(true).'_'.
+        $result .= $this->getPadding(3).    '$collection->joinAttribute('.
+            $eol.$this->getPadding(4).'\''.$this->getModule()->getNamespace(true).'_'.
             $this->getModule()->getLowerModuleName().'_'.
             $this->getEntity()->getNameSingular().'_'.
             $this->getEntity()->getNameAttributeCode().'\', '.
