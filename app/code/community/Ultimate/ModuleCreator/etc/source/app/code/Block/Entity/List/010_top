@@ -15,7 +15,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_List extends Mage_Core_Block_Tem
      * @access public
      * {{qwertyuiop}}
      */
-    public function __construct()
+    public function _construct()
     {
-        parent::__construct();
+        parent::_construct();
         ${{entities}} = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection')
