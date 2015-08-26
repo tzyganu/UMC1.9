@@ -29,7 +29,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Widget_Chooser extends
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
         $sourceUrl = $this->getUrl(
-            '{{namespace}}_{{module}}/adminhtml_{{module}}_{{entity}}_widget/chooser',
+            '*/{{module}}_{{entity}}_widget/chooser',
             array('uniq_id' => $uniqId)
         );
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
