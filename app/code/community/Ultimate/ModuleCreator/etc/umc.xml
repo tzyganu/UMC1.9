@@ -710,7 +710,7 @@
                             <required>1</required>
                             <position>160</position>
                             <depend_class>type-dropdown type-multiselect not-custom-source</depend_class>
-                            <tooltip>If you choose to use teh values of an attribute as values for the dropdown field enter here the attribute code to use. If the product (or category or customer) attribute does not have values or does not support values you will not see any options.</tooltip>
+                            <tooltip>If you choose to use the values of an attribute as values for the dropdown field enter here the attribute code to use. If the product (or category or customer) attribute does not have values or does not support values you will not see any options.</tooltip>
                         </options_source_attribute>
                         <options translate="label note tooltip" module="modulecreator">
                             <label>Options in select</label>
