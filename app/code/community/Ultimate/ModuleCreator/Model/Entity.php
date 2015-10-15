@@ -1463,7 +1463,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.
                 $entityName.'_'.strtolower($entity->getNameSingular()).'_list" name="'.$entityName.
                 '.'.strtolower($entity->getNameSingular()).'_list" as="'.$entityName.'_'.
-                strtolower($this->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.
+                strtolower($entity->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.
                 strtolower($entity->getNameSingular()).'/list.phtml" />'.$eol.$this->getPadding(2);
         }
         if ($this->getAllowComment()) {
