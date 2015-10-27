@@ -740,16 +740,16 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $this->_placeholders['{{entity}}']                      = $this->getNameSingular(true);
             $this->_placeholders['{{Entity}}']                      = ucfirst($this->getNameSingular(true));
             $this->_placeholders['{{ENTITY}}']                      = strtoupper($this->getNameSingular());
-            $this->_placeholders['{{EntityLabel}}']                 = ucfirst($this->getLabelSingular());
-            $this->_placeholders['{{entityLabel}}']                 = strtolower($this->getLabelSingular());
-            $this->_placeholders['{{EntitiesLabel}}']               = ucfirst($this->getLabelPlural());
-            $this->_placeholders['{{entitiesLabel}}']               = strtolower($this->getLabelPlural());
+            $this->_placeholders['{{EntityLabel}}']                 = ucfirst($this->escapeText($this->getLabelSingular()));
+            $this->_placeholders['{{entityLabel}}']                 = strtolower($this->escapeText($this->getLabelSingular()));
+            $this->_placeholders['{{EntitiesLabel}}']               = ucfirst($this->escapeText($this->getLabelPlural()));
+            $this->_placeholders['{{entitiesLabel}}']               = strtolower($this->escapeText($this->getLabelPlural()));
             $this->_placeholders['{{entityCollectionAttributes}}']  = $this->getCollectionAttributes();
             $this->_placeholders['{{entityAdminJoin}}']             = $this->getAdminJoin();
             $this->_placeholders['{{prepareColumnsHeader}}']        = $this->getPrepareColumnsHeader();
             $this->_placeholders['{{nameAttributeGridEav}}']        = $this->getNameAttributeGridEav();
             $this->_placeholders['{{nameAttributeCode}}']           = $this->getNameAttributeCode();
-            $this->_placeholders['{{nameAttributeLabel}}']          = $this->getNameAttributeLabel();
+            $this->_placeholders['{{nameAttributeLabel}}']          = $this->escapeText($this->getNameAttributeLabel());
             $this->_placeholders['{{entities}}']                    = $this->getNamePlural(true);
             $this->_placeholders['{{Entities}}']                    = ucfirst($this->getNamePlural(true));
             $this->_placeholders['{{EntityNameMagicCode}}']         = $this->getNameAttributeMagicCode();
@@ -1463,7 +1463,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getPadding().'<block type="'.$namespace.'_'.$module.'/'.
                 $entityName.'_'.strtolower($entity->getNameSingular()).'_list" name="'.$entityName.
                 '.'.strtolower($entity->getNameSingular()).'_list" as="'.$entityName.'_'.
-                strtolower($this->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.
+                strtolower($entity->getNamePlural()).'" template="'.$namespace.'_'.$module.'/'.$entityName.'/'.
                 strtolower($entity->getNameSingular()).'/list.phtml" />'.$eol.$this->getPadding(2);
         }
         if ($this->getAllowComment()) {
@@ -2098,7 +2098,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         $eol        = $this->getEol();
         $module     = $this->getModule()->getLowerModuleName();
         $entityUc   = ucfirst($this->getNameSingular());
-        $label      = strtolower($this->getLabelSingular());
+        $label      = strtolower($this->escapeText($this->getLabelSingular()));
         $tagPrefix  = ($wsi) ? 'wsdl:':'';
 
         $content .= $padding.'<'.$tagPrefix.'operation name="'.$module.$entityUc.'Assign'.$relatedLabel.'">'.$eol;
@@ -2138,7 +2138,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         $module     = $this->getModule()->getLowerModuleName();
         $entity     = $this->getNameSingular(true);
         $entityUc   = ucfirst($entity);
-        $label      = strtolower($this->getLabelSingular());
+        $label      = strtolower($this->escapeText($this->getLabelSingular()));
 
         $tagPrefix = ($wsi) ? 'wsdl:':'';
 

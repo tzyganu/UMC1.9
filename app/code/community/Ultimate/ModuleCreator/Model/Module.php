@@ -47,7 +47,6 @@
  * @method Ultimate_ModuleCreator_Model_Module setSearch()
  * @method Ultimate_ModuleCreator_Model_Module setHasCatalogAttribute()
  * @method Ultimate_ModuleCreator_Model_Module setRest()
- * @method string getModuleName()
  * @method int getInstall()
  * @method Ultimate_ModuleCreator_Model_Module setInstall()
  * @method bool getHasEav()
@@ -61,6 +60,7 @@
  * @method bool getHasCatalogAttribute()
  * @method bool getLinkCore()
  * @method bool getShowInCategoryMenu()
+ * @method string getModuleName()
  */
 class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_Abstract
 {
@@ -1656,7 +1656,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{qwertyuiopp}}'                       => $this->getQwertyuiopp(),
                 '{{Y}}'                                 => date('Y'),
                 '{{entity_default_config}}'             => $this->getEntityDefaultConfig(),
-                '{{module_menu}}'                       => $this->getMenuText(),
+                '{{module_menu}}'                       => $this->escapeText($this->getMenuText()),
                 '{{codepool}}'                          => $this->getCodepool(),
                 '{{version}}'                           => $this->getVersion(),
                 '{{menuItemsXml}}'                      => $this->getMenuItemsXml(),
@@ -1670,7 +1670,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
                 '{{customerCommentLinks}}'              => $this->getCustomerCommentLinks(),
                 '{{frontKey}}'                          => $this->getFrontKey(),
-                '{{SystemTabName}}'                     => $this->getSystemTabName(),
+                '{{SystemTabName}}'                     => $this->escapeText($this->getSystemTabName()),
                 '{{systemTabPosition}}'                 => $this->getSystemTabPosition(),
                 '{{RestResourceGroupsChildren}}'        => $this->getRestResourceGroupsChildren(),
                 '{{RestResources}}'                     => $this->getRestResources(),
@@ -2180,7 +2180,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
      */
     public function getNamespace($lower = false)
     {
-        $namespace = $this->getData('namespace');
+        $namespace = $this->escapeText($this->getData('namespace'));
         if ($lower) {
             $namespace = strtolower($namespace);
         }

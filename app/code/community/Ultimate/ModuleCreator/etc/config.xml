@@ -19,8 +19,8 @@
 <config>
     <modules>
         <Ultimate_ModuleCreator>
-            <version>1.9.5.0</version>
-            <build></build>
+            <version>1.9.6.0</version>
+            <build />
         </Ultimate_ModuleCreator>
     </modules>
     <global>
