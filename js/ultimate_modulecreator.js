@@ -19,6 +19,12 @@
  * @package     Ultimate_ModuleCreator
  * @author      Marius Strajeru <ultimate.module.creator@gmail.com>
  */
+
+Validation.add('umc-validate-class-name', 'Please use only letters (a-z or A-Z) or numbers (0-9) in this field, first character should be an uppercase letter.', function(v) {
+    return Validation.get('IsEmpty').test(v) ||  /^[A-Z]+[a-zA-Z0-9]+$/.test(v)
+});
+
+
 if(typeof UMC=='undefined') {
     var UMC = {};
 }

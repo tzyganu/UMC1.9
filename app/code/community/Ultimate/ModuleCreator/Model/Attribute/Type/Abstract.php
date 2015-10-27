@@ -391,11 +391,11 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Abstract extends Ultimate_Modu
     public function getFormOptions()
     {
         $options = '';
-        $padding = $this->getPadding(3);
+        $padding = $this->getPadding(4);
         $eol     = $this->getEol();
         $note = $this->getAttribute()->getNote();
         if ($note) {
-            $options .= $padding."'note'	=> $"."this->__('".$note."'),".$eol;
+            $options .= $padding."'note'	=> $"."this->__('".Mage::helper('core')->jsQuoteEscape($note)."'),".$eol;
         }
         if ($this->getRequired()) {
             $options .= $padding."'required'  => true,".$eol;

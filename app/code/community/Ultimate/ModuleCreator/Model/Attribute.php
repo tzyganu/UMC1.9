@@ -236,7 +236,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
     public function getPlaceholders($key = null)
     {
         if (is_null($this->_placeholders)) {
-            $placeholders['{{attributeLabel}}']             = $this->getLabel();
+            $placeholders['{{attributeLabel}}']             = $this->escapeText($this->getLabel());
             $placeholders['{{AttributeMagicCode}}']         = $this->getMagicMethodCode();
             $placeholders['{{attributeMagicCode}}']         = $this->getMagicMethodCode(false);
             $placeholders['{{attributeCode}}']              = $this->getCode();
@@ -358,7 +358,7 @@ class Ultimate_ModuleCreator_Model_Attribute extends Ultimate_ModuleCreator_Mode
             $ddl .= $eol. $padding;
         }
         $ddl .= "),".$eol;
-        $ddl .= $padding."'".$this->getLabel()."'".$eol.$tab.")";
+        $ddl .= $padding."'".$this->escapeText($this->getLabel())."'".$eol.$tab.")";
         return $ddl;
     }
 

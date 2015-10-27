@@ -31,6 +31,7 @@
                             <required>1</required>
                             <position>10</position>
                             <system>1</system>
+                            <class>umc-validate-class-name</class>
                             <tooltip>This is the folder name of your new extension. Your company name should go here. Use only letters and numbers. Start with a capital letter.</tooltip>
                         </namespace>
                         <module_name translate="label tooltip additional" module="modulecreator">
@@ -38,6 +39,7 @@
                             <type>text</type>
                             <required>1</required>
                             <position>20</position>
+                            <class>umc-validate-class-name</class>
                             <tooltip><![CDATA[This is your extension/module name. It should be something meaningful and not very long.<br />Try to use a noun in singular form. Start with a capital letter.]]></tooltip>
                             <additional>For security reasons, to avoid module name collisions with the Magento core you cannot name a module just like an existing one even in a different namespace: "Catalog", "Sales", "Checkout"...</additional>
                         </module_name>
@@ -958,8 +960,12 @@
             <node />
             <api />
             <comment />
+            <template />
         </entity>
         <attribute>
+            <template translate="message">
+                <message><![CDATA[This will conflict with the magento methods.]]></message>
+            </template>
             <created_at translate="message">
                 <message><![CDATA[An attribute/field with code "created_at" will be added by default to your entity.]]></message>
             </created_at>
@@ -1037,6 +1043,32 @@
         <f>YmFzZTY0X2RlY29kZQ==</f>
     </system>
     <release_notes>
+        <v1_9_6_0>
+            <version>1.9.6.0</version>
+            <date>2015-10-27</date>
+            <data>
+                <cleanup translate="label type comment">
+                    <label>No new line on some source files</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[Some of the source files don't end with an empty new line ]]></comment>
+                </cleanup>
+                <template translate="label type">
+                    <label>"Template" should not be allowed as attribute name or entity name </label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a target="_blank" href="https://github.com/tzyganu/UMC1.9/issues/82">#82</a>]]></comment>
+                </template>
+                <escape translate="label type">
+                    <label>Labels and notes were not escaped</label>
+                    <type>Bug fix</type>
+                    <comment><![CDATA[<a target="_blank" href="https://github.com/tzyganu/UMC1.9/issues/105">#105</a>]]></comment>
+                </escape>
+                <validation translate="label type comment">
+                    <label>Added client side validation to module name and namespace</label>
+                    <type>Improvement</type>
+                    <comment><![CDATA[<a target="_blank" href="https://github.com/tzyganu/UMC1.9/issues/103">#103</a>]]></comment>
+                </validation>
+            </data>
+        </v1_9_6_0>
         <v1_9_5_0>
             <version>1.9.5.0</version>
             <date>2014-12-19</date>
@@ -1768,5 +1800,9 @@
             <to>@ahmed90</to>
             <for><![CDATA[Thanks the help with the category relation for entities.]]></for>
         </ahmed90>
+        <dfelton>
+            <to>@dfelton</to>
+            <for><![CDATA[Thanks for the awesome pull requests and the free testing.]]></for>
+        </dfelton>
     </thanks>
 </config>

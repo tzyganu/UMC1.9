@@ -269,7 +269,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Dropdown extends Ultimate_Modu
     public function getFormOptions()
     {
         $options    = parent::getFormOptions();
-        $padding    = $this->getPadding(3);
+        $padding    = $this->getPadding(4);
         $module     = $this->getModule()->getLowerModuleName();
         $entity     = $this->getEntity()->getNameSingular(true);
         $namespace  = $this->getNamespace(true);

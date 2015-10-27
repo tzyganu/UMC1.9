@@ -124,4 +124,16 @@ class Ultimate_ModuleCreator_Model_Abstract extends Varien_Object
         }
         return $this->_eol;
     }
+
+    /**
+     * esacape values
+     *
+     * @param $text
+     * @return mixed
+     * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+     */
+    public function escapeText($text)
+    {
+        return Mage::helper('core')->jsQuoteEscape($text);
+    }
 }
