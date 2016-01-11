@@ -28,7 +28,8 @@
     {
         $inputTypes = array(
             'multiselect' => array(
-                'backend_model' => 'eav/entity_attribute_backend_array'
+                'backend_model' => 'eav/entity_attribute_backend_array',
+                'source_model' => 'eav/entity_attribute_source_table'
             ),
             'boolean'     => array(
                 'source_model'  => 'eav/entity_attribute_source_boolean'
