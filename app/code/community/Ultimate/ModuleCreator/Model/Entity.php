@@ -56,6 +56,7 @@
  * @method bool getEditor()
  * @method bool getApi()
  * @method bool getHasCountry()
+ * @method bool getHasWebsite()
  * @method bool getSearch()
  * @method int getIndex()
  */
@@ -204,6 +205,9 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         if ($attribute->getType() == 'country') {
             $this->setHasCountry(true);
         }
+		if ($attribute->getType() == 'website') {
+			$this->setHasWebsite(true);
+		}
         if ($attribute->getIsMultipleSelect()) {
             $this->setHasMultipleSelect(true);
         }
