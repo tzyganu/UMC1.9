@@ -3,7 +3,7 @@
      * Retrieve {{siblingsLabel}} collection
      *
      * @access public
-     * @return {{Namespace}}_{{Module}}_Model_{{Sibling}}_Collection
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Sibling}}_Collection
      * {{qwertyuiop}}
      */
     public function getSelected{{Siblings}}Collection()
