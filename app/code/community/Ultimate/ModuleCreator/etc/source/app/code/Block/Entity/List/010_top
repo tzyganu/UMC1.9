@@ -5,7 +5,7 @@
  *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}
- * {{qwertyuiop}}
+ * {{qwertyuiopp}}
  */
 class {{Namespace}}_{{Module}}_Block_{{Entity}}_List extends Mage_Core_Block_Template
 {
