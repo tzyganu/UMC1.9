@@ -36,6 +36,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Product exten
      */
     protected function _prepareCollection()
     {
+        /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
         $collection->addAttributeToSelect('price');
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
