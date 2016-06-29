@@ -10,7 +10,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Api extends Mage_Api_Model_Resou
      * @access protected
      * @param ${{entity}}Id
      * @return {{Namespace}}_{{Module}}_Model_{{Entity}}
-     * {{qwertyuiopp}}
+     * {{qwertyuiop}}
      */
     protected function _init{{Entity}}(${{entity}}Id)
     {

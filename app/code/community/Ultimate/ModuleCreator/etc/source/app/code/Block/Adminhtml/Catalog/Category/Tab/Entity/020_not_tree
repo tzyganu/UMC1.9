@@ -47,6 +47,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}} e
      */
     protected function _prepareCollection()
     {
+        /* @var $collection {{Namespace}}_{{Module}}_Resource_{{Entity}}_Collection */
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
         if ($this->getCategory()->getId()) {
             $constraint = 'related.category_id='.$this->getCategory()->getId();
@@ -75,7 +76,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}} e
         $this->addColumn(
             'in_{{entities}}',
             array(
-                'header_css_class'  => 'a-center',
+                'header_css_class' => 'a-center',
                 'type'   => 'checkbox',
                 'name'   => 'in_{{entities}}',
                 'values' => $this->_getSelected{{Entities}}(),
@@ -146,7 +147,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}} e
     public function getSelected{{Entities}}()
     {
         ${{entities}} = array();
-        //used helper here in order not to override the category model
+        // used helper here in order not to override the category model
         $selected = Mage::helper('{{namespace}}_{{module}}/category')->getSelected{{Entities}}(Mage::registry('current_category'));
         if (!is_array($selected)) {
             $selected = array();
