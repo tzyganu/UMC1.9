@@ -28,6 +28,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
      */
     protected function _prepareCollection()
     {
+        /* @var $collection {{Namespace}}_{{Module}}_Resource_{{Entity}}_Collection */
         $collection = Mage::getResourceModel('{{namespace}}_{{module}}/{{entity}}_collection'){{additionalPrepareCollection}};
         if ($this->getProduct()->getId()) {
             $constraint = 'related.product_id='.$this->getProduct()->getId();
@@ -68,7 +69,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
         $this->addColumn(
             'in_{{entities}}',
             array(
-                'header_css_class'  => 'a-center',
+                'header_css_class' => 'a-center',
                 'type'  => 'checkbox',
                 'name'  => 'in_{{entities}}',
                 'values'=> $this->_getSelected{{Entities}}(),
@@ -130,7 +131,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
     public function getSelected{{Entities}}()
     {
         ${{entities}} = array();
-        //used helper here in order not to override the product model
+        // used helper here in order not to override the product model
         $selected = Mage::helper('{{namespace}}_{{module}}/product')->getSelected{{Entities}}(Mage::registry('current_product'));
         if (!is_array($selected)) {
             $selected = array();

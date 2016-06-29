@@ -5,7 +5,7 @@
  *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}
- * {{qwertyuiop}}
+ * {{qwertyuiopp}}
  */
 class {{Namespace}}_{{Module}}_Block_{{Entity}}_Comment_List extends Mage_Core_Block_Template
 {
