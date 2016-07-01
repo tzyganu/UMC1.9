@@ -86,6 +86,9 @@ class {{Namespace}}_{{Module}}_Model_Resource_Eav_Attribute extends Mage_Eav_Mod
             case 'image':
                 return 'varchar';
                 break;
+            case 'multiselect':
+                return 'text';
+                break;
             default:
                 return parent::getBackendTypeByInput($type);
             break;
