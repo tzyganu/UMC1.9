@@ -2,6 +2,7 @@
 {{License}}
 /**
  * {{EntityLabel}} - category controller
+ *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
