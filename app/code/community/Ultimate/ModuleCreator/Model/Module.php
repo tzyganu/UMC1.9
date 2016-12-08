@@ -40,6 +40,7 @@
  * @method Ultimate_ModuleCreator_Model_Module setAllowComment()
  * @method Ultimate_ModuleCreator_Model_Module setAllowCommentByStore()
  * @method Ultimate_ModuleCreator_Model_Module setHasCountry()
+ * @method Ultimate_ModuleCreator_Model_Module setHasWebsite()
  * @method Ultimate_ModuleCreator_Model_Module setHasSeo()
  * @method Ultimate_ModuleCreator_Model_Module setShowOnProduct()
  * @method Ultimate_ModuleCreator_Model_Module setShowOnCategory()
@@ -246,6 +247,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getHasCountry()) {
             $this->setHasCountry(true);
         }
+		if ($entity->getHasWebsite()) {
+			$this->setHasWebsite(true);
+		}
         if ($entity->getAddSeo()) {
             $this->setHasSeo(true);
         }

@@ -728,7 +728,7 @@
                             <type>textarea</type>
                             <required>0</required>
                             <position>180</position>
-                            <depend_class>type-text type-textarea type-timestamp type-dropdown type-multiselect type-decimal type-int type-yesno type-country dropdown-custom-source</depend_class>
+                            <depend_class>type-text type-textarea type-timestamp type-dropdown type-multiselect type-decimal type-int type-yesno type-country type-website dropdown-custom-source</depend_class>
                             <tooltip>Fill in a default value for the attribute. Leave empty for no value. For dropdown and multiselect attributes the value, must be a valid value. not valid ones will be removed. For the multiselect attributes add one default value on each line. For Yes/No attribtues enter 1 for Yes, 0 for No. For country attributes fill in the country ISO2 code. You cannot set a default value for dropdown and multiselect attributes that use a source model and on image and file attributes.</tooltip>
                         </default_value>
                     </fields>
@@ -891,6 +891,13 @@
                 <allow_is_name>0</allow_is_name>
                 <mass_update>0</mass_update>
             </timestamp>
+            <website translate="label" module="modulecreator">
+                <label>Website</label>
+                <type_model>modulecreator/attribute_type_website</type_model>
+                <group>dropdown</group>
+                <allow_is_name>0</allow_is_name>
+                <mass_update>1</mass_update>
+            </website>
         </umc_attribute>
         <umc_attribute_group>
             <text translate="label">

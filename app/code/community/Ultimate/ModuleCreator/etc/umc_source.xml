@@ -4686,6 +4686,24 @@
             </code>
         </country_source_model>
 
+        <website_source_model translate="title description condition" module="modulecreator">
+            <title>Website source model</title>
+            <description>A source model that returns available countries</description>
+            <condition>Generated if at least an entity has a website field/attribute</condition>
+            <scope>global</scope>
+            <source>app/code/Model/Attribute/Source/Website/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Attribute/Source/Website.php</destination>
+            <depend>
+                <has_website />
+            </depend>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </website_source_model>
+
         <dropdown_source_model translate="title description condition" module="modulecreator">
             <title>Dropdown attribute source model</title>
             <description>A source model that returns available dropdown values</description>
