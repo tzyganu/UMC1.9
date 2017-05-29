@@ -843,14 +843,14 @@
                 <mass_update>0</mass_update>
             </image>
             <int translate="label" module="modulecreator">
-                <label>Unsinged Int</label>
+                <label>Unsigned Int</label>
                 <type_model>modulecreator/attribute_type_int</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
                 <mass_update>0</mass_update>
             </int>
             <signedint translate="label" module="modulecreator">
-                <label>Singed Int</label>
+                <label>Signed Int</label>
                 <type_model>modulecreator/attribute_type_signedint</type_model>
                 <group>text</group>
                 <allow_is_name>1</allow_is_name>
