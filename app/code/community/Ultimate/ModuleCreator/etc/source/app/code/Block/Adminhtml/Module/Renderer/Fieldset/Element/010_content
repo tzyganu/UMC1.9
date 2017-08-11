@@ -85,7 +85,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Module}}_Renderer_Fieldset_Elem
     public function usedDefault()
     {
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($this->getAttribute()->getAttributeCode());
-        return !$defaultValue;
+        return $defaultValue === false;
     }
 
     /**
