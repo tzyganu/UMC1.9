@@ -16,10 +16,10 @@
         } else {
             try {
                 foreach (${{entity}}Ids as ${{entity}}Id) {
-                ${{entity}} = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)
-                    ->set{{AttributeMagicCode}}($this->getRequest()->getParam('flag_{{attributeCode}}'))
-                    ->setIsMassupdate(true)
-                    ->save();
+                    ${{entity}} = Mage::getModel('{{namespace}}_{{module}}/{{entity}}')->load(${{entity}}Id)
+                        ->set{{AttributeMagicCode}}($this->getRequest()->getParam('flag_{{attributeCode}}'))
+                        ->setIsMassupdate(true)
+                        ->save();
                 }
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d {{entitiesLabel}} were successfully updated.', count(${{entity}}Ids))
