@@ -1,7 +1,14 @@
 Ultimate Module Creator 1.9.6.0
 ======
+## Notice
 
-New Ultimate Module Creator for Magento 1.7 +
+<strong>Because of lack of time, motivation and because Magento2 is already a mature platform, I'm deciding to pull the plug on this module creator.  
+There will be no updates, no new features.  
+
+Feel free to fork it, make it better and redestribute it. </strong>
+
+
+<strike>New</strike> Ultimate Module Creator for Magento 1.7 +
 -------------
 
 This is the new version of <a href="https://github.com/tzyganu/moduleCreator">Ultimate Module Creator</a>.
