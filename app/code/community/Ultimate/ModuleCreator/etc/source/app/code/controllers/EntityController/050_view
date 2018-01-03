@@ -14,7 +14,7 @@
             ->load(${{entity}}Id);
         if (!${{entity}}->getId()) {
             return false;
-        } elseif (!${{entity}}->getStatus()) {
+        } elseif (!${{entity}}->getStatus() && $this->getRequest()->getParam('mode') != 'preview') {
             return false;
         }
         return ${{entity}};
@@ -33,4 +33,7 @@
         if (!${{entity}}) {
             $this->_forward('no-route');
             return;
+        }
+        if ($this->getRequest()->getParam('mode') == 'preview') {
+            $this->getResponse()->setHeader('HTTP/1.0', '404', true);
         }

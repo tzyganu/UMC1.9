@@ -31,7 +31,7 @@
      * @return mixed
      * {{qwertyuiop}}
      */
-    public function checkUrlKey($urlKey, $active = true)
+    public function checkUrlKey($urlKey, $storeId, $active = true)
     {
-        return $this->_getResource()->checkUrlKey($urlKey, $active);
+        return $this->_getResource()->checkUrlKey($urlKey, $storeId, $active);
     }

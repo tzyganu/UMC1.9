@@ -31,7 +31,7 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}}_Attribute_Backend_Image extends 
         $path = Mage::helper('{{namespace}}_{{module}}/{{entity}}_image')->getImageBaseDir();
 
         try {
-            $uploader = new Varien_File_Uploader($this->getAttribute()->getName());
+            $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
             $result = $uploader->save($path);

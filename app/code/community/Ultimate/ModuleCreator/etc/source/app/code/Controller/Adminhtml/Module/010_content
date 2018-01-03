@@ -25,7 +25,7 @@ class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}} extends Mage_Admi
             if (isset($data[$input]['delete'])) {
                 return '';
             } else {
-                $uploader = new Varien_File_Uploader($input);
+                $uploader = new Mage_Core_Model_File_Uploader($input);
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(true);
                 $uploader->setAllowCreateFolders(true);
@@ -33,7 +33,7 @@ class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}} extends Mage_Admi
                 return $result['file'];
             }
         } catch (Exception $e) {
-            if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) {
+            if ($e->getCode() != Mage_Core_Model_Uploader::TMP_NAME_EMPTY) {
                 throw $e;
             } else {
                 if (isset($data[$input]['value'])) {
